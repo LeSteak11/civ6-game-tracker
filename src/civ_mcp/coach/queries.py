@@ -610,6 +610,114 @@ local function civicPrereqsMet(civicType)
   return true
 end
 
+-- Tech prereq map.  Table name TechnologyPrereqs confirmed in this repo at
+-- src/civ_mcp/lua/tech.py:45 (row.Technology / row.PrereqTech).
+local techPrereqs = {}
+local techPrereqTableOK = false
+pcall(function()
+  for row in GameInfo.TechnologyPrereqs() do
+    if not techPrereqs[row.Technology] then techPrereqs[row.Technology] = {} end
+    table.insert(techPrereqs[row.Technology], row.PrereqTech)
+    techPrereqTableOK = true
+  end
+end)
+if not techPrereqTableOK then
+  print("WARN|CHOICES.probe|GameInfo.TechnologyPrereqs unavailable — tech tree prereqs empty")
+end
+
+-- Current research/civic indexes, for tree status tagging.
+local curTechIdx = sf(function() return tec:GetResearchingTech() end) or -1
+local curCivicIdx = sf(function() return cul:GetProgressingCivic() end) or -1
+
+local function short(s, prefix) return (s or ""):gsub(prefix, "") end
+
+-- ---- Full tech tree -----------------------------------------------------
+-- One TTREE line per technology: status is done/current/available/blocked.
+-- Partial research (progress > 0 on a non-done tech) is derivable from the
+-- prog field — Civ 6 keeps partial progress when you switch research.
+safe("tech_tree", function()
+  for tech in GameInfo.Technologies() do
+    pcall(function()
+      local has = sf(function() return tec:HasTech(tech.Index) end)
+      local status
+      local prog, cost, turns = 0, 0, -1
+      if has then
+        status = "done"
+      else
+        cost = sf(function() return tec:GetResearchCost(tech.Index) end) or 0
+        prog = sf(function() return tec:GetResearchProgress(tech.Index) end) or 0
+        if tech.Index == curTechIdx then
+          status = "current"
+        elseif hasCanResearch then
+          local can = sf(function() return tec:CanResearch(tech.Index) end)
+          status = can and "available" or "blocked"
+        else
+          -- CanResearch missing (probed above, WARN already emitted):
+          -- fall back to prereq gating so we never mark everything blocked.
+          local reqs = techPrereqs[tech.TechnologyType]
+          local met = true
+          if reqs then
+            for _, req in ipairs(reqs) do
+              local rrow = GameInfo.Technologies[req]
+              if rrow and not sf(function() return tec:HasTech(rrow.Index) end) then met = false; break end
+            end
+          end
+          status = met and "available" or "blocked"
+        end
+        if status == "current" or status == "available" then
+          turns = sf(function() return tec:GetTurnsToResearch(tech.Index) end) or -1
+        end
+      end
+      local prereqStr = ""
+      if techPrereqs[tech.TechnologyType] then
+        local pp = {}
+        for _, req in ipairs(techPrereqs[tech.TechnologyType]) do pp[#pp+1] = short(req, "TECH_") end
+        prereqStr = table.concat(pp, ",")
+      end
+      print(string.format("TTREE|%s|%s|%s|%s|%.0f|%.0f|%d|%s",
+        tech.TechnologyType, esc(L(tech.Name)), short(tech.EraType, "ERA_"),
+        status, prog, cost, turns, esc(prereqStr)))
+    end)
+  end
+end)
+
+-- ---- Full civic tree ----------------------------------------------------
+safe("civic_tree", function()
+  for civic in GameInfo.Civics() do
+    pcall(function()
+      local has = sf(function() return cul:HasCivic(civic.Index) end)
+      local status
+      local prog, cost, turns = 0, 0, -1
+      if has then
+        status = "done"
+      else
+        cost = sf(function() return cul:GetCultureCost(civic.Index) end) or 0
+        prog = sf(function() return cul:GetCulturalProgress(civic.Index) end) or 0
+        if civic.Index == curCivicIdx then
+          status = "current"
+        elseif civicCanFn then
+          local ok_c, can = pcall(civicCanFn, cul, civic.Index)
+          status = (ok_c and can) and "available" or "blocked"
+        else
+          status = civicPrereqsMet(civic.CivicType) and "available" or "blocked"
+        end
+        if status == "current" or status == "available" then
+          turns = sf(function() return cul:GetTurnsToProgressCivic(civic.Index) end) or -1
+        end
+      end
+      local prereqStr = ""
+      if civicPrereqs[civic.CivicType] then
+        local pp = {}
+        for _, req in ipairs(civicPrereqs[civic.CivicType]) do pp[#pp+1] = short(req, "CIVIC_") end
+        prereqStr = table.concat(pp, ",")
+      end
+      print(string.format("CTREE|%s|%s|%s|%s|%.0f|%.0f|%d|%s",
+        civic.CivicType, esc(L(civic.Name)), short(civic.EraType, "ERA_"),
+        status, prog, cost, turns, esc(prereqStr)))
+    end)
+  end
+end)
+
 safe("techs_available", function()
   for tech in GameInfo.Technologies() do
     pcall(function()

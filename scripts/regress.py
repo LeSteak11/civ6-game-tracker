@@ -190,7 +190,7 @@ check("real delta lists grown city", "Sais" in txt2)
 
 print("\n=== schema/version bump ===")
 check("schema bumped to 1.2", SCHEMA_VERSION == "coach-snapshot/1.2", SCHEMA_VERSION)
-check("coach version 1.1.0 (semver)", COACH_VERSION == "1.1.0", COACH_VERSION)
+check("coach version 1.2.0 (semver)", COACH_VERSION == "1.2.0", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -337,6 +337,76 @@ check("capture without a trusted turn is refused (never guess the game)", r7 is 
 
 check("archive module never imports the FireTuner stack",
       "civ_mcp.connection" not in Path(REPO / "src/civ_mcp/coach/archive.py").read_text(encoding="utf-8"))
+
+print("\n=== Phase 2 Task 2: policy effects + full tech/civic trees ===")
+
+# -- Lua source contract --------------------------------------------------
+choices_src3 = Q.build_choices_query()
+check("choices Lua emits TTREE lines", '"TTREE|' in choices_src3)
+check("choices Lua emits CTREE lines", '"CTREE|' in choices_src3)
+check("tech prereqs use confirmed TechnologyPrereqs table",
+      "GameInfo.TechnologyPrereqs()" in choices_src3)
+check("missing prereq table is WARN not silence",
+      "WARN|CHOICES.probe|GameInfo.TechnologyPrereqs unavailable" in choices_src3)
+check("tree reuses probed civic gate (no new guessed method)",
+      "civicCanFn" in choices_src3 and "civicPrereqsMet" in choices_src3)
+
+# -- Parser ---------------------------------------------------------------
+ch = P.parse_choices([
+    "TTREE|TECH_POTTERY|Pottery|ANCIENT|done|0|0|-1|",
+    "TTREE|TECH_IRRIGATION|Irrigation|ANCIENT|current|31|50|4|POTTERY",
+    "TTREE|TECH_WRITING|Writing|ANCIENT|available|12|50|5|POTTERY",
+    "TTREE|TECH_CURRENCY|Currency|ANCIENT|blocked|0|120|-1|WRITING,FOREIGN_TRADE",
+    "CTREE|CIVIC_CODE_OF_LAWS|Code of Laws|ANCIENT|done|0|0|-1|",
+    "CTREE|CIVIC_CRAFTSMANSHIP|Craftsmanship|ANCIENT|blocked|10|40|-1|FOREIGN_TRADE",
+])
+tt = {x["type"]: x for x in ch["tech_tree"]}
+check("tree parser: done status", tt["TECH_POTTERY"]["status"] == "done")
+check("tree parser: prereq list split", tt["TECH_CURRENCY"]["prereqs"] == ["WRITING", "FOREIGN_TRADE"],
+      tt["TECH_CURRENCY"]["prereqs"])
+check("tree parser: partial derived from banked progress on non-done",
+      tt["TECH_WRITING"]["partial"] is True and tt["TECH_POTTERY"]["partial"] is False)
+check("tree parser: current not double-counted as partial in shape",
+      tt["TECH_IRRIGATION"]["status"] == "current" and tt["TECH_IRRIGATION"]["partial"] is True)
+check("civic tree parsed with same shape", ch["civic_tree"][1]["prereqs"] == ["FOREIGN_TRADE"])
+
+# -- Markdown -------------------------------------------------------------
+snap_tree = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 1.0,
+    "meta": {"turn": 87}, "empire": {},
+    "tech_tree": ch["tech_tree"], "civic_tree": ch["civic_tree"],
+    "policy_slots": [
+        {"index": 0, "slot_type": "SLOT_MILITARY", "slot_name": "MILITARY",
+         "policy_type": "POLICY_DISCIPLINE", "policy_name": "Discipline",
+         "effect": "+5 Combat Strength vs. Barbarians"},
+    ],
+    "policy_available": [
+        {"type": "POLICY_URBAN_PLANNING", "slot": "ECONOMIC", "name": "Urban Planning",
+         "effect": "+1 Production in all cities"},
+    ],
+    "government": {"name": "Chiefdom", "slots_open": 0, "free_change_available": True},
+    "section_status": {"header": "ok", "tech_tree": "ok", "civic_tree": "ok",
+                       "policy_slots": "ok", "policy_available": "ok", "government": "ok"},
+    "diagnostics": {}, "turn_blockers_summary": [],
+}
+md_tree = M.render_markdown(snap_tree, {"first_snapshot": True})
+check("markdown renders TECH TREE rollup", "### TECH TREE (1/4 completed)" in md_tree)
+check("markdown lists completed techs", "**completed:** Pottery" in md_tree)
+check("markdown shows banked partial progress", "Writing (12/50sci)" in md_tree)
+check("markdown blocked lists only missing prereqs", "Currency ← WRITING, FOREIGN_TRADE" in md_tree)
+check("markdown blocked prereq drops completed ones", "Craftsmanship ← FOREIGN_TRADE" in md_tree)
+check("markdown renders CIVIC TREE section", "### CIVIC TREE (1/2 completed)" in md_tree)
+check("slotted policy shows effect text",
+      "Discipline — +5 Combat Strength vs. Barbarians" in md_tree)
+check("available policy shows effect text",
+      "Urban Planning — +1 Production in all cities" in md_tree)
+
+snap_tree_failed = dict(snap_tree)
+snap_tree_failed["tech_tree"] = None
+snap_tree_failed["section_status"] = dict(snap_tree["section_status"], tech_tree="failed")
+md_tf = M.render_markdown(snap_tree_failed, {"first_snapshot": True})
+check("failed tech tree renders QUERY FAILED, never empty rollup",
+      "TECH TREE" in md_tf and "QUERY FAILED" in md_tf and "(0/0 completed)" not in md_tf)
 
 print("\n=== sentinel decoupling ===")
 from civ_mcp.coach import SENTINEL as COACH_SENTINEL

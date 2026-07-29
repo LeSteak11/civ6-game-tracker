@@ -262,6 +262,54 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                 )
             lines.append("")
 
+    # ---- Full tech / civic trees ------------------------------------------
+    # Compact rollups: the coach needs "what's done, what's banked, what's
+    # locked behind what" — the per-item detail lives in the JSON tree.
+    def _tree_section(title: str, key: str, unit: str) -> None:
+        if st.get(key) == "failed":
+            lines.append(f"### {title}")
+            lines.append(_fail_marker(key, snap))
+            lines.append("")
+            return
+        tree = snap.get(key) or []
+        if not tree:
+            return
+        done = [x for x in tree if x.get("status") == "done"]
+        current = [x for x in tree if x.get("status") == "current"]
+        partial = [x for x in tree if x.get("partial") and x.get("status") != "current"]
+        blocked = [x for x in tree if x.get("status") == "blocked"]
+        avail_n = sum(1 for x in tree if x.get("status") == "available")
+        lines.append(f"### {title} ({len(done)}/{len(tree)} completed)")
+        lines.append(
+            "- **completed:** " + (", ".join(x.get("name", "?") for x in done) if done else "none")
+        )
+        for x in current:
+            lines.append(
+                f"- **current:** {x.get('name')} — {x.get('progress', 0):.0f}/{x.get('cost', 0):.0f}{unit}"
+                f" ({x.get('turns')}t)"
+            )
+        lines.append(f"- **available now:** {avail_n} (top picks listed above)")
+        if partial:
+            lines.append(
+                "- **partially banked:** "
+                + ", ".join(
+                    f"{x.get('name')} ({x.get('progress', 0):.0f}/{x.get('cost', 0):.0f}{unit})"
+                    for x in partial
+                )
+            )
+        if blocked:
+            lines.append(f"- **blocked:** {len(blocked)} — missing prereqs:")
+            done_types = {x.get("type") for x in done}
+            done_short = {t.split("_", 1)[1] if "_" in (t or "") else t for t in done_types}
+            for x in blocked:
+                missing = [r for r in (x.get("prereqs") or []) if r not in done_short]
+                req = ", ".join(missing) if missing else "?"
+                lines.append(f"    - {x.get('name')} ← {req}")
+        lines.append("")
+
+    _tree_section("TECH TREE", "tech_tree", "sci")
+    _tree_section("CIVIC TREE", "civic_tree", "cul")
+
     # ---- Resources --------------------------------------------------------
     lines.append("## RESOURCES")
     if st.get("resources") == "failed":
@@ -305,7 +353,8 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
         if slots:
             lines.append("- **slotted:**")
             for s in slots:
-                lines.append(f"    - `{s.get('slot_name'):8}` {s.get('policy_name')}")
+                eff = f" — {s.get('effect')}" if s.get("effect") else ""
+                lines.append(f"    - `{s.get('slot_name'):8}` {s.get('policy_name')}{eff}")
     if st.get("policy_available") == "failed":
         lines.append("- **available:** " + _fail_marker("policy_available", snap))
     else:
@@ -313,7 +362,8 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
         if avail:
             lines.append(f"- **available (unslotted):** {len(avail)} card(s)")
             for a in avail[:20]:
-                lines.append(f"    - `{a.get('slot'):8}` {a.get('name')}")
+                eff = f" — {a.get('effect')}" if a.get("effect") else ""
+                lines.append(f"    - `{a.get('slot'):8}` {a.get('name')}{eff}")
             if len(avail) > 20:
                 lines.append(f"    - ...and {len(avail) - 20} more (see JSON)")
     lines.append("")

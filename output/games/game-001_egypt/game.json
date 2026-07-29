@@ -1,0 +1,32 @@
+{
+  "game_id": "game-001_egypt",
+  "civ_type": "CIVILIZATION_EGYPT",
+  "civ_name": "Egypt",
+  "leader_type": "LEADER_CLEOPATRA",
+  "leader_name": "Cleopatra",
+  "difficulty": "Chieftain",
+  "map_type": "Continents",
+  "map_size": "Small",
+  "speed": "Standard",
+  "last_turn": 87,
+  "last_capture_at_epoch": 1785306306.3589144,
+  "last_capture_file": "turn-0087_r01",
+  "last_capture_hash": "2b2311efbe98f1ad609c88df4a6796a42ae5462b6bb17d7268e79f1fb758c8bd",
+  "schema": "coach-snapshot/1.2",
+  "coach_version": "1.1.0",
+  "fingerprint": {
+    "game_seed": -222492683,
+    "map_seed": -222492682,
+    "civ_type": "CIVILIZATION_EGYPT",
+    "leader_type": "LEADER_CLEOPATRA",
+    "difficulty": "Chieftain",
+    "map_type": "Continents",
+    "map_size": "Small",
+    "speed": "Standard",
+    "max_players": 10,
+    "max_turns": 0
+  },
+  "fingerprint_id": "db0be11170ea174a",
+  "created_at_epoch": 1785306306.3589144,
+  "created_turn": 87
+}

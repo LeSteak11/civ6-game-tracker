@@ -177,12 +177,43 @@ def parse_meta(lines: list[str]) -> dict[str, Any]:
     return out
 
 
+def _tree_item(p: list[str]) -> dict[str, Any]:
+    """Shared shape for TTREE/CTREE lines.
+
+    ``partial`` is derived: progress banked on a not-yet-completed item
+    (Civ 6 keeps partial research/culture when you switch away).
+    """
+    status = _s(p, 4)
+    prog = _f(p, 5)
+    return {
+        "type": _s(p, 1),
+        "name": _s(p, 2),
+        "era": _s(p, 3),
+        "status": status,          # done | current | available | blocked
+        "progress": prog,
+        "cost": _f(p, 6),
+        "turns": _i(p, 7, -1),
+        "partial": status != "done" and prog > 0,
+        "prereqs": [x for x in _s(p, 8).split(",") if x],
+    }
+
+
 def parse_choices(lines: list[str]) -> dict[str, Any]:
-    out: dict[str, Any] = {"techs_available": [], "civics_available": [], "diagnostics": []}
+    out: dict[str, Any] = {
+        "techs_available": [],
+        "civics_available": [],
+        "tech_tree": [],
+        "civic_tree": [],
+        "diagnostics": [],
+    }
     for line in lines:
         p = line.split("|")
         tag = p[0] if p else ""
-        if tag == "TAV":
+        if tag == "TTREE":
+            out["tech_tree"].append(_tree_item(p))
+        elif tag == "CTREE":
+            out["civic_tree"].append(_tree_item(p))
+        elif tag == "TAV":
             out["techs_available"].append(
                 {
                     "type": _s(p, 1),

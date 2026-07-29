@@ -69,6 +69,12 @@ new wars), then the full state:
   boost-trigger description.
 - **Available** techs and civics (top 10 by turns) with unlocks and boost
   descriptions — for making switching decisions.
+- **Full tech + civic tree state** — every entry tagged
+  done/current/available/blocked, with banked partial progress, cost,
+  turns, era and prerequisites; the Markdown shows a compact rollup
+  (completed list, banked progress, blocked-behind-what), the JSON has
+  the per-item detail.
+- Policy cards render with their full effect text, slotted and unslotted.
 - Owned resources (strategic, luxuries).
 - Government, all slotted policy cards with effect text, and every
   currently unlocked but unslotted policy.
@@ -299,6 +305,16 @@ add-only changes stay backwards-compatible.
   with turn revisions (`turn-0087_r02`), content-hash dedup of identical
   captures, per-game `latest.*` mirrors, and a `game.json` identity
   record.  See "Files it writes".
+- `tech_tree` / `civic_tree` added (additive, v1.2.0) — one entry per
+  tech/civic: `{type, name, era, status, progress, cost, turns, partial,
+  prereqs}`.  `status` is `done|current|available|blocked`; `partial` is
+  true when progress is banked on a not-yet-completed item; `turns` is
+  `-1` unless current/available; `prereqs` are short type names
+  (`TECH_`/`CIVIC_` stripped).  Tech prereqs come from
+  `GameInfo.TechnologyPrereqs`; a missing table emits a WARN, never an
+  empty lie.
+- Policy card effect text now renders in the Markdown for slotted and
+  available cards (the JSON always carried it).
 
 ## Changes in 1.0.1 (cleanup pass)
 
