@@ -190,7 +190,7 @@ check("real delta lists grown city", "Sais" in txt2)
 
 print("\n=== schema/version bump ===")
 check("schema bumped to 1.2", SCHEMA_VERSION == "coach-snapshot/1.2", SCHEMA_VERSION)
-check("coach version 1.2.0 (semver)", COACH_VERSION == "1.2.0", COACH_VERSION)
+check("coach version 1.2.1 (semver)", COACH_VERSION == "1.2.1", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -395,6 +395,26 @@ check("markdown lists completed techs", "**completed:** Pottery" in md_tree)
 check("markdown shows banked partial progress", "Writing (12/50sci)" in md_tree)
 check("markdown blocked lists only missing prereqs", "Currency ← WRITING, FOREIGN_TRADE" in md_tree)
 check("markdown blocked prereq drops completed ones", "Craftsmanship ← FOREIGN_TRADE" in md_tree)
+
+# Blocked rollup is frontier-only: nearest 8 by (missing prereqs, cost),
+# the rest referred to the JSON.  40 blocked items must not emit 40 lines.
+_big_blocked = [
+    {"type": f"TECH_X{i}", "name": f"DeepTech{i}", "era": "MODERN", "status": "blocked",
+     "progress": 0.0, "cost": 1000.0 + i, "turns": -1, "partial": False,
+     "prereqs": [f"X{i-1}", f"X{i-2}", f"X{i-3}"]}
+    for i in range(40)
+]
+_near = {"type": "TECH_NEAR", "name": "NearTech", "era": "ANCIENT", "status": "blocked",
+         "progress": 0.0, "cost": 80.0, "turns": -1, "partial": False, "prereqs": ["WRITING"]}
+snap_big = dict(snap_tree)
+snap_big["tech_tree"] = ch["tech_tree"] + _big_blocked + [_near]
+md_big = M.render_markdown(snap_big, {"first_snapshot": True})
+check("blocked rollup caps at 8 frontier items",
+      "...and 34 more (see JSON)" in md_big, [l for l in md_big.splitlines() if "more (see JSON)" in l])
+check("frontier sorts fewest-missing-prereqs first",
+      md_big.find("NearTech") < md_big.find("DeepTech"),
+      "NearTech should precede all DeepTech entries")
+check("deep-tree items stay out of the markdown", "DeepTech39" not in md_big)
 check("markdown renders CIVIC TREE section", "### CIVIC TREE (1/2 completed)" in md_tree)
 check("slotted policy shows effect text",
       "Discipline — +5 Combat Strength vs. Barbarians" in md_tree)

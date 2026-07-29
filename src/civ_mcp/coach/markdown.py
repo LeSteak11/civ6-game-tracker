@@ -298,13 +298,30 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                 )
             )
         if blocked:
-            lines.append(f"- **blocked:** {len(blocked)} — missing prereqs:")
+            # Only the frontier: the whole late-game tree in every packet is
+            # encyclopedia noise.  Nearest = fewest missing prereqs, then
+            # cheapest.  Full blocked detail always lives in the JSON tree.
             done_types = {x.get("type") for x in done}
             done_short = {t.split("_", 1)[1] if "_" in (t or "") else t for t in done_types}
-            for x in blocked:
-                missing = [r for r in (x.get("prereqs") or []) if r not in done_short]
+            frontier = sorted(
+                (
+                    (
+                        [r for r in (x.get("prereqs") or []) if r not in done_short],
+                        x,
+                    )
+                    for x in blocked
+                ),
+                key=lambda mx: (len(mx[0]), mx[1].get("cost", 0)),
+            )
+            shown = frontier[:8]
+            lines.append(
+                f"- **blocked:** {len(blocked)} — nearest {len(shown)}, missing prereqs:"
+            )
+            for missing, x in shown:
                 req = ", ".join(missing) if missing else "?"
                 lines.append(f"    - {x.get('name')} ← {req}")
+            if len(blocked) > len(shown):
+                lines.append(f"    - ...and {len(blocked) - len(shown)} more (see JSON)")
         lines.append("")
 
     _tree_section("TECH TREE", "tech_tree", "sci")

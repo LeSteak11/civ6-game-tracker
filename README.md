@@ -72,8 +72,8 @@ new wars), then the full state:
 - **Full tech + civic tree state** — every entry tagged
   done/current/available/blocked, with banked partial progress, cost,
   turns, era and prerequisites; the Markdown shows a compact rollup
-  (completed list, banked progress, blocked-behind-what), the JSON has
-  the per-item detail.
+  (completed list, banked progress, and only the ~8 blocked items nearest
+  the frontier with their missing prereqs), the JSON has every item.
 - Policy cards render with their full effect text, slotted and unslotted.
 - Owned resources (strategic, luxuries).
 - Government, all slotted policy cards with effect text, and every

@@ -1,5 +1,5 @@
 # CIV6 COACH SNAPSHOT — turn 87
-_Egypt (Cleopatra) — 725 BC / Classical Era — Chieftain / Standard / Small Continents — schema coach-snapshot/1.2 coach 1.1.0_
+_Egypt (Cleopatra) — 725 BC / Classical Era — Chieftain / Standard / Small Continents — schema coach-snapshot/1.2 coach 1.2.0_
 
 ## CHANGES SINCE LAST SNAPSHOT
 No meaningful changes. (Same turn as the previous snapshot.)
@@ -41,6 +41,106 @@ No meaningful changes. (Same turn as the previous snapshot.)
 - Drama and Poetry  — 110cul (10t) — unlocks: Literary Tradition — inspiration: Build a wonder.
 - Defensive Tactics  — 175cul (15t) — unlocks: Bastions, Limes — inspiration: Be the target of a Declaration of War.
 
+### TECH TREE (13/68 completed)
+- **completed:** Pottery, Animal Husbandry, Mining, Sailing, Astrology, Irrigation, Archery, Writing, Masonry, Bronze Working, Wheel, Currency, Horseback Riding
+- **current:** Construction — 92/200sci (7t)
+- **available now:** 7 (top picks listed above)
+- **blocked:** 47 — missing prereqs:
+    - Military Tactics ← MATHEMATICS
+    - Machinery ← IRON_WORKING, ENGINEERING
+    - Education ← MATHEMATICS, APPRENTICESHIP
+    - Military Engineering ← CONSTRUCTION
+    - Castles ← CONSTRUCTION
+    - Cartography ← SHIPBUILDING
+    - Mass Production ← EDUCATION, SHIPBUILDING
+    - Banking ← EDUCATION, STIRRUPS
+    - Gunpowder ← APPRENTICESHIP, STIRRUPS, MILITARY_ENGINEERING
+    - Printing ← MACHINERY
+    - Square Rigging ← CARTOGRAPHY
+    - Astronomy ← EDUCATION
+    - Metal Casting ← GUNPOWDER
+    - Siege Tactics ← CASTLES
+    - Industrialization ← SQUARE_RIGGING, MASS_PRODUCTION
+    - Scientific Theory ← ASTRONOMY, BANKING
+    - Ballistics ← METAL_CASTING
+    - Military Science ← SIEGE_TACTICS, PRINTING
+    - Steam Power ← INDUSTRIALIZATION
+    - Sanitation ← SCIENTIFIC_THEORY
+    - Economics ← SCIENTIFIC_THEORY, METAL_CASTING
+    - Rifling ← BALLISTICS, MILITARY_SCIENCE
+    - Flight ← INDUSTRIALIZATION, SCIENTIFIC_THEORY
+    - Replaceable Parts ← ECONOMICS
+    - Steel ← RIFLING
+    - Electricity ← STEAM_POWER
+    - Radio ← STEAM_POWER, FLIGHT
+    - Chemistry ← SANITATION
+    - Combustion ← STEEL, RIFLING
+    - Advanced Flight ← RADIO
+    - Rocketry ← RADIO, CHEMISTRY
+    - Advanced Ballistics ← REPLACEABLE_PARTS, STEEL
+    - Combined Arms ← STEEL, COMBUSTION
+    - Plastics ← COMBUSTION
+    - Computers ← ELECTRICITY, RADIO
+    - Nuclear Fission ← ADVANCED_BALLISTICS, COMBINED_ARMS
+    - Synthetic Materials ← PLASTICS
+    - Telecommunications ← COMPUTERS
+    - Satellites ← ADVANCED_FLIGHT, ROCKETRY
+    - Guidance Systems ← ROCKETRY, ADVANCED_BALLISTICS
+    - Lasers ← NUCLEAR_FISSION
+    - Composites ← SYNTHETIC_MATERIALS
+    - Stealth Technology ← SYNTHETIC_MATERIALS
+    - Robotics ← COMPUTERS
+    - Nanotechnology ← COMPOSITES
+    - Nuclear Fusion ← LASERS
+    - Future Tech ← SATELLITES, ROBOTICS, NANOTECHNOLOGY, NUCLEAR_FUSION
+
+### CIVIC TREE (8/51 completed)
+- **completed:** Code of Laws, Craftsmanship, Foreign Trade, State Workforce, Early Empire, Mysticism, Games and Recreation, Political Philosophy
+- **current:** Military Tradition — 0/50cul (4t)
+- **available now:** 2 (top picks listed above)
+- **partially banked:** Military Training (60/120cul)
+- **blocked:** 40 — missing prereqs:
+    - Military Training ← MILITARY_TRADITION
+    - Recorded History ← DRAMA_POETRY
+    - Theology ← DRAMA_POETRY
+    - Naval Tradition ← DEFENSIVE_TACTICS
+    - Feudalism ← DEFENSIVE_TACTICS
+    - Civil Service ← DEFENSIVE_TACTICS, RECORDED_HISTORY
+    - Mercenaries ← MILITARY_TRAINING, FEUDALISM
+    - Medieval Faires ← FEUDALISM
+    - Guilds ← FEUDALISM, CIVIL_SERVICE
+    - Divine Right ← CIVIL_SERVICE, THEOLOGY
+    - Exploration ← MERCENARIES, MEDIEVAL_FAIRES
+    - Humanism ← MEDIEVAL_FAIRES, GUILDS
+    - Diplomatic Service ← GUILDS
+    - Reformed Church ← GUILDS, DIVINE_RIGHT
+    - Mercantilism ← HUMANISM
+    - The Enlightenment ← HUMANISM, DIPLOMATIC_SERVICE
+    - Colonialism ← MERCANTILISM
+    - Civil Engineering ← MERCANTILISM
+    - Nationalism ← THE_ENLIGHTENMENT
+    - Opera and Ballet ← THE_ENLIGHTENMENT
+    - Natural History ← COLONIALISM
+    - Scorched Earth ← NATIONALISM
+    - Urbanization ← CIVIL_ENGINEERING, NATIONALISM
+    - Conservation ← NATURAL_HISTORY
+    - Capitalism ← MASS_MEDIA
+    - Nuclear Program ← IDEOLOGY
+    - Mass Media ← NATURAL_HISTORY, URBANIZATION
+    - Mobilization ← URBANIZATION
+    - Ideology ← MASS_MEDIA, MOBILIZATION
+    - Suffrage ← IDEOLOGY
+    - Totalitarianism ← IDEOLOGY
+    - Class Struggle ← IDEOLOGY
+    - Cold War ← IDEOLOGY
+    - Professional Sports ← IDEOLOGY
+    - Cultural Heritage ← CONSERVATION
+    - Rapid Deployment ← COLD_WAR
+    - Space Race ← COLD_WAR
+    - Globalization ← RAPID_DEPLOYMENT, SPACE_RACE
+    - Social Media ← SPACE_RACE, PROFESSIONAL_SPORTS
+    - Future Civic ← GLOBALIZATION, SOCIAL_MEDIA
+
 ## RESOURCES
 - strategic: none
 - **luxuries:** Ivory
@@ -48,24 +148,24 @@ No meaningful changes. (Same turn as the previous snapshot.)
 ## GOVERNMENT & POLICIES
 - **government:** Classical Republic — 0 open slot(s) — free change avail: True
 - **slotted:**
-    - `ECONOMIC` Urban Planning
-    - `ECONOMIC` God King
-    - `DIPLOMATIC` Diplomatic League
-    - `WILDCARD` Revelation
+    - `ECONOMIC` Urban Planning — +1 [ICON_Production] Production in all cities.
+    - `ECONOMIC` God King — +1 [ICON_Faith] Faith and +1 [ICON_Gold] Gold in the [ICON_Capital] Capital.
+    - `DIPLOMATIC` Diplomatic League — The first [ICON_Envoy] Envoy you send to each city-state counts as two [ICON_Envoy] Envoys.
+    - `WILDCARD` Revelation — +2 [ICON_GreatProphet] Great Prophet points per turn.
 - **available (unslotted):** 13 card(s)
-    - `MILITARY` Discipline
-    - `MILITARY` Survey
-    - `ECONOMIC` Ilkum
-    - `MILITARY` Agoge
-    - `ECONOMIC` Caravansaries
-    - `MILITARY` Maritime Industries
-    - `ECONOMIC` Corvée
-    - `MILITARY` Conscription
-    - `ECONOMIC` Land Surveyors
-    - `ECONOMIC` Colonization
-    - `GREAT_PERSON` Inspiration
-    - `ECONOMIC` Insulae
-    - `DIPLOMATIC` Charismatic Leader
+    - `MILITARY` Discipline — +5 [ICON_Strength] Unit Combat Strength when fighting Barbarians.
+    - `MILITARY` Survey — Double experience for recon units.
+    - `ECONOMIC` Ilkum — +30% [ICON_Production] Production toward Builders.
+    - `MILITARY` Agoge — +50% [ICON_Production] Production toward Ancient and Classical era melee, anti-cavalry, and ranged units.
+    - `ECONOMIC` Caravansaries — +2 [ICON_Gold] Gold from all [ICON_TradeRoute] Trade Routes.
+    - `MILITARY` Maritime Industries — +100% [ICON_Production] Production toward Ancient and Classical era naval units.
+    - `ECONOMIC` Corvée — +15% [ICON_Production] Production toward Ancient and Classical wonders.
+    - `MILITARY` Conscription — Unit maintenance reduced by 1 [ICON_Gold] Gold per turn, per unit.
+    - `ECONOMIC` Land Surveyors — Reduces the cost of purchasing a tile by 20%.
+    - `ECONOMIC` Colonization — +50% [ICON_Production] Production toward Settlers.
+    - `GREAT_PERSON` Inspiration — +2 [ICON_GreatScientist] Great Scientist points per turn.
+    - `ECONOMIC` Insulae — +1 [ICON_Housing] Housing in all cities with at least 2 specialty districts.
+    - `DIPLOMATIC` Charismatic Leader — +2 Influence points per turn toward earning city-state [ICON_Envoy] Envoys.
 
 ## GREAT PEOPLE
 - **GENERAL** 49pts (+1.1/turn) — next recruit cost 60 — candidate: Sun Tzu
@@ -92,7 +192,7 @@ No meaningful changes. (Same turn as the previous snapshot.)
     - district `ENCAMPMENT` @ (65,26)
     - district `WONDER` @ (66,27)
     - buildings in `CITY_CENTER`: Monument, Palace, Granary
-    - tiles: 13 owned, 4 worked | terrain: 7 plains, 5 plains_hills, 1 grass_hills | features: 1 forest | improvements: 3 farm, 2 mine, 2 sphinx, 1 camp
+    - tiles: 13 owned, 4 worked | terrain: 7 plains, 5 plains_hills, 1 grass_hills | features: 1 forest | improvements: 3 farm, 2 sphinx, 2 mine, 1 camp
     - top production options: Stonehenge (1t), Scout (2t), Warrior (3t), Trader (4t), Archer (4t), Spearman (4t), Battering Ram (4t), Builder (5t), Horseman (5t), Ancient Walls (6t)
     - ...13 more options in JSON
     - trade → Luxis (domestic): Food +1, Production +1
@@ -104,7 +204,7 @@ No meaningful changes. (Same turn as the previous snapshot.)
     - district `CITY_CENTER` @ (62,26)
     - district `HOLY_SITE` @ (63,24)
     - buildings in `CITY_CENTER`: Monument
-    - tiles: 11 owned, 7 worked | terrain: 7 grass, 2 plains, 1 plains_hills, 1 grass_hills | features: 2 jungle, 1 marsh | improvements: 2 pasture, 1 plantation, 1 farm
+    - tiles: 11 owned, 7 worked | terrain: 7 grass, 2 plains, 1 plains_hills, 1 grass_hills | features: 2 jungle, 1 marsh | improvements: 2 pasture, 1 farm, 1 plantation
     - top production options: Scout (5t), Warrior (7t), Holy Site (8t), Trader (10t), Archer (10t), Spearman (10t), Battering Ram (10t), Granary (10t), Builder (12t), Horseman (13t)
     - ...11 more options in JSON
 ### SHEDET @ (66,25)
@@ -113,7 +213,7 @@ No meaningful changes. (Same turn as the previous snapshot.)
 - **producing:** Granary (18/65, 8t)
 - defense: str 20 | garrison 200/200 | walls 0/0
     - district `CITY_CENTER` @ (66,25)
-    - tiles: 9 owned, 5 worked | terrain: 6 grass, 1 coast, 1 plains, 1 grass_hills | features: 1 marsh, 1 forest | improvements: 2 quarry, 1 sphinx, 1 farm
+    - tiles: 9 owned, 5 worked | terrain: 6 grass, 1 plains, 1 coast, 1 grass_hills | features: 1 forest, 1 marsh | improvements: 2 quarry, 1 farm, 1 sphinx
     - top production options: Scout (5t), Builder (6t), Warrior (7t), Granary (8t), Archer (10t), Monument (10t), Trader (11t), Spearman (11t), Battering Ram (11t), Horseman (14t)
     - ...12 more options in JSON
 ### Luxis @ (64,22)
@@ -122,7 +222,7 @@ No meaningful changes. (Same turn as the previous snapshot.)
 - **producing:** Monument (15/60, 15t)
 - defense: str 10 | garrison 200/200 | walls 0/0
     - district `CITY_CENTER` @ (64,22)
-    - tiles: 7 owned, 2 worked | terrain: 4 grass, 1 grass_mountain, 1 plains, 1 grass_hills | features: 1 jungle
+    - tiles: 7 owned, 2 worked | terrain: 4 grass, 1 plains, 1 grass_mountain, 1 grass_hills | features: 1 jungle
     - top production options: Scout (10t), Warrior (13t), Monument (15t), Trader (20t), Archer (20t), Spearman (21t), Battering Ram (21t), Granary (21t), Builder (25t), Horseman (26t)
     - ...12 more options in JSON
 
@@ -673,9 +773,9 @@ _508 revealed, 96 currently visible, 1 natural wonders_
 - Tsingy de Bemaraha @(49,16)
 
 ## DIAGNOSTICS
-- section status: cities=ok, city_states_met=ok, civics_available=ok, current_civic=ok, current_research=ok, empire=ok, envoys=ok, government=ok, great_people=ok, header=ok, majors_met=ok, map=ok, notifications=ok, policy_available=ok, policy_slots=ok, religion=ok, resources=ok, techs_available=ok, units=ok, victories=ok
-- generation time: 2.82s
-- per-query timing (s): meta=0.38, choices=0.347, cities=0.361, units=0.326, map=0.361, diplo=0.355, religion=0.346, notif=0.346
+- section status: cities=ok, city_states_met=ok, civic_tree=ok, civics_available=ok, current_civic=ok, current_research=ok, empire=ok, envoys=ok, government=ok, great_people=ok, header=ok, majors_met=ok, map=ok, notifications=ok, policy_available=ok, policy_slots=ok, religion=ok, resources=ok, tech_tree=ok, techs_available=ok, units=ok, victories=ok
+- generation time: 2.86s
+- per-query timing (s): meta=0.37, choices=0.375, cities=0.361, units=0.347, map=0.366, diplo=0.346, religion=0.348, notif=0.347
 - compatibility notes (fallback paths, not failures):
     - `CHOICES.probe`: using cul:CanProgress() for civic availability
 - last trace per query (for post-mortem):
@@ -697,4 +797,4 @@ _508 revealed, 96 currently visible, 1 natural wonders_
     - power, resource consumption, canals, dams (Gathering Storm)
     - railroads (Gathering Storm)
 
-<!-- coach snapshot: schema=coach-snapshot/1.2 turn=87 generated_at=1785306306.3589144 failed_sections=none -->
+<!-- coach snapshot: schema=coach-snapshot/1.2 turn=87 generated_at=1785307196.252601 failed_sections=none -->
