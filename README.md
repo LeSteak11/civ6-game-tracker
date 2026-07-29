@@ -97,13 +97,38 @@ new wars), then the full state:
 
 ## Files it writes
 
-Every hotkey press produces (under `output/` — override with
-`CIV6_COACH_OUTPUT` or `--output`):
+Every capture is filed into a **persistent per-game archive** (under
+`output/` — override with `CIV6_COACH_OUTPUT` or `--output`):
 
-    output\latest-full.json       # canonical JSON, versioned schema
-    output\latest-coach.md        # what's on your clipboard
-    output\turn-XXXX-full.json    # per-turn history
-    output\turn-XXXX-coach.md
+    output\latest-full.json                          # newest capture, any game (delta seed)
+    output\latest-coach.md                           # what's on your clipboard
+    output\games\game-001_egypt\
+        game.json                                    # leader/civ/difficulty/map/speed,
+                                                     #   dates, last turn, schema, fingerprint
+        latest.md                                    # newest capture of THIS game
+        latest.json
+        snapshots\turn-0087_r01.md / .json           # first capture on turn 87
+        snapshots\turn-0087_r02.md / .json           # second capture, same turn
+        snapshots\turn-0088_r01.md / .json
+
+Archive behaviour:
+
+- A new match creates the next `game-NNN_<civ>` folder; relaunching the
+  same match (even from an older save) reopens its existing folder.  Game
+  identity comes from the read-only game + map seeds exported in
+  `meta.game_seed` / `meta.map_seed`; if the seeds are unavailable the
+  bridge falls back to matching the full static setup (civ, leader,
+  difficulty, map script/size, speed, player count, max turns) plus a
+  turn-must-not-go-backwards guard.
+- Recapturing the same turn adds a revision (`_r02`, `_r03`, …); a capture
+  whose content is byte-for-byte identical to the previous one (ignoring
+  timestamps/diagnostics) writes **no** new file.
+- `latest.md` / `latest.json` inside the game folder always mirror the
+  newest capture, so there's one stable path to paste from.
+- A capture with no trusted turn number (meta query failed / main menu)
+  is never guessed into a game folder — it keeps the flat legacy naming
+  `snapshot-partial-<epoch>-*` / `snapshot-noturn-<epoch>-*` directly
+  under `output/`.
 
 The JSON schema is documented in the appendix at the bottom of this file.
 
@@ -145,10 +170,10 @@ button.  The coach describes; you play.
 
 ---
 
-# Appendix — snapshot JSON schema (`coach-snapshot/1.1`)
+# Appendix — snapshot JSON schema (`coach-snapshot/1.2`)
 
 Every hotkey press writes a JSON file whose top-level `schema` field is
-`coach-snapshot/1.1`.  Bump `SCHEMA_VERSION` in
+`coach-snapshot/1.2`.  Bump `SCHEMA_VERSION` in
 `src/civ_mcp/coach/__init__.py` whenever a field is renamed or removed;
 add-only changes stay backwards-compatible.
 
@@ -156,8 +181,8 @@ add-only changes stay backwards-compatible.
 
 ```jsonc
 {
-  "schema": "coach-snapshot/1.1",
-  "coach_version": "1.0.1",
+  "schema": "coach-snapshot/1.2",
+  "coach_version": "1.1.0",
   "generated_at_epoch": 1753728000.123,
 
   "meta": {
@@ -166,7 +191,8 @@ add-only changes stay backwards-compatible.
     "leader_type": "LEADER_CLEOPATRA", "leader_name": "Cleopatra",
     "difficulty": "Chieftain", "speed": "Standard",
     "map_size": "Standard", "map_type": "Continents",
-    "max_players": 10, "max_turns": 500
+    "max_players": 10, "max_turns": 500,
+    "game_seed": 1520978701, "map_seed": 316702041   // -1 = unknown (schema 1.2)
   },
   "victories_enabled": ["VICTORY_TECHNOLOGY", "..."],
   "empire": {
@@ -262,6 +288,17 @@ add-only changes stay backwards-compatible.
   from `queries.py:build_map_query`.
 - `promotions_available` is `0` or `1` — a unit can have at most one
   pending promotion. Civilians are always `0`.
+
+## Changes in 1.2 (v1.1.0 — persistent game archives)
+
+- `meta.game_seed` / `meta.map_seed` added (additive) — read-only game
+  identity from `GameConfiguration.GetValue("GAME_SYNC_RANDOM_SEED")` and
+  `MapConfiguration.GetValue("RANDOM_SEED")`; `-1` = unknown sentinel with
+  a WARN compat note, never a guessed value.
+- Snapshots are archived per game under `output/games/game-NNN_<civ>/`
+  with turn revisions (`turn-0087_r02`), content-hash dedup of identical
+  captures, per-game `latest.*` mirrors, and a `game.json` identity
+  record.  See "Files it writes".
 
 ## Changes in 1.0.1 (cleanup pass)
 

@@ -5,8 +5,9 @@ Responsibilities:
        states by name — no fixed index 5).
     2. Register the Ctrl+Shift+C global hotkey.
     3. When triggered: run every coach query, merge into a versioned
-       snapshot, write JSON + Markdown to ``output/``, and copy the
-       Markdown to the Windows clipboard.
+       snapshot, archive JSON + Markdown under the per-game folder in
+       ``output/games/`` (see ``archive.py``), and copy the Markdown to
+       the Windows clipboard.
     4. Keep the previous snapshot in memory (and on disk as
        ``latest-full.json``) so the next hotkey press produces a delta.
 
@@ -28,6 +29,7 @@ from typing import Any
 
 from civ_mcp.connection import GameConnection
 from civ_mcp.coach import COACH_VERSION, SCHEMA_VERSION
+from civ_mcp.coach.archive import write_snapshot as archive_snapshot
 from civ_mcp.coach.clipboard_win import ClipboardError, copy_text
 from civ_mcp.coach.collector import collect_snapshot
 from civ_mcp.coach.delta import compute_delta
@@ -74,37 +76,49 @@ class CoachBridge:
             log.warning("Could not parse existing latest-full.json — ignoring", exc_info=True)
             return None
 
-    def _write_outputs(self, snap: dict[str, Any], md: str) -> tuple[Path, Path]:
-        """Choose an archive filename that never lies about game state.
+    def _write_outputs(self, snap: dict[str, Any], md: str) -> str:
+        """Write the capture and return a human-readable description.
 
-        - meta section succeeded and returned a turn number:    turn-XXXX-
+        Snapshots with a trusted turn number go to the persistent per-game
+        archive (``output/games/game-NNN_<civ>/``, see ``archive.py``):
+        revisioned ``turn-XXXX_rNN`` files, per-game ``latest.*`` mirrors,
+        content-hash dedup, and a ``game.json`` identity record keyed on
+        the game/map seeds.
+
+        Snapshots without one keep the legacy flat naming — we never guess
+        which game a turnless capture belongs to:
+
         - meta failed but some other query worked (game IS loaded, we just
-          couldn't read the turn number):                       snapshot-partial-<epoch>-
-        - no queries returned anything (probably at main menu): snapshot-noturn-<epoch>-
+          couldn't read the turn number):    snapshot-partial-<epoch>-
+        - no queries returned anything
+          (probably at main menu):           snapshot-noturn-<epoch>-
         """
-        status = snap.get("section_status") or {}
-        meta = snap.get("meta") or {}
-        turn = meta.get("turn") if isinstance(meta, dict) else None
-        header_ok = status.get("header") == "ok" and isinstance(turn, int) and turn > 0
-        any_ok = any(v == "ok" for v in status.values())
-        ts = int(snap.get("generated_at_epoch") or time.time())
-        if header_ok:
-            archive_prefix = f"turn-{turn:04d}"
-        elif any_ok:
-            archive_prefix = f"snapshot-partial-{ts}"
-        else:
-            archive_prefix = f"snapshot-noturn-{ts}"
-        # Full JSON
+        # Root-level latest mirrors: kept for backward compatibility and as
+        # the cross-restart delta seed (_load_last_snapshot reads it).
         with (self.output_dir / "latest-full.json").open("w", encoding="utf-8") as f:
             json.dump(snap, f, indent=2)
-        with (self.output_dir / f"{archive_prefix}-full.json").open("w", encoding="utf-8") as f:
+        (self.output_dir / "latest-coach.md").write_text(md, encoding="utf-8")
+
+        res = archive_snapshot(self.output_dir, snap, md)
+        if res is not None:
+            rel = res.game_dir.name
+            if res.deduplicated:
+                return (
+                    f"unchanged since {res.capture_name} — no new archive file "
+                    f"(games/{rel}, latest.* refreshed)"
+                )
+            new_game = " [new game folder]" if res.created_game else ""
+            return f"wrote games/{rel}/snapshots/{res.capture_name}.md + .json{new_game}"
+
+        # Legacy fallback: no trusted turn number.
+        status = snap.get("section_status") or {}
+        any_ok = any(v == "ok" for v in status.values())
+        ts = int(snap.get("generated_at_epoch") or time.time())
+        prefix = f"snapshot-partial-{ts}" if any_ok else f"snapshot-noturn-{ts}"
+        with (self.output_dir / f"{prefix}-full.json").open("w", encoding="utf-8") as f:
             json.dump(snap, f, indent=2)
-        # Markdown
-        md_latest = self.output_dir / "latest-coach.md"
-        md_turn = self.output_dir / f"{archive_prefix}-coach.md"
-        md_latest.write_text(md, encoding="utf-8")
-        md_turn.write_text(md, encoding="utf-8")
-        return md_turn, md_latest
+        (self.output_dir / f"{prefix}-coach.md").write_text(md, encoding="utf-8")
+        return f"wrote {prefix}-coach.md + -full.json (no trusted turn — not archived)"
 
     # ---- Hotkey callback --------------------------------------------------
 
@@ -135,7 +149,7 @@ class CoachBridge:
 
             delta = compute_delta(self._last_snapshot, snap)
             md = render_markdown(snap, delta)
-            md_turn, md_latest = self._write_outputs(snap, md)
+            write_desc = self._write_outputs(snap, md)
 
             # Clipboard
             clip_status = "ok"
@@ -160,7 +174,7 @@ class CoachBridge:
                 f"clipboard: {clip_status}",
                 flush=True,
             )
-            print(f"[coach]   wrote {md_latest.name} + {md_turn.name}", flush=True)
+            print(f"[coach]   {write_desc}", flush=True)
 
     # ---- Main loop --------------------------------------------------------
 

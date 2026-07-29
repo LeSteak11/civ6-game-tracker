@@ -203,6 +203,35 @@ safe("header", function()
     .. "|" .. maxPlayers .. "|" .. maxTurns)
 end)
 
+-- ---- Game identity seeds (persistent-archive fingerprint) ---------------
+-- GameConfiguration.GetValue / MapConfiguration methods are already
+-- confirmed working calls in this file ("GAME_MAX_TURNS", map script).
+-- The keys below are config data, not method names: an absent key returns
+-- nil, which we report as the -1 unknown sentinel plus a WARN compat note.
+-- Never rendered as a real value downstream.
+safe("seeds", function()
+  local gameSeed, mapSeed = nil, nil
+  pcall(function()
+    if GameConfiguration and GameConfiguration.GetValue then
+      gameSeed = GameConfiguration.GetValue("GAME_SYNC_RANDOM_SEED")
+    end
+  end)
+  pcall(function()
+    if MapConfiguration and MapConfiguration.GetValue then
+      mapSeed = MapConfiguration.GetValue("RANDOM_SEED")
+    end
+  end)
+  if gameSeed == nil then
+    print("WARN|META.seeds|game seed unavailable (GAME_SYNC_RANDOM_SEED nil)")
+    gameSeed = -1
+  end
+  if mapSeed == nil then
+    print("WARN|META.seeds|map seed unavailable (RANDOM_SEED nil)")
+    mapSeed = -1
+  end
+  print("SEEDS|" .. tostring(gameSeed) .. "|" .. tostring(mapSeed))
+end)
+
 -- ---- Enabled victories --------------------------------------------------
 safe("victories", function()
   local vlist = {}

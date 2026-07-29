@@ -54,10 +54,20 @@ def parse_meta(lines: list[str]) -> dict[str, Any]:
         "victories_enabled": [],
         "diagnostics": [],
     }
+    # Game/map seeds arrive on their own SEEDS line.  Collected separately
+    # and merged into ``meta`` only if the META header actually parsed —
+    # merging into an empty meta dict would make a failed header section
+    # look "ok" to the collector's section classifier.
+    seeds: dict[str, Any] = {}
     for line in lines:
         p = line.split("|")
         tag = p[0] if p else ""
-        if tag == "META":
+        if tag == "SEEDS":
+            seeds = {
+                "game_seed": _i(p, 1, -1),
+                "map_seed": _i(p, 2, -1),
+            }
+        elif tag == "META":
             out["meta"] = {
                 "turn": _i(p, 1),
                 "year": _s(p, 2),
@@ -161,6 +171,9 @@ def parse_meta(lines: list[str]) -> dict[str, Any]:
             )
         elif tag == "DIAG":
             out["diagnostics"].append({"section": _s(p, 1), "message": _s(p, 2)})
+    out["seeds"] = seeds
+    if out["meta"] and seeds:
+        out["meta"].update(seeds)
     return out
 
 

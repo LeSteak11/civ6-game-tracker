@@ -17,7 +17,7 @@ sys.modules['civ_mcp.lua'] = lua_pkg
 spec = importlib.util.spec_from_file_location('civ_mcp.lua._helpers', str(REPO / 'src/civ_mcp/lua/_helpers.py'))
 h = importlib.util.module_from_spec(spec); spec.loader.exec_module(h); sys.modules['civ_mcp.lua._helpers'] = h
 
-for mod in ['__init__', 'queries', 'parser', 'delta', 'markdown']:
+for mod in ['__init__', 'queries', 'parser', 'delta', 'markdown', 'archive']:
     full = f'civ_mcp.coach.{mod}' if mod != '__init__' else 'civ_mcp.coach'
     spec = importlib.util.spec_from_file_location(full, str(REPO / f'src/civ_mcp/coach/{mod}.py'))
     m = importlib.util.module_from_spec(spec); sys.modules[full] = m; spec.loader.exec_module(m)
@@ -25,6 +25,7 @@ for mod in ['__init__', 'queries', 'parser', 'delta', 'markdown']:
 from civ_mcp.coach import parser as P
 from civ_mcp.coach import markdown as M
 from civ_mcp.coach import queries as Q
+from civ_mcp.coach import archive as A
 from civ_mcp.coach import SCHEMA_VERSION, COACH_VERSION
 
 def strip_lua_comments(src: str) -> str:
@@ -188,8 +189,8 @@ check("real delta lists grown city", "Sais" in txt2)
 
 
 print("\n=== schema/version bump ===")
-check("schema bumped to 1.1", SCHEMA_VERSION == "coach-snapshot/1.1", SCHEMA_VERSION)
-check("coach version 1.0.1 (semver)", COACH_VERSION == "1.0.1", COACH_VERSION)
+check("schema bumped to 1.2", SCHEMA_VERSION == "coach-snapshot/1.2", SCHEMA_VERSION)
+check("coach version 1.1.0 (semver)", COACH_VERSION == "1.1.0", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -239,6 +240,103 @@ check("markdown renders owner legend", "**Owner IDs:** 0=me (Egypt), 63=Barbaria
 check("markdown map line carries city name", "|Ra-Kedet" in md_map)
 check("compat notes render as notes not failures",
       "compatibility notes" in md_map and "failures at runtime" not in md_map)
+
+print("\n=== Phase 2 Task 1: persistent game archives ===")
+import tempfile
+
+# -- Seeds: Lua source contract -------------------------------------------
+meta_src3 = Q.build_meta_query()
+check("meta Lua emits SEEDS line", '"SEEDS|"' in meta_src3)
+check("meta Lua reads GAME_SYNC_RANDOM_SEED via GetValue",
+      'GetValue("GAME_SYNC_RANDOM_SEED")' in meta_src3)
+check("meta Lua reads map RANDOM_SEED via GetValue",
+      'GetValue("RANDOM_SEED")' in meta_src3)
+check("missing seed emits WARN + -1 sentinel, never a guess",
+      'WARN|META.seeds' in meta_src3 and 'DIAG|META.seeds' not in meta_src3)
+
+# -- Seeds: parser --------------------------------------------------------
+seed_meta_line = "META|87|725 BC|Classical Era|CIVILIZATION_EGYPT|Egypt|LEADER_CLEOPATRA|Cleopatra|Chieftain|Standard|Standard|Continents|10|500"
+pm = P.parse_meta([seed_meta_line, "SEEDS|123456789|987654321"])
+check("parser merges seeds into meta",
+      pm["meta"].get("game_seed") == 123456789 and pm["meta"].get("map_seed") == 987654321,
+      str({k: pm["meta"].get(k) for k in ("game_seed", "map_seed")}))
+pm_rev = P.parse_meta(["SEEDS|11|22", seed_meta_line])
+check("seed merge is order-independent",
+      pm_rev["meta"].get("game_seed") == 11, pm_rev["meta"].get("game_seed"))
+pm_nometa = P.parse_meta(["SEEDS|1|2"])
+check("seeds alone never fake an ok header", pm_nometa["meta"] == {}, pm_nometa["meta"])
+pm_unk = P.parse_meta([seed_meta_line, "SEEDS|-1|-1"])
+check("unknown seeds stay -1 sentinel", pm_unk["meta"].get("game_seed") == -1)
+
+# -- Archive behaviour ----------------------------------------------------
+def mk_snap(turn=87, game_seed=111, map_seed=222, gold=100.0, epoch=1000.0,
+            civ_type="CIVILIZATION_EGYPT", civ_name="Egypt"):
+    return {
+        "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION,
+        "generated_at_epoch": epoch,
+        "meta": {"turn": turn, "civ_type": civ_type, "civ_name": civ_name,
+                 "leader_type": "LEADER_CLEOPATRA", "leader_name": "Cleopatra",
+                 "difficulty": "Chieftain", "speed": "Standard",
+                 "map_size": "Standard", "map_type": "Continents",
+                 "max_players": 10, "max_turns": 500,
+                 "game_seed": game_seed, "map_seed": map_seed},
+        "empire": {"gold": gold},
+        "section_status": {"header": "ok"},
+        # diagnostics always differ between captures — must not defeat dedup
+        "diagnostics": {"total_seconds": epoch / 7.0},
+    }
+
+tmp = Path(tempfile.mkdtemp(prefix="civ6-archive-regress-"))
+
+r1 = A.write_snapshot(tmp, mk_snap(), "# md1")
+check("first capture creates game-001_egypt",
+      r1 is not None and r1.created_game and r1.game_id == "game-001_egypt",
+      getattr(r1, "game_id", r1))
+check("first capture on a turn is r01", r1.capture_name == "turn-0087_r01", r1.capture_name)
+check("snapshot pair written",
+      r1.json_path is not None and r1.json_path.exists() and r1.md_path.exists())
+check("per-game latest mirrors written",
+      (r1.game_dir / "latest.md").read_text(encoding="utf-8") == "# md1"
+      and (r1.game_dir / "latest.json").exists())
+gj = json.loads((r1.game_dir / "game.json").read_text(encoding="utf-8"))
+_id_fields = ("game_id", "civ_name", "leader_name", "difficulty", "map_type",
+              "map_size", "speed", "created_at_epoch", "created_turn",
+              "last_turn", "schema", "fingerprint", "fingerprint_id")
+check("game.json carries all identity fields",
+      all(k in gj for k in _id_fields), [k for k in _id_fields if k not in gj])
+check("game.json last_turn tracks capture", gj["last_turn"] == 87)
+
+r2 = A.write_snapshot(tmp, mk_snap(epoch=2000.0), "# md1-refreshed")
+check("identical capture deduplicated (volatile fields ignored)",
+      r2.deduplicated and r2.md_path is None and r2.json_path is None)
+check("dedup writes no r02 file",
+      not (r1.game_dir / "snapshots" / "turn-0087_r02.json").exists())
+check("dedup still refreshes latest.md",
+      (r1.game_dir / "latest.md").read_text(encoding="utf-8") == "# md1-refreshed")
+
+r3 = A.write_snapshot(tmp, mk_snap(gold=150.0, epoch=3000.0), "# md2")
+check("changed same-turn capture becomes r02",
+      not r3.deduplicated and r3.capture_name == "turn-0087_r02", r3.capture_name)
+
+r4 = A.write_snapshot(tmp, mk_snap(turn=88, gold=160.0, epoch=4000.0), "# md3")
+check("new turn resets to r01", r4.capture_name == "turn-0088_r01", r4.capture_name)
+check("same game folder reused across turns",
+      r4.game_id == r1.game_id and not r4.created_game)
+
+r5 = A.write_snapshot(tmp, mk_snap(turn=80, gold=90.0, epoch=5000.0), "# md4")
+check("seed match reopens folder even after loading an earlier save",
+      r5.game_id == r1.game_id and not r5.created_game)
+
+r6 = A.write_snapshot(tmp, mk_snap(game_seed=999, map_seed=888, turn=1, epoch=6000.0), "# md5")
+check("different seeds start game-002",
+      r6.created_game and r6.game_id.startswith("game-002"), r6.game_id)
+
+r7 = A.write_snapshot(
+    tmp, {"section_status": {"header": "failed"}, "meta": {}, "generated_at_epoch": 1.0}, "# junk")
+check("capture without a trusted turn is refused (never guess the game)", r7 is None)
+
+check("archive module never imports the FireTuner stack",
+      "civ_mcp.connection" not in Path(REPO / "src/civ_mcp/coach/archive.py").read_text(encoding="utf-8"))
 
 print("\n=== sentinel decoupling ===")
 from civ_mcp.coach import SENTINEL as COACH_SENTINEL
