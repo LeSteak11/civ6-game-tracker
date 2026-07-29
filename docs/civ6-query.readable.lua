@@ -1,0 +1,484 @@
+-- civ6-query.readable.lua  --  v0.7
+-- Reference / readable version of the S() function.
+-- The single-line paste-ready file is civ6-query.lua.
+--
+-- Every method here is confirmed against Civ 6 base UI source:
+--   Base/Assets/UI/{TopPanel,CitySupport,TradeSupport,TechAndCivicSupport,
+--                   ActionPanel,ReligionScreen}.lua
+--   Base/Assets/UI/ToolTips/PlotToolTip.lua
+--   Base/Assets/UI/Screens/{ReportScreen,GovernmentScreen}.lua
+--   Base/Assets/UI/PartialScreens/{CityStates,WorldRankings}.lua
+--   Base/Assets/UI/Popups/GreatPeoplePopup.lua
+--
+-- READ-ONLY. No state changes. Coach reads, user clicks.
+
+function S()
+  local o = {}
+  local function w(s) o[#o+1] = tostring(s) end
+  local function sf(f, ...) local ok, v = pcall(f, ...); if ok then return v end; return nil end
+  local L = Locale.Lookup
+  local function trim(s, prefix) if not s then return "?" end local r = s:gsub(prefix, ""); return r end
+
+  local ok, err = pcall(function()
+    local id = Game.GetLocalPlayer()
+    if id == -1 then w("no local player"); return end
+    local p = Players[id]
+    if not p then w("no player object"); return end
+    local pc = PlayerConfigurations[id]
+
+    -- ========== HEADER ==========
+    local turn = Game.GetCurrentGameTurn()
+    local year = sf(Calendar.MakeYearStr, turn) or ""
+    local eraIdx = sf(p.GetEra, p)
+    local eraName = "?"
+    if eraIdx then local er = GameInfo.Eras[eraIdx]; if er then eraName = L(er.Name) end end
+    w("=== CIV6 STATUS | TURN " .. turn .. " (" .. tostring(year) .. ", " .. eraName .. ") ===")
+    w("CIV: " .. tostring(pc:GetCivilizationTypeName()) .. " / " .. tostring(pc:GetLeaderTypeName())
+      .. " | SCORE: " .. tostring(sf(p.GetScore, p) or "?"))
+
+    -- ========== YIELDS ==========
+    local t  = p:GetTreasury()
+    local x  = p:GetTechs()
+    local c  = p:GetCulture()
+    local rl = p:GetReligion()
+    local st = p:GetStats()
+    w(string.format("GOLD: %d (net %+.1f | yield %.1f, maint %.1f)",
+      t:GetGoldBalance(), t:GetGoldYield() - t:GetTotalMaintenance(),
+      t:GetGoldYield(), t:GetTotalMaintenance()))
+
+    -- Research
+    local ti = x:GetResearchingTech()
+    if ti and ti >= 0 then
+      local tr = GameInfo.Technologies[ti]
+      local trig = ""
+      for row in GameInfo.Boosts() do
+        if tr and row.TechnologyType == tr.TechnologyType then trig = row.TriggerDescription; break end
+      end
+      w(string.format("SCIENCE: %.1f/turn | %s %.0f/%.0f (%d turns) | eureka:%s%s",
+        x:GetScienceYield(), tr and L(tr.Name) or "none",
+        x:GetResearchProgress(ti), x:GetResearchCost(ti), x:GetTurnsToResearch(ti),
+        tostring(sf(x.HasBoostBeenTriggered, x, ti)),
+        (trig ~= "" and (" [need: " .. L(trig) .. "]")) or ""))
+    else
+      w(string.format("SCIENCE: %.1f/turn | none in progress", x:GetScienceYield()))
+    end
+
+    -- Civic
+    local ci = c:GetProgressingCivic()
+    if ci and ci >= 0 then
+      local cr = GameInfo.Civics[ci]
+      local trig = ""
+      for row in GameInfo.Boosts() do
+        if cr and row.CivicType == cr.CivicType then trig = row.TriggerDescription; break end
+      end
+      w(string.format("CULTURE: %.1f/turn | %s %.0f/%.0f (%d turns) | inspiration:%s%s",
+        c:GetCultureYield(), cr and L(cr.Name) or "none",
+        c:GetCulturalProgress(ci), c:GetCultureCost(ci), c:GetTurnsToProgressCivic(ci),
+        tostring(sf(c.HasBoostBeenTriggered, c, ci)),
+        (trig ~= "" and (" [need: " .. L(trig) .. "]")) or ""))
+    else
+      w(string.format("CULTURE: %.1f/turn | none in progress", c:GetCultureYield()))
+    end
+
+    w(string.format("FAITH: %.0f (+%.1f/turn)", rl:GetFaithBalance(), rl:GetFaithYield()))
+    w(string.format("TOURISM: %.1f/turn", sf(st.GetTourism, st) or 0))
+
+    -- ========== GOVERNMENT + POLICY CARDS ==========
+    local gi = sf(c.GetCurrentGovernment, c)
+    local gr = gi and GameInfo.Governments[gi]
+    w("GOVERNMENT: " .. (gr and L(gr.Name) or "none")
+      .. " | open policy slots: " .. tostring(sf(c.GetNumPolicySlotsOpen, c) or "?"))
+
+    -- Iterate slotted policy cards (index 0..20)
+    local cards = {}
+    for i = 0, 20 do
+      local st_ = sf(c.GetSlotType, c, i)
+      if not st_ or st_ < 0 then break end
+      local pi = sf(c.GetSlotPolicy, c, i) or -1
+      local slotDef = GameInfo.GovernmentSlots and GameInfo.GovernmentSlots[st_]
+      local slotName = slotDef and (slotDef.GovernmentSlotType or ""):gsub("SLOT_", "") or ("SLOT" .. st_)
+      local polName = "empty"
+      if pi >= 0 then
+        local pol = GameInfo.Policies[pi]
+        if pol then polName = L(pol.Name) end
+      end
+      cards[#cards+1] = "    " .. slotName .. ": " .. polName
+    end
+    if #cards > 0 then
+      w("POLICY CARDS SLOTTED:")
+      for _, s in ipairs(cards) do w(s) end
+    end
+
+    w(string.format("MILITARY: %s | techs done %s | civics done %s",
+      tostring(sf(st.GetMilitaryStrength, st) or "?"),
+      tostring(sf(st.GetNumTechsResearched, st) or "?"),
+      tostring(sf(st.GetNumCivicsCompleted, st) or "?")))
+
+    -- ========== ENVOYS / INFLUENCE ==========
+    local inf = sf(p.GetInfluence, p)
+    if inf then
+      w(string.format("ENVOYS: %d in hand | %d/%d pts (+%.1f/turn, %d envoys per threshold)",
+        sf(inf.GetTokensToGive, inf) or 0,
+        sf(inf.GetPointsEarned, inf) or 0,
+        sf(inf.GetPointsThreshold, inf) or 0,
+        sf(inf.GetPointsPerTurn, inf) or 0,
+        sf(inf.GetTokensPerThreshold, inf) or 0))
+    end
+
+    -- ========== RELIGION ==========
+    local pantheonIdx = sf(rl.GetPantheon, rl) or -1
+    local pantheonName = "none"
+    if pantheonIdx >= 0 then
+      local pb = GameInfo.Beliefs[pantheonIdx]
+      if pb then pantheonName = L(pb.Name) end
+    end
+    local myRel = sf(rl.GetReligionTypeCreated, rl) or -1
+    local relLine = "  Pantheon: " .. pantheonName
+    if myRel and myRel > 0 then
+      local relDef = GameInfo.Religions[myRel]
+      local relName = relDef and L(relDef.Name) or ("religion #" .. myRel)
+      local beliefList = {}
+      local gameR = sf(Game.GetReligion) or Game.GetReligion()
+      local allRels = gameR and sf(gameR.GetReligions, gameR) or {}
+      for _, r in ipairs(allRels) do
+        if r.Religion == myRel and r.Beliefs then
+          for _, bi in ipairs(r.Beliefs) do
+            local b = GameInfo.Beliefs[bi]
+            if b then beliefList[#beliefList+1] = L(b.Name) end
+          end
+        end
+      end
+      relLine = relLine .. " | Founded: " .. relName
+        .. (#beliefList > 0 and " (" .. table.concat(beliefList, ", ") .. ")" or "")
+    else
+      relLine = relLine .. " | Founded: none"
+    end
+    w("RELIGION:"); w(relLine)
+
+    -- ========== TRADE ROUTES ==========
+    local trd = p:GetTrade()
+    w(string.format("TRADE ROUTES: %d/%d",
+      sf(trd.GetNumOutgoingRoutes, trd) or 0,
+      sf(trd.GetOutgoingRouteCapacity, trd) or 0))
+    for i, ct in p:GetCities():Members() do
+      local ctrade = ct:GetTrade()
+      local routes = sf(ctrade.GetOutgoingRoutes, ctrade) or {}
+      for _, r in ipairs(routes) do
+        local dp = Players[r.DestinationCityPlayer]
+        local dc = dp and sf(function() return dp:GetCities():FindID(r.DestinationCityID) end)
+        local destName = dc and L(dc:GetName()) or ("player " .. tostring(r.DestinationCityPlayer))
+        local ys = ""
+        for _, y in ipairs(r.OriginYields or {}) do
+          if y.Amount and y.Amount ~= 0 then
+            local yinfo = GameInfo.Yields[y.YieldIndex]
+            local ycode = yinfo and yinfo.YieldType:gsub("YIELD_", ""):sub(1, 3) or "?"
+            ys = ys .. string.format(" %+d%s", y.Amount, ycode)
+          end
+        end
+        w("  " .. L(ct:GetName()) .. " -> " .. destName .. ":" .. (ys ~= "" and ys or " (no yields)"))
+      end
+    end
+
+    -- ========== RESOURCES ==========
+    local pr = p:GetResources()
+    local strat, lux = {}, {}
+    for row in GameInfo.Resources() do
+      if row.ResourceClassType == "RESOURCECLASS_STRATEGIC" then
+        local a = sf(pr.GetResourceAmount, pr, row.ResourceType) or 0
+        if a > 0 then strat[#strat+1] = a .. " " .. L(row.Name) end
+      elseif row.ResourceClassType == "RESOURCECLASS_LUXURY" then
+        local a = sf(pr.GetResourceAmount, pr, row.ResourceType) or 0
+        if a > 0 or sf(pr.HasResource, pr, row.ResourceType) then
+          lux[#lux+1] = (a > 0 and (a .. " " .. L(row.Name)) or L(row.Name))
+        end
+      end
+    end
+    w("STRATEGIC: " .. ((#strat > 0) and table.concat(strat, ", ") or "none"))
+    w("LUXURIES: " .. ((#lux > 0) and table.concat(lux, ", ") or "none"))
+
+    -- ========== GREAT PEOPLE ==========
+    local gpp = sf(p.GetGreatPeoplePoints, p)
+    if gpp and GameInfo.GreatPersonClasses then
+      local gps = {}
+      for row in GameInfo.GreatPersonClasses() do
+        local pts  = sf(gpp.GetPointsTotal,   gpp, row.Index) or 0
+        local rate = sf(gpp.GetPointsPerTurn, gpp, row.Index) or 0
+        if pts > 0 or rate > 0 then
+          local short = row.GreatPersonClassType:gsub("GREAT_PERSON_CLASS_", "")
+          gps[#gps+1] = string.format("%s %.0f(+%.1f)", short, pts, rate)
+        end
+      end
+      if #gps > 0 then w("GREAT PEOPLE: " .. table.concat(gps, " | ")) end
+    end
+
+    -- ========== WONDERS BUILT (empire-wide) ==========
+    local wonders = {}
+    for i, ct in p:GetCities():Members() do
+      local pb = ct:GetBuildings()
+      for row in GameInfo.Buildings() do
+        if row.IsWonder and sf(pb.HasBuilding, pb, row.Index) then
+          wonders[#wonders+1] = L(row.Name) .. " (in " .. L(ct:GetName()) .. ")"
+        end
+      end
+    end
+    w("WONDERS BUILT: " .. ((#wonders > 0) and table.concat(wonders, ", ") or "none"))
+
+    -- ========== PER-CITY ==========
+    w("CITIES:")
+    for i, ct in p:GetCities():Members() do
+      local q  = ct:GetBuildQueue()
+      local g  = ct:GetGrowth()
+      local cx = sf(ct.GetX, ct) or -1
+      local cy = sf(ct.GetY, ct) or -1
+      local pop = ct:GetPopulation()
+      local food = sf(g.GetFoodSurplus, g) or 0
+      local grow = sf(g.GetTurnsUntilGrowth, g) or -1
+      local starve = sf(g.GetTurnsUntilStarvation, g) or -1
+      local hous = sf(g.GetHousing, g) or 0
+      local am = sf(g.GetAmenities, g) or 0
+      local amNeed = sf(g.GetAmenitiesNeeded, g) or 0
+      local growStr
+      if grow and grow >= 0 then growStr = grow .. "t"
+      elseif starve and starve >= 0 then growStr = "STARVE " .. starve .. "t"
+      else growStr = "-" end
+      local cul = ct:GetCulture()
+      local expT = sf(cul.GetTurnsUntilExpansion, cul) or -1
+
+      -- Yields
+      local F  = sf(ct.GetYield, ct, YieldTypes.FOOD)       or 0
+      local P  = sf(ct.GetYield, ct, YieldTypes.PRODUCTION) or 0
+      local G  = sf(ct.GetYield, ct, YieldTypes.GOLD)       or 0
+      local S2 = sf(ct.GetYield, ct, YieldTypes.SCIENCE)    or 0
+      local C  = sf(ct.GetYield, ct, YieldTypes.CULTURE)    or 0
+      local Fa = sf(ct.GetYield, ct, YieldTypes.FAITH)      or 0
+
+      local function nm(h) local r = GameInfo.Types[h]; return r and r.Type or "nothing" end
+
+      w(string.format("=== %s%s === pos(%d,%d) | pop %d | grow %s (food%+.1f) | hous %d | am %d/%d | border+%dt",
+        L(ct:GetName()), ct:IsCapital() and " [CAP]" or "",
+        cx, cy, pop, growStr, food, hous, am, amNeed, expT))
+      w(string.format("  YIELDS: F%.1f P%.1f G%.1f S%.1f C%.1f Fa%.1f",
+        F, P, G, S2, C, Fa))
+      local prodPct = 0
+      local qHash = q:GetCurrentProductionTypeHash()
+      local qName = nm(qHash)
+      w(string.format("  PRODUCING: %s (%dt)", qName, sf(q.GetTurnsLeft, q) or 0))
+
+      -- Districts + buildings per district + adjacency
+      local dcol = ct:GetDistricts()
+      local bldObj = ct:GetBuildings()
+      if dcol then
+        for j, dt in dcol:Members() do
+          local dinf = GameInfo.Districts[dt:GetType()]
+          if dinf and dinf.DistrictType ~= "DISTRICT_WONDER" then
+            local dname = dinf.DistrictType:gsub("DISTRICT_", "")
+            local dx = sf(dt.GetX, dt) or -1
+            local dy = sf(dt.GetY, dt) or -1
+            -- adjacency yields
+            local adj = ""
+            for yrow in GameInfo.Yields() do
+              local av = sf(dt.GetAdjacencyYield, dt, yrow.Index) or 0
+              if av > 0 then
+                local yc = yrow.YieldType:gsub("YIELD_", ""):sub(1, 3)
+                adj = adj .. string.format(" +%d%s", av, yc)
+              end
+            end
+            -- buildings on this district plot
+            local bldg = {}
+            local plotID = sf(function() return Map.GetPlot(dx, dy):GetIndex() end)
+            local btypes = plotID and sf(bldObj.GetBuildingsAtLocation, bldObj, plotID) or {}
+            for _, bt in ipairs(btypes) do
+              local binf = GameInfo.Buildings[bt]
+              if binf then
+                local nm2 = L(binf.Name)
+                if sf(bldObj.IsPillaged, bldObj, bt) then nm2 = nm2 .. "(PILLAGED)" end
+                bldg[#bldg+1] = nm2
+              end
+            end
+            w(string.format("  DIST %s pos(%d,%d)%s: %s",
+              dname, dx, dy, adj ~= "" and (" [adj:" .. adj .. "]") or "",
+              #bldg > 0 and table.concat(bldg, ", ") or "no buildings"))
+          end
+        end
+      end
+
+      -- Owned tiles: terrain census + list resource / improvement tiles
+      local plotList = sf(function() return Map.GetCityPlots():GetPurchasedPlots(ct) end) or {}
+      local terrCensus = {}
+      local featCensus = {}
+      local impCensus  = {}
+      local resTiles = {}
+      local impTiles = {}
+      local workedCount, totalTiles = 0, 0
+      for _, pid in ipairs(plotList) do
+        local pl = sf(function() return Map.GetPlotByIndex(pid) end)
+        if pl then
+          totalTiles = totalTiles + 1
+          local tt = sf(pl.GetTerrainType, pl)
+          local terrKey = "?"
+          if tt and tt >= 0 then
+            local tinf = GameInfo.Terrains[tt]
+            if tinf then terrKey = tinf.TerrainType:gsub("TERRAIN_", ""):lower() end
+          end
+          terrCensus[terrKey] = (terrCensus[terrKey] or 0) + 1
+          local ft = sf(pl.GetFeatureType, pl)
+          if ft and ft >= 0 then
+            local finf = GameInfo.Features[ft]
+            if finf then
+              local fk = finf.FeatureType:gsub("FEATURE_", ""):lower()
+              featCensus[fk] = (featCensus[fk] or 0) + 1
+            end
+          end
+          local rt = sf(pl.GetResourceType, pl)
+          if rt and rt >= 0 then
+            local rinf = GameInfo.Resources[rt]
+            if rinf then
+              local rcount = sf(pl.GetResourceCount, pl) or 1
+              local rn = L(rinf.Name) .. (rcount > 1 and ("(" .. rcount .. ")") or "")
+              local rclass = (rinf.ResourceClassType or ""):gsub("RESOURCECLASS_", ""):sub(1, 3):lower()
+              local px, py = sf(pl.GetX, pl) or -1, sf(pl.GetY, pl) or -1
+              local ex = ""
+              local im = sf(pl.GetImprovementType, pl)
+              if im and im >= 0 then
+                local iinf = GameInfo.Improvements[im]
+                if iinf then ex = " " .. iinf.ImprovementType:gsub("IMPROVEMENT_", ""):lower() end
+              end
+              local wc = sf(pl.GetWorkerCount, pl) or 0
+              resTiles[#resTiles+1] = string.format("(%d,%d) %s %s%s%s",
+                px, py, rclass, rn, ex, wc > 0 and " W" or "")
+            end
+          end
+          local im2 = sf(pl.GetImprovementType, pl)
+          if im2 and im2 >= 0 then
+            local iinf = GameInfo.Improvements[im2]
+            if iinf then
+              local ik = iinf.ImprovementType:gsub("IMPROVEMENT_", ""):lower()
+              impCensus[ik] = (impCensus[ik] or 0) + 1
+            end
+          end
+          local wc = sf(pl.GetWorkerCount, pl) or 0
+          if wc > 0 then workedCount = workedCount + 1 end
+        end
+      end
+      -- Format censuses
+      local function sortedCensus(t)
+        local a = {}
+        for k, v in pairs(t) do a[#a+1] = { k = k, v = v } end
+        table.sort(a, function(x, y) return x.v > y.v end)
+        local r = {}
+        for _, e in ipairs(a) do r[#r+1] = e.v .. " " .. e.k end
+        return table.concat(r, ", ")
+      end
+      w(string.format("  TILES: %d owned, %d worked | terrain: %s%s",
+        totalTiles, workedCount, sortedCensus(terrCensus),
+        next(featCensus) and (" | features: " .. sortedCensus(featCensus)) or ""))
+      if next(impCensus) then w("  IMPROVEMENTS: " .. sortedCensus(impCensus)) end
+      if #resTiles > 0 then
+        w("  RESOURCE TILES:")
+        for _, s in ipairs(resTiles) do w("    " .. s) end
+      end
+    end
+
+    -- ========== UNITS ==========
+    w("UNITS (" .. p:GetUnits():GetCount() .. "):")
+    for i, u in p:GetUnits():Members() do
+      local ur = GameInfo.Units[u:GetUnitType()]
+      local uname = ur and L(ur.Name) or "?"
+      local promo = sf(u.GetExperience, u) or 0
+      local extras = ""
+      local bc = sf(u.GetBuildCharges, u)
+      if bc and bc > 0 then extras = extras .. " ch:" .. bc end
+      local ft = sf(u.GetFortifyTurns, u)
+      if ft and ft > 0 then extras = extras .. " fort:" .. ft end
+      w(string.format("  %s | hp %d/%d | mv %.0f/%.0f | (%d,%d) | xp %s%s%s",
+        uname, u:GetMaxDamage() - u:GetDamage(), u:GetMaxDamage(),
+        u:GetMovesRemaining(), u:GetMaxMoves(), u:GetX(), u:GetY(),
+        tostring(promo), extras,
+        u:IsReadyToMove() and " <IDLE>" or ""))
+    end
+
+    -- ========== BARBARIAN CAMPS ON MAP ==========
+    local camps = {}
+    local plotCount = sf(Map.GetPlotCount) or 0
+    for i = 0, plotCount - 1 do
+      local pl = sf(function() return Map.GetPlotByIndex(i) end)
+      if pl then
+        local im = sf(pl.GetImprovementType, pl)
+        if im and im >= 0 then
+          local iinf = GameInfo.Improvements[im]
+          if iinf and iinf.ImprovementType == "IMPROVEMENT_BARBARIAN_CAMP" then
+            camps[#camps+1] = string.format("(%d,%d)", sf(pl.GetX, pl) or -1, sf(pl.GetY, pl) or -1)
+          end
+        end
+      end
+    end
+    if #camps > 0 then
+      w("BARBARIAN CAMPS (" .. #camps .. "): " .. table.concat(camps, ", "))
+    else
+      w("BARBARIAN CAMPS: none visible")
+    end
+
+    -- ========== VISIBLE BARBARIAN UNITS ==========
+    local barbUnits = {}
+    local pBarb = Players[63]
+    if pBarb then
+      local bu = sf(pBarb.GetUnits, pBarb)
+      if bu then
+        for _, bunit in bu:Members() do
+          local bur = GameInfo.Units[bunit:GetUnitType()]
+          barbUnits[#barbUnits+1] = string.format("%s (%d,%d)",
+            bur and L(bur.Name) or "?", bunit:GetX(), bunit:GetY())
+        end
+      end
+    end
+    if #barbUnits > 0 then
+      w("BARB UNITS ALIVE (" .. #barbUnits .. "): " .. table.concat(barbUnits, ", "))
+    end
+
+    -- ========== DIPLOMACY ==========
+    local d = p:GetDiplomacy()
+    local majorSet = {}
+    for _, pid in ipairs(sf(PlayerManager.GetAliveMajorIDs) or {}) do majorSet[pid] = true end
+
+    local majors, minors = {}, {}
+    for _, q2 in ipairs(d:GetPlayersMetIDs() or {}) do
+      if q2 ~= 63 then
+        local op = Players[q2]
+        local opc = PlayerConfigurations[q2]
+        if op and opc then
+          local warStr = tostring(d:IsAtWarWith(q2))
+          local metT = d:GetMetTurn(q2)
+          if majorSet[q2] then
+            local ost = sf(op.GetStats, op)
+            local mil = ost and (sf(ost.GetMilitaryStrength, ost) or "?") or "?"
+            local sc  = sf(op.GetScore, op) or "?"
+            local nc  = ost and (sf(ost.GetNumTechsResearched, ost) or "?") or "?"
+            local ncc = op:GetCulture() and (sf(op:GetCulture().GetNumPolicySlotsOpen, op:GetCulture()) or 0) or 0
+            majors[#majors+1] = string.format("  %s | war=%s | score=%s mil=%s techs=%s | metT%d",
+              tostring(opc:GetCivilizationTypeName()), warStr,
+              tostring(sc), tostring(mil), tostring(nc), metT)
+          else
+            local inf2 = sf(op.GetInfluence, op)
+            local sent = inf2 and (sf(inf2.GetTokensReceived, inf2, id) or 0) or 0
+            local suz  = inf2 and (sf(inf2.GetSuzerain, inf2) or -1) or -1
+            local suzName = "none"
+            if suz and suz >= 0 then
+              if suz == id then suzName = "ME"
+              else
+                local suzpc = PlayerConfigurations[suz]
+                suzName = suzpc and tostring(suzpc:GetCivilizationTypeName()):gsub("CIVILIZATION_", "") or ("p" .. suz)
+              end
+            end
+            local csName = tostring(opc:GetCivilizationTypeName()):gsub("CIVILIZATION_", "")
+            minors[#minors+1] = string.format("  %s | envoys sent %d | suz: %s | war=%s | metT%d",
+              csName, sent, suzName, warStr, metT)
+          end
+        end
+      end
+    end
+    if #majors > 0 then w("MAJORS MET (" .. #majors .. "):"); for _, m in ipairs(majors) do w(m) end end
+    if #minors > 0 then w("CITY-STATES MET (" .. #minors .. "):"); for _, m in ipairs(minors) do w(m) end end
+  end)
+  if not ok then w("!! mid-report error: " .. tostring(err)) end
+  print(table.concat(o, "\n"))
+end

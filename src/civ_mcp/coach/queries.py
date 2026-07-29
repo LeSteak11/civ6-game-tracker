@@ -1,0 +1,1311 @@
+"""Base-game-only Lua query builders for the coach snapshot.
+
+Design rules (learned the hard way from the first live smoke test):
+
+1.  **Never wrap a whole query in one outer pcall.**  If one field in the
+    middle of the chunk errors, the outer pcall bails and we lose
+    everything after it.  Instead, use a tiny ``safe(section, fn)`` helper
+    that emits a ``TRACE|`` line, runs one narrow block inside pcall, and
+    emits ``DIAG|section|err`` if it fails — then continues.
+2.  **Emit TRACE|<section>|<field> before every risky group.**  If Lua
+    crashes mid-section the next trace line names the field, so the next
+    live failure never comes back as just "line 29 of an unknown chunk".
+3.  **Iterate collections defensively.**  Each city, each district, each
+    unit runs inside its own pcall.  A single missing building or plot
+    yield cannot produce ``CITIES (0)``.
+4.  **pcall every global** whose availability is not documented for the
+    state we're running in.  Especially ``Calendar``,
+    ``MapConfiguration``, ``GameConfiguration``, ``PlayerManager``,
+    ``NotificationManager``, ``EndTurnBlockingTypes``.
+5.  **Never guess a method name.**  If the exact API name isn't confirmed
+    in the shipped base-game UI Lua or the v0.7 ``civ6-query.lua``, wrap
+    the call in ``safeCall`` and treat a nil result as "unavailable".
+"""
+
+from __future__ import annotations
+
+from civ_mcp.lua._helpers import SENTINEL
+
+
+def _sentinel_line() -> str:
+    return f'print("{SENTINEL}")'
+
+
+# Common prelude used by every query.  Provides:
+#   L           = Locale.Lookup
+#   esc(s)      = pipe-safe string
+#   sf(fn, ...) = pcall wrapper, returns nil on failure
+#   safe(name, fn) = pcall block with TRACE+DIAG side effects
+#   safeCall(name, obj, method, ...) = call obj:method(...) safely
+#   me, p, cfg  = local player conveniences (nil if no player)
+def _prelude(section: str) -> str:
+    return f"""\
+local L = Locale.Lookup
+local function esc(s) if s == nil then return "" end return tostring(s):gsub("|", "/") end
+local function sf(fn, ...)
+  local ok, v = pcall(fn, ...)
+  if ok then return v end
+  return nil
+end
+local function safe(field, fn)
+  print("TRACE|{section}|" .. field)
+  local ok, err = pcall(fn)
+  if not ok then print("DIAG|{section}." .. field .. "|" .. tostring(err)) end
+end
+local function safeCall(field, obj, method, ...)
+  if obj == nil then return nil end
+  local m = obj[method]
+  if type(m) ~= "function" then
+    print("DIAG|{section}." .. field .. "|method '" .. method .. "' not on object")
+    return nil
+  end
+  local ok, v = pcall(m, obj, ...)
+  if not ok then
+    print("DIAG|{section}." .. field .. "|" .. tostring(v))
+    return nil
+  end
+  return v
+end
+local me = -1
+pcall(function() me = Game.GetLocalPlayer() end)
+if me == nil or me == -1 then
+  print("DIAG|{section}|no local player (main menu?)")
+  {_sentinel_line()}
+  return
+end
+local p = Players and Players[me] or nil
+if not p then
+  print("DIAG|{section}|Players[" .. me .. "] nil")
+  {_sentinel_line()}
+  return
+end
+local cfg = PlayerConfigurations and PlayerConfigurations[me] or nil
+"""
+
+
+# ---------------------------------------------------------------------------
+# Q1 — metadata + global empire state
+# ---------------------------------------------------------------------------
+
+def build_meta_query() -> str:
+    return _prelude("META") + r"""
+
+-- ---- Header (turn, year, era) ------------------------------------------
+safe("header", function()
+  local turn = Game.GetCurrentGameTurn() or 0
+  local year = ""
+  pcall(function() if Calendar and Calendar.MakeYearStr then year = Calendar.MakeYearStr(turn) or "" end end)
+  local eraName = "?"
+  pcall(function()
+    local eraIdx = p:GetEra()
+    if eraIdx and eraIdx >= 0 then
+      local er = GameInfo.Eras[eraIdx]
+      if er then eraName = L(er.Name) end
+    end
+  end)
+  local civType   = ""; pcall(function() civType   = cfg:GetCivilizationTypeName() or "" end)
+  local civShort  = ""; pcall(function() civShort  = L(cfg:GetCivilizationShortDescription()) or "" end)
+  local leaderType = ""; pcall(function() leaderType = cfg:GetLeaderTypeName() or "" end)
+  local leaderName = ""; pcall(function() leaderName = L(cfg:GetLeaderName()) or "" end)
+  local diffName = "?"
+  pcall(function()
+    local diffHash = cfg:GetHandicapTypeID()
+    for d in GameInfo.Difficulties() do
+      if GameConfiguration.MakeHash(d.DifficultyType) == diffHash then
+        diffName = L(d.Name); break
+      end
+    end
+  end)
+  local speedName = "?"
+  pcall(function()
+    local gsIdx = Game.GetGameSpeedType()
+    local gsRow = GameInfo.GameSpeeds[gsIdx]
+    if gsRow then speedName = L(gsRow.Name) end
+  end)
+  local mapSize = "?"
+  pcall(function() if MapConfiguration and MapConfiguration.GetMapSize then mapSize = tostring(MapConfiguration.GetMapSize()) end end)
+  local mapType = "?"
+  pcall(function() if MapConfiguration and MapConfiguration.GetScript then mapType = tostring(MapConfiguration.GetScript()) end end)
+  local maxPlayers = 0
+  pcall(function() if MapConfiguration and MapConfiguration.GetMaxMajorPlayers then maxPlayers = MapConfiguration.GetMaxMajorPlayers() or 0 end end)
+  local maxTurns = 0
+  pcall(function() if GameConfiguration and GameConfiguration.GetValue then maxTurns = GameConfiguration.GetValue("GAME_MAX_TURNS") or 0 end end)
+  print("META|" .. turn .. "|" .. esc(year) .. "|" .. esc(eraName)
+    .. "|" .. esc(civType) .. "|" .. esc(civShort)
+    .. "|" .. esc(leaderType) .. "|" .. esc(leaderName)
+    .. "|" .. esc(diffName) .. "|" .. esc(speedName)
+    .. "|" .. esc(mapSize) .. "|" .. esc(mapType)
+    .. "|" .. maxPlayers .. "|" .. maxTurns)
+end)
+
+-- ---- Enabled victories --------------------------------------------------
+safe("victories", function()
+  local vlist = {}
+  local vtypes = {"VICTORY_TECHNOLOGY","VICTORY_CULTURE","VICTORY_RELIGIOUS","VICTORY_CONQUEST","VICTORY_SCORE"}
+  for _, vt in ipairs(vtypes) do
+    local row = GameInfo.Victories[vt]
+    if row then
+      local okv, en = pcall(function() return Game.IsVictoryEnabled(row.Index) end)
+      if okv and en then vlist[#vlist+1] = vt end
+    end
+  end
+  print("VICT|" .. table.concat(vlist, ","))
+end)
+
+-- ---- EMPIRE totals -----------------------------------------------------
+safe("empire", function()
+  local t   = p:GetTreasury()
+  local tec = p:GetTechs()
+  local cul = p:GetCulture()
+  local rel = p:GetReligion()
+  local st  = p:GetStats()
+  local trd = p:GetTrade()
+
+  local score = sf(function() return p:GetScore() end) or 0
+  local gold  = sf(function() return t:GetGoldBalance() end) or 0
+  local goldY = sf(function() return t:GetGoldYield() end) or 0
+  local goldM = sf(function() return t:GetTotalMaintenance() end) or 0
+  local sci   = sf(function() return tec:GetScienceYield() end) or 0
+  local cult  = sf(function() return cul:GetCultureYield() end) or 0
+  local faith = sf(function() return rel:GetFaithBalance() end) or 0
+  local faithY = sf(function() return rel:GetFaithYield() end) or 0
+  local tour  = sf(function() return st:GetTourism() end) or 0
+  local mil   = sf(function() return st:GetMilitaryStrength() end) or 0
+  local techsN = sf(function() return st:GetNumTechsResearched() end) or 0
+  local civicsN = sf(function() return st:GetNumCivicsCompleted() end) or 0
+
+  local nCities, totalPop, nUnits = 0, 0, 0
+  pcall(function()
+    for _, c in p:GetCities():Members() do
+      nCities = nCities + 1
+      totalPop = totalPop + (sf(function() return c:GetPopulation() end) or 0)
+    end
+  end)
+  pcall(function() for _, u in p:GetUnits():Members() do nUnits = nUnits + 1 end end)
+
+  local tradeUsed = sf(function() return trd:GetNumOutgoingRoutes() end) or 0
+  local tradeCap  = sf(function() return trd:GetOutgoingRouteCapacity() end) or 0
+
+  local revLand, totalLand = 0, 0
+  pcall(function()
+    local pVis = PlayersVisibility and PlayersVisibility[me] or nil
+    local totalPlots = Map.GetPlotCount() or 0
+    for i = 0, totalPlots - 1 do
+      local plot = Map.GetPlotByIndex(i)
+      if plot and not plot:IsWater() then
+        totalLand = totalLand + 1
+        if pVis and pVis:IsRevealed(plot:GetX(), plot:GetY()) then revLand = revLand + 1 end
+      end
+    end
+  end)
+
+  print(string.format("EMPIRE|%d|%.1f|%.1f|%.1f|%.1f|%.1f|%.1f|%.1f|%.1f|%.1f|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d",
+    score, gold, goldY, goldM, goldY - goldM,
+    sci, cult, faith, faithY, tour,
+    mil, techsN, civicsN,
+    nCities, nUnits, totalPop,
+    tradeUsed, tradeCap, revLand, totalLand))
+end)
+
+-- ---- Current tech + civic ----------------------------------------------
+safe("current_tech", function()
+  local tec = p:GetTechs()
+  local ti = sf(function() return tec:GetResearchingTech() end)
+  if not ti or ti < 0 then
+    print("CURR|TECH||none|0|0|-1|false|")
+    return
+  end
+  local trow = GameInfo.Technologies[ti]
+  local typekey = trow and trow.TechnologyType or ""
+  local trigger = ""
+  pcall(function()
+    for row in GameInfo.Boosts() do
+      if row.TechnologyType == typekey then trigger = L(row.TriggerDescription or ""); break end
+    end
+  end)
+  print(string.format("CURR|TECH|%s|%s|%.0f|%.0f|%d|%s|%s",
+    typekey, esc(L(trow.Name)),
+    sf(function() return tec:GetResearchProgress(ti) end) or 0,
+    sf(function() return tec:GetResearchCost(ti) end) or 0,
+    sf(function() return tec:GetTurnsToResearch(ti) end) or -1,
+    tostring(sf(function() return tec:HasBoostBeenTriggered(ti) end)),
+    esc(trigger)))
+end)
+
+safe("current_civic", function()
+  local cul = p:GetCulture()
+  local ci = sf(function() return cul:GetProgressingCivic() end)
+  if not ci or ci < 0 then
+    print("CURR|CIVIC||none|0|0|-1|false|")
+    return
+  end
+  local crow = GameInfo.Civics[ci]
+  local typekey = crow and crow.CivicType or ""
+  local trigger = ""
+  pcall(function()
+    for row in GameInfo.Boosts() do
+      if row.CivicType == typekey then trigger = L(row.TriggerDescription or ""); break end
+    end
+  end)
+  print(string.format("CURR|CIVIC|%s|%s|%.0f|%.0f|%d|%s|%s",
+    typekey, esc(L(crow.Name)),
+    sf(function() return cul:GetCulturalProgress(ci) end) or 0,
+    sf(function() return cul:GetCultureCost(ci) end) or 0,
+    sf(function() return cul:GetTurnsToProgressCivic(ci) end) or -1,
+    tostring(sf(function() return cul:HasBoostBeenTriggered(ci) end)),
+    esc(trigger)))
+end)
+
+-- ---- Resources ---------------------------------------------------------
+safe("resources", function()
+  local pr = p:GetResources()
+  for row in GameInfo.Resources() do
+    local cls = row.ResourceClassType or ""
+    if cls == "RESOURCECLASS_STRATEGIC" or cls == "RESOURCECLASS_LUXURY" or cls == "RESOURCECLASS_BONUS" then
+      local amt = sf(function() return pr:GetResourceAmount(row.Index) end) or 0
+      local acc = sf(function() return pr:HasResource(row.Index) end) or false
+      if amt > 0 or (cls == "RESOURCECLASS_LUXURY" and acc) then
+        local short = cls:gsub("RESOURCECLASS_", "")
+        print(string.format("RES|%s|%s|%s|%d|%s",
+          short, row.ResourceType, esc(L(row.Name)), amt, tostring(acc)))
+      end
+    end
+  end
+end)
+
+-- ---- Government + Policy slots ----------------------------------------
+safe("government", function()
+  local cul = p:GetCulture()
+  local govIdx = sf(function() return cul:GetCurrentGovernment() end) or -1
+  local govType, govName = "NONE", "None"
+  if govIdx >= 0 then
+    local gr = GameInfo.Governments[govIdx]
+    if gr then govType = gr.GovernmentType; govName = L(gr.Name) end
+  end
+  local slotsOpen = sf(function() return cul:GetNumPolicySlotsOpen() end) or 0
+  -- PolicyChangeMade() returns true if a change was made THIS turn (no free
+  -- change available).  When it errors, assume we don't know and report "?".
+  local changed = sf(function() return cul:PolicyChangeMade() end)
+  local freeChange = "?"
+  if changed ~= nil then freeChange = tostring(not changed) end
+  print(string.format("GOVT|%s|%s|%d|%s", govType, esc(govName), slotsOpen, freeChange))
+end)
+
+safe("policy_slots", function()
+  local cul = p:GetCulture()
+  for i = 0, 30 do
+    local st_ = sf(function() return cul:GetSlotType(i) end)
+    if not st_ or st_ < 0 then break end
+    local slotRow = GameInfo.GovernmentSlots and GameInfo.GovernmentSlots[st_]
+    local slotType = slotRow and slotRow.GovernmentSlotType or ("SLOT_" .. st_)
+    local slotName = slotType:gsub("SLOT_", "")
+    local pi = sf(function() return cul:GetSlotPolicy(i) end) or -1
+    local pType, pName, pEff = "", "empty", ""
+    if pi >= 0 then
+      local pol = GameInfo.Policies[pi]
+      if pol then
+        pType = pol.PolicyType
+        pName = L(pol.Name)
+        if pol.Description then pEff = L(pol.Description) end
+      end
+    end
+    print(string.format("POLICYSLOT|%d|%s|%s|%s|%s|%s",
+      i, slotType, slotName, pType, esc(pName), esc(pEff)))
+  end
+end)
+
+safe("policy_available", function()
+  local cul = p:GetCulture()
+  local slottedSet = {}
+  for i = 0, 30 do
+    local st_ = sf(function() return cul:GetSlotType(i) end)
+    if not st_ or st_ < 0 then break end
+    local pi = sf(function() return cul:GetSlotPolicy(i) end) or -1
+    if pi >= 0 then slottedSet[pi] = true end
+  end
+  for pol in GameInfo.Policies() do
+    local unlocked = sf(function() return cul:IsPolicyUnlocked(pol.Index) end)
+    local obsolete = sf(function() return cul:IsPolicyObsolete(pol.Index) end)
+    if unlocked and not slottedSet[pol.Index] and not obsolete then
+      local slotName = (pol.GovernmentSlotType or ""):gsub("SLOT_", "")
+      local eff = pol.Description and L(pol.Description) or ""
+      print(string.format("POLICYAVAIL|%s|%s|%s|%s",
+        pol.PolicyType, slotName, esc(L(pol.Name)), esc(eff)))
+    end
+  end
+end)
+
+-- ---- Great People ------------------------------------------------------
+safe("great_people", function()
+  local gpp = sf(function() return p:GetGreatPeoplePoints() end)
+  if not gpp or not GameInfo.GreatPersonClasses then return end
+  local gpm = sf(function() return Game.GetGreatPeople() end)
+  for row in GameInfo.GreatPersonClasses() do
+    local pts = sf(function() return gpp:GetPointsTotal(row.Index) end) or 0
+    local rate = sf(function() return gpp:GetPointsPerTurn(row.Index) end) or 0
+    local cand, patCost, nextCost = "", -1, 0
+    if gpm then
+      local indiv = sf(function() return gpm:GetActiveIndividual(row.Hash) end)
+      if indiv and indiv >= 0 then
+        local irow = GameInfo.GreatPersonIndividuals[indiv]
+        if irow then cand = L(irow.Name or irow.GreatPersonIndividualType) end
+      end
+      patCost = sf(function() return gpm:GetPatronizationCostFaith(me, row.Hash) end) or -1
+      nextCost = sf(function() return gpm:GetNextRecruitCost(row.Hash) end) or 0
+    end
+    if pts > 0 or rate > 0 or (cand ~= "") then
+      local shortName = row.GreatPersonClassType:gsub("GREAT_PERSON_CLASS_", "")
+      print(string.format("GPPT|%s|%s|%.0f|%.1f|%d|%s|%d",
+        row.GreatPersonClassType, esc(shortName), pts, rate, nextCost, esc(cand), patCost))
+    end
+  end
+end)
+
+""" + _sentinel_line()
+
+
+# ---------------------------------------------------------------------------
+# Q2 — tech + civic choices (per-item pcall so one bad row can't kill the loop)
+# ---------------------------------------------------------------------------
+
+def build_choices_query() -> str:
+    return _prelude("CHOICES") + r"""
+
+local tec = p:GetTechs()
+local cul = p:GetCulture()
+
+-- Boost lookup
+local boostsByTech, boostsByCivic = {}, {}
+pcall(function()
+  for b in GameInfo.Boosts() do
+    if b.TechnologyType then boostsByTech[b.TechnologyType] = b end
+    if b.CivicType then boostsByCivic[b.CivicType] = b end
+  end
+end)
+
+-- We don't trust `tec:CanResearch` / `cul:CanProgressCivic` to be present
+-- across every game state; probe once and fall back to "not-yet-researched"
+-- if the method is missing.  This matches CivicsTree.lua / TechTree.lua.
+local hasCanResearch     = type(tec.CanResearch)     == "function"
+local hasCanProgCivic    = type(cul.CanProgressCivic) == "function"
+if not hasCanResearch  then print("DIAG|CHOICES.probe|tec:CanResearch missing — falling back to !HasTech") end
+if not hasCanProgCivic then print("DIAG|CHOICES.probe|cul:CanProgressCivic missing — falling back to !HasCivic") end
+
+safe("techs_available", function()
+  for tech in GameInfo.Technologies() do
+    pcall(function()
+      local has = sf(function() return tec:HasTech(tech.Index) end)
+      if has then return end
+      if hasCanResearch then
+        local can = sf(function() return tec:CanResearch(tech.Index) end)
+        if not can then return end
+      end
+      local cost = sf(function() return tec:GetResearchCost(tech.Index) end) or 0
+      local prog = sf(function() return tec:GetResearchProgress(tech.Index) end) or 0
+      local turns = sf(function() return tec:GetTurnsToResearch(tech.Index) end) or -1
+      local boosted = sf(function() return tec:HasBoostBeenTriggered(tech.Index) end)
+      local trig = ""
+      local b = boostsByTech[tech.TechnologyType]
+      if b and b.TriggerDescription then trig = L(b.TriggerDescription) end
+      local unlocks = {}
+      for u in GameInfo.Units() do if u.PrereqTech == tech.TechnologyType then unlocks[#unlocks+1] = L(u.Name) end end
+      for bl in GameInfo.Buildings() do if bl.PrereqTech == tech.TechnologyType then unlocks[#unlocks+1] = L(bl.Name) end end
+      for d in GameInfo.Districts() do if d.PrereqTech == tech.TechnologyType then unlocks[#unlocks+1] = L(d.Name) end end
+      for imp in GameInfo.Improvements() do if imp.PrereqTech == tech.TechnologyType then unlocks[#unlocks+1] = L(imp.Name) end end
+      for r in GameInfo.Resources() do if r.PrereqTech == tech.TechnologyType then unlocks[#unlocks+1] = "Reveals " .. L(r.Name) end end
+      print(string.format("TAV|%s|%s|%.0f|%.0f|%d|%s|%s|%s",
+        tech.TechnologyType, esc(L(tech.Name)),
+        prog, cost, turns, tostring(boosted),
+        esc(trig), esc(table.concat(unlocks, ", "))))
+    end)
+  end
+end)
+
+safe("civics_available", function()
+  for civic in GameInfo.Civics() do
+    pcall(function()
+      local has = sf(function() return cul:HasCivic(civic.Index) end)
+      if has then return end
+      if hasCanProgCivic then
+        local can = sf(function() return cul:CanProgressCivic(civic.Index) end)
+        if not can then return end
+      end
+      local cost = sf(function() return cul:GetCultureCost(civic.Index) end) or 0
+      local prog = sf(function() return cul:GetCulturalProgress(civic.Index) end) or 0
+      local turns = sf(function() return cul:GetTurnsToProgressCivic(civic.Index) end) or -1
+      local boosted = sf(function() return cul:HasBoostBeenTriggered(civic.Index) end)
+      local trig = ""
+      local b = boostsByCivic[civic.CivicType]
+      if b and b.TriggerDescription then trig = L(b.TriggerDescription) end
+      local unlocks = {}
+      for pol in GameInfo.Policies() do
+        if pol.PrereqCivic == civic.CivicType then unlocks[#unlocks+1] = L(pol.Name) end
+      end
+      for gov in GameInfo.Governments() do
+        if gov.PrereqCivic == civic.CivicType then unlocks[#unlocks+1] = "Government: " .. L(gov.Name) end
+      end
+      print(string.format("CAV|%s|%s|%.0f|%.0f|%d|%s|%s|%s",
+        civic.CivicType, esc(L(civic.Name)),
+        prog, cost, turns, tostring(boosted),
+        esc(trig), esc(table.concat(unlocks, ", "))))
+    end)
+  end
+end)
+
+""" + _sentinel_line()
+
+
+# ---------------------------------------------------------------------------
+# Q3 — cities (per-city, per-subsection pcall isolation)
+# ---------------------------------------------------------------------------
+
+def build_cities_query() -> str:
+    return _prelude("CITIES") + r"""
+
+-- Build hash → type-key lookup for production items.
+local hashName = {}
+pcall(function()
+  for u in GameInfo.Units() do hashName[u.Hash] = u.UnitType end
+  for b in GameInfo.Buildings() do hashName[b.Hash] = b.BuildingType end
+  for d in GameInfo.Districts() do hashName[d.Hash] = d.DistrictType end
+  for pr in GameInfo.Projects() do hashName[pr.Hash] = pr.ProjectType end
+end)
+
+local ccCenterIdx = GameInfo.Districts["DISTRICT_CITY_CENTER"] and GameInfo.Districts["DISTRICT_CITY_CENTER"].Index
+
+for _, c in p:GetCities():Members() do
+  local cID = -1
+  pcall(function() cID = c:GetID() end)
+  print("TRACE|CITY|" .. cID .. "|start")
+
+  -- --- Header --------------------------------------------------------
+  pcall(function()
+    local cName = "?"; pcall(function() cName = L(c:GetName()) end)
+    local cx, cy = -1, -1
+    pcall(function() cx = c:GetX(); cy = c:GetY() end)
+    local pop = sf(function() return c:GetPopulation() end) or 0
+    local isCap = sf(function() return c:IsCapital() end) or false
+
+    -- Growth subsection
+    local food, grow, starve, hous, am, amN, happ = 0, -1, -1, 0, 0, 0, 0
+    pcall(function()
+      local g = c:GetGrowth()
+      if g then
+        food = sf(function() return g:GetFoodSurplus() end) or 0
+        grow = sf(function() return g:GetTurnsUntilGrowth() end) or -1
+        starve = sf(function() return g:GetTurnsUntilStarvation() end) or -1
+        hous = sf(function() return g:GetHousing() end) or 0
+        am   = sf(function() return g:GetAmenities() end) or 0
+        amN  = sf(function() return g:GetAmenitiesNeeded() end) or 0
+        happ = sf(function() return g:GetHappiness() end) or 0
+      end
+    end)
+
+    -- Border expansion timer.  City culture object name varies by state;
+    -- try GetCulture first, then GetCulturalIdentity fallback.
+    local expT = -1
+    pcall(function()
+      local ccul = sf(function() return c:GetCulture() end)
+      if ccul then expT = sf(function() return ccul:GetTurnsUntilExpansion() end) or -1 end
+    end)
+
+    -- Yields
+    local F, Pr, G, S, Cy, Fa = 0, 0, 0, 0, 0, 0
+    pcall(function()
+      F  = sf(function() return c:GetYield(YieldTypes.FOOD) end) or 0
+      Pr = sf(function() return c:GetYield(YieldTypes.PRODUCTION) end) or 0
+      G  = sf(function() return c:GetYield(YieldTypes.GOLD) end) or 0
+      S  = sf(function() return c:GetYield(YieldTypes.SCIENCE) end) or 0
+      Cy = sf(function() return c:GetYield(YieldTypes.CULTURE) end) or 0
+      Fa = sf(function() return c:GetYield(YieldTypes.FAITH) end) or 0
+    end)
+
+    -- Production
+    local prodType, prodName, prodProg, prodCost, prodTurns = "nothing", "nothing", 0, 0, 0
+    pcall(function()
+      local bq = c:GetBuildQueue()
+      local prodHash = sf(function() return bq:GetCurrentProductionTypeHash() end) or 0
+      if prodHash ~= 0 then
+        prodType = hashName[prodHash] or ("HASH_" .. prodHash)
+        local row = GameInfo.Types[prodHash]
+        if row then
+          local kind = row.Kind
+          if kind == "KIND_UNIT" then
+            local r = GameInfo.Units[prodType]
+            if r then
+              prodName = L(r.Name)
+              prodProg = sf(function() return bq:GetUnitProgress(r.Index) end) or 0
+              prodCost = sf(function() return bq:GetUnitCost(r.Index) end) or 0
+            end
+          elseif kind == "KIND_BUILDING" then
+            local r = GameInfo.Buildings[prodType]
+            if r then
+              prodName = L(r.Name)
+              prodProg = sf(function() return bq:GetBuildingProgress(r.Index) end) or 0
+              prodCost = sf(function() return bq:GetBuildingCost(r.Index) end) or 0
+            end
+          elseif kind == "KIND_DISTRICT" then
+            local r = GameInfo.Districts[prodType]
+            if r then
+              prodName = L(r.Name)
+              prodProg = sf(function() return bq:GetDistrictProgress(r.Index) end) or 0
+              prodCost = sf(function() return bq:GetDistrictCost(r.Index) end) or 0
+            end
+          elseif kind == "KIND_PROJECT" then
+            local r = GameInfo.Projects[prodType]
+            if r then
+              prodName = L(r.Name)
+              prodProg = sf(function() return bq:GetProjectProgress(r.Index) end) or 0
+              prodCost = sf(function() return bq:GetProjectCost(r.Index) end) or 0
+            end
+          end
+        end
+      end
+      prodTurns = sf(function() return bq:GetTurnsLeft() end) or 0
+    end)
+
+    -- Defense
+    local defStr, garHP, garMax, wallHP, wallMax = 0, 0, 0, 0, 0
+    pcall(function()
+      if ccCenterIdx then
+        for _, d in c:GetDistricts():Members() do
+          if d:GetType() == ccCenterIdx then
+            defStr = sf(function() return d:GetDefenseStrength() end) or 0
+            garMax = sf(function() return d:GetMaxDamage(DefenseTypes.DISTRICT_GARRISON) end) or 0
+            garHP  = garMax - (sf(function() return d:GetDamage(DefenseTypes.DISTRICT_GARRISON) end) or 0)
+            wallMax = sf(function() return d:GetMaxDamage(DefenseTypes.DISTRICT_OUTER) end) or 0
+            wallHP  = wallMax - (sf(function() return d:GetDamage(DefenseTypes.DISTRICT_OUTER) end) or 0)
+            break
+          end
+        end
+      end
+    end)
+
+    -- City-level religion majority
+    local relMajType = "NONE"
+    pcall(function()
+      local cr = c:GetReligion()
+      if cr then
+        local relIdx = sf(function() return cr:GetMajorityReligion() end) or -1
+        if relIdx >= 0 then
+          local r = GameInfo.Religions[relIdx]
+          if r then relMajType = r.ReligionType end
+        end
+      end
+    end)
+
+    print(string.format("CITY|%d|%s|%s|%d|%d|%d|%.1f|%d|%d|%d|%d|%d|%d|%.1f|%.1f|%.1f|%.1f|%.1f|%.1f|%s|%s|%.0f|%.0f|%d|%d|%d|%d|%d|%d|%d|%s",
+      cID, esc(cName), tostring(isCap),
+      cx, cy, pop, food, grow, starve,
+      hous, am, amN, happ,
+      F, Pr, G, S, Cy, Fa,
+      prodType, esc(prodName), prodProg, prodCost, prodTurns,
+      defStr, garHP, garMax, wallHP, wallMax,
+      expT, relMajType))
+  end)
+
+  -- --- Districts + buildings in each ------------------------------------
+  pcall(function()
+    print("TRACE|CITY|" .. cID .. "|districts")
+    for _, d in c:GetDistricts():Members() do
+      pcall(function()
+        local dr = GameInfo.Districts[d:GetType()]
+        if not dr then return end
+        local adjParts = {}
+        pcall(function()
+          for yrow in GameInfo.Yields() do
+            local av = sf(function() return d:GetAdjacencyYield(yrow.Index) end) or 0
+            if av > 0 then
+              adjParts[#adjParts+1] = string.format("%s:%d", yrow.YieldType:gsub("YIELD_", ""), av)
+            end
+          end
+        end)
+        local dx = sf(function() return d:GetX() end) or -1
+        local dy = sf(function() return d:GetY() end) or -1
+        local pill = sf(function() return d:IsPillaged() end) or false
+        print(string.format("DIST|%d|%s|%s|%d|%d|%s|%s",
+          cID, dr.DistrictType, esc(L(dr.Name)),
+          dx, dy, tostring(pill), table.concat(adjParts, ",")))
+        -- Buildings at this district's plot
+        pcall(function()
+          local blds = c:GetBuildings()
+          if not blds then return end
+          local plot = Map.GetPlot(dx, dy)
+          if not plot then return end
+          local plotID = plot:GetIndex()
+          local btypes = sf(function() return blds:GetBuildingsAtLocation(plotID) end) or {}
+          for _, bt in ipairs(btypes) do
+            local br = GameInfo.Buildings[bt]
+            if br then
+              local pillB = sf(function() return blds:IsPillaged(bt) end) or false
+              print(string.format("BLDG|%d|%s|%s|%s|%s|%s",
+                cID, dr.DistrictType, br.BuildingType, esc(L(br.Name)),
+                tostring(br.IsWonder), tostring(pillB)))
+            end
+          end
+        end)
+      end)
+    end
+  end)
+
+  -- --- Owned tiles rollup ------------------------------------------------
+  pcall(function()
+    print("TRACE|CITY|" .. cID .. "|tiles")
+    local plotList = sf(function() return Map.GetCityPlots():GetPurchasedPlots(c) end) or {}
+    local terr, feat, imp = {}, {}, {}
+    local workedCount = 0
+    for _, pid in ipairs(plotList) do
+      local pl = Map.GetPlotByIndex(pid)
+      if pl then
+        pcall(function()
+          local tt = pl:GetTerrainType()
+          if tt and tt >= 0 then
+            local ti = GameInfo.Terrains[tt]
+            if ti then
+              local tk = ti.TerrainType:gsub("TERRAIN_", ""):lower()
+              terr[tk] = (terr[tk] or 0) + 1
+            end
+          end
+        end)
+        pcall(function()
+          local ft = pl:GetFeatureType()
+          if ft and ft >= 0 then
+            local fi = GameInfo.Features[ft]
+            if fi then
+              local fk = fi.FeatureType:gsub("FEATURE_", ""):lower()
+              feat[fk] = (feat[fk] or 0) + 1
+            end
+          end
+        end)
+        pcall(function()
+          local it = pl:GetImprovementType()
+          if it and it >= 0 then
+            local ii = GameInfo.Improvements[it]
+            if ii then
+              local ik = ii.ImprovementType:gsub("IMPROVEMENT_", ""):lower()
+              imp[ik] = (imp[ik] or 0) + 1
+            end
+          end
+        end)
+        pcall(function()
+          local wc = pl:GetWorkerCount() or 0
+          if wc > 0 then workedCount = workedCount + 1 end
+        end)
+      end
+    end
+    local function fmt(tbl)
+      local r = {}
+      for k, v in pairs(tbl) do r[#r+1] = v .. ":" .. k end
+      table.sort(r, function(a, b)
+        local an = tonumber(a:match("^(%d+)")) or 0
+        local bn = tonumber(b:match("^(%d+)")) or 0
+        return an > bn
+      end)
+      return table.concat(r, ",")
+    end
+    print(string.format("TILES|%d|%d|%d|%s|%s|%s",
+      cID, #plotList, workedCount, fmt(terr), fmt(feat), fmt(imp)))
+  end)
+
+  -- --- Production options ------------------------------------------------
+  pcall(function()
+    print("TRACE|CITY|" .. cID .. "|prod_options")
+    local bq = sf(function() return c:GetBuildQueue() end)
+    if not bq then return end
+    for u in GameInfo.Units() do
+      pcall(function()
+        local can = sf(function() return bq:CanProduce(u.Hash, true) end)
+        if not can then return end
+        local prog = sf(function() return bq:GetUnitProgress(u.Index) end) or 0
+        local cost = sf(function() return bq:GetUnitCost(u.Index) end) or 0
+        local turns = -1
+        if cost > 0 and prog < cost then
+          turns = sf(function() return bq:GetTurnsLeft(u.Hash) end) or -1
+        end
+        print(string.format("PROD|%d|UNIT|%s|%s|%.0f|%.0f|%d",
+          cID, u.UnitType, esc(L(u.Name)), prog, cost, turns))
+      end)
+    end
+    for b in GameInfo.Buildings() do
+      pcall(function()
+        local can = sf(function() return bq:CanProduce(b.Hash, true) end)
+        if not can then return end
+        local prog = sf(function() return bq:GetBuildingProgress(b.Index) end) or 0
+        local cost = sf(function() return bq:GetBuildingCost(b.Index) end) or 0
+        local turns = -1
+        if cost > 0 and prog < cost then
+          turns = sf(function() return bq:GetTurnsLeft(b.Hash) end) or -1
+        end
+        print(string.format("PROD|%d|%s|%s|%s|%.0f|%.0f|%d",
+          cID, b.IsWonder and "WONDER" or "BLDG", b.BuildingType, esc(L(b.Name)), prog, cost, turns))
+      end)
+    end
+    for d in GameInfo.Districts() do
+      if d.DistrictType ~= "DISTRICT_CITY_CENTER" and d.DistrictType ~= "DISTRICT_WONDER" then
+        pcall(function()
+          local can = sf(function() return bq:CanProduce(d.Hash, true) end)
+          if not can then return end
+          local prog = sf(function() return bq:GetDistrictProgress(d.Index) end) or 0
+          local cost = sf(function() return bq:GetDistrictCost(d.Index) end) or 0
+          local turns = -1
+          if cost > 0 and prog < cost then
+            turns = sf(function() return bq:GetTurnsLeft(d.Hash) end) or -1
+          end
+          print(string.format("PROD|%d|DIST|%s|%s|%.0f|%.0f|%d",
+            cID, d.DistrictType, esc(L(d.Name)), prog, cost, turns))
+        end)
+      end
+    end
+    for pr in GameInfo.Projects() do
+      pcall(function()
+        local can = sf(function() return bq:CanProduce(pr.Hash, true) end)
+        if not can then return end
+        local prog = sf(function() return bq:GetProjectProgress(pr.Index) end) or 0
+        local cost = sf(function() return bq:GetProjectCost(pr.Index) end) or 0
+        print(string.format("PROD|%d|PROJ|%s|%s|%.0f|%.0f|%d",
+          cID, pr.ProjectType, esc(L(pr.Name)), prog, cost, -1))
+      end)
+    end
+  end)
+
+  -- --- Outgoing trade routes ------------------------------------------
+  pcall(function()
+    print("TRACE|CITY|" .. cID .. "|trade")
+    local ctrade = sf(function() return c:GetTrade() end)
+    local routes = ctrade and sf(function() return ctrade:GetOutgoingRoutes() end) or {}
+    for _, r in ipairs(routes) do
+      pcall(function()
+        local dp = Players[r.DestinationCityPlayer]
+        local dc = dp and sf(function() return dp:GetCities():FindID(r.DestinationCityID) end) or nil
+        local destName = dc and esc(L(dc:GetName())) or ("player" .. r.DestinationCityPlayer)
+        local ys = ""
+        for _, y in ipairs(r.OriginYields or {}) do
+          if y.Amount and y.Amount ~= 0 then
+            local yi = GameInfo.Yields[y.YieldIndex]
+            local yc = yi and yi.YieldType:gsub("YIELD_", ""):sub(1,3) or "?"
+            ys = ys .. string.format("%s:%d,", yc, y.Amount)
+          end
+        end
+        print(string.format("TRADE|%d|%d|%s|%s", cID, r.DestinationCityPlayer, destName, ys))
+      end)
+    end
+  end)
+
+  print("TRACE|CITY|" .. cID .. "|end")
+end
+
+""" + _sentinel_line()
+
+
+# ---------------------------------------------------------------------------
+# Q4 — units (per-unit pcall isolation)
+# ---------------------------------------------------------------------------
+
+def build_units_query() -> str:
+    return _prelude("UNITS") + r"""
+
+safe("units", function()
+  for _, u in p:GetUnits():Members() do
+    pcall(function()
+      local uid = sf(function() return u:GetID() end) or -1
+      local ut = sf(function() return u:GetType() end)
+      local ur = ut and GameInfo.Units[ut] or nil
+      local uname = ur and L(ur.Name) or "?"
+      local utype = ur and ur.UnitType or "?"
+      local uclass = ur and (ur.FormationClass or ur.PromotionClass or "") or ""
+      local x = sf(function() return u:GetX() end) or -1
+      local y = sf(function() return u:GetY() end) or -1
+      local hpMax = sf(function() return u:GetMaxDamage() end) or 0
+      local hp = hpMax - (sf(function() return u:GetDamage() end) or 0)
+      local mv = sf(function() return u:GetMovesRemaining() end) or 0
+      local mvMax = sf(function() return u:GetMaxMoves() end) or 0
+      local combat = sf(function() return u:GetCombat() end) or 0
+      local ranged = sf(function() return u:GetRangedCombat() end) or 0
+      local bombard = sf(function() return u:GetBombardCombat() end) or 0
+      local rng = ur and ur.Range or 0
+      local xp = sf(function()
+        local e = u:GetExperience()
+        return e and e:GetExperiencePoints() or 0
+      end) or 0
+      local xpNeed = sf(function()
+        local e = u:GetExperience()
+        return e and e:GetExperienceForNextLevel() or 0
+      end) or 0
+      local promoClass = ur and ur.PromotionClass or ""
+      local promoCount = 0
+      if promoClass ~= "" then
+        pcall(function()
+          for pr in GameInfo.UnitPromotions() do
+            if pr.PromotionClass == promoClass then
+              local has = sf(function() return u:GetExperience():HasPromotion(pr.Index) end)
+              if has then promoCount = promoCount + 1 end
+            end
+          end
+        end)
+      end
+      local charges = sf(function() return u:GetBuildCharges() end) or 0
+      if charges == 0 then charges = sf(function() return u:GetSpreadCharges() end) or 0 end
+      local fort = sf(function() return u:GetFortifyTurns() end) or 0
+      local idle = sf(function() return u:IsReadyToMove() end) or false
+      -- Promotion count "available" = current level - promotions held.  When
+      -- GetLevel is absent we cannot compute this — leave at 0 rather than lie.
+      local promoAvail = 0
+      pcall(function()
+        local exp = u:GetExperience()
+        if exp and type(exp.GetLevel) == "function" then
+          local lvl = exp:GetLevel() or 1
+          if lvl > promoCount then promoAvail = lvl - promoCount end
+        end
+      end)
+      local canUpgrade, upType, upCost = false, "", 0
+      pcall(function()
+        if ur and ur.UpgradeUnit then
+          local target = GameInfo.Units[ur.UpgradeUnit]
+          if target then
+            upType = target.UnitType
+            upCost = target.Cost or 0
+            if UnitManager and UnitManager.CanStartCommand and UnitCommandTypes and UnitCommandTypes.UPGRADE then
+              canUpgrade = UnitManager.CanStartCommand(u, UnitCommandTypes.UPGRADE) or false
+            end
+          end
+        end
+      end)
+      print(string.format("UNIT|%d|%s|%s|%s|%d|%d|%d|%d|%.0f|%.0f|%d|%d|%d|%d|%d|%d|%d|%d|%s|%d|%d|%s|%s|%d",
+        uid, utype, esc(uname), esc(uclass),
+        x, y, hp, hpMax, mv, mvMax,
+        combat, ranged, bombard, rng,
+        xp, xpNeed, promoCount, promoAvail,
+        tostring(idle), fort, charges, tostring(canUpgrade), upType, upCost))
+    end)
+  end
+end)
+
+safe("barbarian_visibility", function()
+  local pVis = PlayersVisibility and PlayersVisibility[me] or nil
+  local pBarb = Players and Players[63] or nil
+  if not pBarb or not pVis then return end
+  for _, bu in pBarb:GetUnits():Members() do
+    pcall(function()
+      local bx, by = bu:GetX(), bu:GetY()
+      if pVis:IsVisible(bx, by) then
+        local br = GameInfo.Units[bu:GetType()]
+        local nm = br and L(br.Name) or "Barbarian"
+        print(string.format("BARB|%s|%d|%d|%d|%d",
+          esc(nm), bx, by,
+          bu:GetMaxDamage() - bu:GetDamage(), bu:GetMaxDamage()))
+      end
+    end)
+  end
+end)
+
+safe("barbarian_camps", function()
+  local pVis = PlayersVisibility and PlayersVisibility[me] or nil
+  if not pVis then return end
+  local plotCount = Map.GetPlotCount() or 0
+  for i = 0, plotCount - 1 do
+    local pl = Map.GetPlotByIndex(i)
+    if pl then
+      pcall(function()
+        local it = pl:GetImprovementType()
+        if it and it >= 0 then
+          local ii = GameInfo.Improvements[it]
+          if ii and ii.ImprovementType == "IMPROVEMENT_BARBARIAN_CAMP" then
+            local px, py = pl:GetX(), pl:GetY()
+            if pVis:IsVisible(px, py) then
+              print(string.format("CAMPV|%d|%d", px, py))
+            elseif pVis:IsRevealed(px, py) then
+              print(string.format("CAMPR|%d|%d", px, py))
+            end
+          end
+        end
+      end)
+    end
+  end
+end)
+
+""" + _sentinel_line()
+
+
+# ---------------------------------------------------------------------------
+# Q5 — revealed map (unchanged behaviour, per-tile pcall)
+# ---------------------------------------------------------------------------
+
+def build_map_query() -> str:
+    return _prelude("MAP") + r"""
+
+local pTech = sf(function() return p:GetTechs() end)
+local pVis = PlayersVisibility and PlayersVisibility[me] or nil
+if not pVis then print("DIAG|MAP|PlayersVisibility unavailable"); print("---END---"); return end
+
+local terrShort = {
+  TERRAIN_GRASS = "g", TERRAIN_PLAINS = "p", TERRAIN_DESERT = "d",
+  TERRAIN_TUNDRA = "t", TERRAIN_SNOW = "s",
+  TERRAIN_GRASS_HILLS = "gh", TERRAIN_PLAINS_HILLS = "ph",
+  TERRAIN_DESERT_HILLS = "dh", TERRAIN_TUNDRA_HILLS = "th",
+  TERRAIN_SNOW_HILLS = "sh",
+  TERRAIN_GRASS_MOUNTAIN = "gm", TERRAIN_PLAINS_MOUNTAIN = "pm",
+  TERRAIN_DESERT_MOUNTAIN = "dm", TERRAIN_TUNDRA_MOUNTAIN = "tm",
+  TERRAIN_SNOW_MOUNTAIN = "sm",
+  TERRAIN_COAST = "co", TERRAIN_OCEAN = "oc"
+}
+local featShort = {
+  FEATURE_FOREST = "for", FEATURE_JUNGLE = "jun", FEATURE_MARSH = "mar",
+  FEATURE_FLOODPLAINS = "fld", FEATURE_OASIS = "oas", FEATURE_ICE = "ice",
+  FEATURE_REEF = "reef", FEATURE_GEOTHERMAL_FISSURE = "geo",
+}
+
+local totalPlots = Map.GetPlotCount() or 0
+local mapW = sf(function() return Map.GetGridSize() end) or 0
+print("MAPMETA|" .. totalPlots .. "|" .. tostring(mapW))
+
+local revealed, visible, nwCount = 0, 0, 0
+
+local function res_visible(resRow)
+  if not resRow.PrereqTech then return true end
+  if not pTech then return false end
+  local t = GameInfo.Technologies[resRow.PrereqTech]
+  return t and sf(function() return pTech:HasTech(t.Index) end) or false
+end
+
+for i = 0, totalPlots - 1 do
+  pcall(function()
+    local pl = Map.GetPlotByIndex(i)
+    if not pl then return end
+    local x, y = pl:GetX(), pl:GetY()
+    if not pVis:IsRevealed(x, y) then return end
+    revealed = revealed + 1
+    local isVis = pVis:IsVisible(x, y)
+    if isVis then visible = visible + 1 end
+    local tCode = "?"
+    local tt = sf(function() return pl:GetTerrainType() end)
+    if tt and tt >= 0 then
+      local tr = GameInfo.Terrains[tt]
+      if tr then tCode = terrShort[tr.TerrainType] or tr.TerrainType:gsub("TERRAIN_",""):lower() end
+    end
+    local fCode = ""
+    local ft = sf(function() return pl:GetFeatureType() end)
+    if ft and ft >= 0 then
+      local fr = GameInfo.Features[ft]
+      if fr then
+        if fr.NaturalWonder then
+          fCode = "nw:" .. fr.FeatureType:gsub("FEATURE_","")
+          nwCount = nwCount + 1
+          print(string.format("NW|%s|%d|%d|%s", esc(L(fr.Name)), x, y, fr.FeatureType))
+        else
+          fCode = featShort[fr.FeatureType] or fr.FeatureType:gsub("FEATURE_",""):lower():sub(1,4)
+        end
+      end
+    end
+    local rCode = ""
+    local rt = sf(function() return pl:GetResourceType() end)
+    if rt and rt >= 0 then
+      local rr = GameInfo.Resources[rt]
+      if rr and res_visible(rr) then
+        rCode = rr.ResourceType:gsub("RESOURCE_", "")
+        local rcount = sf(function() return pl:GetResourceCount() end) or 0
+        if rcount > 1 then rCode = rCode .. "x" .. rcount end
+      end
+    end
+    local iCode = ""
+    local it = sf(function() return pl:GetImprovementType() end)
+    if it and it >= 0 then
+      local ir = GameInfo.Improvements[it]
+      if ir then
+        iCode = ir.ImprovementType:gsub("IMPROVEMENT_", "")
+        local pill = sf(function() return pl:IsImprovementPillaged() end)
+        if pill then iCode = iCode .. ":P" end
+      end
+    end
+    local roadCode = ""
+    local rte = sf(function() return pl:GetRouteType() end)
+    if rte and rte >= 0 then
+      local rr = GameInfo.Routes[rte]
+      if rr then roadCode = tostring(rr.Level or rte) end
+    end
+    local owner = sf(function() return pl:GetOwner() end)
+    local ownerStr = ""
+    if owner and owner >= 0 then ownerStr = tostring(owner) end
+    local dCode = ""
+    local dt = sf(function() return pl:GetDistrictType() end)
+    if dt and dt >= 0 then
+      local dr = GameInfo.Districts[dt]
+      if dr then dCode = dr.DistrictType:gsub("DISTRICT_", "") end
+    end
+    local isCity = sf(function() return pl:IsCity() end)
+    local unitStr = ""
+    if isVis then
+      pcall(function()
+        local pu = Map.GetUnitsAt(x, y)
+        if pu then
+          local parts = {}
+          for un in pu:Units() do
+            local o = un:GetOwner()
+            local et = GameInfo.Units[un:GetType()]
+            local etype = et and et.UnitType or "?"
+            local uhp = un:GetMaxDamage() - un:GetDamage()
+            parts[#parts+1] = string.format("%d:%s:%d", o, etype:gsub("UNIT_",""), uhp)
+          end
+          unitStr = table.concat(parts, ";")
+        end
+      end)
+    end
+    local extras = {}
+    if sf(function() return pl:IsRiver() end) then extras[#extras+1] = "R" end
+    if sf(function() return pl:IsLake() end) then extras[#extras+1] = "L" end
+    local appeal = sf(function() return pl:GetAppeal() end)
+    if appeal and appeal ~= 0 then extras[#extras+1] = "A" .. appeal end
+    if sf(function() return pl:IsFreshWater() end) then extras[#extras+1] = "F" end
+    local extraStr = table.concat(extras, "/")
+    print(string.format("MAP|%d|%d|%d|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s",
+      x, y, isVis and 1 or 0,
+      tCode, fCode, rCode, iCode, roadCode, ownerStr,
+      dCode, tostring(isCity or false), unitStr, extraStr))
+  end)
+end
+print(string.format("MAPTOTAL|%d|%d|%d", revealed, visible, nwCount))
+
+""" + _sentinel_line()
+
+
+# ---------------------------------------------------------------------------
+# Q6 — diplomacy
+# ---------------------------------------------------------------------------
+
+def build_diplo_query() -> str:
+    return _prelude("DIPLO") + r"""
+
+local d = sf(function() return p:GetDiplomacy() end)
+if not d then print("DIAG|DIPLO|no diplomacy object"); print("---END---"); return end
+
+safe("envoys", function()
+  local inf = sf(function() return p:GetInfluence() end)
+  if not inf then return end
+  print(string.format("ENVOY|%d|%d|%d|%.1f|%d",
+    sf(function() return inf:GetTokensToGive() end) or 0,
+    sf(function() return inf:GetPointsEarned() end) or 0,
+    sf(function() return inf:GetPointsThreshold() end) or 0,
+    sf(function() return inf:GetPointsPerTurn() end) or 0,
+    sf(function() return inf:GetTokensPerThreshold() end) or 0))
+end)
+
+local majorSet = {}
+pcall(function()
+  local ids = PlayerManager and PlayerManager.GetAliveMajorIDs and PlayerManager.GetAliveMajorIDs() or {}
+  for _, pid in ipairs(ids) do majorSet[pid] = true end
+end)
+
+local metIDs = sf(function() return d:GetPlayersMetIDs() end) or {}
+for _, q in ipairs(metIDs) do
+  pcall(function()
+    if q == 63 or q == me then return end
+    local op = Players[q]
+    local opc = PlayerConfigurations[q]
+    if not (op and opc and op:IsAlive()) then return end
+    local warStr = tostring(sf(function() return d:IsAtWarWith(q) end) or false)
+    local metT = sf(function() return d:GetMetTurn(q) end) or -1
+    local dvis = sf(function() return d:GetVisibilityOn(q) end) or 0
+    local ob = sf(function() return d:HasOpenBordersFrom(q) end) or false
+    local obMe = sf(function() return d:HasOpenBordersWith(q) end) or false
+    local hasDeleg = sf(function() return d:HasSentDelegationTo(q) end) or false
+    local hasEmbassy = sf(function() return d:HasSentEmbassyTo(q) end) or false
+
+    if majorSet[q] then
+      local ost = sf(function() return op:GetStats() end)
+      local mil = ost and (sf(function() return ost:GetMilitaryStrength() end) or 0) or 0
+      local sc = sf(function() return op:GetScore() end) or 0
+      local relStateName, relStateIdx = "?", -1
+      pcall(function()
+        local ai = op:GetDiplomaticAI()
+        if ai then
+          relStateIdx = ai:GetDiplomaticStateIndex(me) or -1
+          if relStateIdx and relStateIdx >= 0 then
+            local r = GameInfo.DiplomaticStates[relStateIdx]
+            if r then relStateName = r.StateType end
+          end
+        end
+      end)
+      print(string.format("MAJOR|%d|%s|%s|%s|%s|%s|%d|%d|%d|%d|%s|%s|%s|%s|%d|%s",
+        q,
+        esc(opc:GetCivilizationTypeName()),
+        esc(L(opc:GetCivilizationShortDescription())),
+        esc(opc:GetLeaderTypeName()),
+        esc(L(opc:GetLeaderName())),
+        warStr, metT, dvis, sc, mil, tostring(ob), tostring(obMe),
+        tostring(hasDeleg), tostring(hasEmbassy),
+        relStateIdx, esc(relStateName)))
+      pcall(function()
+        local vals = sf(function() return d:GetLearnedAgendas(q) end) or {}
+        for _, ah in ipairs(vals) do
+          for a in GameInfo.Agendas() do
+            if a.Hash == ah then
+              print(string.format("AGENDA|%d|%s|%s", q, a.AgendaType, esc(L(a.Name))))
+              break
+            end
+          end
+        end
+      end)
+    else
+      -- City-state
+      local oinf = sf(function() return op:GetInfluence() end)
+      local sent = oinf and (sf(function() return oinf:GetTokensReceived(me) end) or 0) or 0
+      local suz = oinf and (sf(function() return oinf:GetSuzerain() end) or -1) or -1
+      local suzStr = "none"
+      if suz and suz >= 0 then
+        if suz == me then suzStr = "ME"
+        else
+          local sc = PlayerConfigurations[suz]
+          suzStr = sc and (sc:GetCivilizationTypeName() or "?"):gsub("CIVILIZATION_", "") or ("p" .. suz)
+        end
+      end
+      local csType = "?"
+      pcall(function()
+        local lt = opc:GetLeaderTypeName() or ""
+        csType = lt:gsub("LEADER_MINOR_CIV_", "")
+      end)
+      local csx, csy = -1, -1
+      pcall(function()
+        local cc = op:GetCities():GetCapitalCity()
+        if cc then csx, csy = cc:GetX(), cc:GetY() end
+      end)
+      print(string.format("CS|%d|%s|%s|%s|%d|%s|%d|%d|%s|%d",
+        q,
+        esc(opc:GetCivilizationTypeName()),
+        esc(L(opc:GetCivilizationShortDescription())),
+        esc(csType),
+        sent, suzStr,
+        csx, csy, warStr, metT))
+      pcall(function()
+        local qm = Game.GetQuestsManager and Game.GetQuestsManager() or nil
+        if qm then
+          for qrow in GameInfo.Quests() do
+            local qact = sf(function() return qm:HasActiveQuestFromPlayer(me, q, qrow.Hash) end)
+            if qact then
+              print(string.format("QUEST|%d|%s|%s", q, qrow.QuestType, esc(L(qrow.Description or qrow.QuestType))))
+            end
+          end
+        end
+      end)
+    end
+  end)
+end
+
+""" + _sentinel_line()
+
+
+# ---------------------------------------------------------------------------
+# Q7 — religion
+# ---------------------------------------------------------------------------
+
+def build_religion_query() -> str:
+    return _prelude("REL") + r"""
+
+local rel = sf(function() return p:GetReligion() end)
+if not rel then print("DIAG|REL|no religion object"); print("---END---"); return end
+
+safe("pantheon", function()
+  local pantheonIdx = sf(function() return rel:GetPantheon() end) or -1
+  local pantheonType, pantheonName, pantheonDesc = "NONE", "none", ""
+  if pantheonIdx >= 0 then
+    local pb = GameInfo.Beliefs[pantheonIdx]
+    if pb then
+      pantheonType = pb.BeliefType
+      pantheonName = L(pb.Name)
+      if pb.Description then pantheonDesc = L(pb.Description) end
+    end
+  end
+  print(string.format("PANTHEON|%s|%s|%s", pantheonType, esc(pantheonName), esc(pantheonDesc)))
+end)
+
+safe("founded_religion", function()
+  local myRel = sf(function() return rel:GetReligionTypeCreated() end) or -1
+  if not (myRel and myRel > 0) then return end
+  local rr = GameInfo.Religions[myRel]
+  local rName = rr and L(rr.Name) or ("religion#" .. myRel)
+  local rType = rr and rr.ReligionType or "?"
+  print(string.format("RELIGION|%s|%s", rType, esc(rName)))
+  local gameR = sf(function() return Game.GetReligion() end)
+  local allRels = gameR and sf(function() return gameR:GetReligions() end) or {}
+  for _, r in ipairs(allRels) do
+    if r.Religion == myRel and r.Beliefs then
+      for _, bi in ipairs(r.Beliefs) do
+        local b = GameInfo.Beliefs[bi]
+        if b then
+          local desc = b.Description and L(b.Description) or ""
+          print(string.format("BELIEF|%s|%s|%s|%s", b.BeliefClassType or "", b.BeliefType, esc(L(b.Name)), esc(desc)))
+        end
+      end
+    end
+  end
+end)
+
+safe("can_found_pantheon", function()
+  local canFoundPantheon = sf(function() return rel:CanCreatePantheon() end) or false
+  print(string.format("RELSTATE|canFoundPantheon=%s", tostring(canFoundPantheon)))
+end)
+
+safe("per_city_religion", function()
+  for _, c in p:GetCities():Members() do
+    pcall(function()
+      local cr = sf(function() return c:GetReligion() end)
+      if not cr then return end
+      local majIdx = sf(function() return cr:GetMajorityReligion() end) or -1
+      local majType = "NONE"
+      if majIdx >= 0 then
+        local rr = GameInfo.Religions[majIdx]
+        if rr then majType = rr.ReligionType end
+      end
+      print(string.format("CITYREL|%d|%s", c:GetID(), majType))
+    end)
+  end
+end)
+
+""" + _sentinel_line()
+
+
+# ---------------------------------------------------------------------------
+# Q8 — notifications + end-turn blockers
+# ---------------------------------------------------------------------------
+
+def build_notifications_query() -> str:
+    return _prelude("NOTIF") + r"""
+
+safe("notifications", function()
+  if not NotificationManager then print("DIAG|NOTIF|NotificationManager unavailable"); return end
+  local list = sf(function() return NotificationManager.GetList(me) end)
+  if not list then return end
+  for _, nid in ipairs(list) do
+    pcall(function()
+      local entry = NotificationManager.Find(me, nid)
+      if not entry then return end
+      if sf(function() return entry:IsDismissed() end) then return end
+      local tn = (sf(function() return entry:GetTypeName() end) or "UNKNOWN"):gsub("|", "/")
+      local msg = (sf(function() return entry:GetMessage() end) or ""):gsub("|", "/")
+      local bt = sf(function() return entry:GetEndTurnBlocking() end) or 0
+      local btName = ""
+      if bt ~= 0 and EndTurnBlockingTypes then
+        for k, v in pairs(EndTurnBlockingTypes) do
+          if v == bt then btName = k; break end
+        end
+      end
+      print(string.format("NOTIF|%s|%s|%s", tn, btName, msg))
+    end)
+  end
+end)
+
+""" + _sentinel_line()
+
+
+# ---------------------------------------------------------------------------
+# Query registry — the collector runs these in order.
+# ---------------------------------------------------------------------------
+
+ALL_QUERIES = {
+    "meta": build_meta_query,
+    "choices": build_choices_query,
+    "cities": build_cities_query,
+    "units": build_units_query,
+    "map": build_map_query,
+    "diplo": build_diplo_query,
+    "religion": build_religion_query,
+    "notif": build_notifications_query,
+}
