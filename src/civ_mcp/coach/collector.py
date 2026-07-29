@@ -277,6 +277,9 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
         "majors_met":         _or_none("majors_met",       diplo_frag.get("majors", []) or []),
         "city_states_met":    _or_none("city_states_met",  diplo_frag.get("city_states", []) or []),
         "eliminated":         diplo_frag.get("eliminated", []) or [],
+        "resources_inventory": P.resources_inventory(
+            (cities_frag.get("cities") or []) if section_status.get("cities") != "failed" else None
+        ),
         "rivals":             P.build_rivals(diplo_frag, map_frag, rel_frag, section_status),
         "rival_cities":       _or_none("map",              map_frag.get("rival_cities", []) or []),
         "units_by_civ":       P.units_by_civ(map_frag.get("tiles") if section_status.get("map") != "failed" else None),

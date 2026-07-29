@@ -176,10 +176,10 @@ button.  The coach describes; you play.
 
 ---
 
-# Appendix — snapshot JSON schema (`coach-snapshot/1.3`)
+# Appendix — snapshot JSON schema (`coach-snapshot/1.4`)
 
 Every hotkey press writes a JSON file whose top-level `schema` field is
-`coach-snapshot/1.3`.  Bump `SCHEMA_VERSION` in
+`coach-snapshot/1.4`.  Bump `SCHEMA_VERSION` in
 `src/civ_mcp/coach/__init__.py` whenever a field is renamed or removed;
 add-only changes stay backwards-compatible.
 
@@ -187,8 +187,8 @@ add-only changes stay backwards-compatible.
 
 ```jsonc
 {
-  "schema": "coach-snapshot/1.3",
-  "coach_version": "1.3.0",
+  "schema": "coach-snapshot/1.4",
+  "coach_version": "1.4.0",
   "generated_at_epoch": 1753728000.123,
 
   "meta": {
@@ -294,6 +294,32 @@ add-only changes stay backwards-compatible.
   from `queries.py:build_map_query`.
 - `promotions_available` is `0` or `1` — a unit can have at most one
   pending promotion. Civilians are always `0`.
+
+## Changes in 1.4 (v1.4.0 — Reports-screen data)
+
+All additive.
+
+- `cities[].resources` — one entry per owned resource plot (type, class
+  incl. BONUS, localized name, improved = improvement observed on the
+  tile, worked), PrereqTech-gated like the map.  `resources_inventory` —
+  the per-resource aggregation across cities (count, improved/unimproved,
+  worked, source cities), tagged `direct`; `None` when cities failed.
+- `cities[].status_labels` — localized happiness label + DB growth
+  modifier from the `GameInfo.Happinesses` row (direct), plus probed
+  live growth modifier and war weariness (`-999`/`-1` unknown sentinels,
+  WARN when the accessor is absent).  `None` when the status line never
+  arrived.
+- `city_states_met[].bonuses` — 1/3/6-envoy bonus texts (Loc keys,
+  skipped with WARN when unresolved — a raw LOC_ key never ships) and
+  leader trait texts (the suzerain bonus is among them).
+  `city_states_met[].envoy_status` — thresholds met, leading civ +
+  count, envoys needed to take the lead, tie flag; arithmetic over
+  exported counts, tagged `reconstructed:threshold`.
+- G0 probes (compat notes in `diagnostics`): gossip manager discovery +
+  method dump (`DIPLO.gossip_probe`), `plot:GetYield` availability
+  (`MAP.yield_probe`), growth/war-weariness accessors (`CITIES.status`).
+  Gossip export and yield breakdowns ship after these confirm real API
+  names on a live run.
 
 ## Changes in 1.3 (v1.3.0 — opponent state expansion)
 

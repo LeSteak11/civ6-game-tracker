@@ -189,8 +189,8 @@ check("real delta lists grown city", "Sais" in txt2)
 
 
 print("\n=== schema/version bump ===")
-check("schema bumped to 1.3", SCHEMA_VERSION == "coach-snapshot/1.3", SCHEMA_VERSION)
-check("coach version 1.3.0 (semver)", COACH_VERSION == "1.3.0", COACH_VERSION)
+check("schema bumped to 1.4", SCHEMA_VERSION == "coach-snapshot/1.4", SCHEMA_VERSION)
+check("coach version 1.4.0 (semver)", COACH_VERSION == "1.4.0", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -629,6 +629,118 @@ check("new turn appends timeline entry",
 check("turnless snapshot writes no history",
       (H.update_history(htmp, {"meta": {}}, [{"event": "x"}]) is None
        and len(json.loads((htmp / "events.json").read_text(encoding="utf-8"))) == len(evs)))
+
+print("\n=== Phase 2 Task 4 (G0+G2): reports-screen data ===")
+
+# -- G0 probes: source contract -------------------------------------------
+diplo_src2 = Q.build_diplo_query()
+check("gossip probe present with manager candidates",
+      "gossip_probe" in diplo_src2 and "Game.GetGossipManager" in diplo_src2
+      and "GossipManager" in diplo_src2)
+check("gossip probe dumps real method names (DIAG)",
+      "DIAG|DIPLO.gossip_probe.api" in diplo_src2)
+check("gossip probe checks GameInfo.Gossips", "GameInfo.Gossips" in diplo_src2)
+map_src3 = Q.build_map_query()
+check("plot-yield probe present", "MAP.yield_probe" in map_src3
+      and 'type(p0.GetYield) == "function"' in map_src3)
+cities_src2 = Q.build_cities_query()
+check("growth/war-weariness accessors probed not guessed",
+      'type(g2.GetHappinessGrowthModifier) == "function"' in cities_src2
+      and "WARN|CITIES.status" in cities_src2)
+
+# -- G2 Lua: source contract ----------------------------------------------
+check("cities Lua emits CITYRES resource plots", '"CITYRES|' in cities_src2)
+check("city resources honour PrereqTech visibility", "resVisible" in cities_src2)
+check("cities Lua emits CITYSTATUS labels", '"CITYSTATUS|' in cities_src2)
+check("happiness label from GameInfo.Happinesses (direct DB)",
+      "GameInfo.Happinesses[happIdx]" in cities_src2)
+check("CS bonus Loc keys detected, raw keys never shipped",
+      "_INFLUENCE_BONUS" in diplo_src2 and "txt ~= key" in diplo_src2
+      and "WARN|DIPLO.cs_bonus" in diplo_src2)
+check("suzerain traits via LeaderTraits DB rows",
+      "GameInfo.LeaderTraits()" in diplo_src2)
+
+# -- Parser: CITYRES / CITYSTATUS -----------------------------------------
+c4 = P.parse_cities([
+    "CITY|123|Râ-Kedet|true|66|32|3|1.0|24|-1|10|3|1|2|7.0|14.7|10.5|8.5|5.1|6.3|BUILDING_STONEHENGE|Stonehenge|420|425|1|34|200|200|0|0|5|NONE",
+    "CITY|124|Memphis|false|70|30|2|2.0|10|-1|6|2|1|1|5.0|4.0|3.0|2.0|1.0|0.0|nothing|nothing|0|0|0|10|100|100|0|0|8|NONE",
+    "CITYRES|123|RESOURCE_CATTLE|BONUS|Cattle|true|true",
+    "CITYRES|123|RESOURCE_IVORY|LUXURY|Ivory|false|false",
+    "CITYRES|124|RESOURCE_CATTLE|BONUS|Cattle|false|true",
+    "CITYSTATUS|123|Content|0|10|0",
+    "CITYSTATUS|124|Displeased|-15|-999|4",
+])
+c123 = next(c for c in c4["cities"] if c["id"] == 123)
+c124 = next(c for c in c4["cities"] if c["id"] == 124)
+check("city resources parsed with improved/worked flags",
+      c123["resources"][0]["improved"] is True and c123["resources"][1]["improved"] is False)
+check("city status labels parsed", c123["status_labels"]["happiness_label"] == "Content")
+check("unknown live growth modifier keeps -999 sentinel",
+      c124["status_labels"]["live_growth_modifier"] == -999)
+check("war weariness parsed", c124["status_labels"]["war_weariness"] == 4)
+c_nostatus = P.parse_cities([
+    "CITY|9|X|false|1|1|1|1.0|5|-1|3|1|1|1|1|1|1|1|1|1|nothing|nothing|0|0|0|1|1|1|0|0|1|NONE",
+])
+check("missing CITYSTATUS stays None, never a fake label",
+      c_nostatus["cities"][0]["status_labels"] is None)
+
+# -- Resource inventory aggregation ---------------------------------------
+inv = P.resources_inventory(c4["cities"])
+cattle = next(r for r in inv if r["type"] == "RESOURCE_CATTLE")
+check("inventory aggregates bonus resources across cities",
+      cattle["count"] == 2 and cattle["improved"] == 1 and cattle["unimproved"] == 1)
+check("inventory names source cities",
+      sorted(cattle["cities"]) == ["Memphis", "Râ-Kedet"], cattle["cities"])
+check("inventory tagged direct", cattle["source"] == "direct")
+check("failed cities -> inventory None, never []", P.resources_inventory(None) is None)
+
+# -- CS bonuses + envoy race ----------------------------------------------
+dp2 = P.parse_diplo([
+    "CS|40|CIVILIZATION_KABUL|Kabul|MILITARISTIC|3|ME|10|20|false|22",
+    "CSENVOYS|40|0:3,2:2",
+    "CSBONUS|40|small|+2 Production toward units",
+    "CSBONUS|40|medium|+2 more Production toward units",
+    "CSBONUS|40|trait|Your units receive +5 experience",
+    "CS|41|CIVILIZATION_LUXIS|Luxis|TRADE|1|SUMERIA|5|5|false|30",
+    "CSENVOYS|41|0:1,2:6",
+])
+k = dp2["city_states"][0]
+check("CS bonuses parsed by tier + trait",
+      k["bonuses"]["small"].startswith("+2 Production")
+      and k["bonuses"]["traits"] == ["Your units receive +5 experience"])
+check("thresholds met computed from my envoys", k["envoy_status"]["thresholds_met"] == [1, 3])
+check("leading race detected", k["envoy_status"]["needed_to_lead"] == 0)
+lx = dp2["city_states"][1]
+check("envoys-needed-to-lead computed", lx["envoy_status"]["needed_to_lead"] == 6,
+      lx["envoy_status"])
+check("envoy status tagged reconstructed",
+      k["envoy_status"]["source"] == "reconstructed:threshold")
+cs_noenvoys = P.parse_diplo(["CS|42|CIVILIZATION_X|X|TRADE|0|none|1|1|false|5"])
+check("missing envoy data -> None fields, not zeros",
+      cs_noenvoys["city_states"][0]["envoy_status"]["leader_envoys"] is None)
+
+# -- Markdown -------------------------------------------------------------
+snap_g2 = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 1.0,
+    "meta": {"turn": 87}, "empire": {},
+    "cities": c4["cities"], "resources": [], "resources_inventory": inv,
+    "city_states_met": dp2["city_states"][:2],
+    "section_status": {"header": "ok", "cities": "ok", "resources": "ok",
+                       "city_states_met": "ok"},
+    "diagnostics": {}, "turn_blockers_summary": [],
+}
+md_g2 = M.render_markdown(snap_g2, {"first_snapshot": True})
+check("city header shows localized happiness label", "happ Content" in md_g2)
+check("war weariness surfaces only when positive",
+      "war weariness 4" in md_g2 and "war weariness 0" not in md_g2)
+check("growth modifier surfaces when nonzero", "growth -15%" in md_g2)
+check("bonus resource inventory renders",
+      "owned bonus tiles:" in md_g2 and "Cattle (1/2 improved)" in md_g2)
+check("CS threshold + race line renders",
+      "thresholds met: 1/3 | envoy race: leading" in md_g2)
+check("CS envoy-tier bonus text renders", "1-envoy: +2 Production toward units" in md_g2)
+check("suzerain trait text renders when I hold it",
+      "suzerain bonus: Your units receive +5 experience" in md_g2)
 
 print("\n=== sentinel decoupling ===")
 from civ_mcp.coach import SENTINEL as COACH_SENTINEL

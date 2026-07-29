@@ -391,6 +391,25 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
             )
         else:
             lines.append("- luxuries: none")
+    # Owned-resource inventory (Reports → Resources) — includes bonus
+    # resources, aggregated from directly-observed owned tiles.
+    inv = snap.get("resources_inventory")
+    if isinstance(inv, list) and inv:
+        def _inv_line(cls: str, label: str) -> None:
+            rows = [r for r in inv if r.get("class") == cls]
+            if not rows:
+                return
+            parts = []
+            for r in rows:
+                imp = r.get("improved", 0)
+                tot = r.get("count", 0)
+                mark = "" if imp == tot else f" ({imp}/{tot} improved)"
+                cnt = f"{tot}× " if tot > 1 else ""
+                parts.append(f"{cnt}{r.get('name')}{mark}")
+            lines.append(f"- **owned {label} tiles:** " + ", ".join(parts))
+        _inv_line("BONUS", "bonus")
+        _inv_line("LUXURY", "luxury")
+        _inv_line("STRATEGIC", "strategic")
     lines.append("")
 
     # ---- Government / policies -------------------------------------------
@@ -490,10 +509,20 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                 else "-"
             )
             lines.append(f"### {c.get('name')}{cap} @ ({c.get('x')},{c.get('y')})")
+            sl = c.get("status_labels") or {}
+            happ_disp = sl.get("happiness_label") or c.get("happiness")
+            status_extras = ""
+            gm = sl.get("db_growth_modifier", -999)
+            if gm != -999 and gm != 0:
+                status_extras += f" | growth {gm:+d}%"
+            ww = sl.get("war_weariness", -1)
+            if isinstance(ww, int) and ww > 0:
+                status_extras += f" | war weariness {ww}"
             lines.append(
                 f"- pop {c.get('population')} | grow {grow_str} (food{c.get('food_surplus'):+.1f}) | "
                 f"hous {c.get('housing')} | amen {c.get('amenities')}/{c.get('amenities_needed')} | "
-                f"happ {c.get('happiness')} | border+{c.get('border_expansion_turns')}t"
+                f"happ {happ_disp} | border+{c.get('border_expansion_turns')}t"
+                + status_extras
             )
             lines.append(
                 f"- yields: F{y.get('food', 0):.1f} P{y.get('production', 0):.1f} G{y.get('gold', 0):.1f} "
@@ -690,6 +719,26 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                     + (f" | quest: {quests}" if quests else "")
                     + ebc_str
                 )
+                es = c.get("envoy_status") or {}
+                if es.get("leader_envoys") is not None:
+                    met_str = "/".join(str(t) for t in es.get("thresholds_met") or []) or "none"
+                    if es.get("needed_to_lead") == 0:
+                        race = "leading"
+                    elif es.get("tied_for_lead"):
+                        race = f"tied at {es.get('leader_envoys')}"
+                    else:
+                        race = f"+{es.get('needed_to_lead')} envoys to lead ({es.get('leader_envoys')} tops)"
+                    lines.append(f"    - thresholds met: {met_str} | envoy race: {race}")
+                bon = c.get("bonuses") or {}
+                for kind, label in (("small", "1"), ("medium", "3"), ("large", "6")):
+                    if bon.get(kind):
+                        lines.append(f"    - {label}-envoy: {bon[kind]}")
+                # Suzerain/trait text: shown when I hold it or the race is
+                # close (within 2 envoys); always in the JSON.
+                ntl = es.get("needed_to_lead")
+                if c.get("suzerain") == "ME" or (isinstance(ntl, int) and 0 < ntl <= 2):
+                    for t in bon.get("traits") or []:
+                        lines.append(f"    - suzerain bonus: {t}")
     # Visible foreign forces, rolled up per owner from the tile data (fog
     # already applied at export time — these are on-screen units only).
     ubc = snap.get("units_by_civ") or {}

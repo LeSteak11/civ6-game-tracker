@@ -1,0 +1,354 @@
+{
+  "majors": {
+    "3": {
+      "civ_type": "CIVILIZATION_SUMERIA",
+      "civ_name": "Sumeria",
+      "leader_name": "Gilgamesh",
+      "timeline": [
+        {
+          "turn": 99,
+          "alive": true,
+          "score": 123,
+          "military": 151,
+          "techs": 18,
+          "civics": 11,
+          "tourism": 4,
+          "cities_known": 5,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 100,
+          "alive": true,
+          "score": 128,
+          "military": 144,
+          "techs": 19,
+          "civics": 11,
+          "tourism": 4,
+          "cities_known": 5,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 101,
+          "alive": true,
+          "score": 130,
+          "military": 136,
+          "techs": 19,
+          "civics": 11,
+          "tourism": 4,
+          "cities_known": 5,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 102,
+          "alive": true,
+          "score": 130,
+          "military": 132,
+          "techs": 19,
+          "civics": 11,
+          "tourism": 4,
+          "cities_known": 5,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 103,
+          "alive": true,
+          "score": 130,
+          "military": 133,
+          "techs": 19,
+          "civics": 11,
+          "tourism": 4,
+          "cities_known": 5,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        }
+      ]
+    },
+    "4": {
+      "civ_type": "CIVILIZATION_BRAZIL",
+      "civ_name": "Brazil",
+      "leader_name": null,
+      "timeline": [
+        {
+          "turn": 99,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 100,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 101,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 102,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 103,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        }
+      ]
+    }
+  },
+  "city_states": {
+    "7": {
+      "civ_name": "Kabul",
+      "cs_type": "KABUL",
+      "timeline": [
+        {
+          "turn": 99,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 100,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 101,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 102,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 103,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        }
+      ]
+    },
+    "8": {
+      "civ_name": "Hattusa",
+      "cs_type": "HATTUSA",
+      "timeline": [
+        {
+          "turn": 99,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 100,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 101,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 102,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 103,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        }
+      ]
+    },
+    "10": {
+      "civ_name": "Stockholm",
+      "cs_type": "STOCKHOLM",
+      "timeline": [
+        {
+          "turn": 99,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 100,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 101,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 102,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 103,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
+        }
+      ]
+    },
+    "11": {
+      "civ_name": "Amsterdam",
+      "cs_type": "AMSTERDAM",
+      "timeline": [
+        {
+          "turn": 99,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 100,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 101,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 102,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 103,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        }
+      ]
+    }
+  }
+}

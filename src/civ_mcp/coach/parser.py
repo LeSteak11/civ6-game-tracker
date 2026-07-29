@@ -298,6 +298,10 @@ def parse_cities(lines: list[str]) -> dict[str, Any]:
                 "tiles_rollup": {},
                 "production_options": [],
                 "trade_routes": [],
+                "resources": [],
+                # None until a CITYSTATUS line arrives — a missing status
+                # read must stay distinct from any real value.
+                "status_labels": None,
             }
         elif tag == "DIST":
             cid = _i(p, 1)
@@ -357,6 +361,32 @@ def parse_cities(lines: list[str]) -> dict[str, Any]:
                     "terrain": _breakdown(_s(p, 4)),
                     "features": _breakdown(_s(p, 5)),
                     "improvements": _breakdown(_s(p, 6)),
+                }
+        elif tag == "CITYRES":
+            cid = _i(p, 1)
+            city = cities.get(cid)
+            if city:
+                city["resources"].append(
+                    {
+                        "type": _s(p, 2),
+                        "class": _s(p, 3),
+                        "name": _s(p, 4),
+                        "improved": _b(p, 5),
+                        "worked": _b(p, 6),
+                        "source": "direct",  # observed on an owned tile
+                    }
+                )
+        elif tag == "CITYSTATUS":
+            cid = _i(p, 1)
+            city = cities.get(cid)
+            if city:
+                city["status_labels"] = {
+                    "happiness_label": _s(p, 2),
+                    # -999 / -1 = unknown sentinels from probed accessors
+                    "db_growth_modifier": _i(p, 3, -999),
+                    "live_growth_modifier": _i(p, 4, -999),
+                    "war_weariness": _i(p, 5, -1),
+                    "source": "direct",
                 }
         elif tag == "PROD":
             cid = _i(p, 1)
@@ -541,6 +571,7 @@ def parse_diplo(lines: list[str]) -> dict[str, Any]:
     airel: dict[int, list[dict[str, Any]]] = {}
     rivgov: dict[int, dict[str, Any]] = {}
     cs_envoys: dict[int, dict[str, int]] = {}
+    cs_bonuses: dict[int, dict[str, Any]] = {}
     diagnostics: list[dict[str, Any]] = []
     for line in lines:
         p = line.split("|")
@@ -623,6 +654,14 @@ def parse_diplo(lines: list[str]) -> dict[str, Any]:
                 "read_at_visibility": _i(p, 4, -1),
                 "source": "diplo_vis",
             }
+        elif tag == "CSBONUS":
+            pid = _i(p, 1)
+            kind = _s(p, 2)
+            entry = cs_bonuses.setdefault(pid, {"traits": []})
+            if kind == "trait":
+                entry["traits"].append(_s(p, 3))
+            else:
+                entry[kind] = _s(p, 3)
         elif tag == "CSENVOYS":
             by_civ: dict[str, int] = {}
             for pair in _s(p, 2).split(","):
@@ -649,6 +688,8 @@ def parse_diplo(lines: list[str]) -> dict[str, Any]:
         c["active_quests"] = quests.get(pid, [])
         c["envoys_by_civ"] = cs_envoys.get(pid)
         c["wars_with"] = wars.get(pid)
+        c["bonuses"] = cs_bonuses.get(pid)
+        c["envoy_status"] = cs_envoy_status(c)
     return {
         "envoys": envoys,
         "majors": majors,
@@ -709,6 +750,66 @@ def parse_religion(lines: list[str]) -> dict[str, Any]:
         elif tag == "DIAG":
             out["diagnostics"].append({"section": _s(p, 1), "message": _s(p, 2)})
     return out
+
+
+def cs_envoy_status(cs: dict[str, Any]) -> dict[str, Any]:
+    """Threshold / lead arithmetic over directly-exported envoy counts.
+
+    Presentation math on observed data (the CS panel shows exactly this),
+    tagged ``reconstructed:threshold`` so consumers know it's derived.
+    Returns None-bearing fields when envoys_by_civ wasn't readable.
+    """
+    mine = cs.get("envoys_sent")
+    out: dict[str, Any] = {
+        "thresholds_met": [t for t in (1, 3, 6) if isinstance(mine, int) and mine >= t],
+        "source": "reconstructed:threshold",
+    }
+    ebc = cs.get("envoys_by_civ")
+    if not isinstance(ebc, dict) or not ebc:
+        out.update({"leader_id": None, "leader_envoys": None,
+                    "needed_to_lead": None, "tied_for_lead": None})
+        return out
+    top = max(ebc.values())
+    leaders = [pid for pid, n in ebc.items() if n == top]
+    mine_n = mine if isinstance(mine, int) else 0
+    out["leader_envoys"] = top
+    out["leader_id"] = leaders[0] if len(leaders) == 1 else None  # None on tie
+    out["tied_for_lead"] = mine_n == top and len(leaders) > 1
+    out["needed_to_lead"] = 0 if (mine_n == top and len(leaders) == 1) else top - mine_n + 1
+    return out
+
+
+def resources_inventory(cities: list[dict[str, Any]] | None) -> list[dict[str, Any]] | None:
+    """Aggregate per-city CITYRES observations into one owned-resource
+    inventory (Reports → Resources).  Pure reorganization — every plot
+    was directly observed as owned; None when cities weren't readable."""
+    if cities is None:
+        return None
+    agg: dict[str, dict[str, Any]] = {}
+    for c in cities:
+        for r in c.get("resources") or []:
+            a = agg.setdefault(
+                r.get("type", "?"),
+                {
+                    "type": r.get("type"),
+                    "class": r.get("class"),
+                    "name": r.get("name"),
+                    "count": 0,
+                    "improved": 0,
+                    "unimproved": 0,
+                    "worked": 0,
+                    "cities": [],
+                    "source": "direct",
+                },
+            )
+            a["count"] += 1
+            a["improved" if r.get("improved") else "unimproved"] += 1
+            if r.get("worked"):
+                a["worked"] += 1
+            cname = c.get("name")
+            if cname and cname not in a["cities"]:
+                a["cities"].append(cname)
+    return sorted(agg.values(), key=lambda a: (a["class"], -a["count"], a["type"] or ""))
 
 
 def units_by_civ(tiles: list[dict[str, Any]] | None) -> dict[str, dict[str, Any]]:

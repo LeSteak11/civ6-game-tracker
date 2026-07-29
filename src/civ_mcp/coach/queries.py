@@ -803,6 +803,19 @@ end)
 
 local ccCenterIdx = GameInfo.Districts["DISTRICT_CITY_CENTER"] and GameInfo.Districts["DISTRICT_CITY_CENTER"].Index
 
+-- Resource visibility honours PrereqTech, same rule as the map query.
+local cpTech = sf(function() return p:GetTechs() end)
+local function resVisible(rr)
+  if not rr.PrereqTech then return true end
+  if not cpTech then return false end
+  local t = GameInfo.Technologies[rr.PrereqTech]
+  return t and sf(function() return cpTech:HasTech(t.Index) end) or false
+end
+
+-- One-shot WARN flags for the probed city-status accessors (G0).
+local statusGrowthWarned = false
+local statusWWWarned = false
+
 for _, c in p:GetCities():Members() do
   local cID = -1
   pcall(function() cID = c:GetID() end)
@@ -934,6 +947,48 @@ for _, c in p:GetCities():Members() do
       expT, relMajType))
   end)
 
+  -- --- City status labels (Reports → City Status) -----------------------
+  -- Happiness label + growth modifier come straight from the
+  -- GameInfo.Happinesses row for the city's happiness index (direct DB,
+  -- localized — the same data the report renders).  The live growth
+  -- modifier and war weariness are probed accessors: -999/-1 unknown
+  -- sentinels + one WARN per snapshot when absent, never a guess.
+  pcall(function()
+    print("TRACE|CITY|" .. cID .. "|status")
+    local g2 = sf(function() return c:GetGrowth() end)
+    if not g2 then return end
+    local happIdx = sf(function() return g2:GetHappiness() end) or -1
+    local happLabel, dbGrowthMod = "?", -999
+    if happIdx >= 0 then
+      local hr = GameInfo.Happinesses[happIdx]
+      if hr then
+        if hr.Name then happLabel = L(hr.Name) end
+        if hr.GrowthModifier ~= nil then dbGrowthMod = hr.GrowthModifier end
+      end
+    end
+    local liveGrowthMod = -999
+    if type(g2.GetHappinessGrowthModifier) == "function" then
+      liveGrowthMod = sf(function() return g2:GetHappinessGrowthModifier() end) or -999
+    elseif not statusGrowthWarned then
+      statusGrowthWarned = true
+      print("WARN|CITIES.status|GetHappinessGrowthModifier unavailable — live growth modifier unknown")
+    end
+    local warWeary = -1
+    local wwName = nil
+    for _, nm in ipairs({"GetWarWeariness", "GetWarWearinessBreakdown"}) do
+      if type(g2[nm]) == "function" then wwName = nm; break end
+    end
+    if wwName then
+      local v = sf(function() return g2[wwName](g2) end)
+      if type(v) == "number" then warWeary = v end
+    elseif not statusWWWarned then
+      statusWWWarned = true
+      print("WARN|CITIES.status|war weariness accessor unavailable (tried GetWarWeariness, GetWarWearinessBreakdown)")
+    end
+    print(string.format("CITYSTATUS|%d|%s|%d|%d|%d",
+      cID, esc(happLabel), dbGrowthMod, liveGrowthMod, warWeary))
+  end)
+
   -- --- Districts + buildings in each ------------------------------------
   pcall(function()
     print("TRACE|CITY|" .. cID .. "|districts")
@@ -1020,6 +1075,24 @@ for _, c in p:GetCities():Members() do
         pcall(function()
           local wc = pl:GetWorkerCount() or 0
           if wc > 0 then workedCount = workedCount + 1 end
+        end)
+        -- Owned-resource inventory (Reports → Resources): one line per
+        -- resource plot this city owns.  Includes bonus resources (which
+        -- never appear in p:GetResources() stockpiles).  "improved" is
+        -- the direct observation that an improvement sits on the tile.
+        pcall(function()
+          local rt = pl:GetResourceType()
+          if rt and rt >= 0 then
+            local rr = GameInfo.Resources[rt]
+            if rr and resVisible(rr) then
+              local cls = (rr.ResourceClassType or ""):gsub("RESOURCECLASS_", "")
+              local improved = (sf(function() return pl:GetImprovementType() end) or -1) >= 0
+              local worked = (sf(function() return pl:GetWorkerCount() end) or 0) > 0
+              print(string.format("CITYRES|%d|%s|%s|%s|%s|%s",
+                cID, rr.ResourceType, cls, esc(L(rr.Name)),
+                tostring(improved), tostring(worked)))
+            end
+          end
         end)
       end
     end
@@ -1435,6 +1508,19 @@ local function legendFor(pid)
   end
 end
 
+-- G0 probe: per-tile yield availability (gates the future yield-breakdown
+-- and per-tile-yield features).  One compat note per snapshot.
+pcall(function()
+  local p0 = Map.GetPlotByIndex(0)
+  if p0 then
+    if type(p0.GetYield) == "function" then
+      print("WARN|MAP.yield_probe|plot:GetYield available — per-tile yields exportable")
+    else
+      print("WARN|MAP.yield_probe|plot:GetYield NOT available on this build")
+    end
+  end
+end)
+
 local revealed, visible, nwCount = 0, 0, 0
 
 local function res_visible(resRow)
@@ -1582,8 +1668,61 @@ pcall(function()
   for _, pid in ipairs(ids) do majorSet[pid] = true end
 end)
 
+-- G0 probe: gossip API discovery.  Pure feature-detect — emits compat
+-- notes (WARN) and a method dump (DIAG, same pattern as the Great People
+-- API dump) so the next live run tells us the real gossip surface.  The
+-- actual gossip export ships only after those names are confirmed.
+safe("gossip_probe", function()
+  if GameInfo.Gossips then
+    local n = 0
+    pcall(function() for _ in GameInfo.Gossips() do n = n + 1 end end)
+    print("WARN|DIPLO.gossip_probe|GameInfo.Gossips present (" .. n .. " gossip types)")
+  else
+    print("WARN|DIPLO.gossip_probe|GameInfo.Gossips missing")
+  end
+  local mgr, how = nil, ""
+  pcall(function()
+    if type(Game.GetGossipManager) == "function" then
+      mgr = Game.GetGossipManager()
+      how = "Game.GetGossipManager()"
+    end
+  end)
+  if mgr == nil then
+    pcall(function()
+      local g = GossipManager
+      if g ~= nil then mgr = g; how = "global GossipManager" end
+    end)
+  end
+  if mgr == nil then
+    print("WARN|DIPLO.gossip_probe|no gossip manager found (tried Game.GetGossipManager, global GossipManager)")
+    return
+  end
+  print("WARN|DIPLO.gossip_probe|gossip manager found via " .. how)
+  pcall(function()
+    local names = {}
+    local mt = getmetatable(mgr)
+    local idx = mt and mt.__index
+    if type(idx) == "table" then
+      for k, v in pairs(idx) do
+        if type(v) == "function" then names[#names+1] = tostring(k) end
+      end
+    elseif type(mgr) == "table" then
+      for k, v in pairs(mgr) do
+        if type(v) == "function" then names[#names+1] = tostring(k) end
+      end
+    end
+    table.sort(names)
+    if #names > 0 then
+      print("DIAG|DIPLO.gossip_probe.api|methods: " .. table.concat(names, ","))
+    else
+      print("DIAG|DIPLO.gossip_probe.api|could not enumerate gossip manager methods")
+    end
+  end)
+end)
+
 local metIDs = sf(function() return d:GetPlayersMetIDs() end) or {}
 local airelWarned = false
+local csLocWarned = false
 for _, q in ipairs(metIDs) do
   pcall(function()
     if q == 63 or q == me then return end
@@ -1768,6 +1907,41 @@ for _, q in ipairs(metIDs) do
           end
         end
         print(string.format("CSENVOYS|%d|%s", q, table.concat(parts, ",")))
+      end)
+
+      -- Envoy-threshold bonus texts (shown on the base game's city-state
+      -- panel).  The Loc keys are data, not method names: an unresolved
+      -- key comes back as the key itself, which we detect and skip with a
+      -- WARN — a raw LOC_ key must never render as a bonus.
+      pcall(function()
+        for _, kv in ipairs({{"small", "SMALL"}, {"medium", "MEDIUM"}, {"large", "LARGE"}}) do
+          local key = "LOC_MINOR_CIV_" .. csType .. "_TRAIT_" .. kv[2] .. "_INFLUENCE_BONUS"
+          local txt = L(key)
+          if txt and txt ~= "" and txt ~= key then
+            print(string.format("CSBONUS|%d|%s|%s", q, kv[1], esc(txt)))
+          elseif not csLocWarned then
+            csLocWarned = true
+            print("WARN|DIPLO.cs_bonus|influence-bonus Loc key unresolved (" .. key .. ")")
+          end
+        end
+      end)
+
+      -- Leader trait descriptions — the unique suzerain bonus lives among
+      -- these (standard DB rows: LeaderTraits -> Traits.Description).
+      pcall(function()
+        local lt = opc:GetLeaderTypeName() or ""
+        if lt == "" then return end
+        for row in GameInfo.LeaderTraits() do
+          if row.LeaderType == lt then
+            local tr = GameInfo.Traits[row.TraitType]
+            if tr and tr.Description then
+              local txt = L(tr.Description)
+              if txt ~= "" and txt ~= tr.Description then
+                print(string.format("CSBONUS|%d|trait|%s", q, esc(txt)))
+              end
+            end
+          end
+        end
       end)
     end
   end)

@@ -1,0 +1,9 @@
+[
+  {
+    "turn": 101,
+    "event": "suzerain_changed",
+    "city_state": "Hattusa",
+    "from": "none",
+    "to": "ME"
+  }
+]
