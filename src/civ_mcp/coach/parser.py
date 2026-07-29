@@ -458,6 +458,7 @@ def parse_units(lines: list[str]) -> dict[str, Any]:
 
 def parse_map(lines: list[str]) -> dict[str, Any]:
     tiles: list[dict[str, Any]] = []
+    rival_cities: list[dict[str, Any]] = []
     natural_wonders: list[dict[str, Any]] = []
     diagnostics: list[dict[str, Any]] = []
     meta = {"total_plots": 0, "grid": ""}
@@ -489,6 +490,24 @@ def parse_map(lines: list[str]) -> dict[str, Any]:
                     "city_name": _s(p, 14),
                 }
             )
+        elif tag == "RIVALCITY":
+            rival_cities.append(
+                {
+                    "owner": _i(p, 1),
+                    "name": _s(p, 2),
+                    "x": _i(p, 3),
+                    "y": _i(p, 4),
+                    "capital": _s(p, 5).lower() == "true",
+                    # "visible" = banner on screen now (pop/defense readable);
+                    # "revealed" = seen before, name/position only, may be stale
+                    "visibility": _s(p, 6),
+                    "population": _i(p, 7, -1),
+                    "defense": _i(p, 8, -1),
+                    "wall_hp": _i(p, 9, -1),
+                    "wall_max": _i(p, 10, -1),
+                    "original_owner": _i(p, 11, -1),
+                }
+            )
         elif tag == "OWNER":
             owners[_s(p, 1)] = _s(p, 2)
         elif tag == "NW":
@@ -503,6 +522,7 @@ def parse_map(lines: list[str]) -> dict[str, Any]:
         "map_meta": meta,
         "map_totals": totals,
         "tiles": tiles,
+        "rival_cities": rival_cities,
         "owners": owners,
         "natural_wonders": natural_wonders,
         "diagnostics": diagnostics,
@@ -515,6 +535,12 @@ def parse_diplo(lines: list[str]) -> dict[str, Any]:
     city_states: list[dict[str, Any]] = []
     agendas: dict[int, list[dict[str, Any]]] = {}
     quests: dict[int, list[dict[str, Any]]] = {}
+    eliminated: list[dict[str, Any]] = []
+    wars: dict[int, list[int]] = {}
+    pubstats: dict[int, dict[str, int]] = {}
+    airel: dict[int, list[dict[str, Any]]] = {}
+    rivgov: dict[int, dict[str, Any]] = {}
+    cs_envoys: dict[int, dict[str, int]] = {}
     diagnostics: list[dict[str, Any]] = []
     for line in lines:
         p = line.split("|")
@@ -569,17 +595,65 @@ def parse_diplo(lines: list[str]) -> dict[str, Any]:
         elif tag == "QUEST":
             pid = _i(p, 1)
             quests.setdefault(pid, []).append({"type": _s(p, 2), "description": _s(p, 3)})
+        elif tag == "DEAD":
+            eliminated.append(
+                {
+                    "player_id": _i(p, 1),
+                    "civ_type": _s(p, 2),
+                    "civ_name": _s(p, 3),
+                    "was_major": _b(p, 4),
+                    "alive": False,
+                }
+            )
+        elif tag == "WARS":
+            wars[_i(p, 1)] = [int(x) for x in _s(p, 2).split(",") if x.strip().lstrip("-").isdigit()]
+        elif tag == "PUBSTATS":
+            pubstats[_i(p, 1)] = {
+                "techs": _i(p, 2, -1),
+                "civics": _i(p, 3, -1),
+                "tourism": _i(p, 4, -1),
+            }
+        elif tag == "AIREL":
+            airel.setdefault(_i(p, 1), []).append({"with": _i(p, 2), "state": _s(p, 3)})
+        elif tag == "RIVGOV":
+            rivgov[_i(p, 1)] = {
+                "type": _s(p, 2),
+                "name": _s(p, 3),
+                # visibility level the value was read at — vis-gated in Lua
+                "read_at_visibility": _i(p, 4, -1),
+                "source": "diplo_vis",
+            }
+        elif tag == "CSENVOYS":
+            by_civ: dict[str, int] = {}
+            for pair in _s(p, 2).split(","):
+                if ":" in pair:
+                    pid_s, n_s = pair.split(":", 1)
+                    try:
+                        by_civ[str(int(pid_s))] = int(n_s)
+                    except ValueError:
+                        continue
+            cs_envoys[_i(p, 1)] = by_civ
         elif tag == "DIAG":
             diagnostics.append({"section": _s(p, 1), "message": _s(p, 2)})
-    # Attach agendas/quests to their respective players
+    # Attach per-player fragments to their respective entries
     for m in majors:
-        m["known_agendas"] = agendas.get(m["player_id"], [])
+        pid = m["player_id"]
+        m["known_agendas"] = agendas.get(pid, [])
+        # None (never rendered as a value) when the line didn't arrive.
+        m["wars_with"] = wars.get(pid)
+        m["public_stats"] = pubstats.get(pid)
+        m["relations"] = airel.get(pid, [])
+        m["government"] = rivgov.get(pid)
     for c in city_states:
-        c["active_quests"] = quests.get(c["player_id"], [])
+        pid = c["player_id"]
+        c["active_quests"] = quests.get(pid, [])
+        c["envoys_by_civ"] = cs_envoys.get(pid)
+        c["wars_with"] = wars.get(pid)
     return {
         "envoys": envoys,
         "majors": majors,
         "city_states": city_states,
+        "eliminated": eliminated,
         "diagnostics": diagnostics,
     }
 
@@ -591,6 +665,7 @@ def parse_religion(lines: list[str]) -> dict[str, Any]:
         "beliefs": [],
         "can_found_pantheon": False,
         "city_religion": {},
+        "world_religions": [],
         "diagnostics": [],
     }
     for line in lines:
@@ -617,12 +692,77 @@ def parse_religion(lines: list[str]) -> dict[str, Any]:
             v = _s(p, 1)
             if v.startswith("canFoundPantheon="):
                 out["can_found_pantheon"] = v.endswith("true")
+        elif tag == "WREL":
+            out["world_religions"].append(
+                {
+                    "founder": _i(p, 1, -1),
+                    "type": _s(p, 2),
+                    "name": _s(p, 3),
+                    "num_beliefs": _i(p, 4, -1),
+                    "source": "public",
+                }
+            )
         elif tag == "CITYREL":
             # Keyed by stringified city ID so the snapshot survives a JSON
             # round-trip (int keys become strings when JSON is re-loaded).
             out["city_religion"][str(_i(p, 1))] = _s(p, 2)
         elif tag == "DIAG":
             out["diagnostics"].append({"section": _s(p, 1), "message": _s(p, 2)})
+    return out
+
+
+def units_by_civ(tiles: list[dict[str, Any]] | None) -> dict[str, dict[str, Any]]:
+    """Aggregate the per-tile visible-unit strings (``owner:type:hp;...``)
+    into a per-owner rollup.  Pure reorganization of already-fog-gated data
+    — the tile strings only ever contain currently-visible units."""
+    agg: dict[str, dict[str, Any]] = {}
+    for t in tiles or []:
+        for part in (t.get("units") or "").split(";"):
+            bits = part.split(":")
+            if len(bits) < 3:
+                continue
+            try:
+                owner, hp = int(bits[0]), int(bits[2])
+            except ValueError:
+                continue
+            a = agg.setdefault(str(owner), {"count": 0, "types": {}, "total_hp": 0})
+            a["count"] += 1
+            a["types"][bits[1]] = a["types"].get(bits[1], 0) + 1
+            a["total_hp"] += hp
+    return agg
+
+
+def build_rivals(
+    diplo_frag: dict[str, Any],
+    map_frag: dict[str, Any],
+    rel_frag: dict[str, Any],
+    section_status: dict[str, str],
+) -> list[dict[str, Any]] | None:
+    """Merge the per-civ fragments into one ``rivals`` list (schema 1.3).
+
+    Pure merge by player id — no inference.  Returns None when the diplo
+    majors section failed (renders as QUERY FAILED, never an empty list)."""
+    if section_status.get("majors_met") == "failed":
+        return None
+    rcities = (map_frag or {}).get("rival_cities") or []
+    wrels = (rel_frag or {}).get("world_religions") or []
+    out: list[dict[str, Any]] = []
+    for m in diplo_frag.get("majors") or []:
+        r = dict(m)
+        pid = m.get("player_id")
+        r["alive"] = True
+        # Known cities only if the map query succeeded — otherwise None so
+        # "no cities known" and "couldn't read the map" stay distinct.
+        r["known_cities"] = (
+            [c for c in rcities if c.get("owner") == pid]
+            if section_status.get("map") != "failed"
+            else None
+        )
+        r["religion_founded"] = next((w for w in wrels if w.get("founder") == pid), None)
+        out.append(r)
+    for dead in diplo_frag.get("eliminated") or []:
+        if dead.get("was_major"):
+            out.append(dict(dead))
     return out
 
 

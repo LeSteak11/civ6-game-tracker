@@ -176,10 +176,10 @@ button.  The coach describes; you play.
 
 ---
 
-# Appendix — snapshot JSON schema (`coach-snapshot/1.2`)
+# Appendix — snapshot JSON schema (`coach-snapshot/1.3`)
 
 Every hotkey press writes a JSON file whose top-level `schema` field is
-`coach-snapshot/1.2`.  Bump `SCHEMA_VERSION` in
+`coach-snapshot/1.3`.  Bump `SCHEMA_VERSION` in
 `src/civ_mcp/coach/__init__.py` whenever a field is renamed or removed;
 add-only changes stay backwards-compatible.
 
@@ -187,8 +187,8 @@ add-only changes stay backwards-compatible.
 
 ```jsonc
 {
-  "schema": "coach-snapshot/1.2",
-  "coach_version": "1.1.0",
+  "schema": "coach-snapshot/1.3",
+  "coach_version": "1.3.0",
   "generated_at_epoch": 1753728000.123,
 
   "meta": {
@@ -294,6 +294,35 @@ add-only changes stay backwards-compatible.
   from `queries.py:build_map_query`.
 - `promotions_available` is `0` or `1` — a unit can have at most one
   pending promotion. Civilians are always `0`.
+
+## Changes in 1.3 (v1.3.0 — opponent state expansion)
+
+All additive.  Rival data carries a source tier: `visible` (on screen
+now), `revealed` (seen before — may be stale), `diplo_vis` (present only
+at sufficient diplomatic visibility), `public` (World Rankings / religion
+screen / war state / envoy counts — known to every player).
+
+- `rivals` — one merged object per met major: everything from
+  `majors_met` plus `alive`, `known_cities` (fog-gated; population and
+  defense/walls only while currently visible, `original_owner` probed,
+  `-1` unknown), `public_stats` {techs, civics, tourism}, `wars_with`
+  (public war matrix incl. wars not involving me), `relations`
+  (non-neutral rival-rival stances), `government` (visibility-gated, with
+  `read_at_visibility`), `religion_founded`.  Eliminated met majors stay
+  in the list with `alive: false`.
+- `rival_cities`, `world_religions`, `units_by_civ` (per-owner rollup of
+  currently visible units), `eliminated` — top-level additions.
+- `city_states_met[].envoys_by_civ` — every civ's envoy count (public).
+- `delta.world_events` + `## WORLD NEWS` Markdown section — observed
+  events: war_declared / peace / city_captured / city_liberated /
+  city_lost_by_me / city_captured_by_me / eliminated / religion_founded /
+  government_changed / military_swing / suzerain_changed.  Derived
+  strictly from prev-vs-curr comparison; failed sections suppress their
+  event class instead of fabricating events.
+- Per-game history files next to `game.json`: `rivals.json` (per-turn
+  observation timelines per major and city-state) and `events.json`
+  (append-only world events with turn stamps) — the postgame-analysis
+  spine.
 
 ## Changes in 1.2 (v1.1.0 — persistent game archives)
 

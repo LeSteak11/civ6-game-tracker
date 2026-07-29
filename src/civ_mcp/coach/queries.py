@@ -1336,7 +1336,17 @@ print("MAPMETA|" .. totalPlots .. "|" .. tostring(mapW))
 -- City-name lookup by plot index so city-centre MAP records carry the
 -- city's name.  Revealed city banners are visible in the normal UI, so
 -- this respects fog: names are only attached to tiles we emit (revealed).
+--
+-- The same walk emits one RIVALCITY line per non-local city whose centre
+-- plot is revealed.  Detail is visibility-tiered: a merely-revealed city
+-- gives name/position/capital only (its banner is what the UI shows);
+-- population/defense/walls are read only while the plot is currently
+-- visible (the banner shows them then).  Defense reads reuse the exact
+-- DISTRICT_CITY_CENTER calls the own-cities query ships.  -1 = unknown.
 local cityNameAt = {}
+local ccIdx = GameInfo.Districts["DISTRICT_CITY_CENTER"]
+      and GameInfo.Districts["DISTRICT_CITY_CENTER"].Index or -1
+local origOwnerProbed = nil
 pcall(function()
   for pid = 0, 63 do
     local pp = Players[pid]
@@ -1347,9 +1357,43 @@ pcall(function()
           pcall(function()
             local cx, cy = cc:GetX(), cc:GetY()
             local cplot = Map.GetPlot(cx, cy)
-            if cplot then
-              cityNameAt[cplot:GetIndex()] = L(cc:GetName())
+            if not cplot then return end
+            cityNameAt[cplot:GetIndex()] = L(cc:GetName())
+            if pid == me or not pVis:IsRevealed(cx, cy) then return end
+            local isVis = pVis:IsVisible(cx, cy)
+            local pop, defStr, wallHP, wallMax = -1, -1, -1, -1
+            if isVis then
+              pop = sf(function() return cc:GetPopulation() end) or -1
+              pcall(function()
+                for _, d in cc:GetDistricts():Members() do
+                  if d:GetType() == ccIdx then
+                    defStr = sf(function() return d:GetDefenseStrength() end) or -1
+                    wallMax = sf(function() return d:GetMaxDamage(DefenseTypes.DISTRICT_OUTER) end) or -1
+                    if wallMax and wallMax > 0 then
+                      wallHP = wallMax - (sf(function() return d:GetDamage(DefenseTypes.DISTRICT_OUTER) end) or 0)
+                    end
+                    break
+                  end
+                end
+              end)
             end
+            -- Original founder: probe once (rule 4 — never guess a method).
+            if origOwnerProbed == nil then
+              origOwnerProbed = (type(cc.GetOriginalOwner) == "function")
+              if not origOwnerProbed then
+                print("WARN|MAP.rival_cities|GetOriginalOwner unavailable — city founder unknown")
+              end
+            end
+            local orig = -1
+            if origOwnerProbed then
+              orig = sf(function() return cc:GetOriginalOwner() end)
+              if orig == nil then orig = -1 end
+            end
+            local isCap = sf(function() return cc:IsCapital() end) or false
+            print(string.format("RIVALCITY|%d|%s|%d|%d|%s|%s|%d|%d|%d|%d|%d",
+              pid, esc(L(cc:GetName())), cx, cy, tostring(isCap),
+              isVis and "visible" or "revealed",
+              pop, defStr, wallHP, wallMax, orig))
           end)
         end
       end
@@ -1539,12 +1583,24 @@ pcall(function()
 end)
 
 local metIDs = sf(function() return d:GetPlayersMetIDs() end) or {}
+local airelWarned = false
 for _, q in ipairs(metIDs) do
   pcall(function()
     if q == 63 or q == me then return end
     local op = Players[q]
     local opc = PlayerConfigurations[q]
-    if not (op and opc and op:IsAlive()) then return end
+    if not (op and opc) then return end
+    -- A met player who is no longer alive was eliminated — that's public
+    -- (the game announces it).  Emit the tombstone instead of silently
+    -- dropping them from the met list.
+    if not sf(function() return op:IsAlive() end) then
+      print(string.format("DEAD|%d|%s|%s|%s",
+        q,
+        esc(opc:GetCivilizationTypeName()),
+        esc(L(opc:GetCivilizationShortDescription())),
+        tostring(sf(function() return op:IsMajor() end) or false)))
+      return
+    end
     local warStr = tostring(sf(function() return d:IsAtWarWith(q) end) or false)
     local metT = sf(function() return d:GetMetTurn(q) end) or -1
     local dvis = sf(function() return d:GetVisibilityOn(q) end) or 0
@@ -1588,6 +1644,74 @@ for _, q in ipairs(metIDs) do
           end
         end
       end)
+
+      -- Wars of this civ against every other met player (and me).  War
+      -- state is public in the base UI, read from the rival's own
+      -- diplomacy object with the already-confirmed IsAtWarWith.
+      pcall(function()
+        local od = op:GetDiplomacy()
+        if not od then return end
+        local wl = {}
+        if sf(function() return od:IsAtWarWith(me) end) then wl[#wl+1] = tostring(me) end
+        for _, r in ipairs(metIDs) do
+          if r ~= q and r ~= 63 and r ~= me then
+            if sf(function() return od:IsAtWarWith(r) end) then wl[#wl+1] = tostring(r) end
+          end
+        end
+        print(string.format("WARS|%d|%s", q, table.concat(wl, ",")))
+      end)
+
+      -- Public victory-rankings stats (shown to every player on the base
+      -- game's World Rankings screens): techs, civics, tourism.  -1 unknown.
+      pcall(function()
+        local techsN = ost and (sf(function() return ost:GetNumTechsResearched() end) or -1) or -1
+        local civN = ost and (sf(function() return ost:GetNumCivicsCompleted() end) or -1) or -1
+        local tourN = ost and (sf(function() return ost:GetTourism() end) or -1) or -1
+        print(string.format("PUBSTATS|%d|%d|%d|%d", q, techsN, civN, tourN))
+      end)
+
+      -- Rival-to-rival diplomatic states (declared friends / denounced —
+      -- announced publicly in game).  Probed per rule 4; non-neutral only
+      -- to keep the packet small.
+      pcall(function()
+        local ai = op:GetDiplomaticAI()
+        if not ai or type(ai.GetDiplomaticStateIndex) ~= "function" then
+          if not airelWarned then
+            airelWarned = true
+            print("WARN|DIPLO.airel|GetDiplomaticStateIndex unavailable — rival-rival relations unknown")
+          end
+          return
+        end
+        for _, r in ipairs(metIDs) do
+          if r ~= q and r ~= 63 and r ~= me and majorSet[r] then
+            local idx = sf(function() return ai:GetDiplomaticStateIndex(r) end)
+            if idx and idx >= 0 then
+              local row = GameInfo.DiplomaticStates[idx]
+              local stype = row and row.StateType or "?"
+              if stype ~= "DIPLO_STATE_NEUTRAL" then
+                print(string.format("AIREL|%d|%d|%s", q, r, esc(stype)))
+              end
+            end
+          end
+        end
+      end)
+
+      -- Rival government — emitted ONLY at diplomatic visibility >= 1
+      -- (limited access shows it on the leader screen); the API would
+      -- return the true value regardless, so the gate lives here, not in
+      -- the renderer.  Tagged with the visibility level it was read at.
+      if dvis and dvis >= 1 then
+        pcall(function()
+          local oc = op:GetCulture()
+          local gi = oc and sf(function() return oc:GetCurrentGovernment() end)
+          if gi and gi >= 0 then
+            local gr = GameInfo.Governments[gi]
+            if gr then
+              print(string.format("RIVGOV|%d|%s|%s|%d", q, gr.GovernmentType, esc(L(gr.Name)), dvis))
+            end
+          end
+        end)
+      end
     else
       -- City-state
       local oinf = sf(function() return op:GetInfluence() end)
@@ -1628,6 +1752,22 @@ for _, q in ipairs(metIDs) do
             end
           end
         end
+      end)
+
+      -- Envoys this city-state has received from EVERY met major (the CS
+      -- panel shows all civs' envoy counts publicly).  pid:count pairs,
+      -- zero counts omitted.
+      pcall(function()
+        if not oinf then return end
+        local parts = {}
+        if sent > 0 then parts[#parts+1] = me .. ":" .. sent end
+        for _, r in ipairs(metIDs) do
+          if r ~= q and r ~= 63 and r ~= me and majorSet[r] then
+            local n = sf(function() return oinf:GetTokensReceived(r) end) or 0
+            if n > 0 then parts[#parts+1] = r .. ":" .. n end
+          end
+        end
+        print(string.format("CSENVOYS|%d|%s", q, table.concat(parts, ",")))
       end)
     end
   end)
@@ -1679,6 +1819,32 @@ safe("founded_religion", function()
         end
       end
     end
+  end
+end)
+
+-- All founded religions in the world with their founder — public via the
+-- religion lens/screen.  Reuses the confirmed Game.GetReligion():
+-- GetReligions() call from founded_religion above.  Founder field probed:
+-- absent means -1 unknown + WARN, never a guess.
+safe("world_religions", function()
+  local gameR = sf(function() return Game.GetReligion() end)
+  local allRels = gameR and sf(function() return gameR:GetReligions() end) or {}
+  local founderWarned = false
+  for _, r in ipairs(allRels) do
+    pcall(function()
+      if not (r.Religion and r.Religion > 0) then return end
+      local rr = GameInfo.Religions[r.Religion]
+      if not rr or rr.ReligionType == "RELIGION_PANTHEON" then return end
+      local founder = -1
+      if r.Founder ~= nil then
+        founder = r.Founder
+      elseif not founderWarned then
+        founderWarned = true
+        print("WARN|REL.world|religion entries carry no Founder field — founders unknown")
+      end
+      local nb = r.Beliefs and #r.Beliefs or -1
+      print(string.format("WREL|%d|%s|%s|%d", founder, rr.ReligionType, esc(L(rr.Name)), nb))
+    end)
   end
 end)
 

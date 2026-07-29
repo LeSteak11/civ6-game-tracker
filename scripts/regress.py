@@ -17,7 +17,7 @@ sys.modules['civ_mcp.lua'] = lua_pkg
 spec = importlib.util.spec_from_file_location('civ_mcp.lua._helpers', str(REPO / 'src/civ_mcp/lua/_helpers.py'))
 h = importlib.util.module_from_spec(spec); spec.loader.exec_module(h); sys.modules['civ_mcp.lua._helpers'] = h
 
-for mod in ['__init__', 'queries', 'parser', 'delta', 'markdown', 'archive']:
+for mod in ['__init__', 'queries', 'parser', 'delta', 'markdown', 'archive', 'history']:
     full = f'civ_mcp.coach.{mod}' if mod != '__init__' else 'civ_mcp.coach'
     spec = importlib.util.spec_from_file_location(full, str(REPO / f'src/civ_mcp/coach/{mod}.py'))
     m = importlib.util.module_from_spec(spec); sys.modules[full] = m; spec.loader.exec_module(m)
@@ -189,8 +189,8 @@ check("real delta lists grown city", "Sais" in txt2)
 
 
 print("\n=== schema/version bump ===")
-check("schema bumped to 1.2", SCHEMA_VERSION == "coach-snapshot/1.2", SCHEMA_VERSION)
-check("coach version 1.2.1 (semver)", COACH_VERSION == "1.2.1", COACH_VERSION)
+check("schema bumped to 1.3", SCHEMA_VERSION == "coach-snapshot/1.3", SCHEMA_VERSION)
+check("coach version 1.3.0 (semver)", COACH_VERSION == "1.3.0", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -427,6 +427,208 @@ snap_tree_failed["section_status"] = dict(snap_tree["section_status"], tech_tree
 md_tf = M.render_markdown(snap_tree_failed, {"first_snapshot": True})
 check("failed tech tree renders QUERY FAILED, never empty rollup",
       "TECH TREE" in md_tf and "QUERY FAILED" in md_tf and "(0/0 completed)" not in md_tf)
+
+print("\n=== Phase 2 Task 3: opponent state expansion (schema 1.3) ===")
+from civ_mcp.coach import delta as D
+from civ_mcp.coach import history as H
+
+# -- Lua source contract --------------------------------------------------
+map_src2 = Q.build_map_query()
+check("map Lua emits RIVALCITY lines", '"RIVALCITY|' in map_src2)
+check("rival cities are fog-gated on the revealed centre plot",
+      "pVis:IsRevealed(cx, cy)" in map_src2)
+check("rival pop/defense read only while currently visible",
+      "pVis:IsVisible(cx, cy)" in map_src2)
+check("original founder is probed, never guessed",
+      'type(cc.GetOriginalOwner) == "function"' in map_src2
+      and "WARN|MAP.rival_cities|GetOriginalOwner unavailable" in map_src2)
+
+diplo_src = Q.build_diplo_query()
+check("diplo Lua emits WARS matrix lines", '"WARS|' in diplo_src)
+check("diplo Lua emits PUBSTATS (world-rankings public)", '"PUBSTATS|' in diplo_src)
+check("diplo Lua emits DEAD tombstones for eliminated met players", '"DEAD|' in diplo_src)
+check("rival-rival relations probed with WARN fallback",
+      'type(ai.GetDiplomaticStateIndex) ~= "function"' in diplo_src
+      and "WARN|DIPLO.airel" in diplo_src)
+check("rival government gated on diplomatic visibility >= 1",
+      "if dvis and dvis >= 1 then" in diplo_src)
+check("CS envoys-by-civ emitted", '"CSENVOYS|' in diplo_src)
+
+rel_src = Q.build_religion_query()
+check("religion Lua emits WREL world religions", '"WREL|' in rel_src)
+check("religion founder probed with WARN, -1 sentinel",
+      "WARN|REL.world" in rel_src)
+
+# -- Parser ---------------------------------------------------------------
+dp = P.parse_diplo([
+    "MAJOR|2|CIVILIZATION_SUMERIA|Sumerian|LEADER_GILGAMESH|Gilgamesh|false|12|1|142|169|false|false|true|false|4|DIPLO_STATE_NEUTRAL",
+    "MAJOR|3|CIVILIZATION_BRAZIL|Brazilian|LEADER_PEDRO|Pedro II|false|30|0|88|40|false|false|false|false|4|DIPLO_STATE_NEUTRAL",
+    "WARS|2|3,63",
+    "PUBSTATS|2|14|9|3",
+    "AIREL|2|3|DIPLO_STATE_DENOUNCED",
+    "RIVGOV|2|GOVERNMENT_OLIGARCHY|Oligarchy|1",
+    "DEAD|5|CIVILIZATION_KONGO|Kongolese|true",
+    "CS|40|CIVILIZATION_KABUL|Kabul|MILITARISTIC|3|ME|10|20|false|22",
+    "CSENVOYS|40|0:3,2:1",
+])
+maj2 = next(m for m in dp["majors"] if m["player_id"] == 2)
+check("wars matrix attached to major", maj2["wars_with"] == [3, 63], maj2["wars_with"])
+check("public stats attached", maj2["public_stats"] == {"techs": 14, "civics": 9, "tourism": 3})
+check("rival-rival relation attached",
+      maj2["relations"] == [{"with": 3, "state": "DIPLO_STATE_DENOUNCED"}])
+check("rival government carries visibility + source tag",
+      maj2["government"]["type"] == "GOVERNMENT_OLIGARCHY"
+      and maj2["government"]["read_at_visibility"] == 1
+      and maj2["government"]["source"] == "diplo_vis")
+maj3 = next(m for m in dp["majors"] if m["player_id"] == 3)
+check("missing WARS/PUBSTATS lines parse as None, not empty-list lies",
+      maj3["wars_with"] is None and maj3["public_stats"] is None)
+check("DEAD tombstone parsed", dp["eliminated"][0]["civ_name"] == "Kongolese"
+      and dp["eliminated"][0]["alive"] is False)
+cs40 = dp["city_states"][0]
+check("CS envoys-by-civ parsed", cs40["envoys_by_civ"] == {"0": 3, "2": 1}, cs40["envoys_by_civ"])
+
+mp = P.parse_map([
+    "MAPMETA|4720|84x60",
+    "RIVALCITY|2|Uruk|30|20|true|visible|7|28|85|100|2",
+    "RIVALCITY|2|Kish|32|24|false|revealed|-1|-1|-1|-1|-1",
+    "OWNER|2|Sumerian",
+    "MAPTOTAL|1|1|0",
+])
+check("rival city parsed with visibility tier",
+      mp["rival_cities"][0]["visibility"] == "visible"
+      and mp["rival_cities"][1]["visibility"] == "revealed")
+check("revealed-only city keeps -1 unknowns (no fake zeros)",
+      mp["rival_cities"][1]["population"] == -1 and mp["rival_cities"][1]["defense"] == -1)
+
+rp = P.parse_religion(["WREL|2|RELIGION_HINDUISM|Hinduism|2"])
+check("world religion parsed with founder + public tag",
+      rp["world_religions"][0]["founder"] == 2
+      and rp["world_religions"][0]["source"] == "public")
+
+# -- Rivals merge + units rollup -----------------------------------------
+status_ok = {"majors_met": "ok", "map": "ok"}
+rivals = P.build_rivals(dp, mp, rp, status_ok)
+r2 = next(r for r in rivals if r.get("player_id") == 2)
+check("rivals merge attaches known cities", len(r2["known_cities"]) == 2)
+check("rivals merge attaches founded religion", r2["religion_founded"]["name"] == "Hinduism")
+check("eliminated major appears in rivals with alive=false",
+      any(r.get("alive") is False and r.get("civ_name") == "Kongolese" for r in rivals))
+check("failed majors section -> rivals is None, never []",
+      P.build_rivals(dp, mp, rp, {"majors_met": "failed"}) is None)
+rivals_mapfail = P.build_rivals(dp, mp, rp, {"majors_met": "ok", "map": "failed"})
+check("failed map -> known_cities None, not empty list",
+      next(r for r in rivals_mapfail if r.get("player_id") == 2)["known_cities"] is None)
+
+ubc = P.units_by_civ([
+    {"units": "2:UNIT_WARRIOR:100;2:UNIT_SLINGER:80"},
+    {"units": "63:UNIT_WARRIOR:100"},
+    {"units": ""},
+])
+check("units-by-civ rollup aggregates owners",
+      ubc["2"]["count"] == 2 and ubc["2"]["types"]["UNIT_WARRIOR"] == 1 and ubc["63"]["count"] == 1)
+
+# -- World events (delta) -------------------------------------------------
+def _rv(pid, name, alive=True, mil=100, wars=None, gov=None):
+    return {"player_id": pid, "civ_name": name, "alive": alive, "military": mil,
+            "wars_with": wars or [], "government": gov}
+
+prev_snap = {
+    "meta": {"turn": 140},
+    "rivals": [_rv(2, "Sumerian", mil=160), _rv(3, "Brazilian", mil=90)],
+    "rival_cities": [
+        {"owner": 3, "name": "Rio de Janeiro", "x": 50, "y": 10, "original_owner": 3},
+    ],
+    "world_religions": [],
+    "city_states_met": [{"player_id": 40, "civ_name": "Kabul", "suzerain": "ME"}],
+    "cities": [{"id": 1, "name": "Thebes", "x": 60, "y": 30}],
+}
+curr_snap = {
+    "meta": {"turn": 145},
+    "rivals": [
+        _rv(2, "Sumerian", mil=210, wars=[3]),
+        _rv(3, "Brazilian", alive=False, mil=0),
+    ],
+    "rival_cities": [
+        {"owner": 2, "name": "Rio de Janeiro", "x": 50, "y": 10, "original_owner": 3},
+    ],
+    "world_religions": [{"founder": 2, "type": "RELIGION_HINDUISM", "name": "Hinduism"}],
+    "city_states_met": [{"player_id": 40, "civ_name": "Kabul", "suzerain": "SUMERIA"}],
+    "cities": [{"id": 1, "name": "Thebes", "x": 60, "y": 30}],
+}
+evs = D._world_events(prev_snap, curr_snap)
+kinds = sorted(e["event"] for e in evs)
+check("elimination event derived", "eliminated" in kinds, kinds)
+check("war-anywhere event derived", "war_declared" in kinds)
+check("city capture derived from ownership flip", "city_captured" in kinds)
+check("religion founding derived", "religion_founded" in kinds)
+check("military swing derived", "military_swing" in kinds)
+check("suzerain flip derived", "suzerain_changed" in kinds)
+cap = next(e for e in evs if e["event"] == "city_captured")
+check("capture names both civs", cap["civs"] == ["Brazilian", "Sumerian"], cap)
+
+# Failed sections suppress events instead of fabricating them
+curr_failed = dict(curr_snap)
+curr_failed["rivals"] = None
+curr_failed["rival_cities"] = None
+evs_failed = D._world_events(prev_snap, curr_failed)
+check("failed rival/map sections fabricate no rival events",
+      not any(e["event"] in ("eliminated", "city_captured", "war_declared", "city_lost_by_me")
+              for e in evs_failed), [e["event"] for e in evs_failed])
+
+# -- Markdown -------------------------------------------------------------
+snap_world = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 1.0,
+    "meta": {"turn": 145}, "empire": {},
+    "majors_met": dp["majors"], "city_states_met": dp["city_states"],
+    "rivals": rivals, "rival_cities": mp["rival_cities"],
+    "units_by_civ": {"2": {"count": 2, "types": {"UNIT_WARRIOR": 2}, "total_hp": 200},
+                     "0": {"count": 5, "types": {"UNIT_WARRIOR": 5}, "total_hp": 500}},
+    "map_owners": {"0": "me (Egypt)", "2": "Sumerian", "3": "Brazilian", "63": "Barbarians"},
+    "section_status": {"header": "ok", "majors_met": "ok", "city_states_met": "ok", "map": "ok"},
+    "diagnostics": {}, "turn_blockers_summary": [],
+}
+md_w = M.render_markdown(snap_world, {"first_snapshot": False, "turns_elapsed": 1,
+                                      "world_events": evs})
+check("WORLD NEWS section renders when events exist", "## WORLD NEWS" in md_w)
+check("capture headline names city and civs",
+      "captured **Rio de Janeiro**" in md_w)
+check("elimination headline renders", "has been eliminated" in md_w)
+check("majors block shows public stats line", "public: techs 14 | civics 9" in md_w)
+check("majors block lists known cities with stale marker",
+      "known cities (2): Uruk★ p7, Kish?" in md_w, [l for l in md_w.splitlines() if "known cities" in l])
+check("majors block shows rival wars", "at war with: Brazilian, Barbarians" in md_w)
+check("majors block shows vis-gated government", "government: Oligarchy (vis 1)" in md_w)
+check("eliminated tombstone renders", "☠️ **Kongolese** — ELIMINATED" in md_w)
+check("CS line shows envoys by civ", "envoys: me (Egypt) 3, Sumerian 1" in md_w)
+check("foreign forces rollup renders, excluding me",
+      "### FOREIGN FORCES CURRENTLY VISIBLE" in md_w
+      and "Sumerian: 2 unit(s)" in md_w and "me (Egypt): 5" not in md_w)
+md_quiet = M.render_markdown(snap_world, {"first_snapshot": False, "turns_elapsed": 1,
+                                          "world_events": []})
+check("no WORLD NEWS section on a quiet world", "## WORLD NEWS" not in md_quiet)
+
+# -- History persistence --------------------------------------------------
+htmp = Path(tempfile.mkdtemp(prefix="civ6-history-regress-"))
+hsnap = {"meta": {"turn": 145}, "rivals": rivals, "city_states_met": dp["city_states"]}
+H.update_history(htmp, hsnap, evs)
+hist = json.loads((htmp / "rivals.json").read_text(encoding="utf-8"))
+check("history timeline written per major", "2" in hist["majors"]
+      and hist["majors"]["2"]["timeline"][0]["turn"] == 145)
+check("history events written with turn stamps",
+      json.loads((htmp / "events.json").read_text(encoding="utf-8"))[0]["turn"] == 145)
+H.update_history(htmp, hsnap, [])
+hist2 = json.loads((htmp / "rivals.json").read_text(encoding="utf-8"))
+check("same-turn recapture replaces, never duplicates, timeline entries",
+      len(hist2["majors"]["2"]["timeline"]) == 1)
+hsnap2 = {"meta": {"turn": 146}, "rivals": rivals, "city_states_met": dp["city_states"]}
+H.update_history(htmp, hsnap2, [])
+hist3 = json.loads((htmp / "rivals.json").read_text(encoding="utf-8"))
+check("new turn appends timeline entry",
+      [e["turn"] for e in hist3["majors"]["2"]["timeline"]] == [145, 146])
+check("turnless snapshot writes no history",
+      (H.update_history(htmp, {"meta": {}}, [{"event": "x"}]) is None
+       and len(json.loads((htmp / "events.json").read_text(encoding="utf-8"))) == len(evs)))
 
 print("\n=== sentinel decoupling ===")
 from civ_mcp.coach import SENTINEL as COACH_SENTINEL

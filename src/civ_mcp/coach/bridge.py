@@ -33,6 +33,7 @@ from civ_mcp.coach.archive import write_snapshot as archive_snapshot
 from civ_mcp.coach.clipboard_win import ClipboardError, copy_text
 from civ_mcp.coach.collector import collect_snapshot
 from civ_mcp.coach.delta import compute_delta
+from civ_mcp.coach.history import update_history
 from civ_mcp.coach.markdown import render_markdown
 
 if sys.platform == "win32":
@@ -76,7 +77,7 @@ class CoachBridge:
             log.warning("Could not parse existing latest-full.json — ignoring", exc_info=True)
             return None
 
-    def _write_outputs(self, snap: dict[str, Any], md: str) -> str:
+    def _write_outputs(self, snap: dict[str, Any], md: str, delta: dict[str, Any] | None = None) -> str:
         """Write the capture and return a human-readable description.
 
         Snapshots with a trusted turn number go to the persistent per-game
@@ -101,6 +102,11 @@ class CoachBridge:
 
         res = archive_snapshot(self.output_dir, snap, md)
         if res is not None:
+            # Rival history + world-events log live next to the game.json.
+            try:
+                update_history(res.game_dir, snap, (delta or {}).get("world_events"))
+            except Exception:  # noqa: BLE001 — history must never block a capture
+                log.exception("history update failed")
             rel = res.game_dir.name
             if res.deduplicated:
                 return (
@@ -149,7 +155,7 @@ class CoachBridge:
 
             delta = compute_delta(self._last_snapshot, snap)
             md = render_markdown(snap, delta)
-            write_desc = self._write_outputs(snap, md)
+            write_desc = self._write_outputs(snap, md, delta)
 
             # Clipboard
             clip_status = "ok"

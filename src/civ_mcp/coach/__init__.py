@@ -14,8 +14,8 @@ being silently omitted.
 
 from __future__ import annotations
 
-SCHEMA_VERSION = "coach-snapshot/1.2"  # 1.1 + seeds, tech_tree/civic_tree (additive)
-COACH_VERSION = "1.2.1"
+SCHEMA_VERSION = "coach-snapshot/1.3"  # 1.2 + rivals/world state expansion (additive)
+COACH_VERSION = "1.3.0"
 
 # Terminator every coach Lua chunk prints as its last line.
 #

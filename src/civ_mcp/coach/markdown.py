@@ -28,6 +28,13 @@ def _fail_marker(key: str, snap: dict[str, Any]) -> str:
     return f"**QUERY FAILED — {key}{hint}**"
 
 
+def _unk(v: Any) -> Any:
+    """-1 / None are unknown sentinels — render '?', never a fake number."""
+    if v is None or (isinstance(v, (int, float)) and v < 0):
+        return "?"
+    return v
+
+
 def _kv(label: str, value: Any) -> str:
     return f"- **{label}:** {value}"
 
@@ -115,6 +122,34 @@ def _fmt_delta(d: dict[str, Any]) -> str:
     return "\n".join(lines) if lines else "_no material changes_"
 
 
+def _fmt_world_event(e: dict[str, Any]) -> str:
+    t = e.get("event")
+    if t == "eliminated":
+        return f"☠️ **{e.get('civ')} has been eliminated.**"
+    if t == "war_declared":
+        return f"⚔️ War: {e.get('civs', ['?', '?'])[0]} vs {e.get('civs', ['?', '?'])[1]}"
+    if t == "peace":
+        return f"🕊️ Peace: {e.get('civs', ['?', '?'])[0]} and {e.get('civs', ['?', '?'])[1]}"
+    if t == "city_captured":
+        return f"🏴 {e.get('civs', ['?', '?'])[1]} captured **{e.get('city')}** from {e.get('civs', ['?', '?'])[0]}"
+    if t == "city_liberated":
+        return f"🏳️ **{e.get('city')}** liberated — returned to {e.get('civs', ['?', '?'])[1]}"
+    if t == "city_lost_by_me":
+        return f"🔥 **I LOST {e.get('city')}** to {e.get('to_civ', 'unknown')}"
+    if t == "city_captured_by_me":
+        return f"🚩 I captured **{e.get('city')}** from {e.get('from_civ', 'unknown')}"
+    if t == "government_changed":
+        return f"🏛️ {e.get('civ')} changed government: {e.get('from')} → {e.get('to')}"
+    if t == "religion_founded":
+        return f"⛪ {e.get('civ')} founded **{e.get('religion')}**"
+    if t == "military_swing":
+        arrow = "📈" if (e.get("to") or 0) > (e.get("from") or 0) else "📉"
+        return f"{arrow} {e.get('civ')} military {e.get('from')} → {e.get('to')}"
+    if t == "suzerain_changed":
+        return f"🤝 {e.get('city_state')} suzerain: {e.get('from')} → {e.get('to')}"
+    return str(e)
+
+
 def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
     st = snap.get("section_status") or {}
     m = snap.get("meta") or {}
@@ -152,6 +187,14 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
     lines.append("## CHANGES SINCE LAST SNAPSHOT")
     lines.append(_fmt_delta(delta))
     lines.append("")
+
+    # ---- World news (only when something happened) ------------------------
+    events = (delta or {}).get("world_events") or []
+    if events:
+        lines.append("## WORLD NEWS")
+        for e in events:
+            lines.append("- " + _fmt_world_event(e))
+        lines.append("")
 
     # ---- Turn blockers ----------------------------------------------------
     blockers = snap.get("turn_blockers_summary", []) or []
@@ -578,6 +621,50 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                     f"met T{majg.get('met_turn')}{ob_str}"
                     + (f" | agendas: {agendas}" if agendas else "")
                 )
+                # Rival detail sub-lines (schema 1.3) — sourced from the
+                # merged rivals list so known cities / public stats /
+                # wars / government ride along when available.
+                riv = next(
+                    (r for r in (snap.get("rivals") or [])
+                     if r.get("player_id") == majg.get("player_id")),
+                    None,
+                )
+                if riv:
+                    ps = riv.get("public_stats")
+                    if ps:
+                        lines.append(
+                            f"    - public: techs {_unk(ps.get('techs'))} | "
+                            f"civics {_unk(ps.get('civics'))} | tourism {_unk(ps.get('tourism'))}"
+                        )
+                    kc = riv.get("known_cities")
+                    if isinstance(kc, list) and kc:
+                        parts = []
+                        for c in sorted(kc, key=lambda c: not c.get("capital", False)):
+                            tag = "★" if c.get("capital") else ""
+                            pop = f" p{c.get('population')}" if c.get("population", -1) >= 0 else ""
+                            stale = "" if c.get("visibility") == "visible" else "?"
+                            parts.append(f"{c.get('name')}{tag}{pop}{stale}")
+                        lines.append(f"    - known cities ({len(kc)}): " + ", ".join(parts))
+                    wl = riv.get("wars_with")
+                    if wl:
+                        owners = snap.get("map_owners") or {}
+                        wn = ", ".join(owners.get(str(w), f"player {w}") for w in wl)
+                        lines.append(f"    - at war with: {wn}")
+                    gov = riv.get("government")
+                    if gov:
+                        lines.append(f"    - government: {gov.get('name')} (vis {gov.get('read_at_visibility')})")
+                    rel = riv.get("religion_founded")
+                    if rel:
+                        lines.append(f"    - founded religion: {rel.get('name')}")
+                    rls = [
+                        f"{(snap.get('map_owners') or {}).get(str(x.get('with')), 'player ' + str(x.get('with')))}: {x.get('state', '').replace('DIPLO_STATE_', '')}"
+                        for x in riv.get("relations") or []
+                    ]
+                    if rls:
+                        lines.append(f"    - relations: " + ", ".join(rls))
+        eliminated = [r for r in (snap.get("rivals") or []) if not r.get("alive", True)]
+        for dead in eliminated:
+            lines.append(f"- ☠️ **{dead.get('civ_name')}** — ELIMINATED")
     if st.get("city_states_met") == "failed":
         lines.append("### CITY-STATES MET")
         lines.append(_fail_marker("city_states_met", snap))
@@ -588,12 +675,40 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
             for c in cs:
                 war = " ⚔️" if c.get("at_war") else ""
                 quests = ", ".join(q.get("description", q.get("type", "?")) for q in c.get("active_quests", []))
+                ebc = c.get("envoys_by_civ")
+                ebc_str = ""
+                if isinstance(ebc, dict) and ebc:
+                    owners = snap.get("map_owners") or {}
+                    top = sorted(ebc.items(), key=lambda kv: -kv[1])
+                    ebc_str = " | envoys: " + ", ".join(
+                        f"{owners.get(k, 'me' if k == '0' else 'p' + k)} {v}" for k, v in top
+                    )
                 lines.append(
                     f"- **{c.get('civ_name')}** ({c.get('cs_type')}) — "
                     f"envoys sent {c.get('envoys_sent')} | suz: {c.get('suzerain')} | "
                     f"@({c.get('x')},{c.get('y')}) | met T{c.get('met_turn')}{war}"
                     + (f" | quest: {quests}" if quests else "")
+                    + ebc_str
                 )
+    # Visible foreign forces, rolled up per owner from the tile data (fog
+    # already applied at export time — these are on-screen units only).
+    ubc = snap.get("units_by_civ") or {}
+    owners = snap.get("map_owners") or {}
+    # "me" is identified via the owner legend (the local player is not
+    # always id 0); barbarians (63) have their own section below.
+    foreign = {
+        k: v
+        for k, v in ubc.items()
+        if k != "63" and not str(owners.get(k, "")).startswith("me")
+    }
+    if foreign:
+        lines.append("### FOREIGN FORCES CURRENTLY VISIBLE")
+        for k, v in sorted(foreign.items(), key=lambda kv: -kv[1].get("count", 0)):
+            types = ", ".join(
+                f"{n}× {t.replace('UNIT_', '')}" if n > 1 else t.replace("UNIT_", "")
+                for t, n in sorted(v.get("types", {}).items(), key=lambda tn: -tn[1])
+            )
+            lines.append(f"- {owners.get(k, 'player ' + k)}: {v.get('count')} unit(s) — {types}")
     lines.append("")
 
     # ---- Barbarians -------------------------------------------------------

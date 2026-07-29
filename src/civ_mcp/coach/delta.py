@@ -26,6 +26,121 @@ def _tile_key(t: dict[str, Any]) -> tuple[int, int]:
     return int(t.get("x", -1)), int(t.get("y", -1))
 
 
+def _world_events(prev: dict[str, Any], curr: dict[str, Any]) -> list[dict[str, Any]]:
+    """Observed world events between two snapshots.
+
+    Everything here is a comparison of two legitimate observations — no
+    guessing.  When a source section is None (query failed) on either
+    side, that event class is skipped entirely: a failed read must never
+    manufacture a "city lost" or "war ended" story.
+    """
+    ev: list[dict[str, Any]] = []
+    p_riv, c_riv = prev.get("rivals"), curr.get("rivals")
+    pr = {r.get("player_id"): r for r in p_riv} if isinstance(p_riv, list) else None
+    cr = {r.get("player_id"): r for r in c_riv} if isinstance(c_riv, list) else None
+
+    def name_of(pid: Any) -> str:
+        for src in (cr or {}), (pr or {}):
+            if pid in src and src[pid].get("civ_name"):
+                return src[pid]["civ_name"]
+        return "me" if pid == 0 else f"player {pid}"
+
+    if pr is not None and cr is not None:
+        # Eliminations
+        for pid, r in cr.items():
+            if not r.get("alive", True) and pr.get(pid, {}).get("alive", True):
+                ev.append({"event": "eliminated", "player_id": pid, "civ": name_of(pid)})
+        # Wars declared / peace made anywhere among met civs
+        def _war_pairs(rmap: dict) -> set:
+            pairs = set()
+            for pid, r in rmap.items():
+                for o in r.get("wars_with") or []:
+                    pairs.add(tuple(sorted((pid, o))))
+            return pairs
+        pw, cw = _war_pairs(pr), _war_pairs(cr)
+        for a, b in sorted(cw - pw):
+            ev.append({"event": "war_declared", "between": [a, b],
+                       "civs": [name_of(a), name_of(b)]})
+        for a, b in sorted(pw - cw):
+            # Peace only if both parties still alive — a war "ending" via
+            # elimination is the elimination event, not a peace deal.
+            if cr.get(a, {}).get("alive", True) and cr.get(b, {}).get("alive", True):
+                ev.append({"event": "peace", "between": [a, b],
+                           "civs": [name_of(a), name_of(b)]})
+        # Government changes (only when read at valid visibility both times)
+        for pid, r in cr.items():
+            g, gp = r.get("government"), pr.get(pid, {}).get("government")
+            if g and gp and g.get("type") != gp.get("type"):
+                ev.append({"event": "government_changed", "player_id": pid,
+                           "civ": name_of(pid), "from": gp.get("name"), "to": g.get("name")})
+        # Sharp military swings (>=20% and >=30 points, both observed)
+        for pid, r in cr.items():
+            p = pr.get(pid)
+            if not p or not r.get("alive", True):
+                continue
+            m0, m1 = p.get("military") or 0, r.get("military") or 0
+            if m0 >= 30 and abs(m1 - m0) >= max(30, 0.2 * m0):
+                ev.append({"event": "military_swing", "player_id": pid,
+                           "civ": name_of(pid), "from": m0, "to": m1})
+
+    # Religions founded (public list on both sides)
+    p_wrel, c_wrel = prev.get("world_religions"), curr.get("world_religions")
+    if isinstance(p_wrel, list) and isinstance(c_wrel, list):
+        known = {w.get("type") for w in p_wrel}
+        for w in c_wrel:
+            if w.get("type") not in known:
+                ev.append({"event": "religion_founded", "civ": name_of(w.get("founder")),
+                           "religion": w.get("name")})
+
+    # City ownership changes among revealed rival cities (matched by coords)
+    p_rc, c_rc = prev.get("rival_cities"), curr.get("rival_cities")
+    if isinstance(p_rc, list) and isinstance(c_rc, list):
+        p_at = {(c.get("x"), c.get("y")): c for c in p_rc}
+        c_at = {(c.get("x"), c.get("y")): c for c in c_rc}
+        for k, c in c_at.items():
+            pc = p_at.get(k)
+            if pc and pc.get("owner") != c.get("owner"):
+                liberated = (
+                    c.get("original_owner", -1) >= 0
+                    and c.get("owner") == c.get("original_owner")
+                )
+                ev.append({
+                    "event": "city_liberated" if liberated else "city_captured",
+                    "city": c.get("name"), "at": [c.get("x"), c.get("y")],
+                    "from": pc.get("owner"), "to": c.get("owner"),
+                    "civs": [name_of(pc.get("owner")), name_of(c.get("owner"))],
+                })
+        # My cities lost / captured by me (own list vs rival list)
+        p_mine, c_mine = prev.get("cities"), curr.get("cities")
+        if isinstance(p_mine, list) and isinstance(c_mine, list):
+            mine_now = {mc.get("id") for mc in c_mine}
+            for mc in p_mine:
+                if mc.get("id") not in mine_now:
+                    k = (mc.get("x"), mc.get("y"))
+                    taker = c_at.get(k, {}).get("owner")
+                    ev.append({"event": "city_lost_by_me", "city": mc.get("name"),
+                               "at": [mc.get("x"), mc.get("y")],
+                               "to": taker, "to_civ": name_of(taker) if taker is not None else "unknown"})
+            mine_before = {mc.get("id") for mc in p_mine}
+            for mc in c_mine:
+                if mc.get("id") not in mine_before and (mc.get("x"), mc.get("y")) in p_at:
+                    prev_owner = p_at[(mc.get("x"), mc.get("y"))].get("owner")
+                    ev.append({"event": "city_captured_by_me", "city": mc.get("name"),
+                               "at": [mc.get("x"), mc.get("y")],
+                               "from": prev_owner, "from_civ": name_of(prev_owner)})
+
+    # Suzerain changes on met city-states
+    p_cs, c_cs = prev.get("city_states_met"), curr.get("city_states_met")
+    if isinstance(p_cs, list) and isinstance(c_cs, list):
+        p_by = {c.get("player_id"): c for c in p_cs}
+        for c in c_cs:
+            pc = p_by.get(c.get("player_id"))
+            if pc and pc.get("suzerain") != c.get("suzerain"):
+                ev.append({"event": "suzerain_changed", "city_state": c.get("civ_name"),
+                           "from": pc.get("suzerain"), "to": c.get("suzerain")})
+    return ev
+
+
 def compute_delta(prev: dict[str, Any] | None, curr: dict[str, Any]) -> dict[str, Any]:
     if not prev:
         return {"first_snapshot": True}
@@ -124,6 +239,11 @@ def compute_delta(prev: dict[str, Any] | None, curr: dict[str, Any]) -> dict[str
         if delta != 0:
             res_delta[k] = delta
     d["resources_delta"] = res_delta
+
+    # World events — observed changes in rival/city-state state.  Strictly
+    # prev-vs-curr comparison of fog-legitimate data; a failed section on
+    # either side suppresses that event class rather than fabricating one.
+    d["world_events"] = _world_events(prev, curr)
 
     # Diplomacy — newly met
     prev_maj = {m["player_id"] for m in prev.get("majors_met", [])}

@@ -1,7 +1,7 @@
 {
   "schema": "coach-snapshot/1.2",
-  "coach_version": "1.1.0",
-  "generated_at_epoch": 1785306306.3589144,
+  "coach_version": "1.2.1",
+  "generated_at_epoch": 1785307641.26125,
   "meta": {
     "turn": 87,
     "year": "725 BC",
@@ -420,6 +420,1591 @@
       "unlocks": "Bastions, Limes"
     }
   ],
+  "tech_tree": [
+    {
+      "type": "TECH_POTTERY",
+      "name": "Pottery",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": []
+    },
+    {
+      "type": "TECH_ANIMAL_HUSBANDRY",
+      "name": "Animal Husbandry",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": []
+    },
+    {
+      "type": "TECH_MINING",
+      "name": "Mining",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": []
+    },
+    {
+      "type": "TECH_SAILING",
+      "name": "Sailing",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": []
+    },
+    {
+      "type": "TECH_ASTROLOGY",
+      "name": "Astrology",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": []
+    },
+    {
+      "type": "TECH_IRRIGATION",
+      "name": "Irrigation",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "POTTERY"
+      ]
+    },
+    {
+      "type": "TECH_ARCHERY",
+      "name": "Archery",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "ANIMAL_HUSBANDRY"
+      ]
+    },
+    {
+      "type": "TECH_WRITING",
+      "name": "Writing",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "POTTERY"
+      ]
+    },
+    {
+      "type": "TECH_MASONRY",
+      "name": "Masonry",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MINING"
+      ]
+    },
+    {
+      "type": "TECH_BRONZE_WORKING",
+      "name": "Bronze Working",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MINING"
+      ]
+    },
+    {
+      "type": "TECH_THE_WHEEL",
+      "name": "Wheel",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MINING"
+      ]
+    },
+    {
+      "type": "TECH_CELESTIAL_NAVIGATION",
+      "name": "Celestial Navigation",
+      "era": "CLASSICAL",
+      "status": "available",
+      "progress": 0.0,
+      "cost": 120.0,
+      "turns": 8,
+      "partial": false,
+      "prereqs": [
+        "SAILING",
+        "ASTROLOGY"
+      ]
+    },
+    {
+      "type": "TECH_CURRENCY",
+      "name": "Currency",
+      "era": "CLASSICAL",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "WRITING"
+      ]
+    },
+    {
+      "type": "TECH_HORSEBACK_RIDING",
+      "name": "Horseback Riding",
+      "era": "CLASSICAL",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "ARCHERY"
+      ]
+    },
+    {
+      "type": "TECH_IRON_WORKING",
+      "name": "Iron Working",
+      "era": "CLASSICAL",
+      "status": "available",
+      "progress": 0.0,
+      "cost": 120.0,
+      "turns": 8,
+      "partial": false,
+      "prereqs": [
+        "BRONZE_WORKING"
+      ]
+    },
+    {
+      "type": "TECH_SHIPBUILDING",
+      "name": "Shipbuilding",
+      "era": "CLASSICAL",
+      "status": "available",
+      "progress": 0.0,
+      "cost": 200.0,
+      "turns": 12,
+      "partial": false,
+      "prereqs": [
+        "SAILING"
+      ]
+    },
+    {
+      "type": "TECH_MATHEMATICS",
+      "name": "Mathematics",
+      "era": "CLASSICAL",
+      "status": "available",
+      "progress": 0.0,
+      "cost": 200.0,
+      "turns": 12,
+      "partial": false,
+      "prereqs": [
+        "CURRENCY"
+      ]
+    },
+    {
+      "type": "TECH_CONSTRUCTION",
+      "name": "Construction",
+      "era": "CLASSICAL",
+      "status": "current",
+      "progress": 92.0,
+      "cost": 200.0,
+      "turns": 7,
+      "partial": true,
+      "prereqs": [
+        "MASONRY",
+        "HORSEBACK_RIDING"
+      ]
+    },
+    {
+      "type": "TECH_ENGINEERING",
+      "name": "Engineering",
+      "era": "CLASSICAL",
+      "status": "available",
+      "progress": 0.0,
+      "cost": 200.0,
+      "turns": 12,
+      "partial": false,
+      "prereqs": [
+        "THE_WHEEL"
+      ]
+    },
+    {
+      "type": "TECH_MILITARY_TACTICS",
+      "name": "Military Tactics",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 300.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MATHEMATICS"
+      ]
+    },
+    {
+      "type": "TECH_APPRENTICESHIP",
+      "name": "Apprenticeship",
+      "era": "MEDIEVAL",
+      "status": "available",
+      "progress": 0.0,
+      "cost": 300.0,
+      "turns": 18,
+      "partial": false,
+      "prereqs": [
+        "CURRENCY",
+        "HORSEBACK_RIDING"
+      ]
+    },
+    {
+      "type": "TECH_MACHINERY",
+      "name": "Machinery",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 300.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "IRON_WORKING",
+        "ENGINEERING"
+      ]
+    },
+    {
+      "type": "TECH_EDUCATION",
+      "name": "Education",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 390.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MATHEMATICS",
+        "APPRENTICESHIP"
+      ]
+    },
+    {
+      "type": "TECH_STIRRUPS",
+      "name": "Stirrups",
+      "era": "MEDIEVAL",
+      "status": "available",
+      "progress": 0.0,
+      "cost": 390.0,
+      "turns": 23,
+      "partial": false,
+      "prereqs": [
+        "HORSEBACK_RIDING"
+      ]
+    },
+    {
+      "type": "TECH_MILITARY_ENGINEERING",
+      "name": "Military Engineering",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 390.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "CONSTRUCTION"
+      ]
+    },
+    {
+      "type": "TECH_CASTLES",
+      "name": "Castles",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 390.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "CONSTRUCTION"
+      ]
+    },
+    {
+      "type": "TECH_CARTOGRAPHY",
+      "name": "Cartography",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 540.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "SHIPBUILDING"
+      ]
+    },
+    {
+      "type": "TECH_MASS_PRODUCTION",
+      "name": "Mass Production",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 540.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "EDUCATION",
+        "SHIPBUILDING"
+      ]
+    },
+    {
+      "type": "TECH_BANKING",
+      "name": "Banking",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 540.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "EDUCATION",
+        "STIRRUPS"
+      ]
+    },
+    {
+      "type": "TECH_GUNPOWDER",
+      "name": "Gunpowder",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 540.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "APPRENTICESHIP",
+        "STIRRUPS",
+        "MILITARY_ENGINEERING"
+      ]
+    },
+    {
+      "type": "TECH_PRINTING",
+      "name": "Printing",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 540.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MACHINERY"
+      ]
+    },
+    {
+      "type": "TECH_SQUARE_RIGGING",
+      "name": "Square Rigging",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 660.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "CARTOGRAPHY"
+      ]
+    },
+    {
+      "type": "TECH_ASTRONOMY",
+      "name": "Astronomy",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 660.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "EDUCATION"
+      ]
+    },
+    {
+      "type": "TECH_METAL_CASTING",
+      "name": "Metal Casting",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 660.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "GUNPOWDER"
+      ]
+    },
+    {
+      "type": "TECH_SIEGE_TACTICS",
+      "name": "Siege Tactics",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 660.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "CASTLES"
+      ]
+    },
+    {
+      "type": "TECH_INDUSTRIALIZATION",
+      "name": "Industrialization",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 845.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "SQUARE_RIGGING",
+        "MASS_PRODUCTION"
+      ]
+    },
+    {
+      "type": "TECH_SCIENTIFIC_THEORY",
+      "name": "Scientific Theory",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 845.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "ASTRONOMY",
+        "BANKING"
+      ]
+    },
+    {
+      "type": "TECH_BALLISTICS",
+      "name": "Ballistics",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 845.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "METAL_CASTING"
+      ]
+    },
+    {
+      "type": "TECH_MILITARY_SCIENCE",
+      "name": "Military Science",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 845.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "SIEGE_TACTICS",
+        "PRINTING"
+      ]
+    },
+    {
+      "type": "TECH_STEAM_POWER",
+      "name": "Steam Power",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 970.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "INDUSTRIALIZATION"
+      ]
+    },
+    {
+      "type": "TECH_SANITATION",
+      "name": "Sanitation",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 970.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "SCIENTIFIC_THEORY"
+      ]
+    },
+    {
+      "type": "TECH_ECONOMICS",
+      "name": "Economics",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 970.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "SCIENTIFIC_THEORY",
+        "METAL_CASTING"
+      ]
+    },
+    {
+      "type": "TECH_RIFLING",
+      "name": "Rifling",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 970.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "BALLISTICS",
+        "MILITARY_SCIENCE"
+      ]
+    },
+    {
+      "type": "TECH_FLIGHT",
+      "name": "Flight",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1140.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "INDUSTRIALIZATION",
+        "SCIENTIFIC_THEORY"
+      ]
+    },
+    {
+      "type": "TECH_REPLACEABLE_PARTS",
+      "name": "Replaceable Parts",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1140.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "ECONOMICS"
+      ]
+    },
+    {
+      "type": "TECH_STEEL",
+      "name": "Steel",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1140.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "RIFLING"
+      ]
+    },
+    {
+      "type": "TECH_ELECTRICITY",
+      "name": "Electricity",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1250.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "STEAM_POWER"
+      ]
+    },
+    {
+      "type": "TECH_RADIO",
+      "name": "Radio",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1250.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "STEAM_POWER",
+        "FLIGHT"
+      ]
+    },
+    {
+      "type": "TECH_CHEMISTRY",
+      "name": "Chemistry",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1250.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "SANITATION"
+      ]
+    },
+    {
+      "type": "TECH_COMBUSTION",
+      "name": "Combustion",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1250.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "STEEL",
+        "RIFLING"
+      ]
+    },
+    {
+      "type": "TECH_ADVANCED_FLIGHT",
+      "name": "Advanced Flight",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1410.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "RADIO"
+      ]
+    },
+    {
+      "type": "TECH_ROCKETRY",
+      "name": "Rocketry",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1410.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "RADIO",
+        "CHEMISTRY"
+      ]
+    },
+    {
+      "type": "TECH_ADVANCED_BALLISTICS",
+      "name": "Advanced Ballistics",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1410.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "REPLACEABLE_PARTS",
+        "STEEL"
+      ]
+    },
+    {
+      "type": "TECH_COMBINED_ARMS",
+      "name": "Combined Arms",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1410.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "STEEL",
+        "COMBUSTION"
+      ]
+    },
+    {
+      "type": "TECH_PLASTICS",
+      "name": "Plastics",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1410.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "COMBUSTION"
+      ]
+    },
+    {
+      "type": "TECH_COMPUTERS",
+      "name": "Computers",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1580.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "ELECTRICITY",
+        "RADIO"
+      ]
+    },
+    {
+      "type": "TECH_NUCLEAR_FISSION",
+      "name": "Nuclear Fission",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1580.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "ADVANCED_BALLISTICS",
+        "COMBINED_ARMS"
+      ]
+    },
+    {
+      "type": "TECH_SYNTHETIC_MATERIALS",
+      "name": "Synthetic Materials",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1580.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "PLASTICS"
+      ]
+    },
+    {
+      "type": "TECH_TELECOMMUNICATIONS",
+      "name": "Telecommunications",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1850.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "COMPUTERS"
+      ]
+    },
+    {
+      "type": "TECH_SATELLITES",
+      "name": "Satellites",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1850.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "ADVANCED_FLIGHT",
+        "ROCKETRY"
+      ]
+    },
+    {
+      "type": "TECH_GUIDANCE_SYSTEMS",
+      "name": "Guidance Systems",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1850.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "ROCKETRY",
+        "ADVANCED_BALLISTICS"
+      ]
+    },
+    {
+      "type": "TECH_LASERS",
+      "name": "Lasers",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1850.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "NUCLEAR_FISSION"
+      ]
+    },
+    {
+      "type": "TECH_COMPOSITES",
+      "name": "Composites",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1850.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "SYNTHETIC_MATERIALS"
+      ]
+    },
+    {
+      "type": "TECH_STEALTH_TECHNOLOGY",
+      "name": "Stealth Technology",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1850.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "SYNTHETIC_MATERIALS"
+      ]
+    },
+    {
+      "type": "TECH_ROBOTICS",
+      "name": "Robotics",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 2155.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "COMPUTERS"
+      ]
+    },
+    {
+      "type": "TECH_NANOTECHNOLOGY",
+      "name": "Nanotechnology",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 2155.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "COMPOSITES"
+      ]
+    },
+    {
+      "type": "TECH_NUCLEAR_FUSION",
+      "name": "Nuclear Fusion",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 2155.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "LASERS"
+      ]
+    },
+    {
+      "type": "TECH_FUTURE_TECH",
+      "name": "Future Tech",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 2500.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "SATELLITES",
+        "ROBOTICS",
+        "NANOTECHNOLOGY",
+        "NUCLEAR_FUSION"
+      ]
+    }
+  ],
+  "civic_tree": [
+    {
+      "type": "CIVIC_CODE_OF_LAWS",
+      "name": "Code of Laws",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": []
+    },
+    {
+      "type": "CIVIC_CRAFTSMANSHIP",
+      "name": "Craftsmanship",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "CODE_OF_LAWS"
+      ]
+    },
+    {
+      "type": "CIVIC_FOREIGN_TRADE",
+      "name": "Foreign Trade",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "CODE_OF_LAWS"
+      ]
+    },
+    {
+      "type": "CIVIC_MILITARY_TRADITION",
+      "name": "Military Tradition",
+      "era": "ANCIENT",
+      "status": "current",
+      "progress": 0.0,
+      "cost": 50.0,
+      "turns": 4,
+      "partial": false,
+      "prereqs": [
+        "CRAFTSMANSHIP"
+      ]
+    },
+    {
+      "type": "CIVIC_STATE_WORKFORCE",
+      "name": "State Workforce",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "CRAFTSMANSHIP"
+      ]
+    },
+    {
+      "type": "CIVIC_EARLY_EMPIRE",
+      "name": "Early Empire",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "FOREIGN_TRADE"
+      ]
+    },
+    {
+      "type": "CIVIC_MYSTICISM",
+      "name": "Mysticism",
+      "era": "ANCIENT",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "FOREIGN_TRADE"
+      ]
+    },
+    {
+      "type": "CIVIC_GAMES_RECREATION",
+      "name": "Games and Recreation",
+      "era": "CLASSICAL",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "STATE_WORKFORCE"
+      ]
+    },
+    {
+      "type": "CIVIC_POLITICAL_PHILOSOPHY",
+      "name": "Political Philosophy",
+      "era": "CLASSICAL",
+      "status": "done",
+      "progress": 0.0,
+      "cost": 0.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "STATE_WORKFORCE",
+        "EARLY_EMPIRE"
+      ]
+    },
+    {
+      "type": "CIVIC_DRAMA_POETRY",
+      "name": "Drama and Poetry",
+      "era": "CLASSICAL",
+      "status": "available",
+      "progress": 0.0,
+      "cost": 110.0,
+      "turns": 10,
+      "partial": false,
+      "prereqs": [
+        "EARLY_EMPIRE"
+      ]
+    },
+    {
+      "type": "CIVIC_MILITARY_TRAINING",
+      "name": "Military Training",
+      "era": "CLASSICAL",
+      "status": "blocked",
+      "progress": 60.0,
+      "cost": 120.0,
+      "turns": -1,
+      "partial": true,
+      "prereqs": [
+        "MILITARY_TRADITION",
+        "GAMES_RECREATION"
+      ]
+    },
+    {
+      "type": "CIVIC_DEFENSIVE_TACTICS",
+      "name": "Defensive Tactics",
+      "era": "CLASSICAL",
+      "status": "available",
+      "progress": 0.0,
+      "cost": 175.0,
+      "turns": 15,
+      "partial": false,
+      "prereqs": [
+        "GAMES_RECREATION",
+        "POLITICAL_PHILOSOPHY"
+      ]
+    },
+    {
+      "type": "CIVIC_RECORDED_HISTORY",
+      "name": "Recorded History",
+      "era": "CLASSICAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 175.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "POLITICAL_PHILOSOPHY",
+        "DRAMA_POETRY"
+      ]
+    },
+    {
+      "type": "CIVIC_THEOLOGY",
+      "name": "Theology",
+      "era": "CLASSICAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 120.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "DRAMA_POETRY",
+        "MYSTICISM"
+      ]
+    },
+    {
+      "type": "CIVIC_NAVAL_TRADITION",
+      "name": "Naval Tradition",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 200.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "DEFENSIVE_TACTICS"
+      ]
+    },
+    {
+      "type": "CIVIC_FEUDALISM",
+      "name": "Feudalism",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 275.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "DEFENSIVE_TACTICS"
+      ]
+    },
+    {
+      "type": "CIVIC_CIVIL_SERVICE",
+      "name": "Civil Service",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 275.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "DEFENSIVE_TACTICS",
+        "RECORDED_HISTORY"
+      ]
+    },
+    {
+      "type": "CIVIC_MERCENARIES",
+      "name": "Mercenaries",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 290.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MILITARY_TRAINING",
+        "FEUDALISM"
+      ]
+    },
+    {
+      "type": "CIVIC_MEDIEVAL_FAIRES",
+      "name": "Medieval Faires",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 385.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "FEUDALISM"
+      ]
+    },
+    {
+      "type": "CIVIC_GUILDS",
+      "name": "Guilds",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 385.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "FEUDALISM",
+        "CIVIL_SERVICE"
+      ]
+    },
+    {
+      "type": "CIVIC_DIVINE_RIGHT",
+      "name": "Divine Right",
+      "era": "MEDIEVAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 290.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "CIVIL_SERVICE",
+        "THEOLOGY"
+      ]
+    },
+    {
+      "type": "CIVIC_EXPLORATION",
+      "name": "Exploration",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 400.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MERCENARIES",
+        "MEDIEVAL_FAIRES"
+      ]
+    },
+    {
+      "type": "CIVIC_HUMANISM",
+      "name": "Humanism",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 540.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MEDIEVAL_FAIRES",
+        "GUILDS"
+      ]
+    },
+    {
+      "type": "CIVIC_DIPLOMATIC_SERVICE",
+      "name": "Diplomatic Service",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 540.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "GUILDS"
+      ]
+    },
+    {
+      "type": "CIVIC_REFORMED_CHURCH",
+      "name": "Reformed Church",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 400.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "GUILDS",
+        "DIVINE_RIGHT"
+      ]
+    },
+    {
+      "type": "CIVIC_MERCANTILISM",
+      "name": "Mercantilism",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 655.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "HUMANISM"
+      ]
+    },
+    {
+      "type": "CIVIC_THE_ENLIGHTENMENT",
+      "name": "The Enlightenment",
+      "era": "RENAISSANCE",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 655.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "HUMANISM",
+        "DIPLOMATIC_SERVICE"
+      ]
+    },
+    {
+      "type": "CIVIC_COLONIALISM",
+      "name": "Colonialism",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 725.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MERCANTILISM"
+      ]
+    },
+    {
+      "type": "CIVIC_CIVIL_ENGINEERING",
+      "name": "Civil Engineering",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 920.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MERCANTILISM"
+      ]
+    },
+    {
+      "type": "CIVIC_NATIONALISM",
+      "name": "Nationalism",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 920.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "THE_ENLIGHTENMENT"
+      ]
+    },
+    {
+      "type": "CIVIC_OPERA_BALLET",
+      "name": "Opera and Ballet",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 725.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "THE_ENLIGHTENMENT"
+      ]
+    },
+    {
+      "type": "CIVIC_NATURAL_HISTORY",
+      "name": "Natural History",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 870.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "COLONIALISM"
+      ]
+    },
+    {
+      "type": "CIVIC_SCORCHED_EARTH",
+      "name": "Scorched Earth",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1060.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "NATIONALISM"
+      ]
+    },
+    {
+      "type": "CIVIC_URBANIZATION",
+      "name": "Urbanization",
+      "era": "INDUSTRIAL",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1060.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "CIVIL_ENGINEERING",
+        "NATIONALISM"
+      ]
+    },
+    {
+      "type": "CIVIC_CONSERVATION",
+      "name": "Conservation",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1255.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "NATURAL_HISTORY"
+      ]
+    },
+    {
+      "type": "CIVIC_CAPITALISM",
+      "name": "Capitalism",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1560.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MASS_MEDIA"
+      ]
+    },
+    {
+      "type": "CIVIC_NUCLEAR_PROGRAM",
+      "name": "Nuclear Program",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1715.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "IDEOLOGY"
+      ]
+    },
+    {
+      "type": "CIVIC_MASS_MEDIA",
+      "name": "Mass Media",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1410.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "NATURAL_HISTORY",
+        "URBANIZATION"
+      ]
+    },
+    {
+      "type": "CIVIC_MOBILIZATION",
+      "name": "Mobilization",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1410.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "URBANIZATION"
+      ]
+    },
+    {
+      "type": "CIVIC_IDEOLOGY",
+      "name": "Ideology",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 660.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "MASS_MEDIA",
+        "MOBILIZATION"
+      ]
+    },
+    {
+      "type": "CIVIC_SUFFRAGE",
+      "name": "Suffrage",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1715.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "IDEOLOGY"
+      ]
+    },
+    {
+      "type": "CIVIC_TOTALITARIANISM",
+      "name": "Totalitarianism",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1715.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "IDEOLOGY"
+      ]
+    },
+    {
+      "type": "CIVIC_CLASS_STRUGGLE",
+      "name": "Class Struggle",
+      "era": "MODERN",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1715.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "IDEOLOGY"
+      ]
+    },
+    {
+      "type": "CIVIC_COLD_WAR",
+      "name": "Cold War",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 2185.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "IDEOLOGY"
+      ]
+    },
+    {
+      "type": "CIVIC_PROFESSIONAL_SPORTS",
+      "name": "Professional Sports",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 2185.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "IDEOLOGY"
+      ]
+    },
+    {
+      "type": "CIVIC_CULTURAL_HERITAGE",
+      "name": "Cultural Heritage",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 1955.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "CONSERVATION"
+      ]
+    },
+    {
+      "type": "CIVIC_RAPID_DEPLOYMENT",
+      "name": "Rapid Deployment",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 2415.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "COLD_WAR"
+      ]
+    },
+    {
+      "type": "CIVIC_SPACE_RACE",
+      "name": "Space Race",
+      "era": "ATOMIC",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 2415.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "COLD_WAR"
+      ]
+    },
+    {
+      "type": "CIVIC_GLOBALIZATION",
+      "name": "Globalization",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 2880.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "RAPID_DEPLOYMENT",
+        "SPACE_RACE"
+      ]
+    },
+    {
+      "type": "CIVIC_SOCIAL_MEDIA",
+      "name": "Social Media",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 2880.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "SPACE_RACE",
+        "PROFESSIONAL_SPORTS"
+      ]
+    },
+    {
+      "type": "CIVIC_FUTURE_CIVIC",
+      "name": "Future Civic",
+      "era": "INFORMATION",
+      "status": "blocked",
+      "progress": 0.0,
+      "cost": 3200.0,
+      "turns": -1,
+      "partial": false,
+      "prereqs": [
+        "GLOBALIZATION",
+        "SOCIAL_MEDIA"
+      ]
+    }
+  ],
   "cities": [
     {
       "id": 65536,
@@ -521,8 +2106,8 @@
         },
         "improvements": {
           "farm": 3,
-          "mine": 2,
           "sphinx": 2,
+          "mine": 2,
           "camp": 1
         }
       },
@@ -795,8 +2380,8 @@
         "terrain": {
           "grass": 7,
           "plains": 2,
-          "plains_hills": 1,
-          "grass_hills": 1
+          "grass_hills": 1,
+          "plains_hills": 1
         },
         "features": {
           "jungle": 2,
@@ -1034,13 +2619,13 @@
         "worked": 5,
         "terrain": {
           "grass": 6,
-          "coast": 1,
           "plains": 1,
+          "coast": 1,
           "grass_hills": 1
         },
         "features": {
-          "marsh": 1,
-          "forest": 1
+          "forest": 1,
+          "marsh": 1
         },
         "improvements": {
           "quarry": 2,
@@ -1282,9 +2867,9 @@
         "worked": 2,
         "terrain": {
           "grass": 4,
-          "grass_mountain": 1,
+          "grass_hills": 1,
           "plains": 1,
-          "grass_hills": 1
+          "grass_mountain": 1
         },
         "features": {
           "jungle": 1
@@ -9955,6 +11540,8 @@
     "great_people": "ok",
     "techs_available": "ok",
     "civics_available": "ok",
+    "tech_tree": "ok",
+    "civic_tree": "ok",
     "cities": "ok",
     "units": "ok",
     "map": "ok",
@@ -9966,14 +11553,14 @@
   },
   "diagnostics": {
     "per_query_seconds": {
-      "meta": 0.38,
-      "choices": 0.347,
-      "cities": 0.361,
-      "units": 0.326,
-      "map": 0.361,
-      "diplo": 0.355,
-      "religion": 0.346,
-      "notif": 0.346
+      "meta": 0.377,
+      "choices": 0.362,
+      "cities": 0.363,
+      "units": 0.342,
+      "map": 0.358,
+      "diplo": 0.329,
+      "religion": 0.343,
+      "notif": 0.343
     },
     "failures": [],
     "compat_notes": [
@@ -10007,6 +11594,8 @@
         "TRACE|META|great_people"
       ],
       "choices": [
+        "TRACE|CHOICES|tech_tree",
+        "TRACE|CHOICES|civic_tree",
         "TRACE|CHOICES|techs_available",
         "TRACE|CHOICES|civics_available"
       ],
@@ -10055,7 +11644,7 @@
         "TRACE|NOTIF|notifications"
       ]
     },
-    "total_seconds": 2.822
+    "total_seconds": 2.817
   },
   "turn_blockers_summary": [
     "blocker:ENDTURN_BLOCKING_UNITS (Command Units)",
