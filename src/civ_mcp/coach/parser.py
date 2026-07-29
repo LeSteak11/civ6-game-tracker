@@ -345,6 +345,9 @@ def parse_cities(lines: list[str]) -> dict[str, Any]:
                         "dest_player": _i(p, 2),
                         "dest_city": _s(p, 3),
                         "yields": yields,
+                        # Added in schema 1.1 — readable owner name, or
+                        # "domestic" when the route stays inside our empire.
+                        "dest_civ": _s(p, 5, "?"),
                     }
                 )
         elif tag == "DIAG":

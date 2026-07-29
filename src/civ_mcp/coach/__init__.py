@@ -14,5 +14,15 @@ being silently omitted.
 
 from __future__ import annotations
 
-SCHEMA_VERSION = "coach-snapshot/1"
-COACH_VERSION = "0.1.0"
+SCHEMA_VERSION = "coach-snapshot/1.1"
+COACH_VERSION = "1.01"
+
+# Terminator every coach Lua chunk prints as its last line.
+#
+# ``GameConnection._locked_execute`` stops collecting output when it sees
+# this, so the value MUST stay identical to ``civ_mcp.lua._helpers.SENTINEL``.
+# It is redefined here rather than imported so the coach package has no
+# import-time dependency on the upstream ``civ_mcp.lua`` package (whose
+# ``__init__`` pulls in the entire agent toolchain).  ``scripts/regress.py``
+# asserts the two values still match.
+SENTINEL = "---END---"

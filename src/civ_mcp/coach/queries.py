@@ -24,7 +24,7 @@ Design rules (learned the hard way from the first live smoke test):
 
 from __future__ import annotations
 
-from civ_mcp.lua._helpers import SENTINEL
+from civ_mcp.coach import SENTINEL
 
 
 def _sentinel_line() -> str:
@@ -116,16 +116,66 @@ safe("header", function()
       end
     end
   end)
+  -- Game speed.  Game.GetGameSpeedType() returns a HASH, not a row index, so
+  -- GameInfo.GameSpeeds[hash] silently misses.  Use the same MakeHash
+  -- comparison loop that makes the difficulty lookup above work correctly.
   local speedName = "?"
   pcall(function()
-    local gsIdx = Game.GetGameSpeedType()
-    local gsRow = GameInfo.GameSpeeds[gsIdx]
-    if gsRow then speedName = L(gsRow.Name) end
+    local gsHash = nil
+    if GameConfiguration and GameConfiguration.GetGameSpeedType then
+      gsHash = GameConfiguration.GetGameSpeedType()
+    end
+    if gsHash == nil and Game.GetGameSpeedType then
+      gsHash = Game.GetGameSpeedType()
+    end
+    if gsHash == nil then return end
+    -- Direct index first (cheap, works if it really was an index).
+    local direct = GameInfo.GameSpeeds[gsHash]
+    if direct and direct.Name then speedName = L(direct.Name); return end
+    for row in GameInfo.GameSpeeds() do
+      if GameConfiguration.MakeHash(row.GameSpeedType) == gsHash then
+        speedName = L(row.Name); return
+      end
+    end
+    print("DIAG|META.speed|unresolved game speed hash " .. tostring(gsHash))
   end)
+
+  -- Map size.  MapConfiguration.GetMapSize() also returns a hash.
   local mapSize = "?"
-  pcall(function() if MapConfiguration and MapConfiguration.GetMapSize then mapSize = tostring(MapConfiguration.GetMapSize()) end end)
+  pcall(function()
+    if not (MapConfiguration and MapConfiguration.GetMapSize) then return end
+    local msHash = MapConfiguration.GetMapSize()
+    if msHash == nil then return end
+    local direct = GameInfo.MapSizes and GameInfo.MapSizes[msHash]
+    if direct and direct.Name then mapSize = L(direct.Name); return end
+    if GameInfo.MapSizes then
+      for row in GameInfo.MapSizes() do
+        if GameConfiguration.MakeHash(row.MapSizeType) == msHash then
+          mapSize = L(row.Name or row.MapSizeType); return
+        end
+      end
+    end
+    -- Last resort: strip the MAPSIZE_ prefix if we somehow got a type string.
+    local asStr = tostring(msHash)
+    if asStr:find("MAPSIZE_") then
+      mapSize = asStr:gsub("MAPSIZE_", ""):lower():gsub("^%l", string.upper)
+    else
+      print("DIAG|META.map_size|unresolved map size hash " .. asStr)
+    end
+  end)
+
+  -- Map script.  GetScript() returns a filename like "Continents.lua" (and may
+  -- carry a directory prefix).  Present a readable name.
   local mapType = "?"
-  pcall(function() if MapConfiguration and MapConfiguration.GetScript then mapType = tostring(MapConfiguration.GetScript()) end end)
+  pcall(function()
+    if not (MapConfiguration and MapConfiguration.GetScript) then return end
+    local raw = tostring(MapConfiguration.GetScript() or "")
+    if raw == "" then return end
+    local base = raw:match("([^/\\]+)$") or raw   -- strip any path
+    base = base:gsub("%.lua$", "")                -- strip extension
+    base = base:gsub("_", " ")
+    mapType = base
+  end)
   local maxPlayers = 0
   pcall(function() if MapConfiguration and MapConfiguration.GetMaxMajorPlayers then maxPlayers = MapConfiguration.GetMaxMajorPlayers() or 0 end end)
   local maxTurns = 0
@@ -340,20 +390,95 @@ safe("great_people", function()
   local gpp = sf(function() return p:GetGreatPeoplePoints() end)
   if not gpp or not GameInfo.GreatPersonClasses then return end
   local gpm = sf(function() return Game.GetGreatPeople() end)
+
+  -- ---- Tier 1: GetTimeline() -----------------------------------------
+  -- This is what the shipped GreatPeoplePopup.lua reads.  Entries carry
+  -- Class / Individual / Cost for every recruitable Great Person.  Build a
+  -- per-class lookup keyed by the class hash.
+  local timelineByClass = {}
+  local timelineOK = false
+  if gpm then
+    pcall(function()
+      local tl = gpm:GetTimeline()
+      if type(tl) ~= "table" then return end
+      for _, entry in ipairs(tl) do
+        local cls = entry.Class or entry.ClassHash
+        if cls ~= nil and timelineByClass[cls] == nil then
+          timelineByClass[cls] = entry
+          timelineOK = true
+        end
+      end
+    end)
+  end
+  if gpm and not timelineOK then
+    print("DIAG|META.great_people|GetTimeline() unavailable or empty — falling back")
+  end
+
+  -- ---- Tier 3 prep: if everything fails, dump the real method names ---
+  -- so the next live run tells us the correct API instead of guessing again.
+  local dumpedMethods = false
+  local function dumpMethods()
+    if dumpedMethods or not gpm then return end
+    dumpedMethods = true
+    pcall(function()
+      local names = {}
+      local mt = getmetatable(gpm)
+      local idx = mt and mt.__index
+      if type(idx) == "table" then
+        for k, v in pairs(idx) do
+          if type(v) == "function" then names[#names+1] = tostring(k) end
+        end
+      end
+      table.sort(names)
+      if #names > 0 then
+        print("DIAG|META.great_people.api|Game.GetGreatPeople() methods: " .. table.concat(names, ","))
+      else
+        print("DIAG|META.great_people.api|could not enumerate methods on GetGreatPeople()")
+      end
+    end)
+  end
+
   for row in GameInfo.GreatPersonClasses() do
     local pts = sf(function() return gpp:GetPointsTotal(row.Index) end) or 0
     local rate = sf(function() return gpp:GetPointsPerTurn(row.Index) end) or 0
-    local cand, patCost, nextCost = "", -1, 0
-    if gpm then
-      local indiv = sf(function() return gpm:GetActiveIndividual(row.Hash) end)
+    -- -1 is the "unknown" sentinel.  Never report 0, which reads as free.
+    local cand, patCost, nextCost = "", -1, -1
+
+    local entry = timelineByClass[row.Hash] or timelineByClass[row.Index]
+    if entry then
+      -- Tier 1 values
+      if entry.Cost and entry.Cost > 0 then nextCost = entry.Cost end
+      local indiv = entry.Individual
       if indiv and indiv >= 0 then
         local irow = GameInfo.GreatPersonIndividuals[indiv]
         if irow then cand = L(irow.Name or irow.GreatPersonIndividualType) end
       end
-      patCost = sf(function() return gpm:GetPatronizationCostFaith(me, row.Hash) end) or -1
-      nextCost = sf(function() return gpm:GetNextRecruitCost(row.Hash) end) or 0
     end
+
+    if gpm then
+      -- ---- Tier 2: per-class accessors (may not exist in base game) ----
+      if cand == "" then
+        local indiv = sf(function() return gpm:GetActiveIndividual(row.Hash) end)
+        if indiv and indiv >= 0 then
+          local irow = GameInfo.GreatPersonIndividuals[indiv]
+          if irow then cand = L(irow.Name or irow.GreatPersonIndividualType) end
+        end
+      end
+      if nextCost < 0 then
+        local c = sf(function() return gpm:GetNextRecruitCost(row.Hash) end)
+        if c and c > 0 then nextCost = c end
+      end
+      if nextCost < 0 then
+        -- Some builds expose the cost per-player instead.
+        local c = sf(function() return gpm:GetRecruitCost(me, row.Hash) end)
+        if c and c > 0 then nextCost = c end
+      end
+      local pc = sf(function() return gpm:GetPatronizationCostFaith(me, row.Hash) end)
+      if pc and pc > 0 then patCost = pc end
+    end
+
     if pts > 0 or rate > 0 or (cand ~= "") then
+      if nextCost < 0 then dumpMethods() end
       local shortName = row.GreatPersonClassType:gsub("GREAT_PERSON_CLASS_", "")
       print(string.format("GPPT|%s|%s|%.0f|%.1f|%d|%s|%d",
         row.GreatPersonClassType, esc(shortName), pts, rate, nextCost, esc(cand), patCost))
@@ -383,13 +508,62 @@ pcall(function()
   end
 end)
 
--- We don't trust `tec:CanResearch` / `cul:CanProgressCivic` to be present
--- across every game state; probe once and fall back to "not-yet-researched"
--- if the method is missing.  This matches CivicsTree.lua / TechTree.lua.
-local hasCanResearch     = type(tec.CanResearch)     == "function"
-local hasCanProgCivic    = type(cul.CanProgressCivic) == "function"
-if not hasCanResearch  then print("DIAG|CHOICES.probe|tec:CanResearch missing — falling back to !HasTech") end
-if not hasCanProgCivic then print("DIAG|CHOICES.probe|cul:CanProgressCivic missing — falling back to !HasCivic") end
+-- Probe which availability methods actually exist in this build.
+-- `tec:CanResearch` is confirmed present on the live base game.  The civic
+-- equivalent is NOT (`CanProgressCivic` is missing), so we probe several
+-- known spellings and otherwise fall back to real prerequisite gating via
+-- GameInfo.CivicPrereqs — never to "every unresearched civic", which listed
+-- 43 entries including Guilds/Exploration/Divine Right in the v1.0 output.
+local hasCanResearch  = type(tec.CanResearch) == "function"
+local civicCanFn = nil
+local civicCanName = ""
+for _, nm in ipairs({"CanProgressCivic", "CanProgress", "CanAdvanceCivic"}) do
+  if type(cul[nm]) == "function" then civicCanFn = cul[nm]; civicCanName = nm; break end
+end
+if not hasCanResearch then
+  print("DIAG|CHOICES.probe|tec:CanResearch missing — falling back to !HasTech")
+end
+if civicCanFn then
+  print("DIAG|CHOICES.probe|using cul:" .. civicCanName .. "() for civic availability")
+else
+  print("DIAG|CHOICES.probe|no civic availability method found — using GameInfo.CivicPrereqs gating")
+end
+
+-- Build civic -> {prereq civic type, ...}.  Table name confirmed in this
+-- repo at src/civ_mcp/lua/tech.py:95.
+local civicPrereqs = {}
+local prereqTableOK = false
+pcall(function()
+  for row in GameInfo.CivicPrereqs() do
+    if not civicPrereqs[row.Civic] then civicPrereqs[row.Civic] = {} end
+    table.insert(civicPrereqs[row.Civic], row.PrereqCivic)
+    prereqTableOK = true
+  end
+end)
+if not prereqTableOK then
+  print("DIAG|CHOICES.probe|GameInfo.CivicPrereqs unavailable — civic list may be over-broad")
+end
+
+-- Completed-civic set, by CivicType string, for prereq resolution.
+local completedCivics = {}
+pcall(function()
+  for civic in GameInfo.Civics() do
+    if sf(function() return cul:HasCivic(civic.Index) end) then
+      completedCivics[civic.CivicType] = true
+    end
+  end
+end)
+
+-- A civic is selectable when every one of its prereqs is already completed.
+-- Civics with no prereq rows are era-openers and are treated as available.
+local function civicPrereqsMet(civicType)
+  local reqs = civicPrereqs[civicType]
+  if not reqs then return true end
+  for _, req in ipairs(reqs) do
+    if not completedCivics[req] then return false end
+  end
+  return true
+end
 
 safe("techs_available", function()
   for tech in GameInfo.Technologies() do
@@ -426,9 +600,12 @@ safe("civics_available", function()
     pcall(function()
       local has = sf(function() return cul:HasCivic(civic.Index) end)
       if has then return end
-      if hasCanProgCivic then
-        local can = sf(function() return cul:CanProgressCivic(civic.Index) end)
-        if not can then return end
+      if civicCanFn then
+        local ok_c, can = pcall(civicCanFn, cul, civic.Index)
+        if not ok_c or not can then return end
+      elseif not civicPrereqsMet(civic.CivicType) then
+        -- Prereq civics not yet completed — this is not selectable now.
+        return
       end
       local cost = sf(function() return cul:GetCultureCost(civic.Index) end) or 0
       local prog = sf(function() return cul:GetCulturalProgress(civic.Index) end) or 0
@@ -775,18 +952,44 @@ for _, c in p:GetCities():Members() do
     local routes = ctrade and sf(function() return ctrade:GetOutgoingRoutes() end) or {}
     for _, r in ipairs(routes) do
       pcall(function()
-        local dp = Players[r.DestinationCityPlayer]
+        local destPlayer = r.DestinationCityPlayer
+        local dp = Players[destPlayer]
         local dc = dp and sf(function() return dp:GetCities():FindID(r.DestinationCityID) end) or nil
-        local destName = dc and esc(L(dc:GetName())) or ("player" .. r.DestinationCityPlayer)
+        local destName = dc and esc(L(dc:GetName())) or "(unknown city)"
+        -- Resolve the owning civ so the report never shows a raw "player0".
+        -- A route to ourselves is a domestic route.
+        local destCiv = "?"
+        if destPlayer == me then
+          destCiv = "domestic"
+        else
+          pcall(function()
+            local dcfg = PlayerConfigurations[destPlayer]
+            if dcfg then
+              destCiv = L(dcfg:GetCivilizationShortDescription()) or "?"
+            end
+          end)
+        end
+        -- Emit full yield names (Food/Production/Gold/Science/Culture/Faith)
+        -- rather than a 3-character truncation like FOO/PRO.
         local ys = ""
         for _, y in ipairs(r.OriginYields or {}) do
           if y.Amount and y.Amount ~= 0 then
             local yi = GameInfo.Yields[y.YieldIndex]
-            local yc = yi and yi.YieldType:gsub("YIELD_", ""):sub(1,3) or "?"
-            ys = ys .. string.format("%s:%d,", yc, y.Amount)
+            local yname = "?"
+            if yi then
+              local okY, loc = pcall(function() return L(yi.Name) end)
+              if okY and loc and loc ~= "" then
+                yname = loc
+              else
+                yname = yi.YieldType:gsub("YIELD_", "")
+                yname = yname:sub(1, 1) .. yname:sub(2):lower()
+              end
+            end
+            ys = ys .. string.format("%s:%d,", esc(yname), y.Amount)
           end
         end
-        print(string.format("TRADE|%d|%d|%s|%s", cID, r.DestinationCityPlayer, destName, ys))
+        print(string.format("TRADE|%d|%d|%s|%s|%s",
+          cID, destPlayer, destName, ys, esc(destCiv)))
       end)
     end
   end)
@@ -847,16 +1050,35 @@ safe("units", function()
       if charges == 0 then charges = sf(function() return u:GetSpreadCharges() end) or 0 end
       local fort = sf(function() return u:GetFortifyTurns() end) or 0
       local idle = sf(function() return u:IsReadyToMove() end) or false
-      -- Promotion count "available" = current level - promotions held.  When
-      -- GetLevel is absent we cannot compute this — leave at 0 rather than lie.
+      -- Unspent promotion available?
+      --
+      -- v1.0 derived this from exp:GetLevel() - promotionsHeld, which is
+      -- WRONG: a brand-new unit is level 1 with 0 promotions, so every unit
+      -- (including Traders and other civilians) falsely reported "+1 avail".
+      --
+      -- Authoritative source is the same command the UI enables the promote
+      -- button from.  Civilians have no PromotionClass and can never promote,
+      -- so that guard alone removes the Trader/Builder false positives.
       local promoAvail = 0
-      pcall(function()
-        local exp = u:GetExperience()
-        if exp and type(exp.GetLevel) == "function" then
-          local lvl = exp:GetLevel() or 1
-          if lvl > promoCount then promoAvail = lvl - promoCount end
+      if promoClass ~= "" then
+        local decided = false
+        pcall(function()
+          if UnitManager and UnitManager.CanStartCommand
+             and UnitCommandTypes and UnitCommandTypes.PROMOTE then
+            local can = UnitManager.CanStartCommand(u, UnitCommandTypes.PROMOTE)
+            promoAvail = can and 1 or 0
+            decided = true
+          end
+        end)
+        if not decided then
+          -- Fallback: a promotion is pending when banked XP has reached the
+          -- threshold for the next level.
+          if xpNeeded and xpNeeded > 0 and xp >= xpNeeded then
+            promoAvail = 1
+          end
+          print("DIAG|UNITS.promotions|UnitManager.CanStartCommand(PROMOTE) unavailable — using XP threshold fallback")
         end
-      end)
+      end
       local canUpgrade, upType, upCost = false, "", 0
       pcall(function()
         if ur and ur.UpgradeUnit then

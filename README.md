@@ -1,232 +1,274 @@
-# civ6-mcp
+# Civ 6 AI Coach — README
 
-An MCP server that lets LLM agents play full games of Civilization VI.
+**One launcher. One hotkey. Full game state on your clipboard.**
 
-Connect any MCP-compatible client — Claude Code, Codex, Gemini CLI, or your own — to a running Civ 6 game. The agent reads game state, moves units, manages cities, conducts diplomacy, and ends turns, all through the game's own rule-enforcing APIs. No cheats, no vision model required.
+## What it is
 
-<!-- TODO: Add screenshot or GIF of agent playing -->
+A read-only Civilization VI *coach*: while you play, press
+**`Ctrl+Shift+C`** anywhere on your desktop and the program collects your
+current game state and copies a compact Markdown packet to your clipboard.
+Paste that into ChatGPT, Claude, or Gemini and ask for coaching.  A full
+JSON snapshot is also written to `output/` so you (or the AI) can diff
+turn-to-turn or re-open past turns.
 
-## Capabilities
+This replaces the old v0.7 flow (open FireTuner terminal → `use 5` →
+paste `civ6-query.lua` → type `S()` → select the printed text → paste to
+chat).  You never touch the terminal during normal play.
 
-76 tools covering the full gameplay loop:
+## What it is NOT
 
-- **Units** — list, move, attack, fortify, found cities, build improvements, promote, upgrade
-- **Cities** — inspect, set production, purchase units/buildings with gold, manage focus
-- **Map** — explore terrain, resources, fog of war; get settle and district placement advice
-- **Research** — browse tech and civic trees, set research targets
-- **Diplomacy** — relationships, modifiers, delegations, embassies, alliances, peace deals
-- **Trade** — propose and respond to deals, manage trade routes and destinations
-- **Government** — swap policy cards, change governments, choose era dedications
-- **Governors** — appoint, assign to cities, promote
-- **Religion** — found pantheons and religions, select beliefs, track spread
-- **Great People** — recruit, patronize, reject
-- **World Congress** — vote on resolutions, manage diplomatic favor
-- **Victory** — track progress across all victory conditions
-- **Game lifecycle** — save, load, launch, restart, kill
+- Not an autoplayer.  It reads state; it never issues game commands, never
+  ends your turn, never moves units, never sets production.
+- Not an omniscient tool.  It respects fog of war and diplomatic
+  visibility — no cheating for hidden tiles, hidden enemy units, or
+  AI-private info.
+- Not compatible with the expansions.  Base-game only: no Rise & Fall, no
+  Gathering Storm.  Expansion-only fields (loyalty, governors, era score,
+  alliances, diplomatic favor, World Congress) are intentionally omitted
+  and listed in the JSON `diagnostics.unsupported` block.
 
-Every turn, `end_turn` takes before/after snapshots and reports what happened: units damaged, cities grew, production completed, threats spotted near your cities.
+## Setup (one-time)
 
-## Quick start
+1. Enable FireTuner in Civ 6.  Edit
+   `Documents\My Games\Sid Meier's Civilization VI\AppOptions.txt` and set
+   `EnableTuner 1`.  This persists across sessions.  Note: Steam
+   achievements are disabled while the tuner is on — this is a known,
+   accepted trade-off.
+2. Make sure `uv` is installed and the repo is at
+   `C:\Users\jakeb\civ6-mcp`.
 
-### 1. Configure Civ 6
+## Everyday use
 
-Enable the FireTuner debug interface and configure recommended settings:
+1. Launch Civ 6 and load your save.
+2. Double-click **`Start Civ6 Coach.bat`** in the repo root.  A terminal
+   window opens, connects to the game, and prints
+   `[coach] hotkey ready: press Ctrl+Shift+C anywhere to grab a snapshot.`
+3. Play.  Whenever you want coaching, hit **`Ctrl+Shift+C`**.  The window
+   prints one confirmation line per snapshot (turn number, timing, tile
+   counts, clipboard status).
+4. Paste into an AI chat.
 
-| Setting | Value | Why |
-|---------|-------|-----|
-| **Tuner** | Enabled | Required — opens the TCP debug port the MCP server connects to. Disables achievements. |
-| **Auto End Turn** | Disabled | The agent controls when turns end. Auto-end interferes with the blocker resolution flow. |
-| **Windowed mode** | Recommended | Lets you watch the game while the agent plays. Required for OCR-based save loading. |
+The launcher can stay open across turns and even across save-loads — the
+bridge reconnects on its own if the game or tuner drops the socket.
 
-**Windows:** All three settings are available in the in-game Options menu. The Tuner setting appears as "Tuner (disables achievements)" under gameplay options.
+If `Ctrl+Shift+C` is already claimed by another app, the coach falls back
+to a manual trigger: press **Enter** in the coach terminal window.
 
-**macOS:** The Tuner setting is not exposed in the menu. Edit `AppOptions.txt` directly and set `EnableTuner 1`:
+## What's in a snapshot
 
-```
-~/Library/Application Support/Sid Meier's Civilization VI/Firaxis Games/Sid Meier's Civilization VI/AppOptions.txt
-```
+The Markdown starts with a delta vs the previous snapshot (turns elapsed,
+new units, new cities, tile reveals, resource changes, newly met civs,
+new wars), then the full state:
 
-**Linux:** Same as macOS — edit `AppOptions.txt` directly and set `EnableTuner 1`:
+- Metadata (turn, era, civ, leader, difficulty, speed, map, enabled
+  victories).
+- Empire totals (score, gold + net income, science/culture/faith/tourism
+  per turn, military strength, techs/civics done, populations, trade
+  routes used/cap, land explored).
+- Current tech + civic with progress, cost, turns, boost status and
+  boost-trigger description.
+- **Available** techs and civics (top 10 by turns) with unlocks and boost
+  descriptions — for making switching decisions.
+- Owned resources (strategic, luxuries).
+- Government, all slotted policy cards with effect text, and every
+  currently unlocked but unslotted policy.
+- Great person points/turn by class, current candidate, patronize cost.
+- Religion: pantheon, founded religion, all beliefs.
+- Every city: population, growth, housing, amenities, happiness,
+  yields, current production (with progress and turns), defense (strength
+  + garrison HP + wall HP), border-expansion timer, every district with
+  coordinates + adjacency yields + pillaged flag, every building inside
+  each district with pillaged flag, owned/worked tile rollup, top 10
+  production options currently legal, active outgoing trade routes.
+- Every unit: position, HP, moves, combat/ranged, XP, promotions held +
+  available, fortify turns, build charges, upgrade availability + cost,
+  IDLE flag.
+- Visible barbarians and barbarian camps (respecting fog).
+- Diplomacy: met majors (relationship, visibility, war/peace, score,
+  military, open borders, known agendas) and city-states (envoys sent,
+  suzerain, active quest, war/peace).
+- **Full revealed map** — one dense line per revealed tile: coords,
+  visible-vs-revealed, terrain, feature, resource, improvement, road,
+  owner, district, city flag, visible units on tile, extras (river / lake
+  / fresh water / appeal).  Natural wonders listed separately.
+- Notifications and end-turn blockers.
+- Diagnostics: per-query timing, any Lua errors, sections deliberately
+  skipped because they're expansion-only.
 
-```
-~/.local/share/aspyr-media/Sid Meier's Civilization VI/AppOptions.txt
-```
+## Files it writes
 
-<details>
-<summary><strong>Windows: additional setup</strong></summary>
+Every hotkey press produces (under `output/` — override with
+`CIV6_COACH_OUTPUT` or `--output`):
 
-**Install the Civ 6 SDK** — the tuner server is part of the SDK, not the base game:
-1. In Steam, go to Library → filter by Tools
-2. Find and install "Sid Meier's Civilization VI SDK"
+    output\latest-full.json       # canonical JSON, versioned schema
+    output\latest-coach.md        # what's on your clipboard
+    output\turn-XXXX-full.json    # per-turn history
+    output\turn-XXXX-coach.md
 
-**Important notes:**
-- Close `FireTuner.exe` (the SDK's GUI tool) before running civ6-mcp — the game only allows **one** tuner connection at a time
-- Do **not** run from WSL — the network bridging between WSL2 and Windows is unreliable and the tuner server locks up after failed connections
-- If the connection fails, **restart the game** — the tuner often hangs after a bad handshake and won't recover until the process is recycled
-</details>
+The JSON schema is documented in the appendix at the bottom of this file.
 
-<details>
-<summary><strong>Linux: additional notes</strong></summary>
+## Testing without a hotkey
 
-- The **native Linux port** is required — the FireTuner debug interface is built into the native binary. Proton/Wine builds do not expose it.
-- The game runs as a single `Civ6` process launched via Steam Linux Runtime (scout-on-soldier).
-- GUI automation (OCR-based menu navigation) requires **X11**. On Wayland, the game typically runs under XWayland which should work, but a native X11 session is most reliable.
-</details>
+    uv run python -m civ_mcp.coach --test-once --verbose
 
-Restart Civ 6. The game will listen on TCP port 4318 for connections.
+Takes one snapshot then exits.  Requires the game to be running with a
+save loaded.
 
-### 2. Install
+## Troubleshooting
 
-```bash
-git clone https://github.com/lmwilki/civ6-mcp.git
-cd civ6-mcp
-uv sync
-```
+| Symptom | Fix |
+|---|---|
+| `[coach] cannot reach Civ 6` | Civ 6 isn't running, or `EnableTuner=1` isn't set, or the firewall is blocking loopback:4318. |
+| Terminal shows "hotkey ready" but Ctrl+Shift+C does nothing | Another app owns that key.  Press Enter in the coach terminal instead — same result. |
+| Snapshot shows all cities/units empty | You're on the main menu.  Load a save; the bridge will reconnect on next press. |
+| Markdown pasted into chat looks garbled | The Markdown uses backtick fences for the map block — some chat UIs collapse whitespace.  Use "raw" or "paste as text" mode if the tile map wraps. |
+| Snapshot files stop appearing | Check the terminal window for `[coach] snapshot failed` — it lists which query broke.  Restart the launcher; the reconnect logic will pick things up. |
 
-For GUI automation features (screenshot, OCR-based menu navigation):
+## Design notes for future work
 
-```bash
-# macOS
-uv pip install 'civ6-mcp[launcher-macos]'
+- The bridge reuses `civ_mcp.tuner_client` (wire protocol) and
+  `civ_mcp.connection.GameConnection` (name-based state discovery,
+  auto-reconnect).  No `use 5` anywhere.
+- Every Lua query is base-game-only and pcall-wrapped section by section:
+  a single missing field prints one `DIAG|section|message` line rather
+  than killing the whole snapshot.
+- The coach package is fully separate from the existing MCP server
+  (`civ_mcp.server`) — starting the coach does not start the MCP server.
+- Snapshot writes are atomic per file, but not per pair — if the bridge
+  is killed mid-write you can end up with a fresh `latest-coach.md` and a
+  stale `latest-full.json`.  Simple; not worth Windows-atomic-rename
+  gymnastics.
 
-# Windows (uses built-in Windows OCR — no external binaries needed)
-uv pip install 'civ6-mcp[launcher-windows]'
+Read-only.  No `RequestPlayerOperation`, no `UI.RequestAction`, no
+`EndTurn`, no save writes.  You make every decision and press every
+button.  The coach describes; you play.
 
-# Linux (Ubuntu/Debian)
-sudo apt install xdotool tesseract-ocr
-uv pip install 'civ6-mcp[launcher-linux]'
-```
+---
 
-### 3. Test the connection
+# Appendix — snapshot JSON schema (`coach-snapshot/1.1`)
 
-With Civ 6 running and a game loaded:
+Every hotkey press writes a JSON file whose top-level `schema` field is
+`coach-snapshot/1.1`.  Bump `SCHEMA_VERSION` in
+`src/civ_mcp/coach/__init__.py` whenever a field is renamed or removed;
+add-only changes stay backwards-compatible.
 
-```bash
-uv run python scripts/test_connection.py
-```
+## Top-level shape
 
-You should see a successful handshake and a list of Lua states (GameCore_Tuner, InGame, etc.).
-
-### 4. Configure your MCP client
-
-The server runs over stdio. Point your client at it:
-
-<details>
-<summary><strong>Claude Code</strong></summary>
-
-The repo includes `.mcp.json` — detected automatically:
-
-```bash
-cd civ6-mcp
-claude
-```
-</details>
-
-<details>
-<summary><strong>Claude Desktop</strong></summary>
-
-Add to your config file:
-- macOS: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
-
-```json
+```jsonc
 {
-  "mcpServers": {
-    "civ6": {
-      "command": "uv",
-      "args": ["run", "--directory", "/path/to/civ6-mcp", "civ-mcp"]
-    }
+  "schema": "coach-snapshot/1.1",
+  "coach_version": "1.01",
+  "generated_at_epoch": 1753728000.123,
+
+  "meta": {
+    "turn": 87, "year": "725 BC", "era": "Classical Era",
+    "civ_type": "CIVILIZATION_EGYPT", "civ_name": "Egypt",
+    "leader_type": "LEADER_CLEOPATRA", "leader_name": "Cleopatra",
+    "difficulty": "Chieftain", "speed": "Standard",
+    "map_size": "Standard", "map_type": "Continents",
+    "max_players": 10, "max_turns": 500
+  },
+  "victories_enabled": ["VICTORY_TECHNOLOGY", "..."],
+  "empire": {
+    "score": 79, "gold": 330, "gold_yield": 12.4, "gold_maint": 2.0, "gold_net": 10.4,
+    "science": 17.1, "culture": 11.3, "faith": 184, "faith_yield": 7.3, "tourism": 8.0,
+    "military": 119, "techs_done": 13, "civics_done": 8,
+    "num_cities": 4, "num_units": 6, "total_pop": 14,
+    "trade_used": 1, "trade_cap": 1,
+    "explored_land": 422, "total_land": 1153
+  },
+  "current_research": {"type":"TECH_CONSTRUCTION","name":"Construction","progress":92,"cost":200,"turns":7,"boosted":false,"boost_desc":"Build a Water Mill."},
+  "current_civic":    {"type":"CIVIC_MILITARY_TRADITION", "...": "same shape"},
+  "resources": [{"class":"LUXURY","type":"RESOURCE_IVORY","name":"Ivory","amount":1,"accessible":true}],
+  "government": {"type":"GOVERNMENT_CLASSICAL_REPUBLIC","name":"Classical Republic","slots_open":0,"free_change_available":true},
+  "policy_slots":    [{"index":0,"slot_type":"SLOT_ECONOMIC","slot_name":"ECONOMIC","policy_type":"POLICY_URBAN_PLANNING","policy_name":"Urban Planning","effect":"..."}],
+  "policy_available":[{"type":"POLICY_...","slot":"MILITARY","name":"Discipline","effect":"..."}],
+  "great_people": [{"class_type":"GREAT_PERSON_CLASS_GENERAL","class":"GENERAL","points":49,"per_turn":1.1,"next_cost":-1,"candidate":"","patronize_cost":-1}],
+
+  "techs_available":  [{"type":"...","name":"...","progress":0,"cost":120,"turns":8,"boosted":false,"boost_desc":"...","unlocks":"..."}],
+  "civics_available": [ "... same shape ..." ],
+
+  "cities": [{
+    "id":123,"name":"Râ-Kedet","is_capital":true,"x":66,"y":32,
+    "population":3,"food_surplus":1.0,"turns_to_growth":24,"turns_to_starvation":-1,
+    "housing":10,"amenities":3,"amenities_needed":1,"happiness":2,
+    "yields":{"food":7.0,"production":14.7,"gold":10.5,"science":8.5,"culture":5.1,"faith":6.3},
+    "production":{"type":"BUILDING_STONEHENGE","name":"Stonehenge","progress":420,"cost":425,"turns":1},
+    "defense":{"strength":34,"garrison_hp":200,"garrison_max":200,"wall_hp":0,"wall_max":0},
+    "border_expansion_turns":5,
+    "majority_religion":"NONE",
+    "districts":[{"type":"DISTRICT_ENCAMPMENT","name":"Encampment","x":65,"y":33,"pillaged":false,"adjacency":{"PRODUCTION":1}}],
+    "buildings":[{"district":"DISTRICT_CITY_CENTER","type":"BUILDING_PALACE","name":"Palace","is_wonder":false,"pillaged":false}],
+    "tiles_rollup":{"owned":24,"worked":8,"terrain":{"grass":10},"features":{"forest":3},"improvements":{"farm":4}},
+    "production_options":[{"kind":"UNIT","type":"UNIT_WARRIOR","name":"Warrior","progress":0,"cost":40,"turns":3}],
+    "trade_routes":[{"dest_player":0,"dest_city":"Luxis","yields":{"Food":1,"Production":1},"dest_civ":"domestic"}]
+  }],
+
+  "units": [{
+    "id":42,"type":"UNIT_WARRIOR","name":"Warrior","class":"FORMATION_CLASS_LAND_COMBAT",
+    "x":66,"y":30,"hp":84,"hp_max":100,"moves":2,"moves_max":2,
+    "combat":20,"ranged":0,"bombard":0,"range":0,
+    "xp":7,"xp_needed":15,"promotions_held":0,"promotions_available":0,
+    "idle":true,"fortify_turns":2,"charges":0,
+    "can_upgrade":false,"upgrade_to":"","upgrade_cost":0
+  }],
+  "barbarians_visible": [], "camps_visible": [], "camps_revealed_only": [],
+
+  "map_meta": {"total_plots":4720,"grid":"..."},
+  "map_totals": {"revealed":422,"visible":96,"natural_wonders":2},
+  "tiles": [{"x":66,"y":32,"visible":true,"terrain":"g","feature":"","resource":"","improvement":"","road":"","owner":"0","district":"CITY_CENTER","is_city":true,"units":"0:WARRIOR:100","extra":"R"}],
+  "natural_wonders": [{"name":"...","x":50,"y":40,"type":"FEATURE_..."}],
+
+  "envoys": {"in_hand":0,"points":8,"threshold":100,"per_turn":3.0,"envoys_per_threshold":1},
+  "majors_met":      [{"player_id":2,"civ_type":"CIVILIZATION_SUMERIA","known_agendas":[]}],
+  "city_states_met": [{"player_id":40,"envoys_sent":1,"suzerain":"none","active_quests":[]}],
+
+  "religion": {
+    "pantheon":{"type":"BELIEF_...","name":"Religious Settlements","description":"..."},
+    "religion":null, "beliefs":[], "can_found_pantheon":false,
+    "city_religion":{"123":"NONE"}
+  },
+
+  "notifications":     [{"type":"NOTIFICATION_...","blocker_type":"","message":"..."}],
+  "end_turn_blockers": [{"blocker_type":"ENDTURN_BLOCKING_UNITS","message":"Command Units"}],
+  "turn_blockers_summary": ["1 idle unit(s)", "..."],
+
+  "section_status": {"header":"ok","empire":"ok","cities":"ok","...":"ok|failed|missing"},
+
+  "diagnostics": {
+    "per_query_seconds": {"meta":0.36,"cities":0.36},
+    "total_seconds": 2.77,
+    "failures": [{"section":"meta.META","message":"..."}],
+    "traces": {"meta":["TRACE|META|great_people"]},
+    "unsupported": ["governors (Rise & Fall)", "..."]
   }
 }
 ```
-</details>
 
-<details>
-<summary><strong>Codex</strong></summary>
+## Encoding rules
 
-Add to `.codex/config.toml` in the project root:
+- All numeric fields are numbers, not strings.
+- `-1` is the **unknown** sentinel for values we could not read
+  (`great_people[].next_cost`, `patronize_cost`).  It must never be
+  rendered as `0`, which would read as "free".
+- A section whose `section_status` is `"failed"` is serialized as `null`,
+  never as an empty list/dict — so consumers can tell "query broke" apart
+  from "genuinely empty".
+- Coordinates are the game's own plot (X, Y).
+- Map `terrain`/`feature` codes use the compact legend printed in the
+  Markdown map header; treat them as opaque strings and derive meaning
+  from `queries.py:build_map_query`.
+- `promotions_available` is `0` or `1` — a unit can have at most one
+  pending promotion. Civilians are always `0`.
 
-```toml
-[mcp_servers.civ6]
-command = "uv"
-args = ["run", "--directory", "/path/to/civ6-mcp", "civ-mcp"]
-```
-</details>
+## Changes in 1.1 (v1.01)
 
-<details>
-<summary><strong>Gemini CLI</strong></summary>
-
-Add to `.gemini/settings.json` in the project root:
-
-```json
-{
-  "mcpServers": {
-    "civ6": {
-      "command": "uv",
-      "args": ["run", "--directory", "/path/to/civ6-mcp", "civ-mcp"]
-    }
-  }
-}
-```
-</details>
-
-<details>
-<summary><strong>Other MCP clients</strong></summary>
-
-The server speaks stdio JSON-RPC:
-
-```bash
-uv run civ-mcp
-```
-</details>
-
-### 5. Play
-
-Load a game in Civ 6, connect your client, and try:
-
-```
-Play my Civ 6 game. Start by getting an overview, then check units and
-cities, and play through the turn.
-```
-
-The agent will orient with `get_game_overview`, scan the map for threats, move units, set production and research, handle diplomacy, and end the turn.
-
-## As a benchmark
-
-Civilization VI is a compelling environment for evaluating LLM strategic reasoning. Games run 300+ turns with compounding decisions, incomplete information, and multiple competing objectives — a significant step up from single-turn or short-horizon tasks.
-
-- **Multi-turn planning** — decisions compound over hundreds of turns with delayed payoffs
-- **Incomplete information** — fog of war, hidden AI intentions, unexplored map
-- **Resource management** — balancing gold, production, science, culture, faith, and military
-- **Opponent modeling** — reading diplomatic signals, anticipating AI behavior
-- **Strategic adaptation** — responding to threats, shifting priorities mid-game
-
-The MCP interface provides a clean abstraction: the model receives narrated game state as text and responds with tool calls. All game rules are enforced by the engine. A companion web app lets you replay sessions turn by turn.
-
-## How it works
-
-```
-Claude / Any MCP Client
-    |  stdio (JSON-RPC)
-    v
-MCP Server (Python)    <- 70+ tools
-    |
-    |  Generates Lua code at runtime
-    |  TCP :4318
-    v
-Civilization VI        <- Game is the TCP server
-```
-
-The server maintains a persistent TCP connection to Civ 6 via the FireTuner debug protocol. It generates Lua code, executes it inside the game's two Lua VMs (GameCore for reading state, InGame for issuing commands), parses the output, and returns narrated text to the LLM.
-
-The repo includes an [AGENTS.md](AGENTS.md) playbook (symlinked as `CLAUDE.md` for Claude Code) with detailed instructions for agents: turn loop, combat, diplomacy, common pitfalls. See the [devlog](docs/devlog/) for the full development story, including reverse-engineering the FireTuner protocol and the many API quirks discovered along the way.
-
-## Requirements
-
-- **macOS, Windows, or Linux** with Civilization VI (Steam version, Gathering Storm DLC)
-- **Python 3.12+** with [uv](https://docs.astral.sh/uv/)
-- An **MCP client** (Claude Code, Codex, Gemini CLI, or any MCP-compatible client)
-
-## License
-
-MIT
+- `promotions_available` semantics corrected — v1.0 reported `1` for every
+  unit including civilians.
+- `great_people[].next_cost` gains the `-1` unknown sentinel.
+- `cities[].trade_routes[].dest_civ` added — readable civ name, or
+  `"domestic"` for internal routes.
+- Trade route `yields` keys are now full names (`Food`, `Production`)
+  rather than 3-character truncations (`FOO`, `PRO`).
+- `meta.speed` / `meta.map_size` / `meta.map_type` now resolve to readable
+  names instead of raw hashes and `.lua` filenames.

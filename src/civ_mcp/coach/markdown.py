@@ -32,13 +32,46 @@ def _kv(label: str, value: Any) -> str:
     return f"- **{label}:** {value}"
 
 
+def _delta_is_empty(d: dict[str, Any]) -> bool:
+    """True when nothing materially changed since the previous snapshot.
+
+    Covers the common case of pressing the hotkey twice on the same turn:
+    reporting "turns elapsed: 0" and nothing else is noise.
+    """
+    if any((d.get("empire_delta") or {}).values()):
+        return False
+    if (d.get("tiles_newly_revealed") or {}).get("count"):
+        return False
+    ud = d.get("units_delta") or {}
+    if any(ud.get(k) for k in ("born", "lost", "promoted", "upgraded")):
+        return False
+    if ud.get("moved_count"):
+        return False
+    cd = d.get("cities_delta") or {}
+    if any(cd.get(k) for k in ("grew", "starved", "production_completed")):
+        return False
+    if any((d.get("resources_delta") or {}).values()):
+        return False
+    dd = d.get("diplo_delta") or {}
+    if any(dd.get(k) for k in ("newly_met_majors", "newly_met_city_states", "new_wars")):
+        return False
+    return True
+
+
 def _fmt_delta(d: dict[str, Any]) -> str:
     if not d:
         return "_no delta available_"
     if d.get("first_snapshot"):
         return "_first snapshot this session — no delta to show_"
+
+    turns = d.get("turns_elapsed", 0)
+    if _delta_is_empty(d):
+        if turns == 0:
+            return "No meaningful changes. (Same turn as the previous snapshot.)"
+        return f"No meaningful changes. ({turns} turn(s) elapsed.)"
+
     lines: list[str] = []
-    lines.append(f"- turns elapsed: {d.get('turns_elapsed', 0)}")
+    lines.append(f"- turns elapsed: {turns}")
     ed = d.get("empire_delta", {}) or {}
     if ed:
         parts = [f"{k}: {v:+}" for k, v in ed.items() if v]
@@ -297,9 +330,13 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
             for gpe in gp:
                 cand = f" — candidate: {gpe.get('candidate')}" if gpe.get("candidate") else ""
                 pat = f", patronize: {gpe.get('patronize_cost')}faith" if gpe.get("patronize_cost", -1) > 0 else ""
+                # -1 is the "could not read" sentinel.  Never print 0, which
+                # would read as "free to recruit".
+                nc = gpe.get("next_cost", -1)
+                cost_str = f"{nc}" if isinstance(nc, (int, float)) and nc > 0 else "unknown"
                 lines.append(
                     f"- **{gpe.get('class')}** {gpe.get('points'):.0f}pts (+{gpe.get('per_turn'):.1f}/turn) "
-                    f"— next recruit cost {gpe.get('next_cost')}{cand}{pat}"
+                    f"— next recruit cost {cost_str}{cand}{pat}"
                 )
             lines.append("")
 
@@ -401,8 +438,15 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                 if len(prods) > 10:
                     lines.append(f"    - ...{len(prods) - 10} more options in JSON")
             for tr_r in c.get("trade_routes", []) or []:
-                y = ", ".join(f"{k}{v:+d}" for k, v in tr_r.get("yields", {}).items())
-                lines.append(f"    - trade → player{tr_r.get('dest_player')} {tr_r.get('dest_city')}: {y}")
+                y = ", ".join(f"{k} {v:+d}" for k, v in tr_r.get("yields", {}).items())
+                civ = tr_r.get("dest_civ") or "?"
+                # "domestic" reads better inline than a civ name we already know.
+                where = (
+                    f"{tr_r.get('dest_city')} (domestic)"
+                    if civ == "domestic"
+                    else f"{tr_r.get('dest_city')} ({civ})"
+                )
+                lines.append(f"    - trade → {where}: {y or 'no yields'}")
         lines.append("")
 
     # ---- Units ------------------------------------------------------------
