@@ -92,7 +92,7 @@ No meaningful changes. (Same turn as the previous snapshot.)
     - district `ENCAMPMENT` @ (65,26)
     - district `WONDER` @ (66,27)
     - buildings in `CITY_CENTER`: Monument, Palace, Granary
-    - tiles: 13 owned, 4 worked | terrain: 7 plains, 5 plains_hills, 1 grass_hills | features: 1 forest | improvements: 3 farm, 2 sphinx, 2 mine, 1 camp
+    - tiles: 13 owned, 4 worked | terrain: 7 plains, 5 plains_hills, 1 grass_hills | features: 1 forest | improvements: 3 farm, 2 mine, 2 sphinx, 1 camp
     - top production options: Stonehenge (1t), Scout (2t), Warrior (3t), Trader (4t), Archer (4t), Spearman (4t), Battering Ram (4t), Builder (5t), Horseman (5t), Ancient Walls (6t)
     - ...13 more options in JSON
     - trade → Luxis (domestic): Food +1, Production +1
@@ -113,7 +113,7 @@ No meaningful changes. (Same turn as the previous snapshot.)
 - **producing:** Granary (18/65, 8t)
 - defense: str 20 | garrison 200/200 | walls 0/0
     - district `CITY_CENTER` @ (66,25)
-    - tiles: 9 owned, 5 worked | terrain: 6 grass, 1 plains, 1 coast, 1 grass_hills | features: 1 marsh, 1 forest | improvements: 2 quarry, 1 sphinx, 1 farm
+    - tiles: 9 owned, 5 worked | terrain: 6 grass, 1 grass_hills, 1 coast, 1 plains | features: 1 marsh, 1 forest | improvements: 2 quarry, 1 farm, 1 sphinx
     - top production options: Scout (5t), Builder (6t), Warrior (7t), Granary (8t), Archer (10t), Monument (10t), Trader (11t), Spearman (11t), Battering Ram (11t), Horseman (14t)
     - ...12 more options in JSON
 ### Luxis @ (64,22)
@@ -122,7 +122,7 @@ No meaningful changes. (Same turn as the previous snapshot.)
 - **producing:** Monument (15/60, 15t)
 - defense: str 10 | garrison 200/200 | walls 0/0
     - district `CITY_CENTER` @ (64,22)
-    - tiles: 7 owned, 2 worked | terrain: 4 grass, 1 plains, 1 grass_hills, 1 grass_mountain | features: 1 jungle
+    - tiles: 7 owned, 2 worked | terrain: 4 grass, 1 grass_hills, 1 grass_mountain, 1 plains | features: 1 jungle
     - top production options: Scout (10t), Warrior (13t), Monument (15t), Trader (20t), Archer (20t), Spearman (21t), Battering Ram (21t), Granary (21t), Builder (25t), Horseman (26t)
     - ...12 more options in JSON
 
@@ -675,7 +675,7 @@ _508 revealed, 96 currently visible, 1 natural wonders_
 ## DIAGNOSTICS
 - section status: cities=ok, city_states_met=ok, civics_available=ok, current_civic=ok, current_research=ok, empire=ok, envoys=ok, government=ok, great_people=ok, header=ok, majors_met=ok, map=ok, notifications=ok, policy_available=ok, policy_slots=ok, religion=ok, resources=ok, techs_available=ok, units=ok, victories=ok
 - generation time: 2.80s
-- per-query timing (s): meta=0.364, choices=0.343, cities=0.36, units=0.344, map=0.376, diplo=0.343, religion=0.343, notif=0.329
+- per-query timing (s): meta=0.368, choices=0.342, cities=0.359, units=0.343, map=0.357, diplo=0.345, religion=0.342, notif=0.343
 - compatibility notes (fallback paths, not failures):
     - `CHOICES.probe`: using cul:CanProgress() for civic availability
 - last trace per query (for post-mortem):
@@ -697,4 +697,4 @@ _508 revealed, 96 currently visible, 1 natural wonders_
     - power, resource consumption, canals, dams (Gathering Storm)
     - railroads (Gathering Storm)
 
-<!-- coach snapshot: schema=coach-snapshot/1.1 turn=87 generated_at=1785302477.5644853 failed_sections=none -->
+<!-- coach snapshot: schema=coach-snapshot/1.1 turn=87 generated_at=1785305059.6712434 failed_sections=none -->

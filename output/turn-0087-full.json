@@ -1,7 +1,7 @@
 {
   "schema": "coach-snapshot/1.1",
   "coach_version": "1.0.1",
-  "generated_at_epoch": 1785302477.5644853,
+  "generated_at_epoch": 1785305059.6712434,
   "meta": {
     "turn": 87,
     "year": "725 BC",
@@ -519,8 +519,8 @@
         },
         "improvements": {
           "farm": 3,
-          "sphinx": 2,
           "mine": 2,
+          "sphinx": 2,
           "camp": 1
         }
       },
@@ -1032,9 +1032,9 @@
         "worked": 5,
         "terrain": {
           "grass": 6,
-          "plains": 1,
+          "grass_hills": 1,
           "coast": 1,
-          "grass_hills": 1
+          "plains": 1
         },
         "features": {
           "marsh": 1,
@@ -1042,8 +1042,8 @@
         },
         "improvements": {
           "quarry": 2,
-          "sphinx": 1,
-          "farm": 1
+          "farm": 1,
+          "sphinx": 1
         }
       },
       "production_options": [
@@ -1280,9 +1280,9 @@
         "worked": 2,
         "terrain": {
           "grass": 4,
-          "plains": 1,
           "grass_hills": 1,
-          "grass_mountain": 1
+          "grass_mountain": 1,
+          "plains": 1
         },
         "features": {
           "jungle": 1
@@ -9964,14 +9964,14 @@
   },
   "diagnostics": {
     "per_query_seconds": {
-      "meta": 0.364,
-      "choices": 0.343,
-      "cities": 0.36,
-      "units": 0.344,
-      "map": 0.376,
-      "diplo": 0.343,
-      "religion": 0.343,
-      "notif": 0.329
+      "meta": 0.368,
+      "choices": 0.342,
+      "cities": 0.359,
+      "units": 0.343,
+      "map": 0.357,
+      "diplo": 0.345,
+      "religion": 0.342,
+      "notif": 0.343
     },
     "failures": [],
     "compat_notes": [
@@ -10052,7 +10052,7 @@
         "TRACE|NOTIF|notifications"
       ]
     },
-    "total_seconds": 2.802
+    "total_seconds": 2.8
   },
   "turn_blockers_summary": [
     "blocker:ENDTURN_BLOCKING_UNITS (Command Units)",
