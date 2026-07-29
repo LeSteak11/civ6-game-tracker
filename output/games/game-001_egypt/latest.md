@@ -1,83 +1,96 @@
-# CIV6 COACH SNAPSHOT — turn 103
-_Egypt (Cleopatra) — 325 BC / Classical Era — Chieftain / Standard / Small Continents — schema coach-snapshot/1.3 coach 1.3.0_
+# CIV6 COACH SNAPSHOT — turn 108
+_Egypt (Cleopatra) — 200 BC / Classical Era — Chieftain / Standard / Small Continents — schema coach-snapshot/1.4 coach 1.5.0_
 
 ## CHANGES SINCE LAST SNAPSHOT
-- turns elapsed: 1
-- empire: score: +2, gold: +14.199999999999932, science: +0.6999999999999993, culture: +0.29999999999999893, faith: +20.19999999999999, military: +1, total_pop: +1
-- units moved: 3
-- cities grew: Râ-Kedet
+No meaningful changes. (Same turn as the previous snapshot.)
+
+## GOSSIP (recent — full history in gossip.json)
+- T80 [Sumeria] Your delegate, Ahmes, learned that Sumeria has progressed from the Classical Era to the Medieval Era.
+- T81 [Sumeria] Your delegate, Ahmes, learned that Sumeria is expanding, adding the new settlement: Adab.
+- T88 [Sumeria] Your delegate, Ahmes, learned that Sumeria is trading with Brazil.
+- T88 [Sumeria] Your delegate, Ahmes, learned that Sumeria has just declared war on Brazil!
+- T88 [player 4] Rumor has it that Brazil has been targeted for a declaration of war by Sumeria!
+- T90 [Sumeria] Your delegate, Ahmes, learned that Sumeria has conquered Recife.
+- T90 [Sumeria] Your delegate, Ahmes, learned that Sumeria is expanding, adding the new settlement: Recife.
+- T94 [Sumeria] Your delegate, Ahmes, learned that Sumeria has declared their friendship with Egypt.
+- T98 [Sumeria] Your delegate, Ahmes, learned that Sumeria has used a War-Cart to clear a Barbarian Outpost.
+- T107 [Sumeria] Your delegate, Ahmes, learned that Sumeria is expanding, adding the new settlement: Kish.
 
 ## TURN BLOCKERS
+- blocker:ENDTURN_BLOCKING_RESEARCH (Choose a Technology)
 - blocker:ENDTURN_BLOCKING_UNITS (Command Units)
 - 2 idle unit(s)
+- no research selected
 
 ## EMPIRE
-- **score:** 111
-- **gold:** 549 (net +14.2 = yield 17.2 − maint 3.0)
-- **science:** 20.3/turn
-- **culture:** 15.7/turn
-- **faith:** 441 (+20.3/turn)
+- **score:** 115
+- **gold:** 616 (net +12.2 = yield 17.2 − maint 5.0)
+- **science:** 21.0/turn
+- **culture:** 16.0/turn
+- **faith:** 548 (+22.2/turn)
 - **tourism:** 19.0/turn
-- **military:** 140
-- **techs / civics done:** 15 / 11
-- **cities / units / pop:** 4 / 9 / 19
+- **military:** 141
+- **techs / civics done:** 16 / 12
+- **cities / units / pop:** 4 / 7 / 20
 - **trade routes:** 1/1
-- **explored land:** 455/1153 tiles
+- **explored land:** 477/1153 tiles
 - **enabled victories:** VICTORY_TECHNOLOGY, VICTORY_CULTURE, VICTORY_RELIGIOUS, VICTORY_CONQUEST, VICTORY_SCORE
 
 ## RESEARCH / CIVIC
-- **tech:** Iron Working 20/120 (5t) — eureka:False [need: Build an Iron Mine.]
-- **civic:** Military Training 115/120 (1t) — inspiration:True
+- **tech:** none 0/0 (-1t) — eureka:False
+- **civic:** Defensive Tactics 75/175 (7t) — inspiration:False [need: Be the target of a Declaration of War.]
 
 ### TECHS AVAILABLE (up to 10, sorted by turns)
-- Iron Working  — 120sci (5t) — unlocks: Swordsman, Legion, Ngao Mbeba — boost: Build an Iron Mine.
 - Celestial Navigation  — 120sci (6t) — unlocks: Lighthouse, Great Lighthouse, Harbor, Royal Navy Dockyard — boost: Improve 2 sea resources.
+- Apprenticeship ★ — 300sci (7t) — unlocks: Man-At-Arms, Workshop, Industrial Zone, Hansa
 - Shipbuilding  — 200sci (10t) — unlocks: Quadrireme, Colossus — boost: Own 2 Galleys.
 - Mathematics  — 200sci (10t) — unlocks: Petra — boost: Build 3 different specialty districts.
-- Apprenticeship  — 300sci (15t) — unlocks: Man-At-Arms, Workshop, Industrial Zone, Hansa — boost: Build 3 Mines.
-- Stirrups  — 390sci (20t) — unlocks: Knight, Mamluk — boost: Have the Feudalism civic.
-- Military Engineering  — 390sci (20t) — unlocks: Military Engineer, Trebuchet, Armory, Reveals Niter — boost: Build an Aqueduct.
-- Castles  — 390sci (20t) — unlocks: Medieval Walls, Alhambra — boost: Have a government with 6 policy slots.
+- Machinery  — 300sci (15t) — unlocks: Crossbowman, Crouching Tiger, Lumber Mill — boost: Own 3 Archers.
+- Stirrups  — 390sci (19t) — unlocks: Knight, Mamluk — boost: Have the Feudalism civic.
+- Military Engineering  — 390sci (19t) — unlocks: Military Engineer, Trebuchet, Armory, Reveals Niter — boost: Build an Aqueduct.
+- Castles  — 390sci (19t) — unlocks: Medieval Walls, Alhambra — boost: Have a government with 6 policy slots.
 
 ### CIVICS AVAILABLE (up to 10, sorted by turns)
-- Military Training ★ — 120cul (1t) — unlocks: Raid, Veterancy
-- Defensive Tactics  — 175cul (12t) — unlocks: Bastions, Limes — inspiration: Be the target of a Declaration of War.
-- Recorded History  — 175cul (12t) — unlocks: Natural Philosophy — inspiration: Build 2 Campus districts.
+- Defensive Tactics  — 175cul (7t) — unlocks: Bastions, Limes — inspiration: Be the target of a Declaration of War.
+- Recorded History  — 175cul (11t) — unlocks: Natural Philosophy — inspiration: Build 2 Campus districts.
 
-### TECH TREE (15/68 completed)
-- **completed:** Pottery, Animal Husbandry, Mining, Sailing, Astrology, Irrigation, Archery, Writing, Masonry, Bronze Working, Wheel, Currency, Horseback Riding, Construction, Engineering
-- **current:** Iron Working — 20/120sci (5t)
-- **available now:** 7 (top picks listed above)
-- **blocked:** 45 — nearest 8, missing prereqs:
+### TECH TREE (16/68 completed)
+- **completed:** Pottery, Animal Husbandry, Mining, Sailing, Astrology, Irrigation, Archery, Writing, Masonry, Bronze Working, Wheel, Currency, Horseback Riding, Iron Working, Construction, Engineering
+- **available now:** 8 (top picks listed above)
+- **partially banked:** Apprenticeship (150/300sci)
+- **blocked:** 44 — nearest 8, missing prereqs:
     - Military Tactics ← MATHEMATICS
-    - Machinery ← IRON_WORKING
     - Cartography ← SHIPBUILDING
     - Printing ← MACHINERY
     - Square Rigging ← CARTOGRAPHY
     - Astronomy ← EDUCATION
     - Metal Casting ← GUNPOWDER
     - Siege Tactics ← CASTLES
-    - ...and 37 more (see JSON)
+    - Ballistics ← METAL_CASTING
+    - ...and 36 more (see JSON)
 
-### CIVIC TREE (11/51 completed)
-- **completed:** Code of Laws, Craftsmanship, Foreign Trade, Military Tradition, State Workforce, Early Empire, Mysticism, Games and Recreation, Political Philosophy, Drama and Poetry, Theology
-- **current:** Military Training — 115/120cul (1t)
-- **available now:** 2 (top picks listed above)
+### CIVIC TREE (12/51 completed)
+- **completed:** Code of Laws, Craftsmanship, Foreign Trade, Military Tradition, State Workforce, Early Empire, Mysticism, Games and Recreation, Political Philosophy, Drama and Poetry, Military Training, Theology
+- **current:** Defensive Tactics — 75/175cul (7t)
+- **available now:** 1 (top picks listed above)
 - **partially banked:** Feudalism (136/275cul)
 - **blocked:** 37 — nearest 8, missing prereqs:
     - Naval Tradition ← DEFENSIVE_TACTICS
     - Feudalism ← DEFENSIVE_TACTICS
+    - Mercenaries ← FEUDALISM
     - Divine Right ← CIVIL_SERVICE
     - Medieval Faires ← FEUDALISM
     - Diplomatic Service ← GUILDS
     - Mercantilism ← HUMANISM
     - Colonialism ← MERCANTILISM
-    - Opera and Ballet ← THE_ENLIGHTENMENT
     - ...and 29 more (see JSON)
 
 ## RESOURCES
-- **strategic:** 2 Horses, 1 Iron
+- **strategic:** 1 Iron
 - **luxuries:** Ivory
+- **owned bonus tiles:** 3× Rice (1/3 improved), 3× Stone, 2× Bananas (1/2 improved), 2× Cattle, Fish (0/1 improved)
+- **owned luxury tiles:** Dyes (0/1 improved), Ivory
+- **owned strategic tiles:** Iron (0/1 improved)
 
 ## GOVERNMENT & POLICIES
 - **government:** Classical Republic — 0 open slot(s) — free change avail: True
@@ -86,7 +99,7 @@ _Egypt (Cleopatra) — 325 BC / Classical Era — Chieftain / Standard / Small C
     - `ECONOMIC` Scripture — +100% Holy Site adjacency bonuses.
     - `DIPLOMATIC` Diplomatic League — The first [ICON_Envoy] Envoy you send to each city-state counts as two [ICON_Envoy] Envoys.
     - `WILDCARD` Inspiration — +2 [ICON_GreatScientist] Great Scientist points per turn.
-- **available (unslotted):** 15 card(s)
+- **available (unslotted):** 17 card(s)
     - `MILITARY` Discipline — +5 [ICON_Strength] Unit Combat Strength when fighting Barbarians.
     - `MILITARY` Survey — Double experience for recon units.
     - `ECONOMIC` Ilkum — +30% [ICON_Production] Production toward Builders.
@@ -102,14 +115,16 @@ _Egypt (Cleopatra) — 325 BC / Classical Era — Chieftain / Standard / Small C
     - `ECONOMIC` Insulae — +1 [ICON_Housing] Housing in all cities with at least 2 specialty districts.
     - `DIPLOMATIC` Charismatic Leader — +2 Influence points per turn toward earning city-state [ICON_Envoy] Envoys.
     - `GREAT_PERSON` Literary Tradition — +2 [ICON_GreatWriter] Great Writer points per turn.
+    - `MILITARY` Raid — Yields gained from pillaging are doubled for pillaging improvements.
+    - `MILITARY` Veterancy — +30% [ICON_Production] Production toward Encampment districts and buildings for that district.
 
 ## GREAT PEOPLE
-- **GENERAL** 7pts (+1.2/turn) — next recruit cost 120 — candidate: Genghis Khan
-- **ADMIRAL** 0pts (+0.0/turn) — next recruit cost 60 — candidate: Gaius Duilius
+- **GENERAL** 14pts (+2.3/turn) — next recruit cost 120 — candidate: Genghis Khan
+- **ADMIRAL** 0pts (+0.0/turn) — next recruit cost 120 — candidate: Leif Erikson
 - **ENGINEER** 0pts (+0.0/turn) — next recruit cost 120 — candidate: Bi Sheng
 - **MERCHANT** 0pts (+0.0/turn) — next recruit cost 60 — candidate: Zhang Qian
-- **PROPHET** 37pts (+1.2/turn) — next recruit cost 120 — candidate: Bodhidharma
-- **SCIENTIST** 32pts (+2.3/turn) — next recruit cost 120 — candidate: Omar Khayyam
+- **PROPHET** 46pts (+2.3/turn) — next recruit cost 120 — candidate: Bodhidharma
+- **SCIENTIST** 44pts (+2.3/turn) — next recruit cost 120 — candidate: Omar Khayyam
 - **WRITER** 0pts (+0.0/turn) — next recruit cost 60 — candidate: Homer
 - **ARTIST** 0pts (+0.0/turn) — next recruit cost 240 — candidate: Hieronymus Bosch
 - **MUSICIAN** 0pts (+0.0/turn) — next recruit cost 420 — candidate: Yatsuhashi Kengyo
@@ -122,78 +137,91 @@ _Egypt (Cleopatra) — 325 BC / Classical Era — Chieftain / Standard / Small C
 
 ## CITIES (4)
 ### Râ-Kedet [CAP] @ (66,29)
-- pop 4 | grow 39t (food+1.0) | hous 10 | amen 3/1 | happ 5 | border+14t
-- yields: F9.0 P17.3 G9.4 S9.2 C6.5 Fa12.6
-- **producing:** Ancient Walls (47/80, 2t)
-- defense: str 25 | garrison 200/200 | walls 0/0
+- pop 4 | grow 34t (food+1.0) | hous 11 | amen 3/1 | happ Happy | border+9t | growth +10%
+- yields: F9.0 P20.5 G9.4 S9.2 C6.5 Fa12.6
+- prod sources: tiles 11.0, bldgs 4, trade 1, other +4.5 (see JSON for all yields)
+- **producing:** Builder (25/86, 3t)
+- defense: str 18 | garrison 200/200 | walls 100/100
 - majority religion: RELIGION_TAOISM
     - district `CITY_CENTER` @ (66,29)
     - district `ENCAMPMENT` @ (65,26)
     - district `WONDER` @ (66,27)
-    - buildings in `CITY_CENTER`: Monument, Palace, Granary, Water Mill
+    - buildings in `CITY_CENTER`: Monument, Palace, Granary, Ancient Walls, Water Mill
+    - buildings in `ENCAMPMENT`: Barracks
     - buildings in `WONDER`: Stonehenge
-    - tiles: 16 owned, 5 worked | terrain: 9 plains, 5 plains_hills, 1 grass, 1 grass_hills | features: 1 marsh, 1 forest | improvements: 4 farm, 2 mine, 2 sphinx, 1 camp
-    - top production options: Scout (2t), Ancient Walls (2t), Warrior (3t), Trader (4t), Archer (4t), Spearman (4t), Battering Ram (4t), Builder (5t), Horseman (5t), Siege Tower (6t)
-    - ...16 more options in JSON
+    - tiles: 16 owned, 5 worked | terrain: 9 plains, 5 plains_hills, 1 grass_hills, 1 grass | features: 1 marsh | improvements: 4 farm, 3 mine, 2 sphinx, 1 camp
+    - top production options: Scout (2t), Builder (3t), Archer (3t), Trader (4t), Spearman (4t), Battering Ram (4t), Horseman (4t), Swordsman (5t), Siege Tower (5t), Catapult (6t)
+    - ...13 more options in JSON
     - trade → Luxis (domestic): Food +1, Production +1
 ### Sais @ (62,26)
-- pop 7 | grow 37t (food+8.0) | hous 7 | amen 2/3 | happ 3 | border+8t
-- yields: F22.0 P6.7 G1.9 S4.7 C3.9 Fa5.7
-- **producing:** Shrine (57/70, 2t)
+- pop 7 | grow 32t (food+8.0) | hous 7 | amen 2/3 | happ Displeased | border+3t | growth -15%
+- yields: F22.0 P6.7 G1.9 S4.7 C3.9 Fa7.6
+- prod sources: tiles 6.0, other +0.7 (see JSON for all yields)
+- **producing:** Temple (21/120, 15t)
 - defense: str 22 | garrison 200/200 | walls 0/0
     - district `CITY_CENTER` @ (62,26)
-    - district `HOLY_SITE` @ (63,24)
+    - district `HOLY_SITE` @ (63,24) [+6FAITH]
     - buildings in `CITY_CENTER`: Monument
+    - buildings in `HOLY_SITE`: Shrine
     - tiles: 12 owned, 8 worked | terrain: 8 grass, 2 plains, 1 grass_hills, 1 plains_hills | features: 2 jungle, 1 marsh | improvements: 2 pasture, 1 plantation, 1 farm
-    - top production options: Shrine (2t), Scout (5t), Warrior (7t), Trader (10t), Archer (10t), Spearman (10t), Battering Ram (10t), Granary (10t), Builder (13t), Horseman (13t)
-    - ...18 more options in JSON
+    - top production options: Scout (5t), Archer (10t), Spearman (10t), Battering Ram (10t), Granary (10t), Trader (11t), Builder (13t), Horseman (13t), Ancient Walls (13t), Water Mill (13t)
+    - ...17 more options in JSON
 ### SHEDET @ (66,25)
-- pop 5 | grow 2t (food+6.0) | hous 8 | amen 1/2 | happ 3 | border+19t
-- yields: F16.0 P7.6 G2.9 S3.3 C2.4 Fa1.0
-- **producing:** Monument (8/60, 7t)
+- pop 6 | grow 8t (food+7.0) | hous 8 | amen 1/2 | happ Displeased | border+12t | growth -15%
+- yields: F19.0 P8.6 G2.9 S4.0 C2.7 Fa1.0
+- prod sources: tiles 8.0, other +0.6 (see JSON for all yields)
+- **producing:** Monument (49/60, 2t)
 - defense: str 23 | garrison 200/200 | walls 100/100
     - district `CITY_CENTER` @ (66,25)
     - buildings in `CITY_CENTER`: Granary, Ancient Walls
-    - tiles: 10 owned, 6 worked | terrain: 7 grass, 1 plains, 1 coast, 1 grass_hills | features: 1 marsh, 1 forest | improvements: 2 farm, 2 quarry, 1 sphinx
-    - top production options: Scout (4t), Warrior (6t), Monument (7t), Archer (8t), Trader (9t), Spearman (9t), Battering Ram (9t), Horseman (11t), Water Mill (11t), Builder (12t)
+    - tiles: 10 owned, 7 worked | terrain: 7 grass, 1 plains, 1 coast, 1 grass_hills | features: 1 marsh, 1 forest | improvements: 3 quarry, 2 farm, 1 sphinx
+    - top production options: Monument (2t), Scout (4t), Trader (8t), Archer (8t), Spearman (8t), Battering Ram (8t), Horseman (10t), Water Mill (10t), Builder (11t), Swordsman (11t)
     - ...15 more options in JSON
 ### Luxis @ (64,22)
-- pop 3 | grow 14t (food+2.0) | hous 5 | amen 1/1 | happ 4 | border+3t
+- pop 3 | grow 9t (food+2.0) | hous 5 | amen 1/1 | happ Content | border+10t
 - yields: F8.0 P5.0 G3.0 S3.1 C2.9 Fa1.0
-- **producing:** Granary (23/65, 9t)
+- prod sources: tiles 4.0, other +1.0 (see JSON for all yields)
+- **producing:** Granary (48/65, 4t)
 - defense: str 10 | garrison 200/200 | walls 0/0
     - district `CITY_CENTER` @ (64,22)
     - buildings in `CITY_CENTER`: Monument
-    - tiles: 8 owned, 4 worked | terrain: 5 grass, 1 grass_mountain, 1 grass_hills, 1 plains | features: 1 forest, 1 jungle
-    - top production options: Scout (6t), Warrior (8t), Granary (9t), Archer (12t), Spearman (13t), Battering Ram (13t), Trader (14t), Horseman (16t), Ancient Walls (16t), Water Mill (16t)
+    - tiles: 9 owned, 4 worked | terrain: 6 grass, 1 plains, 1 grass_mountain, 1 grass_hills | features: 1 jungle, 1 forest
+    - top production options: Granary (4t), Scout (6t), Archer (12t), Spearman (13t), Battering Ram (13t), Trader (14t), Horseman (16t), Ancient Walls (16t), Water Mill (16t), Builder (18t)
     - ...16 more options in JSON
 
-## UNITS (9)
-- **Scout** #196608 @(55,21) | hp100/100 | mv3/3 | cs10 rs0 xp16/45
-- **Warrior** #131073 @(66,29) | hp100/100 | mv2/2 | cs20 rs0 xp14/15 fort:2
-- **Trader** #786434 @(64,23) | hp100/100 | mv2/2 | cs0 rs0 xp0/15
+## UNITS (7)
+- **Scout** #196608 @(59,17) | hp100/100 | mv3/3 | cs10 rs0 xp16/45
+- **Warrior** #131073 @(66,31) | hp77/100 | mv2/2 | cs20 rs0 xp15/15 <IDLE>
+- **Trader** #786434 @(66,26) | hp100/100 | mv2/2 | cs0 rs0 xp0/15
 - **Warrior** #655363 @(62,26) | hp100/100 | mv2/2 | cs20 rs0 xp0/15 fort:2
-- **Builder** #1376260 @(67,25) | hp100/100 | mv2/2 | cs0 rs0 xp0/15 ch1 <IDLE>
 - **Great General** #1310725 @(66,29) | hp100/100 | mv4/4 | cs0 rs0 xp0/15
-- **Archer** #1048582 @(67,29) | hp100/100 | mv2/2 | cs15 rs25 xp24/45 fort:2
+- **Archer** #1048582 @(67,29) | hp100/100 | mv2/2 | cs15 rs25 xp25/45 <IDLE>
 - **Warrior** #983047 @(66,25) | hp100/100 | mv2/2 | cs20 rs0 xp0/15 fort:2
-- **Builder** #1441800 @(65,28) | hp100/100 | mv2/2 | cs0 rs0 xp0/15 ch2 <IDLE>
 
 ## DIPLOMACY
-- **envoys:** 0 in hand | 56/100 pts (+3.0/turn — 1 envoys/threshold)
+- **envoys:** 0 in hand | 71/100 pts (+3.0/turn — 1 envoys/threshold)
 ### MAJORS MET
-- **Sumeria (Gilgamesh)** — DIPLO_STATE_DECLARED_FRIEND | vis 1 | score 130 mil 133 | met T27
-    - public: techs 19 | civics 11 | tourism 4
-    - known cities (5): Uruk★?, Lagash?, Rio de Janeiro?, Adab?, Recife?
+- **Sumeria (Gilgamesh)** — DIPLO_STATE_DECLARED_FRIEND | vis 1 | score 140 mil 159 | met T27 | OB from them
+    - public: techs 20 | civics 12 | tourism 4
+    - known cities (6): Uruk★?, Lagash?, Rio de Janeiro?, Adab?, Recife?, Kish?
     - government: Autocracy (vis 1)
 - ☠️ **Brazil** — ELIMINATED
 ### CITY-STATES MET
 - **Kabul** (KABUL) — envoys sent 1 | suz: none | @(61,18) | met T20 | envoys: Sumeria 2, me (Egypt) 1
-- **Hattusa** (HATTUSA) — envoys sent 3 | suz: ME | @(56,24) | met T19 | envoys: me (Egypt) 3, Sumeria 2
+    - thresholds met: 1 | envoy race: +2 envoys to lead (2 tops)
+    - suzerain bonus: Your units receive double experience from battles they initiate.
+- **Hattusa** (HATTUSA) — envoys sent 3 | suz: none | @(56,24) | met T19 | envoys: me (Egypt) 3, Sumeria 3
+    - thresholds met: 1/3 | envoy race: tied at 3
+    - suzerain bonus: Provides you with 1 of each Strategic resource you have revealed but do not own.
 - **Stockholm** (STOCKHOLM) — envoys sent 1 | suz: none | @(64,13) | met T32 | envoys: me (Egypt) 1, Sumeria 1
-- **Amsterdam** (AMSTERDAM) — envoys sent 2 | suz: none | @(67,19) | met T54 | envoys: me (Egypt) 2, Sumeria 2
+    - thresholds met: 1 | envoy race: tied at 1
+    - suzerain bonus: Your districts provide +1 [ICON_GreatPerson] Great Person point of their type ([ICON_GreatWriter] Great Writer, [ICON_GreatArtist] Great Artist, and [ICON_GreatMusician] Great Musician for Theater Square districts).
+- **Amsterdam** (AMSTERDAM) — envoys sent 3 | suz: ME | @(67,19) | met T54 | envoys: me (Egypt) 3, Sumeria 2
+    - thresholds met: 1/3 | envoy race: leading
+    - suzerain bonus: Your [ICON_TradeRoute] Trade Routes to foreign cities earn +1 [ICON_Gold] Gold for each Luxury resource at the destination.
 ### FOREIGN FORCES CURRENTLY VISIBLE
-- Hattusa (city-state): 2 unit(s) — 2× WARRIOR
+- Amsterdam (city-state): 3 unit(s) — 2× WARRIOR, ARCHER
+- Kabul (city-state): 1 unit(s) — ARCHER
 
 ## BARBARIANS (only what we can currently see)
 - camps previously revealed but not currently visible (1): (48,20)
@@ -201,11 +229,15 @@ _Egypt (Cleopatra) — 325 BC / Classical Era — Chieftain / Standard / Small C
 ## NOTIFICATIONS
 - `NOTIFICATION_WONDER_COMPLETED`: Wonder Completed
 - `NOTIFICATION_PLAYER_DEFEATED`: Defeated!
-- `NOTIFICATION_NEW_BARBARIAN_CAMP`: New Barbarian Outpost
+- `NOTIFICATION_BARBARIANS_SIGHTED`: Barbarians Approach
+- `NOTIFICATION_TECH_DISCOVERED`: Discovered Iron Working
+- `NOTIFICATION_CHOOSE_TECH` [BLOCKS: ENDTURN_BLOCKING_RESEARCH]: Choose a Technology
+- `NOTIFICATION_CITY_LOW_AMENITIES`: Need More Amenities
+- `NOTIFICATION_UNIT_PROMOTION_AVAILABLE`: Unit available for promotion
 - `NOTIFICATION_COMMAND_UNITS` [BLOCKS: ENDTURN_BLOCKING_UNITS]: Command Units
 
 ## REVEALED MAP
-_591 revealed, 138 currently visible, 1 natural wonders_
+_616 revealed, 153 currently visible, 1 natural wonders_
 **Owner IDs:** 0=me (Egypt), 3=Sumeria, 7=Kabul (city-state), 8=Hattusa (city-state), 10=Stockholm (city-state), 11=Amsterdam (city-state)
 **Line schema:** `MAP x,y v|terr|feat|res|imp|road|owner|dist|city|units|extra|cityname`  (`v`=1 currently visible; `terr` = g/p/d/t/s (+h for hills, +m for mountain); `feat` = for/jun/mar/fld/oas/reef/nw:NAME; `imp` may end `:P` if pillaged; `extra` R=river L=lake F=freshwater A±N=appeal; `cityname` set on city-centre tiles)
 ```
@@ -378,10 +410,13 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 54,14 0|gh|||||||0||A2|
 55,14 0|gh|||||||0||A1|
 56,14 0|g||MARBLE|||||0||A1|
-57,14 0|g||MARBLE|||||0||A3|
-58,14 0|gh|for||||||0||R/A3/F|
+57,14 0|g||MARBLE|||3||0||A3|
+58,14 0|gh|for||||3||0||R/A3/F|
 59,14 0|g|||||3||0||R/A3/F|
-60,14 0|g|||||||0|||
+60,14 0|g|||||3||0|||
+61,14 0|g|||||||0|||
+62,14 0|dh|||||||0||A1|
+63,14 0|dm|||||||0||A4|
 64,14 0|d||||1|10|CAMPUS|0|||
 65,14 0|d||||1|10||0||A-2|
 66,14 0|d|||||||0||A-2|
@@ -400,16 +435,20 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 53,15 0|gm|||||||0||R/A4|
 54,15 0|gh|||||||0||A3|
 55,15 0|gh|||||||0||A3|
-56,15 0|gh|for||||||0||R/A2/F|
-57,15 0|g|||||||0||R/A3/F|
-58,15 0|g|||||||0||R/A3/F|
+56,15 0|gh|for||||3||0||R/A2/F|
+57,15 0|g||||1|3|CITY_CENTER|1||R/A3/F|Kish
+58,15 0|g|||||3||0||R/A3/F|
+59,15 1|gh||SHEEP|||||0||A1|
+60,15 1|ph|||||||0|||
+61,15 0|p|||||||0||A-1|
+62,15 0|d|||||||0|||
 63,15 0|d||||1|||0||A1|
 64,15 0|d|||||||0|||
-65,15 0|dh||||1|||0|||
-66,15 0|dh||SHEEP|||||0||A-1|
+65,15 1|dh||||1|||0|||
+66,15 1|dh||SHEEP|||||0||A-1|
 67,15 0|d|||||||0||A-1|
-68,15 0|d|fld|SUGAR|||||0||R/A3/F|
-69,15 0|p|for||||||0||R/A3/F|
+68,15 1|d|fld|SUGAR|||||0||R/A3/F|
+69,15 1|p|for||||||0||R/A3/F|
 70,15 0|p|for||||||0||R/A6/F|
 71,15 0|g|||||||0||R/A3/F|
 72,15 0|dh|||||||0||A-1|
@@ -425,16 +464,20 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 54,16 0|gh|for||||||0||A1|
 55,16 0|gm|||||||0||A4|
 56,16 0|dm|||||||0||A4|
-57,16 0|g|||||||0||R/A3/F|
-58,16 0|g||RICE|||||0||R/A2/F|
-59,16 0|gm|||||||0||A4|
+57,16 0|g|||||3||0||R/A3/F|
+58,16 1|g||RICE|||3||0||R/A2/F|
+59,16 1|gm|||||||0||A4|
+60,16 1|p|||||||0|||
+61,16 1|p||HORSES|||||0||A-2|
+62,16 0|g|mar||||||0||A-2|
+63,16 0|d||||1|||0||A-2|
 64,16 0|d|||||||0||A-1|
-65,16 0|dh|||||||0||A-2|
-66,16 0|d||||0|||0||A-1|
-67,16 0|d|||||||0|||
-68,16 0|dh|||||||0||F|
-69,16 0|d|||||||0||A2/F|
-70,16 0|p|for||||||0||R/A4/F|
+65,16 1|dh|||||||0||A-2|
+66,16 1|d||||1|||0||A-1|
+67,16 1|d|||||||0|||
+68,16 1|dh|||||||0||F|
+69,16 1|d|||||||0||A2/F|
+70,16 1|p|for||||||0||R/A4/F|
 71,16 0|g|for||||||0||R/A3/F|
 72,16 0|dh|||||||0||A1|
 73,16 0|d|||||||0|||
@@ -447,19 +490,22 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 51,17 0|ph|jun||||3||0||R/A1/F|
 52,17 0|p|||||3|ENCAMPMENT|0||A-1|
 53,17 0|p|jun||||||0||A2|
+54,17 0|dh||COPPER|||||0||A3|
 55,17 0|dm|||||||0||A4|
 56,17 0|dh||SHEEP|||||0||A3|
-57,17 0|d|||||||0|||
-58,17 0|d|||||||0||A1|
-59,17 0|p|jun|BANANAS|||||0||A1|
-60,17 0|p|||FARM||7||0||A-3|
-61,17 0|ph|||MINE||7||0||A-2|
-64,17 0|p|jun||||||0|||
-65,17 0|p|jun||||||0||A-1|
-66,17 0|d||||0|||0||A-1|
-67,17 0|d||SALT|||||0||A1/F|
-68,17 0|d|oas||||||0||F|
-69,17 0|dh|||||||0||A1/F|
+57,17 1|d|||||||0|||
+58,17 1|d|||||||0||A1|
+59,17 1|p|jun|BANANAS|||||0|0:SCOUT:100|A1|
+60,17 1|p|||FARM||7||0||A-3|
+61,17 1|ph|||MINE||7||0||A-2|
+62,17 0|p|jun|BANANAS||1|||0||A-1|
+63,17 0|d|||||||0|||
+64,17 1|p|jun||||||0|||
+65,17 1|p|jun||||||0|11:WARRIOR:100|A-1|
+66,17 1|d||||1|||0||A-1|
+67,17 1|d||SALT|||||0||A1/F|
+68,17 1|d|oas||||||0|11:ARCHER:100|F|
+69,17 1|dh|||||||0||A1/F|
 70,17 0|d|||||||0||A2|
 71,17 0|d|||||||0||A2|
 72,17 0|d|||||||0||A-2|
@@ -474,19 +520,23 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 50,18 0|p|jun||||3||0||R/A1/F|
 51,18 0|g|||ZIGGURAT||3||0||R/F|
 52,18 0|g|for||||3||0||R/F|
+54,18 0|gm|||||||0||A4|
 55,18 0|dh|||||||0||A4|
 56,18 0|dm|||||||0||A4|
 57,18 0|dh|||||||0||A1|
-58,18 0|d|||||||0|||
-59,18 0|p|for||||||0||A-4|
-60,18 0|ph|||MINE||7||0||A-1|
-61,18 0|ph||||1|7|CITY_CENTER|1||A-2|Kabul
+58,18 1|d|||||||0|7:ARCHER:100||
+59,18 1|p|for||||||0||A-4|
+60,18 1|ph|||MINE||7||0||A-1|
+61,18 1|ph||||1|7|CITY_CENTER|1||A-2|Kabul
 62,18 0|g|||FARM|1|7||0||A-1|
-66,18 0|g||STONE|||||0||A-1|
-67,18 0|g|||FARM|1|11||0|||
-68,18 0|d|||||11|COMMERCIAL_HUB|0||A2/F|
-69,18 0|d|||||||0||A1/F|
-70,18 0|p|jun||||||0||A1|
+63,18 0|g|for||||||0||A1|
+64,18 1|g|for||||||0||A2|
+65,18 1|g|||||||0|||
+66,18 1|g||STONE|||||0||A-1|
+67,18 1|g|||FARM|1|11||0|||
+68,18 1|d||||1|11|COMMERCIAL_HUB|0||A2/F|
+69,18 1|d|||||||0||A1/F|
+70,18 1|p|jun||||||0||A1|
 71,18 0|p|for||||||0|||
 72,18 0|d|||||||0||A1|
 73,18 0|g|mar||||||0|||
@@ -501,8 +551,8 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 51,19 0|g||||1|3|CITY_CENTER|1||R/A1/F|Rio de Janeiro
 52,19 0|gh||STONE|||3||0||R/A3/F|
 53,19 0|gm|||||||0||A4|
-54,19 1|gm|||||||0||A4|
-55,19 1|gh||TEA|||||0||A3/F|
+54,19 0|gm|||||||0||A4|
+55,19 0|gh||TEA|||||0||A3/F|
 56,19 0|gh|||||||0||R/A3/F|
 57,19 0|gh|||||||0||R/A1/F|
 58,19 0|g|mar||||||0||A1|
@@ -512,10 +562,11 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 62,19 0|g||HORSES||1|||0||A2|
 63,19 1|gm|||||||0||A4|
 64,19 1|g|for|DYES|||||0||A3|
-66,19 0|g|||FARM||11||0|||
-67,19 0|p||||1|11|CITY_CENTER|1||R/A2/F|Amsterdam
-68,19 0|gm|||||11||0||R/A4|
-69,19 0|ph|||||||0||A-2|
+65,19 1|g|||||||0||A1|
+66,19 1|g|||FARM||11||0|||
+67,19 1|p||||1|11|CITY_CENTER|1||R/A2/F|Amsterdam
+68,19 1|gm|||||11||0||R/A4|
+69,19 1|ph|||||||0||A-2|
 70,19 0|p||WHEAT|||||0||A1|
 71,19 0|p|for||||||0||A3|
 72,19 0|p||WHEAT|||||0||A3|
@@ -530,23 +581,24 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 50,20 0|pm|||||||0||A4|
 51,20 0|g|mar||||3||0||R/A3/F|
 52,20 0|g||STONE|QUARRY||3||0||R/A2/F|
-53,20 1|gm|||||||0||A4|
-54,20 1|co|||||||0||L|
-55,20 1|co|||||||0||L|
-56,20 1|gh|||||||0||A1/F|
-57,20 1|pm|||||||0||R/A4|
+53,20 0|gm|||||||0||A4|
+54,20 0|co|||||||0||L|
+55,20 0|co|||||||0||L|
+56,20 0|gh|||||||0||A1/F|
+57,20 0|pm|||||||0||R/A4|
 58,20 0|g|||||||0||R/A2/F|
 59,20 0|gh|for||||||0||A-2|
 60,20 0|gh||COPPER|MINE||7||0|||
 61,20 0|p|jun||||||0||A-1|
-62,20 0|gh|||||||0||A-1|
+62,20 1|gh|||||||0||A-1|
 63,20 1|g||||1|||0||R/A3/F|
 64,20 1|g|for|DYES|||0||0||R/A2/F|
 65,20 1|g|||||||0||A2|
-67,20 0|g|||FARM|1|11||0|||
-68,20 0|g|||FARM||11||0||R/A1/F|
-69,20 0|ph||IRON|MINE||11||0||R/A1/F|
-70,20 0|p|jun||||||0||A1|
+66,20 1|g||STONE|||||0|11:WARRIOR:100|A1|
+67,20 1|g|||FARM|1|11||0|||
+68,20 1|g|||FARM||11||0||R/A1/F|
+69,20 1|ph||IRON|MINE||11||0||R/A1/F|
+70,20 1|p|jun||||||0||A1|
 71,20 0|co|||||||0|||
 72,20 0|co|||||||0|||
 73,20 0|co|||||||0|||
@@ -557,22 +609,24 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 49,21 0|g|||||||0||A3|
 50,21 0|g|for||||3||0||R/A1/F|
 51,21 0|g|||||||0||R/F|
-52,21 1|gm|||||||0||A4|
-53,21 1|co||PEARLS|||||0||L|
-54,21 1|co|||||||0||L|
-55,21 1|g||STONE|||||0|0:SCOUT:100|A1/F|
-56,21 1|p|jun||||||0||R/A2/F|
-57,21 1|g|||||||0||R/A2/F|
+52,21 0|gm|||||||0||A4|
+53,21 0|co||PEARLS|||||0||L|
+54,21 0|co|||||||0||L|
+55,21 0|g||STONE|||||0||A1/F|
+56,21 0|p|jun||||||0||R/A2/F|
+57,21 0|g|||||||0||R/A2/F|
 58,21 0|gh||SHEEP|||||0||A3|
 59,21 0|gh|for||||||0||A1|
 60,21 0|g|||||||0|||
-61,21 0|g|||||||0||A-2|
-62,21 1|g||RICE|||||0||A-1|
+61,21 1|g|||||||0||A-2|
+62,21 1|g||RICE|||0||0||A-1|
 63,21 1|g||||1|0||0||R/A1/F|
 64,21 1|p|jun||||0||0||R/A4/F|
 65,21 1|g|for||||||0||A1|
-68,21 0|g||RICE|||||0||R/A1/F|
-69,21 0|gh|||||||0||R/A2/F|
+66,21 1|g||||1|||0||A2|
+67,21 1|g|||||||0|||
+68,21 1|g||RICE|FARM||11||0||R/A1/F|
+69,21 1|gh|||||||0||R/A2/F|
 70,21 0|co|||||||0|||
 71,21 0|co|||||||0|||
 72,21 0|oc|||||||0|||
@@ -584,12 +638,12 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 50,22 0|g|||||||0||R/A4/F|
 51,22 0|gh|||||||0||R/A3/F|
 52,22 0|ph|jun||||||0||A4|
-53,22 1|gh|for||||||0||A2/F|
-54,22 1|g|||||||0|8:WARRIOR:100|A3/F|
-55,22 1|g|||||||0||A1/F|
-56,22 1|g|||||||0||R/F|
-57,22 1|g||HORSES|PASTURE||8||0||R/A2/F|
-58,22 1|g|for||||||0||A1|
+53,22 0|gh|for||||||0||A2/F|
+54,22 0|g|||||||0||A3/F|
+55,22 0|g|||||||0||A1/F|
+56,22 0|g|||||||0||R/F|
+57,22 0|g||HORSES|PASTURE||8||0||R/A2/F|
+58,22 0|g|for||||||0||A1|
 59,22 0|g|||||||0||R/A4/F|
 60,22 0|gm|||||||0||A4|
 61,22 0|gh|||||||0|||
@@ -598,8 +652,9 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 64,22 1|g||||1|0|CITY_CENTER|1||R/A1/F|Luxis
 65,22 1|gm|||||0||0||R/A4|
 66,22 1|g|for||||||0||A4|
-67,22 0|g||||1|||0||A2|
-68,22 0|g|||||||0||A2|
+67,22 1|g||||1|||0||A2|
+68,22 1|g|||||||0||A2|
+69,22 1|co|||||||0|||
 70,22 0|co||FISH|||||0|||
 71,22 0|co|||||||0|||
 46,23 0|co||CRABS|||||0|||
@@ -608,12 +663,12 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 49,23 0|co|||||||0|||
 50,23 0|co|||||||0|||
 51,23 0|co|||||||0|||
-52,23 1|co|||||||0|||
-53,23 1|g|||||||0||A2|
-54,23 1|g||STONE|||||0|||
-55,23 1|g|||FARM||8||0||R/A1/F|
-56,23 1|g|||FARM||8||0||R/A2/F|
-57,23 1|gm|||||||0||A4|
+52,23 0|co|||||||0|||
+53,23 0|g|||||||0||A2|
+54,23 0|g||STONE|||||0|||
+55,23 0|g|||FARM||8||0||R/A1/F|
+56,23 0|g|||FARM||8||0||R/A2/F|
+57,23 0|gm|||||||0||A4|
 58,23 0|g||STONE|||||0||R/A2/F|
 59,23 0|g|||||||0||R/A1/F|
 60,23 0|p|jun||||||0||A3|
@@ -624,19 +679,21 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 65,23 1|g|for||||0||0||R/A5/F|
 66,23 1|gm|||||||0||R/A4|
 67,23 1|g||||1|||0||A2|
-68,23 1|co|||||||0|||
+68,23 0|co|||||||0|||
+69,23 0|co||FISH|||||0|||
+70,23 0|co|||||||0|||
 47,24 0|oc|||||||0|||
 48,24 0|co|||||||0|||
 49,24 0|co|||||||0|||
 50,24 0|co||CRABS|||||0|||
 51,24 0|oc|||||||0|||
-52,24 1|co|||||||0|||
-53,24 1|g||STONE|||||0||A4|
-54,24 1|g|||||||0|8:WARRIOR:100|A1|
-55,24 1|g|||FARM||8||0|||
-56,24 1|g||||1|8|CITY_CENTER|1||R/A1/F|Hattusa
-57,24 1|g||||1|8|CAMPUS|0||R/A1/F|
-58,24 1|p|jun||||||0||R/A3/F|
+52,24 0|co|||||||0|||
+53,24 0|g||STONE|||||0||A4|
+54,24 0|g|||||||0||A1|
+55,24 0|g|||FARM||8||0|||
+56,24 0|g||||1|8|CITY_CENTER|1||R/A1/F|Hattusa
+57,24 0|g||||1|8|CAMPUS|0||R/A1/F|
+58,24 0|p|jun||||||0||R/A3/F|
 59,24 0|g|||||||0||R/A1/F|
 60,24 1|g||MARBLE|||||0|||
 61,24 1|gm|||||||0||A4|
@@ -652,12 +709,12 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 48,25 0|oc|||||||0|||
 49,25 0|oc|||||||0|||
 51,25 0|co||CRABS|||||0|||
-52,25 1|co|||||||0|||
-53,25 1|co|||||||0|||
-54,25 1|g||MARBLE|||||0||A2|
-55,25 1|p|||FARM||8||0||A1|
-56,25 1|g|||FARM||8||0||R/A3/F|
-57,25 1|g|||||||0||R/A3/F|
+52,25 0|co|||||||0|||
+53,25 0|co|||||||0|||
+54,25 0|g||MARBLE|||||0||A2|
+55,25 0|p|||FARM||8||0||A1|
+56,25 0|g|||FARM||8||0||R/A3/F|
+57,25 0|g|||||||0||R/A3/F|
 58,25 0|g|for||||||0||R/A2/F|
 59,25 1|g|||||||0||A2|
 60,25 1|g|||||0||0||A1|
@@ -666,16 +723,16 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 63,25 1|gm|||||||0||R/A4|
 64,25 1|gm|||||||0||A4|
 65,25 1|g|mar|RICE|FARM|1|0||0||R/A1/F|
-66,25 1|p||||1|0|CITY_CENTER|1|0:WARRIOR:100|R/A-1/F|SHEDET
-67,25 1|g|||FARM||0||0|0:BUILDER:100|A2|
+66,25 1|p||||1|0|CITY_CENTER|1|0:WARRIOR:100|R/A-2/F|SHEDET
+67,25 1|g|||FARM||0||0||A1|
 68,25 1|co||FISH|||0||0|||
 69,25 1|co||FISH|||||0|||
 52,26 0|oc|||||||0|||
-53,26 1|co||FISH|||||0|||
-54,26 1|p|for||||||0||A3|
-55,26 1|p|||||||0||A3|
-56,26 1|co||CRABS|FISHING_BOATS||8||0|||
-57,26 1|co|||||||0|||
+53,26 0|co||FISH|||||0|||
+54,26 0|p|for||||||0||A3|
+55,26 0|p|||||||0||A3|
+56,26 0|co||CRABS|FISHING_BOATS||8||0|||
+57,26 0|co|||||||0|||
 58,26 0|co|||||||0|||
 59,26 0|co|||||||0|||
 60,26 1|g|||||||0||A3|
@@ -684,15 +741,15 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 63,26 1|g|mar||||0||0||R/A1/F|
 64,26 1|ph|jun|BANANAS|PLANTATION||0||0|||
 65,26 1|gh||||1|0|ENCAMPMENT|0||A-1|
-66,26 1|g||STONE|QUARRY|1|0||0||R/A1/F|
-67,26 1|gh||STONE|||0||0||R/A1/F|
+66,26 1|g||STONE|QUARRY|1|0||0||R/F|
+67,26 1|gh||STONE|QUARRY||0||0||R/A1/F|
 68,26 1|co|||||||0|||
 69,26 1|oc|||||||0|||
 52,27 0|co|||||||0|||
 53,27 0|co|||||||0|||
 54,27 0|p||WHEAT|||||0||A4|
-55,27 1|co|||||||0|||
-56,27 1|co||CRABS|||||0|||
+55,27 0|co|||||||0|||
+56,27 0|co||CRABS|||||0|||
 57,27 0|oc|||||||0|||
 58,27 0|oc|||||||0|||
 59,27 0|co|||||||0|||
@@ -700,10 +757,10 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 61,27 1|g|||||0||0||A1|
 62,27 1|g||||1|0||0||R/A-1/F|
 63,27 1|g||||1|||0||R/A-1/F|
-64,27 1|g|||||||0|||
-65,27 1|ph|||SPHINX||0||0|||
-66,27 1|p||||1|0|WONDER|0||R/A1/F|
-67,27 1|g|mar||||0||0||R/A6/F|
+64,27 1|g|||||||0||A-2|
+65,27 1|ph|||SPHINX||0||0||A-2|
+66,27 1|p||||1|0|WONDER|0||R/F|
+67,27 1|g|mar||||0||0||R/A5/F|
 68,27 1|co|||||||0|||
 69,27 0|oc|||||||0|||
 52,28 0|co|||||||0|||
@@ -716,9 +773,9 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 61,28 1|co|||||||0|||
 62,28 1|p|jun|BANANAS|||0||0||R/A4/F|
 63,28 1|p|||||0||0||R/A1/F|
-64,28 1|p||WHEAT||1|||0||A1|
-65,28 1|ph|for||||0||0|0:BUILDER:100|A1|
-66,28 1|p|||FARM|1|0||0||R/A5/F|
+64,28 1|p||WHEAT||1|||0||A-1|
+65,28 1|ph|||MINE||0||0||A1|
+66,28 1|p|||FARM|1|0||0||R/A3/F|
 67,28 1|p|||SPHINX||0||0||R/A1/F|
 68,28 1|co|||||||0|||
 69,28 1|oc|||||||0|||
@@ -730,9 +787,9 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 61,29 1|co|||||||0|||
 62,29 1|co|||||||0|||
 63,29 1|p||WHEAT|||||0||A3|
-64,29 1|p|||FARM|1|0||0||A2|
-65,29 1|p|||FARM|1|0||0||R/A2/F|
-66,29 1|ph||||1|0|CITY_CENTER|1|0:WARRIOR:100;0:GREAT_GENERAL:100|R/F|Râ-Kedet
+64,29 1|p|||FARM|1|0||0|||
+65,29 1|p|||FARM|1|0||0||R/F|
+66,29 1|ph||||1|0|CITY_CENTER|1|0:GREAT_GENERAL:100|R/F|Râ-Kedet
 67,29 1|ph|||MINE||0||0|0:ARCHER:100|A3|
 68,29 1|co|||||||0|||
 69,29 1|co||PEARLS|||||0|||
@@ -754,23 +811,23 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 63,31 0|oc|||||||0|||
 64,31 1|co|||||||0|||
 65,31 1|co|||||||0|||
-66,31 1|p|||||0||0|||
+66,31 1|p|||||0||0|0:WARRIOR:77||
 67,31 1|p|||||0||0||A1|
 68,31 1|p|||||||0||A5|
 69,31 0|co|||||||0|||
 70,31 0|co||FISH|||||0|||
 63,32 0|co||CRABS|||||0|||
 64,32 0|co|||||||0|||
-65,32 0|co|||||||0|||
+65,32 1|co|||||||0|||
 66,32 1|p||WHEAT|||||0||A2|
 67,32 1|p|||||||0||A1|
 68,32 1|co|||||||0|||
 69,32 0|co|||||||0|||
 70,32 0|oc|||||||0|||
 64,33 0|oc|||||||0|||
-65,33 0|co|||||||0|||
-66,33 0|g|mar||||||0||A1|
-67,33 0|g|for|DEER|||||0||A2|
+65,33 1|co|||||||0|||
+66,33 1|g|mar||||||0||A1|
+67,33 1|g|for|DEER|||||0||A2|
 68,33 0|co|||||||0|||
 69,33 0|oc|||||||0|||
 65,34 0|co|||||||0|||
@@ -808,16 +865,24 @@ _591 revealed, 138 currently visible, 1 natural wonders_
 ## DIAGNOSTICS
 - section status: cities=ok, city_states_met=ok, civic_tree=ok, civics_available=ok, current_civic=ok, current_research=ok, empire=ok, envoys=ok, government=ok, great_people=ok, header=ok, majors_met=ok, map=ok, notifications=ok, policy_available=ok, policy_slots=ok, religion=ok, resources=ok, tech_tree=ok, techs_available=ok, units=ok, victories=ok
 - generation time: 2.85s
-- per-query timing (s): meta=0.376, choices=0.36, cities=0.357, units=0.345, map=0.362, diplo=0.362, religion=0.344, notif=0.342
+- per-query timing (s): meta=0.367, choices=0.375, cities=0.375, units=0.328, map=0.364, diplo=0.359, religion=0.346, notif=0.33
+- **failures at runtime:**
+    - `diplo.DIPLO.gossip_probe.api`: methods: GetRecentVisibleGossipStrings
 - compatibility notes (fallback paths, not failures):
     - `CHOICES.probe`: using cul:CanProgress() for civic availability
+    - `CITIES.status`: war weariness accessor unavailable (tried GetWarWeariness, GetWarWearinessBreakdown)
+    - `MAP.yield_probe`: plot:GetYield available — per-tile yields exportable
+    - `DIPLO.gossip_probe`: GameInfo.Gossips present (58 gossip types)
+    - `DIPLO.gossip_probe`: gossip manager found via Game.GetGossipManager()
+    - `DIPLO.gossip`: gossip fetched via call arity 3 (19 entries)
+    - `DIPLO.cs_bonus`: influence-bonus Loc key unresolved (LOC_MINOR_CIV_KABUL_TRAIT_SMALL_INFLUENCE_BONUS)
 - last trace per query (for post-mortem):
     - `meta`: TRACE|META|great_people
     - `choices`: TRACE|CHOICES|civics_available
     - `cities`: TRACE|CITY|262147|end
     - `units`: TRACE|UNITS|barbarian_camps
     - `map`: (no traces)
-    - `diplo`: TRACE|DIPLO|envoys
+    - `diplo`: TRACE|DIPLO|gossip
     - `religion`: TRACE|REL|per_city_religion
     - `notif`: TRACE|NOTIF|notifications
 - categories intentionally omitted (base-game only):
@@ -830,4 +895,4 @@ _591 revealed, 138 currently visible, 1 natural wonders_
     - power, resource consumption, canals, dams (Gathering Storm)
     - railroads (Gathering Storm)
 
-<!-- coach snapshot: schema=coach-snapshot/1.3 turn=103 generated_at=1785311131.175482 failed_sections=none -->
+<!-- coach snapshot: schema=coach-snapshot/1.4 turn=108 generated_at=1785312015.5219412 failed_sections=none -->

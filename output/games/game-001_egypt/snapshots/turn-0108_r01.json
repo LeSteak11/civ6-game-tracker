@@ -1,7 +1,7 @@
 {
   "schema": "coach-snapshot/1.4",
-  "coach_version": "1.5.0",
-  "generated_at_epoch": 1785312015.5219412,
+  "coach_version": "1.4.0",
+  "generated_at_epoch": 1785311837.337342,
   "meta": {
     "turn": 108,
     "year": "200 BC",
@@ -2374,158 +2374,6 @@
         "live_growth_modifier": 10,
         "war_weariness": -1,
         "source": "direct"
-      },
-      "yield_sources": {
-        "buildings_db": {
-          "food": 2.0,
-          "production": 4.0,
-          "gold": 5.0,
-          "science": 2.0,
-          "culture": 3.0,
-          "faith": 2.0
-        },
-        "worked_tiles": {
-          "food": 6.0,
-          "production": 11.0,
-          "gold": 0.0,
-          "science": 0.0,
-          "culture": 2.0,
-          "faith": 6.0
-        }
-      },
-      "yield_breakdown": {
-        "food": {
-          "worked_tiles": {
-            "value": 6.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 2.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 1.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 0.0,
-            "source": "reconstructed"
-          }
-        },
-        "production": {
-          "worked_tiles": {
-            "value": 11.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 4.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 1.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 4.5,
-            "source": "reconstructed"
-          }
-        },
-        "gold": {
-          "worked_tiles": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 5.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 4.4,
-            "source": "reconstructed"
-          }
-        },
-        "science": {
-          "worked_tiles": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 2.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 7.2,
-            "source": "reconstructed"
-          }
-        },
-        "culture": {
-          "worked_tiles": {
-            "value": 2.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 3.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 1.5,
-            "source": "reconstructed"
-          }
-        },
-        "faith": {
-          "worked_tiles": {
-            "value": 6.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 2.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 4.6,
-            "source": "reconstructed"
-          }
-        }
       }
     },
     {
@@ -2581,9 +2429,7 @@
           "x": 63,
           "y": 24,
           "pillaged": false,
-          "adjacency": {
-            "FAITH": 6
-          }
+          "adjacency": {}
         }
       ],
       "buildings": [
@@ -2880,158 +2726,6 @@
         "live_growth_modifier": -15,
         "war_weariness": -1,
         "source": "direct"
-      },
-      "yield_sources": {
-        "buildings_db": {
-          "food": 0.0,
-          "production": 0.0,
-          "gold": 0.0,
-          "science": 0.0,
-          "culture": 2.0,
-          "faith": 2.0
-        },
-        "worked_tiles": {
-          "food": 22.0,
-          "production": 6.0,
-          "gold": 2.0,
-          "science": 0.0,
-          "culture": 0.0,
-          "faith": 0.0
-        }
-      },
-      "yield_breakdown": {
-        "food": {
-          "worked_tiles": {
-            "value": 22.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 0.0,
-            "source": "reconstructed"
-          }
-        },
-        "production": {
-          "worked_tiles": {
-            "value": 6.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 0.7,
-            "source": "reconstructed"
-          }
-        },
-        "gold": {
-          "worked_tiles": {
-            "value": 2.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": -0.1,
-            "source": "reconstructed"
-          }
-        },
-        "science": {
-          "worked_tiles": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 4.7,
-            "source": "reconstructed"
-          }
-        },
-        "culture": {
-          "worked_tiles": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 2.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 1.9,
-            "source": "reconstructed"
-          }
-        },
-        "faith": {
-          "worked_tiles": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 2.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 6.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": -0.4,
-            "source": "reconstructed"
-          }
-        }
       }
     },
     {
@@ -3376,158 +3070,6 @@
         "live_growth_modifier": -15,
         "war_weariness": -1,
         "source": "direct"
-      },
-      "yield_sources": {
-        "buildings_db": {
-          "food": 1.0,
-          "production": 0.0,
-          "gold": 0.0,
-          "science": 0.0,
-          "culture": 0.0,
-          "faith": 0.0
-        },
-        "worked_tiles": {
-          "food": 18.0,
-          "production": 8.0,
-          "gold": 0.0,
-          "science": 0.0,
-          "culture": 1.0,
-          "faith": 1.0
-        }
-      },
-      "yield_breakdown": {
-        "food": {
-          "worked_tiles": {
-            "value": 18.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 1.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 0.0,
-            "source": "reconstructed"
-          }
-        },
-        "production": {
-          "worked_tiles": {
-            "value": 8.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 0.6,
-            "source": "reconstructed"
-          }
-        },
-        "gold": {
-          "worked_tiles": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 2.9,
-            "source": "reconstructed"
-          }
-        },
-        "science": {
-          "worked_tiles": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 4.0,
-            "source": "reconstructed"
-          }
-        },
-        "culture": {
-          "worked_tiles": {
-            "value": 1.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 1.7,
-            "source": "reconstructed"
-          }
-        },
-        "faith": {
-          "worked_tiles": {
-            "value": 1.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 0.0,
-            "source": "reconstructed"
-          }
-        }
       }
     },
     {
@@ -3845,158 +3387,6 @@
         "live_growth_modifier": 0,
         "war_weariness": -1,
         "source": "direct"
-      },
-      "yield_sources": {
-        "buildings_db": {
-          "food": 0.0,
-          "production": 0.0,
-          "gold": 0.0,
-          "science": 0.0,
-          "culture": 2.0,
-          "faith": 0.0
-        },
-        "worked_tiles": {
-          "food": 8.0,
-          "production": 4.0,
-          "gold": 0.0,
-          "science": 1.0,
-          "culture": 0.0,
-          "faith": 1.0
-        }
-      },
-      "yield_breakdown": {
-        "food": {
-          "worked_tiles": {
-            "value": 8.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 0.0,
-            "source": "reconstructed"
-          }
-        },
-        "production": {
-          "worked_tiles": {
-            "value": 4.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 1.0,
-            "source": "reconstructed"
-          }
-        },
-        "gold": {
-          "worked_tiles": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 3.0,
-            "source": "reconstructed"
-          }
-        },
-        "science": {
-          "worked_tiles": {
-            "value": 1.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 2.1,
-            "source": "reconstructed"
-          }
-        },
-        "culture": {
-          "worked_tiles": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 2.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 0.9,
-            "source": "reconstructed"
-          }
-        },
-        "faith": {
-          "worked_tiles": {
-            "value": 1.0,
-            "source": "direct"
-          },
-          "buildings_db": {
-            "value": 0.0,
-            "source": "static_db"
-          },
-          "district_adjacency": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "trade_routes": {
-            "value": 0.0,
-            "source": "direct"
-          },
-          "unattributed": {
-            "value": 0.0,
-            "source": "reconstructed"
-          }
-        }
       }
     }
   ],
@@ -14261,122 +13651,6 @@
       "alive": false
     }
   ],
-  "gossip": [
-    {
-      "about": 3,
-      "turn": 107,
-      "text": "Your delegate, Ahmes, learned that Sumeria is expanding, adding the new settlement: Kish.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 98,
-      "text": "Your delegate, Ahmes, learned that Sumeria has used a War-Cart to clear a Barbarian Outpost.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 94,
-      "text": "Your delegate, Ahmes, learned that Sumeria has declared their friendship with Egypt.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 90,
-      "text": "Your delegate, Ahmes, learned that Sumeria has conquered Recife.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 90,
-      "text": "Your delegate, Ahmes, learned that Sumeria is expanding, adding the new settlement: Recife.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 88,
-      "text": "Your delegate, Ahmes, learned that Sumeria is trading with Brazil.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 88,
-      "text": "Your delegate, Ahmes, learned that Sumeria has just declared war on Brazil!",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 81,
-      "text": "Your delegate, Ahmes, learned that Sumeria is expanding, adding the new settlement: Adab.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 80,
-      "text": "Your delegate, Ahmes, learned that Sumeria has progressed from the Classical Era to the Medieval Era.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 70,
-      "text": "Your delegate, Ahmes, learned that Sumeria has used a War-Cart to clear a Barbarian Outpost.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 67,
-      "text": "Your delegate, Ahmes, learned that Sumeria is worshipping a Pantheon of the gods focused on the Dance of the Aurora Belief.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 63,
-      "text": "Your delegate, Ahmes, learned that Sumeria has switched governments to Autocracy.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 63,
-      "text": "Your delegate, Ahmes, learned that Sumeria has just received a foreign delegation. It appears they came from Egypt.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 63,
-      "text": "Your delegate, Ahmes, learned that Sumeria has declared their friendship with Egypt.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 59,
-      "text": "Rumor has it that Sumeria has conquered Adab.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 53,
-      "text": "Rumor has it that Sumeria has conquered the original Brazilian capital of Rio de Janeiro.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 53,
-      "text": "Rumor has it that Sumeria has progressed from the Ancient Era to the Classical Era.",
-      "source": "direct"
-    },
-    {
-      "about": 3,
-      "turn": 52,
-      "text": "Rumor has it that Sumeria has just declared war on Brazil!",
-      "source": "direct"
-    },
-    {
-      "about": 4,
-      "turn": 88,
-      "text": "Rumor has it that Brazil has been targeted for a declaration of war by Sumeria!",
-      "source": "direct"
-    }
-  ],
   "resources_inventory": [
     {
       "type": "RESOURCE_RICE",
@@ -14892,14 +14166,14 @@
   },
   "diagnostics": {
     "per_query_seconds": {
-      "meta": 0.367,
-      "choices": 0.375,
-      "cities": 0.375,
-      "units": 0.328,
-      "map": 0.364,
-      "diplo": 0.359,
-      "religion": 0.346,
-      "notif": 0.33
+      "meta": 0.368,
+      "choices": 0.36,
+      "cities": 0.377,
+      "units": 0.343,
+      "map": 0.359,
+      "diplo": 0.358,
+      "religion": 0.345,
+      "notif": 0.344
     },
     "failures": [
       {
@@ -14927,10 +14201,6 @@
       {
         "section": "DIPLO.gossip_probe",
         "message": "gossip manager found via Game.GetGossipManager()"
-      },
-      {
-        "section": "DIPLO.gossip",
-        "message": "gossip fetched via call arity 3 (19 entries)"
       },
       {
         "section": "DIPLO.cs_bonus",
@@ -15005,8 +14275,7 @@
       "map": [],
       "diplo": [
         "TRACE|DIPLO|envoys",
-        "TRACE|DIPLO|gossip_probe",
-        "TRACE|DIPLO|gossip"
+        "TRACE|DIPLO|gossip_probe"
       ],
       "religion": [
         "TRACE|REL|pantheon",
@@ -15019,7 +14288,7 @@
         "TRACE|NOTIF|notifications"
       ]
     },
-    "total_seconds": 2.846
+    "total_seconds": 2.855
   },
   "turn_blockers_summary": [
     "blocker:ENDTURN_BLOCKING_RESEARCH (Choose a Technology)",

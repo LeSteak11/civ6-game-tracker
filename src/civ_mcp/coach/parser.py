@@ -307,8 +307,12 @@ def parse_cities(lines: list[str]) -> dict[str, Any]:
             cid = _i(p, 1)
             city = cities.get(cid)
             if city:
+                # DIST|cid|type|name|x|y|pillaged|adjacency — column 6 is
+                # the pillaged flag, column 7 the adjacency pairs.  (v1.5.0
+                # fix: adjacency was previously read from column 6 and so
+                # always parsed empty.)
                 adj: dict[str, int] = {}
-                for pair in _s(p, 6).split(","):
+                for pair in _s(p, 7).split(","):
                     if ":" in pair:
                         k, v = pair.split(":", 1)
                         try:
@@ -321,13 +325,10 @@ def parse_cities(lines: list[str]) -> dict[str, Any]:
                         "name": _s(p, 3),
                         "x": _i(p, 4),
                         "y": _i(p, 5),
-                        "pillaged": _b(p, 6) if _s(p, 6) in ("true", "false") else False,
+                        "pillaged": _s(p, 6).strip().lower() == "true",
                         "adjacency": adj,
                     }
                 )
-                # The pillaged field is column index 6 in the query — but adjacency
-                # is column 7.  Re-parse to disambiguate:
-                city["districts"][-1]["pillaged"] = _s(p, 6).strip().lower() == "true"
         elif tag == "BLDG":
             cid = _i(p, 1)
             city = cities.get(cid)
@@ -361,6 +362,18 @@ def parse_cities(lines: list[str]) -> dict[str, Any]:
                     "terrain": _breakdown(_s(p, 4)),
                     "features": _breakdown(_s(p, 5)),
                     "improvements": _breakdown(_s(p, 6)),
+                }
+        elif tag == "YSRC":
+            cid = _i(p, 1)
+            city = cities.get(cid)
+            if city:
+                city.setdefault("yield_sources", {})[_s(p, 2)] = {
+                    "food": _f(p, 3),
+                    "production": _f(p, 4),
+                    "gold": _f(p, 5),
+                    "science": _f(p, 6),
+                    "culture": _f(p, 7),
+                    "faith": _f(p, 8),
                 }
         elif tag == "CITYRES":
             cid = _i(p, 1)
@@ -572,6 +585,7 @@ def parse_diplo(lines: list[str]) -> dict[str, Any]:
     rivgov: dict[int, dict[str, Any]] = {}
     cs_envoys: dict[int, dict[str, int]] = {}
     cs_bonuses: dict[int, dict[str, Any]] = {}
+    gossip: list[dict[str, Any]] = []
     diagnostics: list[dict[str, Any]] = []
     for line in lines:
         p = line.split("|")
@@ -636,6 +650,17 @@ def parse_diplo(lines: list[str]) -> dict[str, Any]:
                     "alive": False,
                 }
             )
+        elif tag == "GOSSIP":
+            gossip.append(
+                {
+                    "about": _i(p, 1),
+                    "turn": _i(p, 2, -1),
+                    "text": _s(p, 3),
+                    # Localized, engine-visibility-filtered gossip string —
+                    # a direct record, not a reconstruction.
+                    "source": "direct",
+                }
+            )
         elif tag == "WARS":
             wars[_i(p, 1)] = [int(x) for x in _s(p, 2).split(",") if x.strip().lstrip("-").isdigit()]
         elif tag == "PUBSTATS":
@@ -695,6 +720,7 @@ def parse_diplo(lines: list[str]) -> dict[str, Any]:
         "majors": majors,
         "city_states": city_states,
         "eliminated": eliminated,
+        "gossip": gossip,
         "diagnostics": diagnostics,
     }
 
@@ -749,6 +775,58 @@ def parse_religion(lines: list[str]) -> dict[str, Any]:
             out["city_religion"][str(_i(p, 1))] = _s(p, 2)
         elif tag == "DIAG":
             out["diagnostics"].append({"section": _s(p, 1), "message": _s(p, 2)})
+    return out
+
+
+_YIELD_KEYS = ("food", "production", "gold", "science", "culture", "faith")
+
+
+def build_yield_breakdown(city: dict[str, Any]) -> dict[str, Any] | None:
+    """Compose the per-source yield decomposition for one city.
+
+    Sources and their trust tags:
+      worked_tiles        direct       (plot:GetYield sums over worked plots)
+      buildings_db        static_db    (base DB values, no pct modifiers)
+      district_adjacency  direct       (exported per district)
+      trade_routes        direct       (exported per route)
+      unattributed        reconstructed (city total minus the above —
+                          population/amenity/policy/wonder modifiers land
+                          here; base game exposes no per-source API for them)
+
+    Returns None when the Lua never sent yield_sources (query failed or
+    plot:GetYield absent) — never a fabricated breakdown.
+    """
+    ys = city.get("yield_sources")
+    if not ys:
+        return None
+    adj = {k: 0.0 for k in _YIELD_KEYS}
+    for d in city.get("districts") or []:
+        for yk, v in (d.get("adjacency") or {}).items():
+            lk = str(yk).lower()
+            if lk in adj:
+                adj[lk] += v
+    trade = {k: 0.0 for k in _YIELD_KEYS}
+    for t in city.get("trade_routes") or []:
+        for yk, v in (t.get("yields") or {}).items():
+            lk = str(yk).lower()
+            if lk in trade:
+                trade[lk] += v
+    totals = city.get("yields") or {}
+    out: dict[str, Any] = {}
+    for k in _YIELD_KEYS:
+        parts = {
+            "worked_tiles": {"value": (ys.get("worked_tiles") or {}).get(k, 0.0), "source": "direct"},
+            "buildings_db": {"value": (ys.get("buildings_db") or {}).get(k, 0.0), "source": "static_db"},
+            "district_adjacency": {"value": adj[k], "source": "direct"},
+            "trade_routes": {"value": trade[k], "source": "direct"},
+        }
+        attributed = sum(p["value"] for p in parts.values())
+        total = totals.get(k)
+        parts["unattributed"] = {
+            "value": round(total - attributed, 1) if isinstance(total, (int, float)) else None,
+            "source": "reconstructed",
+        }
+        out[k] = parts
     return out
 
 

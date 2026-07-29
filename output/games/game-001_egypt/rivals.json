@@ -69,6 +69,71 @@
           "wars_with": [],
           "government": "GOVERNMENT_AUTOCRACY",
           "suzerain_of": null
+        },
+        {
+          "turn": 104,
+          "alive": true,
+          "score": 132,
+          "military": 129,
+          "techs": 20,
+          "civics": 11,
+          "tourism": 4,
+          "cities_known": 5,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 105,
+          "alive": true,
+          "score": 132,
+          "military": 131,
+          "techs": 20,
+          "civics": 11,
+          "tourism": 4,
+          "cities_known": 5,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 106,
+          "alive": true,
+          "score": 134,
+          "military": 146,
+          "techs": 20,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 5,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 107,
+          "alive": true,
+          "score": 134,
+          "military": 156,
+          "techs": 20,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 5,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 108,
+          "alive": true,
+          "score": 140,
+          "military": 159,
+          "techs": 20,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
         }
       ]
     },
@@ -141,6 +206,71 @@
           "wars_with": null,
           "government": null,
           "suzerain_of": null
+        },
+        {
+          "turn": 104,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 105,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 106,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 107,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 108,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
         }
       ]
     }
@@ -188,6 +318,51 @@
         },
         {
           "turn": 103,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 104,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 105,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 106,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 107,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 108,
           "suzerain": "none",
           "envoys_by_civ": {
             "0": 1,
@@ -245,6 +420,51 @@
             "3": 2
           },
           "at_war_with_me": false
+        },
+        {
+          "turn": 104,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 105,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 106,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 107,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 108,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
         }
       ]
     },
@@ -290,6 +510,51 @@
         },
         {
           "turn": 103,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 104,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 105,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 106,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 107,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 108,
           "suzerain": "none",
           "envoys_by_civ": {
             "0": 1,
@@ -344,6 +609,51 @@
           "suzerain": "none",
           "envoys_by_civ": {
             "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 104,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 105,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 106,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 107,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 108,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
             "3": 2
           },
           "at_war_with_me": false

@@ -190,7 +190,7 @@ check("real delta lists grown city", "Sais" in txt2)
 
 print("\n=== schema/version bump ===")
 check("schema bumped to 1.4", SCHEMA_VERSION == "coach-snapshot/1.4", SCHEMA_VERSION)
-check("coach version 1.4.0 (semver)", COACH_VERSION == "1.4.0", COACH_VERSION)
+check("coach version 1.5.0 (semver)", COACH_VERSION == "1.5.0", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -741,6 +741,101 @@ check("CS threshold + race line renders",
 check("CS envoy-tier bonus text renders", "1-envoy: +2 Production toward units" in md_g2)
 check("suzerain trait text renders when I hold it",
       "suzerain bonus: Your units receive +5 experience" in md_g2)
+
+print("\n=== Phase 2 Task 4 (G1+G3): gossip export + yield breakdown ===")
+
+# -- Gossip Lua contract --------------------------------------------------
+diplo_src3 = Q.build_diplo_query()
+check("gossip export uses the live-confirmed method name",
+      "GetRecentVisibleGossipStrings" in diplo_src3 and '"GOSSIP|' in diplo_src3)
+check("gossip arity discovered under pcall, never assumed",
+      "pcall(fn, gossipMgr, 0, me, target)" in diplo_src3
+      or ("arity" in diplo_src3 and "pcall(fn, gossipMgr" in diplo_src3))
+check("gossip failure is WARN, never silence",
+      "WARN|DIPLO.gossip|" in diplo_src3)
+
+# -- Gossip parser + snapshot ---------------------------------------------
+dpg = P.parse_diplo([
+    "GOSSIP|2|141|Sumeria declared war on Brazil!",
+    "GOSSIP|2|143|Sumeria has conquered Recife.",
+    "GOSSIP|3|-1|Brazil adopted the pantheon God of the Forge.",
+])
+check("gossip entries parsed with about/turn/text",
+      dpg["gossip"][1]["about"] == 2 and dpg["gossip"][1]["turn"] == 143
+      and "Recife" in dpg["gossip"][1]["text"])
+check("unknown gossip turn stays -1", dpg["gossip"][2]["turn"] == -1)
+check("gossip tagged direct", dpg["gossip"][0]["source"] == "direct")
+
+# -- Yield sources: Lua contract ------------------------------------------
+cities_src3 = Q.build_cities_query()
+check("cities Lua emits YSRC lines", '"YSRC|' in cities_src3)
+check("worked-tile yields guarded on plot:GetYield with WARN",
+      'type(pl.GetYield) == "function"' in cities_src3
+      and "WARN|CITIES.yield_sources" in cities_src3)
+check("building yields from Building_YieldChanges DB",
+      "GameInfo.Building_YieldChanges()" in cities_src3)
+check("pillaged buildings excluded from yield sums",
+      "if not pillB and bldgYieldDB" in cities_src3)
+
+# -- Yield breakdown composition ------------------------------------------
+cyb = P.parse_cities([
+    "CITY|123|Thebes|true|66|32|3|1.0|24|-1|10|3|1|2|7.0|14.7|10.5|8.5|5.1|6.3|nothing|nothing|0|0|0|34|200|200|0|0|5|NONE",
+    "DIST|123|DISTRICT_INDUSTRIAL_ZONE|Industrial Zone|66|33|false|PRODUCTION:3",
+    "TRADE|123|2|Uruk|Gold:4,Production:1,|Sumerian",
+    "YSRC|123|worked_tiles|5.0|8.0|2.0|0.0|0.0|0.0",
+    "YSRC|123|buildings_db|1.0|2.0|0.0|2.0|1.0|2.0",
+])
+city_b = cyb["cities"][0]
+yb = P.build_yield_breakdown(city_b)
+prod = yb["production"]
+check("breakdown: worked tiles direct", prod["worked_tiles"]["value"] == 8.0
+      and prod["worked_tiles"]["source"] == "direct")
+check("breakdown: buildings tagged static_db", prod["buildings_db"]["source"] == "static_db")
+check("breakdown: adjacency summed from districts", prod["district_adjacency"]["value"] == 3.0)
+# Regression for the v1.5.0 column fix: adjacency comes from column 7,
+# pillaged from column 6 — the old parser read adjacency from 6 and got {}.
+d0 = city_b["districts"][0]
+check("DIST adjacency parsed from the correct column (v1.5.0 fix)",
+      d0["adjacency"] == {"PRODUCTION": 3} and d0["pillaged"] is False, d0)
+check("breakdown: trade routes summed", prod["trade_routes"]["value"] == 1.0)
+# total P = 14.7, attributed = 8+2+3+1 = 14 -> unattributed 0.7 reconstructed
+check("breakdown: remainder is reconstructed, not invented",
+      prod["unattributed"]["value"] == 0.7 and prod["unattributed"]["source"] == "reconstructed",
+      prod["unattributed"])
+check("no YSRC lines -> breakdown None, never fabricated",
+      P.build_yield_breakdown({"yields": {"production": 5}}) is None)
+
+# -- Markdown -------------------------------------------------------------
+city_b2 = dict(city_b)
+city_b2["yield_breakdown"] = yb
+snap_g13 = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 1.0,
+    "meta": {"turn": 145}, "empire": {},
+    "cities": [city_b2], "gossip": dpg["gossip"],
+    "map_owners": {"2": "Sumerian", "3": "Brazilian"},
+    "section_status": {"header": "ok", "cities": "ok", "majors_met": "ok"},
+    "diagnostics": {}, "turn_blockers_summary": [],
+}
+md_g13 = M.render_markdown(snap_g13, {"first_snapshot": True})
+check("GOSSIP section renders with turn + subject",
+      "## GOSSIP" in md_g13 and "T143 [Sumerian] Sumeria has conquered Recife." in md_g13)
+check("unknown gossip turn renders T?", "T? [Brazilian]" in md_g13)
+check("prod sources line renders compactly",
+      "prod sources: tiles 8.0, bldgs 2, adj 3, trade 1, other +0.7" in md_g13,
+      [l for l in md_g13.splitlines() if "prod sources" in l])
+
+# -- Gossip history persistence -------------------------------------------
+gtmp = Path(tempfile.mkdtemp(prefix="civ6-gossip-regress-"))
+gsnap = {"meta": {"turn": 145}, "rivals": [], "city_states_met": [], "gossip": dpg["gossip"]}
+H.update_history(gtmp, gsnap, [])
+gj = json.loads((gtmp / "gossip.json").read_text(encoding="utf-8"))
+check("gossip history written with first_seen stamps",
+      len(gj) == 3 and gj[0]["first_seen"] == 145)
+H.update_history(gtmp, {"meta": {"turn": 146}, "rivals": [], "city_states_met": [],
+                        "gossip": dpg["gossip"] + [{"about": 2, "turn": 146, "text": "New entry", "source": "direct"}]}, [])
+gj2 = json.loads((gtmp / "gossip.json").read_text(encoding="utf-8"))
+check("gossip history dedupes, appends only unseen",
+      len(gj2) == 4 and gj2[-1]["text"] == "New entry" and gj2[-1]["first_seen"] == 146)
 
 print("\n=== sentinel decoupling ===")
 from civ_mcp.coach import SENTINEL as COACH_SENTINEL

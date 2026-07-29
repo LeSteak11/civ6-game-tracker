@@ -815,6 +815,26 @@ end
 -- One-shot WARN flags for the probed city-status accessors (G0).
 local statusGrowthWarned = false
 local statusWWWarned = false
+local plotYieldWarned = false
+
+-- Static building yield table (GameInfo.Building_YieldChanges — standard
+-- base-game DB).  These are BASE values, tagged static_db downstream:
+-- they don't include percentage modifiers.
+local bldgYieldDB = {}
+pcall(function()
+  for row in GameInfo.Building_YieldChanges() do
+    if not bldgYieldDB[row.BuildingType] then bldgYieldDB[row.BuildingType] = {} end
+    bldgYieldDB[row.BuildingType][row.YieldType] =
+      (bldgYieldDB[row.BuildingType][row.YieldType] or 0) + (row.YieldChange or 0)
+  end
+end)
+
+local function ysrcLine(cid, src, t)
+  return string.format("YSRC|%d|%s|%.1f|%.1f|%.1f|%.1f|%.1f|%.1f",
+    cid, src,
+    t["YIELD_FOOD"] or 0, t["YIELD_PRODUCTION"] or 0, t["YIELD_GOLD"] or 0,
+    t["YIELD_SCIENCE"] or 0, t["YIELD_CULTURE"] or 0, t["YIELD_FAITH"] or 0)
+end
 
 for _, c in p:GetCities():Members() do
   local cID = -1
@@ -990,6 +1010,7 @@ for _, c in p:GetCities():Members() do
   end)
 
   -- --- Districts + buildings in each ------------------------------------
+  local cityBldgY = {}
   pcall(function()
     print("TRACE|CITY|" .. cID .. "|districts")
     for _, d in c:GetDistricts():Members() do
@@ -1026,6 +1047,13 @@ for _, c in p:GetCities():Members() do
               print(string.format("BLDG|%d|%s|%s|%s|%s|%s",
                 cID, dr.DistrictType, br.BuildingType, esc(L(br.Name)),
                 tostring(br.IsWonder), tostring(pillB)))
+              -- Static DB base yields of intact buildings (yield-source
+              -- breakdown; pillaged buildings yield nothing).
+              if not pillB and bldgYieldDB[br.BuildingType] then
+                for yt, yv in pairs(bldgYieldDB[br.BuildingType]) do
+                  cityBldgY[yt] = (cityBldgY[yt] or 0) + yv
+                end
+              end
             end
           end
         end)
@@ -1033,11 +1061,17 @@ for _, c in p:GetCities():Members() do
     end
   end)
 
+  -- Buildings yield-source line (emitted even when empty so "no
+  -- buildings" and "districts query broke" stay distinguishable via
+  -- section status, not via a missing line).
+  pcall(function() print(ysrcLine(cID, "buildings_db", cityBldgY)) end)
+
   -- --- Owned tiles rollup ------------------------------------------------
   pcall(function()
     print("TRACE|CITY|" .. cID .. "|tiles")
     local plotList = sf(function() return Map.GetCityPlots():GetPurchasedPlots(c) end) or {}
     local terr, feat, imp = {}, {}, {}
+    local workedY = {}
     local workedCount = 0
     for _, pid in ipairs(plotList) do
       local pl = Map.GetPlotByIndex(pid)
@@ -1074,7 +1108,20 @@ for _, c in p:GetCities():Members() do
         end)
         pcall(function()
           local wc = pl:GetWorkerCount() or 0
-          if wc > 0 then workedCount = workedCount + 1 end
+          if wc > 0 then
+            workedCount = workedCount + 1
+            -- Worked-tile yield sums (plot:GetYield confirmed available by
+            -- the v1.4.0 live probe; guarded anyway, WARN once if absent).
+            if type(pl.GetYield) == "function" then
+              for yrow in GameInfo.Yields() do
+                local yv = sf(function() return pl:GetYield(yrow.Index) end) or 0
+                workedY[yrow.YieldType] = (workedY[yrow.YieldType] or 0) + yv
+              end
+            elseif not plotYieldWarned then
+              plotYieldWarned = true
+              print("WARN|CITIES.yield_sources|plot:GetYield unavailable — worked-tile yields unknown")
+            end
+          end
         end)
         -- Owned-resource inventory (Reports → Resources): one line per
         -- resource plot this city owns.  Includes bonus resources (which
@@ -1108,6 +1155,9 @@ for _, c in p:GetCities():Members() do
     end
     print(string.format("TILES|%d|%d|%d|%s|%s|%s",
       cID, #plotList, workedCount, fmt(terr), fmt(feat), fmt(imp)))
+    if not plotYieldWarned then
+      print(ysrcLine(cID, "worked_tiles", workedY))
+    end
   end)
 
   -- --- Production options ------------------------------------------------
@@ -1668,10 +1718,10 @@ pcall(function()
   for _, pid in ipairs(ids) do majorSet[pid] = true end
 end)
 
--- G0 probe: gossip API discovery.  Pure feature-detect — emits compat
--- notes (WARN) and a method dump (DIAG, same pattern as the Great People
--- API dump) so the next live run tells us the real gossip surface.  The
--- actual gossip export ships only after those names are confirmed.
+-- Gossip manager discovery (G0 probe, kept as a permanent feature
+-- detect) + the wired export below.  The live probe on the user's build
+-- confirmed exactly one method: GetRecentVisibleGossipStrings.
+local gossipMgr = nil
 safe("gossip_probe", function()
   if GameInfo.Gossips then
     local n = 0
@@ -1698,6 +1748,7 @@ safe("gossip_probe", function()
     return
   end
   print("WARN|DIPLO.gossip_probe|gossip manager found via " .. how)
+  gossipMgr = mgr
   pcall(function()
     local names = {}
     local mt = getmetatable(mgr)
@@ -1723,6 +1774,76 @@ end)
 local metIDs = sf(function() return d:GetPlayersMetIDs() end) or {}
 local airelWarned = false
 local csLocWarned = false
+
+-- Gossip export.  The method NAME was confirmed by the v1.4.0 live probe
+-- (the manager's only method: GetRecentVisibleGossipStrings).  Its arity
+-- is not documented, so we discover it once by trying known base-game
+-- call shapes under pcall and note which one worked.  Entry shapes are
+-- handled defensively: strings pass through; tables yield their first
+-- string (text) and first number (turn).  -1 = turn unknown.  Only what
+-- the game returns is exported — these are the player-visible gossip
+-- strings, already localized and visibility-filtered by the engine.
+safe("gossip", function()
+  if gossipMgr == nil then return end
+  local fn = gossipMgr.GetRecentVisibleGossipStrings
+  if type(fn) ~= "function" then
+    print("WARN|DIPLO.gossip|GetRecentVisibleGossipStrings missing — gossip not exported")
+    return
+  end
+  local arity = nil
+  local function fetch(target)
+    if arity == nil or arity == 3 then
+      local ok, t = pcall(fn, gossipMgr, 0, me, target)
+      if ok and type(t) == "table" then arity = 3; return t end
+    end
+    if arity == nil or arity == 2 then
+      local ok, t = pcall(fn, gossipMgr, me, target)
+      if ok and type(t) == "table" then arity = 2; return t end
+    end
+    if arity == nil or arity == 1 then
+      local ok, t = pcall(fn, gossipMgr, target)
+      if ok and type(t) == "table" then arity = 1; return t end
+    end
+    return nil
+  end
+  local emitted, anyFetched = 0, false
+  for _, tq in ipairs(metIDs) do
+    if tq ~= me and tq ~= 63 then
+      local tbl = fetch(tq)
+      if tbl then
+        anyFetched = true
+        for _, e in ipairs(tbl) do
+          pcall(function()
+            local text, turn = nil, -1
+            if type(e) == "string" then
+              text = e
+            elseif type(e) == "table" then
+              for _, v in ipairs(e) do
+                if text == nil and type(v) == "string" and v ~= "" then text = v end
+                if turn == -1 and type(v) == "number" then turn = v end
+              end
+              if text == nil then
+                for _, k in ipairs({"Message", "Text", "GossipString"}) do
+                  if type(e[k]) == "string" and e[k] ~= "" then text = e[k]; break end
+                end
+              end
+              if turn == -1 and type(e.Turn) == "number" then turn = e.Turn end
+            end
+            if text and text ~= "" then
+              print(string.format("GOSSIP|%d|%d|%s", tq, math.floor(turn), esc(text)))
+              emitted = emitted + 1
+            end
+          end)
+        end
+      end
+    end
+  end
+  if not anyFetched then
+    print("WARN|DIPLO.gossip|no call shape of GetRecentVisibleGossipStrings returned a table — gossip not exported")
+  elseif arity then
+    print("WARN|DIPLO.gossip|gossip fetched via call arity " .. arity .. " (" .. emitted .. " entries)")
+  end
+end)
 for _, q in ipairs(metIDs) do
   pcall(function()
     if q == 63 or q == me then return end

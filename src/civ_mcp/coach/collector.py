@@ -245,6 +245,11 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
         else return the value even if empty."""
         return value if section_status.get(status_key) != "failed" else None
 
+    # Per-city yield decomposition (worked tiles / buildings / adjacency /
+    # trade / unattributed remainder), composed from already-parsed parts.
+    for c in cities_frag.get("cities") or []:
+        c["yield_breakdown"] = P.build_yield_breakdown(c)
+
     snapshot: dict[str, Any] = {
         "schema": SCHEMA_VERSION,
         "coach_version": COACH_VERSION,
@@ -277,6 +282,7 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
         "majors_met":         _or_none("majors_met",       diplo_frag.get("majors", []) or []),
         "city_states_met":    _or_none("city_states_met",  diplo_frag.get("city_states", []) or []),
         "eliminated":         diplo_frag.get("eliminated", []) or [],
+        "gossip":             _or_none("majors_met",       diplo_frag.get("gossip", []) or []),
         "resources_inventory": P.resources_inventory(
             (cities_frag.get("cities") or []) if section_status.get("cities") != "failed" else None
         ),

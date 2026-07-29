@@ -38,6 +38,9 @@ If the top instead says `turn UNKNOWN (meta query failed)` or there's a `> **PAR
 ### `## CHANGES SINCE LAST SNAPSHOT`
 A short delta vs the previous snapshot in this session: turns elapsed, empire deltas, newly revealed tiles, units born/lost/promoted/upgraded/moved, cities grew/starved/finished production, resource stockpile changes, newly met civs, new wars. If it says `_first snapshot this session — no delta to show_`, that's expected on the first paste.
 
+### `## GOSSIP (recent — full history in gossip.json)`
+The game's own dated gossip record — the same entries as the in-game Gossip report, localized and already visibility-filtered by the engine (`- T143 [Sumerian] Sumeria has conquered Recife.`; `T?` = turn unknown). This is DIRECT evidence: when gossip and an inference disagree, gossip wins. Only the ~10 most recent show here; the complete deduped history lives in the game folder's `gossip.json` for postgame analysis.
+
 ### `## WORLD NEWS` (only present when something happened)
 Timely observed events in the known world since the last snapshot: wars declared or peace made between ANY met civs (not just wars involving me), city captures/liberations with both civs named, cities I lost or took, civilizations eliminated, religions founded, government changes, sharp military swings, city-state suzerain flips. Each line is a headline (`⚔️ War: Sumeria vs Brazil`, `🏴 Sumeria captured **Rio de Janeiro** from Brazil`, `☠️ **Brazil has been eliminated.**`).
 
@@ -92,6 +95,7 @@ One block per city. Header line: name, `[CAP]` if capital, coordinates `@ (x,y)`
 Body per city:
 - pop / growth turns (or `STARVE Nt` countdown) / food surplus / housing / amenities (have/needed) / happiness / border-expansion turns
 - `yields: F<n> P<n> G<n> S<n> C<n> Fa<n>` — food, production, gold, science, culture, faith per turn
+- `prod sources: tiles 8.0, bldgs 2, adj 3, trade 1, other +0.7` — production decomposition (worked tiles / building base values / district adjacency / trade / everything else). The JSON `yield_breakdown` has all six yields with a trust tag per source; `other` is the reconstructed remainder (modifiers the game doesn't itemize) — don't present it as a specific cause.
 - `**producing:** <name> (progress/cost, Nt)` — current build, or `nothing`
 - `defense: str N | garrison Ncur/Nmax | walls Ncur/Nmax` — 0 walls means no walls built
 - `majority religion:` if any city religion has taken hold
@@ -222,7 +226,7 @@ If the top of the document has a `> **PARTIAL SNAPSHOT**` blockquote listing fai
 
 If you need a data point that isn't in the snapshot, tell me and I'll ask the dev to add it. Do NOT write new Lua one-liners for me to paste — the whole workflow is one hotkey; anything extra defeats the point.
 
-If a wishlist item recurs, common gaps still worth flagging: per-tile yield breakdowns, specific great work / relic / artifact contents, wonder great-work slot occupancy, trade route TURNS remaining, deal expiration timing. Known permanent gaps (not exportable legitimately in base game): rival city production, rival gold/faith balances, AI internal attitude and plans.
+If a wishlist item recurs, common gaps still worth flagging: specific great work / relic / artifact contents, wonder great-work slot occupancy, trade route TURNS remaining, deal expiration timing. Known permanent gaps (not exportable legitimately in base game): rival city production, rival gold/faith balances, AI internal attitude and plans.
 
 ## 7. TL;DR for the AI
 

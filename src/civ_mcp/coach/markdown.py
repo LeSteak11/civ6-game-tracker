@@ -188,6 +188,18 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
     lines.append(_fmt_delta(delta))
     lines.append("")
 
+    # ---- Gossip (direct in-game record) -----------------------------------
+    gossip = snap.get("gossip")
+    if isinstance(gossip, list) and gossip:
+        owners = snap.get("map_owners") or {}
+        recent = sorted(gossip, key=lambda g: g.get("turn", -1))[-10:]
+        lines.append("## GOSSIP (recent — full history in gossip.json)")
+        for g in recent:
+            about = owners.get(str(g.get("about")), f"player {g.get('about')}")
+            tstr = f"T{g.get('turn')}" if g.get("turn", -1) >= 0 else "T?"
+            lines.append(f"- {tstr} [{about}] {g.get('text')}")
+        lines.append("")
+
     # ---- World news (only when something happened) ------------------------
     events = (delta or {}).get("world_events") or []
     if events:
@@ -528,6 +540,26 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                 f"- yields: F{y.get('food', 0):.1f} P{y.get('production', 0):.1f} G{y.get('gold', 0):.1f} "
                 f"S{y.get('science', 0):.1f} C{y.get('culture', 0):.1f} Fa{y.get('faith', 0):.1f}"
             )
+            # Compact production-source line; full six-yield decomposition
+            # (with source tags) lives in JSON yield_breakdown.
+            yb = (c.get("yield_breakdown") or {}).get("production")
+            if yb:
+                def _v(src: str) -> float:
+                    return (yb.get(src) or {}).get("value") or 0.0
+                bits = []
+                if _v("worked_tiles"):
+                    bits.append(f"tiles {_v('worked_tiles'):.1f}")
+                if _v("buildings_db"):
+                    bits.append(f"bldgs {_v('buildings_db'):.0f}")
+                if _v("district_adjacency"):
+                    bits.append(f"adj {_v('district_adjacency'):.0f}")
+                if _v("trade_routes"):
+                    bits.append(f"trade {_v('trade_routes'):.0f}")
+                un = _v("unattributed")
+                if un:
+                    bits.append(f"other {un:+.1f}")
+                if bits:
+                    lines.append("- prod sources: " + ", ".join(bits) + " (see JSON for all yields)")
             lines.append(
                 f"- **producing:** {prod.get('name')} "
                 f"({prod.get('progress', 0):.0f}/{prod.get('cost', 0):.0f}, {prod.get('turns')}t)"

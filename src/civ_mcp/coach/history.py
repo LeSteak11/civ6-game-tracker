@@ -131,3 +131,23 @@ def update_history(
             events.append({"turn": turn, **e})
         with events_path.open("w", encoding="utf-8") as f:
             json.dump(events, f, indent=2)
+
+    # ---- gossip.json -----------------------------------------------------
+    # Append-only, deduped on (about, turn, text): the in-game report
+    # scrolls, this file doesn't.  first_seen = the capture turn on which
+    # the entry first appeared.
+    snap_gossip = snap.get("gossip")
+    if isinstance(snap_gossip, list) and snap_gossip:
+        gossip_path = game_dir / "gossip.json"
+        stored = _load(gossip_path, [])
+        seen = {(g.get("about"), g.get("turn"), g.get("text")) for g in stored}
+        added = 0
+        for g in snap_gossip:
+            key = (g.get("about"), g.get("turn"), g.get("text"))
+            if key not in seen:
+                seen.add(key)
+                stored.append({**g, "first_seen": turn})
+                added += 1
+        if added:
+            with gossip_path.open("w", encoding="utf-8") as f:
+                json.dump(stored, f, indent=2)

@@ -188,7 +188,7 @@ add-only changes stay backwards-compatible.
 ```jsonc
 {
   "schema": "coach-snapshot/1.4",
-  "coach_version": "1.4.0",
+  "coach_version": "1.5.0",
   "generated_at_epoch": 1753728000.123,
 
   "meta": {
@@ -295,9 +295,32 @@ add-only changes stay backwards-compatible.
 - `promotions_available` is `0` or `1` — a unit can have at most one
   pending promotion. Civilians are always `0`.
 
-## Changes in 1.4 (v1.4.0 — Reports-screen data)
+## Changes in 1.4 (v1.4.0/v1.5.0 — Reports-screen data)
 
 All additive.
+
+v1.5.0 additions (probe-confirmed):
+
+- `gossip` — the player-visible gossip record, fetched via the
+  live-confirmed `GetRecentVisibleGossipStrings` (call arity discovered
+  under pcall and reported as a compat note).  Entries: `{about, turn
+  (-1 unknown), text, source: "direct"}` — localized, engine-filtered
+  strings, exactly what the Gossip report shows.  Markdown gets a
+  `## GOSSIP (recent)` section (last 10); the full deduped history
+  persists per game in `gossip.json` with `first_seen` stamps.
+- `cities[].yield_sources` + `cities[].yield_breakdown` — per-source
+  decomposition per yield: `worked_tiles` (direct, plot:GetYield sums),
+  `buildings_db` (static_db base values, pillaged excluded),
+  `district_adjacency` (direct), `trade_routes` (direct), and
+  `unattributed` (reconstructed: city total minus the parts — population
+  /amenity/policy modifiers land here; the base game exposes no
+  per-source API for them).  Markdown shows one compact production-source
+  line per city; `None`, never fabricated, when plot yields are absent.
+- Fix: district `adjacency` was parsed from the wrong column and always
+  came back empty; corrected (regression-pinned), so yield math and the
+  district lines now carry real adjacency numbers.
+- War weariness stays a WARN on this build (both known accessors absent)
+  — accepted limitation.
 
 - `cities[].resources` — one entry per owned resource plot (type, class
   incl. BONUS, localized name, improved = improvement observed on the

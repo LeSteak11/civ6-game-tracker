@@ -1,0 +1,135 @@
+[
+  {
+    "about": 3,
+    "turn": 107,
+    "text": "Your delegate, Ahmes, learned that Sumeria is expanding, adding the new settlement: Kish.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 98,
+    "text": "Your delegate, Ahmes, learned that Sumeria has used a War-Cart to clear a Barbarian Outpost.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 94,
+    "text": "Your delegate, Ahmes, learned that Sumeria has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 90,
+    "text": "Your delegate, Ahmes, learned that Sumeria has conquered Recife.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 90,
+    "text": "Your delegate, Ahmes, learned that Sumeria is expanding, adding the new settlement: Recife.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 88,
+    "text": "Your delegate, Ahmes, learned that Sumeria is trading with Brazil.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 88,
+    "text": "Your delegate, Ahmes, learned that Sumeria has just declared war on Brazil!",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 81,
+    "text": "Your delegate, Ahmes, learned that Sumeria is expanding, adding the new settlement: Adab.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 80,
+    "text": "Your delegate, Ahmes, learned that Sumeria has progressed from the Classical Era to the Medieval Era.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 70,
+    "text": "Your delegate, Ahmes, learned that Sumeria has used a War-Cart to clear a Barbarian Outpost.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 67,
+    "text": "Your delegate, Ahmes, learned that Sumeria is worshipping a Pantheon of the gods focused on the Dance of the Aurora Belief.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 63,
+    "text": "Your delegate, Ahmes, learned that Sumeria has switched governments to Autocracy.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 63,
+    "text": "Your delegate, Ahmes, learned that Sumeria has just received a foreign delegation. It appears they came from Egypt.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 63,
+    "text": "Your delegate, Ahmes, learned that Sumeria has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 59,
+    "text": "Rumor has it that Sumeria has conquered Adab.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 53,
+    "text": "Rumor has it that Sumeria has conquered the original Brazilian capital of Rio de Janeiro.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 53,
+    "text": "Rumor has it that Sumeria has progressed from the Ancient Era to the Classical Era.",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 52,
+    "text": "Rumor has it that Sumeria has just declared war on Brazil!",
+    "source": "direct",
+    "first_seen": 108
+  },
+  {
+    "about": 4,
+    "turn": 88,
+    "text": "Rumor has it that Brazil has been targeted for a declaration of war by Sumeria!",
+    "source": "direct",
+    "first_seen": 108
+  }
+]

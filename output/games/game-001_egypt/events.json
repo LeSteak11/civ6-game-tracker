@@ -5,5 +5,19 @@
     "city_state": "Hattusa",
     "from": "none",
     "to": "ME"
+  },
+  {
+    "turn": 105,
+    "event": "suzerain_changed",
+    "city_state": "Amsterdam",
+    "from": "none",
+    "to": "ME"
+  },
+  {
+    "turn": 106,
+    "event": "suzerain_changed",
+    "city_state": "Hattusa",
+    "from": "ME",
+    "to": "none"
   }
 ]
