@@ -119,9 +119,9 @@ Do not treat "previously revealed" camps as guaranteed present.
 Every active engine notification. Lines tagged `[BLOCKS: <TYPE>]` are end-turn blockers.
 
 ### `## REVEALED MAP`
-Line-schema legend, then a fenced code block with one line per revealed tile. Schema:
+An **Owner IDs** legend line (`0=me (Egypt), 2=Sumerian, 40=Kabul (city-state), 63=Barbarians` — unmet civs appear as `unmet civilization`), then the line-schema legend, then a fenced code block with one line per revealed tile. Schema:
 
-`x,y v|terr|feat|res|imp|road|owner|dist|city|units|extra`
+`x,y v|terr|feat|res|imp|road|owner|dist|city|units|extra|cityname`
 
 - `v` — `1` = currently visible, `0` = previously revealed only
 - `terr` — terrain code. `g` grass, `p` plains, `d` desert, `t` tundra, `s` snow, `co` coast, `oc` ocean. Suffix `h` = hills, `m` = mountain. So `gh` = grass hills, `pm` = plains mountain.
@@ -134,6 +134,9 @@ Line-schema legend, then a fenced code block with one line per revealed tile. Sc
 - `city` — `1` if this plot is a city centre.
 - `units` — semicolon list of `owner:type:hp` visible on the tile.
 - `extra` — flag string: `R` river-edge, `L` lake, `F` fresh water, `A±N` appeal, joined by `/`.
+- `cityname` — the city's display name, set only on city-centre tiles.
+
+Resolve `owner` numbers through the Owner IDs legend rather than quoting raw IDs back at me.
 
 Use this for spatial reasoning (chokepoints, adjacency, expansion targets, unimproved luxuries, threat proximity). Don't quote the raw legend at me — synthesise the observation.
 
@@ -145,6 +148,7 @@ Every natural wonder tile I've discovered with coordinates.
 - `generation time:` — total snapshot time in seconds.
 - `per-query timing:` — breakdown per query.
 - `**failures at runtime:**` — any Lua queries that broke, with the first line of the error.
+- `compatibility notes` — fallback paths the exporter took (e.g. which civic-availability method it used). These are informational, NOT failures — don't flag them to me as problems.
 - `last trace per query:` — `TRACE|<SECTION>|<field>` — the last field each query touched before completing (or before failing). Post-mortem info.
 - `categories intentionally omitted (base-game only):` — expansion-only systems the coach deliberately doesn't try to expose. If I ask about one of these, remind me they don't exist in base game.
 

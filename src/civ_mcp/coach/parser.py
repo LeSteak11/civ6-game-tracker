@@ -418,6 +418,8 @@ def parse_map(lines: list[str]) -> dict[str, Any]:
     diagnostics: list[dict[str, Any]] = []
     meta = {"total_plots": 0, "grid": ""}
     totals = {"revealed": 0, "visible": 0, "natural_wonders": 0}
+    # Owner-ID legend: str(player_id) -> readable name (str keys survive JSON)
+    owners: dict[str, str] = {}
     for line in lines:
         p = line.split("|")
         tag = p[0] if p else ""
@@ -439,8 +441,12 @@ def parse_map(lines: list[str]) -> dict[str, Any]:
                     "is_city": _s(p, 11).lower() == "true",
                     "units": _s(p, 12),
                     "extra": _s(p, 13),
+                    # Schema 1.1: city name on city-centre tiles ("" otherwise)
+                    "city_name": _s(p, 14),
                 }
             )
+        elif tag == "OWNER":
+            owners[_s(p, 1)] = _s(p, 2)
         elif tag == "NW":
             natural_wonders.append(
                 {"name": _s(p, 1), "x": _i(p, 2), "y": _i(p, 3), "type": _s(p, 4)}
@@ -453,6 +459,7 @@ def parse_map(lines: list[str]) -> dict[str, Any]:
         "map_meta": meta,
         "map_totals": totals,
         "tiles": tiles,
+        "owners": owners,
         "natural_wonders": natural_wonders,
         "diagnostics": diagnostics,
     }

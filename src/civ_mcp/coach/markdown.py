@@ -582,11 +582,17 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                 f"_{mtot.get('revealed', 0)} revealed, {mtot.get('visible', 0)} currently visible, "
                 f"{mtot.get('natural_wonders', 0)} natural wonders_"
             )
+            owners = snap.get("map_owners") or {}
+            if owners:
+                legend = ", ".join(
+                    f"{pid}={name}" for pid, name in sorted(owners.items(), key=lambda kv: int(kv[0]))
+                )
+                lines.append(f"**Owner IDs:** {legend}")
             lines.append(
-                "**Line schema:** `MAP x,y v|terr|feat|res|imp|road|owner|dist|city|units|extra`  "
+                "**Line schema:** `MAP x,y v|terr|feat|res|imp|road|owner|dist|city|units|extra|cityname`  "
                 "(`v`=1 currently visible; `terr` = g/p/d/t/s (+h for hills, +m for mountain); "
                 "`feat` = for/jun/mar/fld/oas/reef/nw:NAME; `imp` may end `:P` if pillaged; "
-                "`extra` R=river L=lake F=freshwater A±N=appeal)"
+                "`extra` R=river L=lake F=freshwater A±N=appeal; `cityname` set on city-centre tiles)"
             )
             lines.append("```")
             for t in tiles:
@@ -594,7 +600,7 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                     f"{t.get('x')},{t.get('y')} {int(bool(t.get('visible')))}|"
                     f"{t.get('terrain')}|{t.get('feature')}|{t.get('resource')}|{t.get('improvement')}|"
                     f"{t.get('road')}|{t.get('owner')}|{t.get('district')}|{int(bool(t.get('is_city')))}|"
-                    f"{t.get('units')}|{t.get('extra')}"
+                    f"{t.get('units')}|{t.get('extra')}|{t.get('city_name', '')}"
                 )
             lines.append("```")
             lines.append("")
@@ -622,6 +628,11 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
         for f in fails:
             msg = (f.get("message", "") or "").splitlines()[0][:200]
             lines.append(f"    - `{f.get('section')}`: {msg}")
+    notes = diag.get("compat_notes", []) or []
+    if notes:
+        lines.append("- compatibility notes (fallback paths, not failures):")
+        for n in notes:
+            lines.append(f"    - `{n.get('section')}`: {n.get('message')}")
     traces = diag.get("traces", {}) or {}
     if traces:
         # Only show the LAST trace per query — helpful for "where did we stop"

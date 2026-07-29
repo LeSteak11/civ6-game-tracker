@@ -101,24 +101,32 @@ def _dig(d: dict, path: str):
 
 async def _run_one(
     conn: GameConnection, name: str
-) -> tuple[str, dict[str, Any] | None, list[str], str | None]:
-    """Run one query.  Returns (name, parsed-or-None, trace-lines, exec-error-or-None)."""
+) -> tuple[str, dict[str, Any] | None, list[str], list[str], str | None]:
+    """Run one query.
+
+    Returns (name, parsed-or-None, trace-lines, warn-lines, exec-error-or-None).
+    """
     build = Q.ALL_QUERIES[name]
     timeout = QUERY_TIMEOUT.get(name, 15.0)
     code = build()
     try:
         raw_lines = await _exec(conn, name, code, timeout)
     except LuaError as e:
-        return name, None, [], f"LuaError [ingame]: {e}"
+        return name, None, [], [], f"LuaError [ingame]: {e}"
     except (ConnectionError, asyncio.TimeoutError, OSError) as e:
-        return name, None, [], f"{type(e).__name__} [ingame]: {e}"
+        return name, None, [], [], f"{type(e).__name__} [ingame]: {e}"
 
-    # Split TRACE lines out before parsing — they're for diagnostics only.
+    # Split TRACE and WARN lines out before parsing — parsers only see data.
+    # WARN = compatibility notes (fallback paths taken, cosmetic lookups
+    # unresolved); they must NOT appear as runtime failures.
     trace_lines: list[str] = []
+    warn_lines: list[str] = []
     data_lines: list[str] = []
     for line in raw_lines:
         if line.startswith("TRACE|"):
             trace_lines.append(line)
+        elif line.startswith("WARN|"):
+            warn_lines.append(line)
         else:
             data_lines.append(line)
 
@@ -127,8 +135,8 @@ async def _run_one(
         parsed = parser(data_lines)
     except Exception as e:  # noqa: BLE001 — parsers must never take down the bridge
         log.exception("Parser failed for %s", name)
-        return name, None, trace_lines, f"ParserError: {e}"
-    return name, parsed, trace_lines, None
+        return name, None, trace_lines, warn_lines, f"ParserError: {e}"
+    return name, parsed, trace_lines, warn_lines, None
 
 
 def _classify_sections(fragments: dict[str, dict[str, Any]], exec_errors: dict[str, str]) -> dict[str, str]:
@@ -187,13 +195,23 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
     fragments: dict[str, dict[str, Any]] = {}
     per_query_timing: dict[str, float] = {}
     traces: dict[str, list[str]] = {}
+    compat_notes: list[dict[str, str]] = []
     exec_errors: dict[str, str] = {}
 
     for name in Q.ALL_QUERIES:
         qt = time.perf_counter()
-        _, parsed, trace_lines, err = await _run_one(conn, name)
+        _, parsed, trace_lines, warn_lines, err = await _run_one(conn, name)
         per_query_timing[name] = round(time.perf_counter() - qt, 3)
         traces[name] = trace_lines
+        for w in warn_lines:
+            # WARN|<section>|<message>
+            parts = w.split("|", 2)
+            compat_notes.append(
+                {
+                    "section": parts[1] if len(parts) > 1 else name,
+                    "message": parts[2] if len(parts) > 2 else w,
+                }
+            )
         if err:
             exec_errors[name] = err
             diagnostics.append({"section": name, "message": err})
@@ -249,6 +267,7 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
         "map_meta":           map_frag.get("map_meta", {}) or {},
         "map_totals":         map_frag.get("map_totals", {}) or {},
         "tiles":              _or_none("map",              map_frag.get("tiles", []) or []),
+        "map_owners":         map_frag.get("owners", {}) or {},
         "natural_wonders":    map_frag.get("natural_wonders", []) or [],
         "envoys":             _or_none("envoys",           diplo_frag.get("envoys", {}) or {}),
         "majors_met":         _or_none("majors_met",       diplo_frag.get("majors", []) or []),
@@ -269,6 +288,7 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
         "diagnostics": {
             "per_query_seconds": per_query_timing,
             "failures": diagnostics,
+            "compat_notes": compat_notes,  # WARN channel — fallbacks taken, not failures
             "unsupported": unsupported,
             "traces": traces,  # populated for every query, useful for the next post-mortem
             "total_seconds": round(time.perf_counter() - t0, 3),

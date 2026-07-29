@@ -225,13 +225,19 @@ class CoachBridge:
             signal.signal(signal.SIGINT, lambda *_: _sigint())
 
         async def _stdin_loop() -> None:
+            # Windows Proactor event loop does NOT support connect_read_pipe on
+            # console stdin — it fails asynchronously inside the transport
+            # (WinError 6 "handle is invalid" in _loop_reading), which a
+            # try/except at the call site cannot catch.  Always use the
+            # blocking-thread reader on Windows.
+            if sys.platform == "win32":
+                await self._blocking_stdin(stop)
+                return
             reader = asyncio.StreamReader(loop=loop)
             protocol = asyncio.StreamReaderProtocol(reader)
             try:
                 await loop.connect_read_pipe(lambda: protocol, sys.stdin)
             except Exception:
-                # Some Windows terminals don't support pipe transports for stdin;
-                # fall back to a blocking thread.
                 await self._blocking_stdin(stop)
                 return
             while not stop.is_set():

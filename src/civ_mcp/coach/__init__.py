@@ -15,7 +15,7 @@ being silently omitted.
 from __future__ import annotations
 
 SCHEMA_VERSION = "coach-snapshot/1.1"
-COACH_VERSION = "1.01"
+COACH_VERSION = "1.0.1"
 
 # Terminator every coach Lua chunk prints as its last line.
 #

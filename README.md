@@ -157,7 +157,7 @@ add-only changes stay backwards-compatible.
 ```jsonc
 {
   "schema": "coach-snapshot/1.1",
-  "coach_version": "1.01",
+  "coach_version": "1.0.1",
   "generated_at_epoch": 1753728000.123,
 
   "meta": {
@@ -216,7 +216,8 @@ add-only changes stay backwards-compatible.
 
   "map_meta": {"total_plots":4720,"grid":"..."},
   "map_totals": {"revealed":422,"visible":96,"natural_wonders":2},
-  "tiles": [{"x":66,"y":32,"visible":true,"terrain":"g","feature":"","resource":"","improvement":"","road":"","owner":"0","district":"CITY_CENTER","is_city":true,"units":"0:WARRIOR:100","extra":"R"}],
+  "map_owners": {"0":"me (Egypt)","2":"Sumerian","40":"Kabul (city-state)","63":"Barbarians"},
+  "tiles": [{"x":66,"y":32,"visible":true,"terrain":"g","feature":"","resource":"","improvement":"","road":"","owner":"0","district":"CITY_CENTER","is_city":true,"units":"0:WARRIOR:100","extra":"R","city_name":"Râ-Kedet"}],
   "natural_wonders": [{"name":"...","x":50,"y":40,"type":"FEATURE_..."}],
 
   "envoys": {"in_hand":0,"points":8,"threshold":100,"per_turn":3.0,"envoys_per_threshold":1},
@@ -239,6 +240,7 @@ add-only changes stay backwards-compatible.
     "per_query_seconds": {"meta":0.36,"cities":0.36},
     "total_seconds": 2.77,
     "failures": [{"section":"meta.META","message":"..."}],
+    "compat_notes": [{"section":"CHOICES.probe","message":"using cul:CanProgress() for civic availability"}],
     "traces": {"meta":["TRACE|META|great_people"]},
     "unsupported": ["governors (Rise & Fall)", "..."]
   }
@@ -260,6 +262,17 @@ add-only changes stay backwards-compatible.
   from `queries.py:build_map_query`.
 - `promotions_available` is `0` or `1` — a unit can have at most one
   pending promotion. Civilians are always `0`.
+
+## Changes in 1.0.1 (cleanup pass)
+
+- `map_owners` added — owner-ID legend for map tiles (unmet civs are
+  anonymised as "unmet civilization").
+- `tiles[].city_name` added — display name on city-centre tiles.
+- `diagnostics.compat_notes` added — fallback-path notes (WARN channel),
+  separated from `failures`.
+- Map size resolves via `GameInfo.Maps` (base-game table; `MapSizes` is
+  Civ 5 legacy and doesn't exist).
+- Version string normalized to semver (`1.0.1`).
 
 ## Changes in 1.1 (v1.01)
 

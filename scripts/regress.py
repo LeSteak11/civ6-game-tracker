@@ -189,7 +189,56 @@ check("real delta lists grown city", "Sais" in txt2)
 
 print("\n=== schema/version bump ===")
 check("schema bumped to 1.1", SCHEMA_VERSION == "coach-snapshot/1.1", SCHEMA_VERSION)
-check("coach version 1.01", COACH_VERSION == "1.01", COACH_VERSION)
+check("coach version 1.0.1 (semver)", COACH_VERSION == "1.0.1", COACH_VERSION)
+
+print("\n=== v1.0.1 cleanup pass ===")
+# Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
+meta_src2 = Q.build_meta_query()
+check("map size resolves via GameInfo.Maps", "GameInfo.Maps" in meta_src2)
+check("map size unresolved emits WARN not DIAG",
+      'WARN|META.map_size' in meta_src2 and 'DIAG|META.map_size' not in meta_src2)
+
+# Probe/compat notes must go to the WARN channel, not DIAG (runtime failures)
+choices_src2 = Q.build_choices_query()
+check("civic probe notes are WARN", 'WARN|CHOICES.probe' in choices_src2)
+check("no civic probe DIAG remains", 'DIAG|CHOICES.probe' not in choices_src2)
+
+# Map query: owner legend + city names
+map_src = Q.build_map_query()
+check("map Lua emits OWNER legend lines", 'OWNER|' in map_src)
+check("map Lua unmet civs are anonymised", "unmet civilization" in map_src)
+check("map Lua attaches city names", "cityNameAt" in map_src)
+
+# Parser: OWNER lines and city_name field
+map_parsed = P.parse_map([
+    "MAPMETA|4720|84x60",
+    "MAP|66|32|1|g|||||0|CITY_CENTER|true||R/F|Ra-Kedet",
+    "MAP|10|10|0|p|||||||false|||",
+    "OWNER|0|me (Egypt)",
+    "OWNER|63|Barbarians",
+    "MAPTOTAL|2|1|0",
+])
+check("parser reads city_name on city tiles", map_parsed["tiles"][0]["city_name"] == "Ra-Kedet",
+      map_parsed["tiles"][0].get("city_name"))
+check("parser reads empty city_name elsewhere", map_parsed["tiles"][1]["city_name"] == "")
+check("parser collects owner legend", map_parsed["owners"] == {"0": "me (Egypt)", "63": "Barbarians"},
+      map_parsed["owners"])
+
+# Markdown: legend rendered, city name in map block
+snap_map = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 1.0,
+    "meta": {"turn": 87}, "empire": {},
+    "tiles": map_parsed["tiles"], "map_totals": map_parsed["map_totals"],
+    "map_owners": map_parsed["owners"],
+    "section_status": {"header": "ok", "map": "ok"},
+    "diagnostics": {"compat_notes": [{"section": "CHOICES.probe", "message": "using cul:CanProgress() for civic availability"}]},
+    "turn_blockers_summary": [],
+}
+md_map = M.render_markdown(snap_map, {"first_snapshot": True})
+check("markdown renders owner legend", "**Owner IDs:** 0=me (Egypt), 63=Barbarians" in md_map)
+check("markdown map line carries city name", "|Ra-Kedet" in md_map)
+check("compat notes render as notes not failures",
+      "compatibility notes" in md_map and "failures at runtime" not in md_map)
 
 print("\n=== sentinel decoupling ===")
 from civ_mcp.coach import SENTINEL as COACH_SENTINEL

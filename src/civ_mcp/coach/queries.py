@@ -137,30 +137,45 @@ safe("header", function()
         speedName = L(row.Name); return
       end
     end
-    print("DIAG|META.speed|unresolved game speed hash " .. tostring(gsHash))
+    print("WARN|META.speed|unresolved game speed hash " .. tostring(gsHash))
   end)
 
-  -- Map size.  MapConfiguration.GetMapSize() also returns a hash.
+  -- Map size.  MapConfiguration.GetMapSize() returns a hash.  In the Civ 6
+  -- base game the sizes live in GameInfo.Maps (Maps.xml) — GameInfo.MapSizes
+  -- is Civ 5 legacy and does not exist, which is why v1.01 rendered "?".
   local mapSize = "?"
   pcall(function()
     if not (MapConfiguration and MapConfiguration.GetMapSize) then return end
     local msHash = MapConfiguration.GetMapSize()
     if msHash == nil then return end
-    local direct = GameInfo.MapSizes and GameInfo.MapSizes[msHash]
-    if direct and direct.Name then mapSize = L(direct.Name); return end
-    if GameInfo.MapSizes then
-      for row in GameInfo.MapSizes() do
-        if GameConfiguration.MakeHash(row.MapSizeType) == msHash then
-          mapSize = L(row.Name or row.MapSizeType); return
+    -- Primary: GameInfo.Maps rows keyed by MapSizeType (e.g. MAPSIZE_STANDARD)
+    if GameInfo.Maps then
+      local direct = GameInfo.Maps[msHash]
+      if direct and (direct.Name or direct.MapSizeType) then
+        mapSize = direct.Name and L(direct.Name) or direct.MapSizeType
+      else
+        for row in GameInfo.Maps() do
+          if GameConfiguration.MakeHash(row.MapSizeType) == msHash then
+            mapSize = row.Name and L(row.Name) or row.MapSizeType
+            break
+          end
         end
       end
     end
-    -- Last resort: strip the MAPSIZE_ prefix if we somehow got a type string.
-    local asStr = tostring(msHash)
-    if asStr:find("MAPSIZE_") then
-      mapSize = asStr:gsub("MAPSIZE_", ""):lower():gsub("^%l", string.upper)
-    else
-      print("DIAG|META.map_size|unresolved map size hash " .. asStr)
+    -- Secondary: some builds do carry a MapSizes table — harmless to probe.
+    if mapSize == "?" and GameInfo.MapSizes then
+      for row in GameInfo.MapSizes() do
+        if GameConfiguration.MakeHash(row.MapSizeType) == msHash then
+          mapSize = row.Name and L(row.Name) or row.MapSizeType
+          break
+        end
+      end
+    end
+    if mapSize ~= "?" and mapSize:find("MAPSIZE_") then
+      mapSize = mapSize:gsub("MAPSIZE_", ""):lower():gsub("^%l", string.upper)
+    end
+    if mapSize == "?" then
+      print("WARN|META.map_size|unresolved map size hash " .. tostring(msHash))
     end
   end)
 
@@ -411,7 +426,7 @@ safe("great_people", function()
     end)
   end
   if gpm and not timelineOK then
-    print("DIAG|META.great_people|GetTimeline() unavailable or empty — falling back")
+    print("WARN|META.great_people|GetTimeline() unavailable or empty — falling back")
   end
 
   -- ---- Tier 3 prep: if everything fails, dump the real method names ---
@@ -520,13 +535,14 @@ local civicCanName = ""
 for _, nm in ipairs({"CanProgressCivic", "CanProgress", "CanAdvanceCivic"}) do
   if type(cul[nm]) == "function" then civicCanFn = cul[nm]; civicCanName = nm; break end
 end
+-- Probe outcomes are compatibility notes, not failures — WARN channel.
 if not hasCanResearch then
-  print("DIAG|CHOICES.probe|tec:CanResearch missing — falling back to !HasTech")
+  print("WARN|CHOICES.probe|tec:CanResearch missing — falling back to !HasTech")
 end
 if civicCanFn then
-  print("DIAG|CHOICES.probe|using cul:" .. civicCanName .. "() for civic availability")
+  print("WARN|CHOICES.probe|using cul:" .. civicCanName .. "() for civic availability")
 else
-  print("DIAG|CHOICES.probe|no civic availability method found — using GameInfo.CivicPrereqs gating")
+  print("WARN|CHOICES.probe|no civic availability method found — using GameInfo.CivicPrereqs gating")
 end
 
 -- Build civic -> {prereq civic type, ...}.  Table name confirmed in this
@@ -541,7 +557,7 @@ pcall(function()
   end
 end)
 if not prereqTableOK then
-  print("DIAG|CHOICES.probe|GameInfo.CivicPrereqs unavailable — civic list may be over-broad")
+  print("WARN|CHOICES.probe|GameInfo.CivicPrereqs unavailable — civic list may be over-broad")
 end
 
 -- Completed-civic set, by CivicType string, for prereq resolution.
@@ -1076,7 +1092,7 @@ safe("units", function()
           if xpNeeded and xpNeeded > 0 and xp >= xpNeeded then
             promoAvail = 1
           end
-          print("DIAG|UNITS.promotions|UnitManager.CanStartCommand(PROMOTE) unavailable — using XP threshold fallback")
+          print("WARN|UNITS.promotions|UnitManager.CanStartCommand(PROMOTE) unavailable — using XP threshold fallback")
         end
       end
       local canUpgrade, upType, upCost = false, "", 0
@@ -1180,6 +1196,64 @@ local totalPlots = Map.GetPlotCount() or 0
 local mapW = sf(function() return Map.GetGridSize() end) or 0
 print("MAPMETA|" .. totalPlots .. "|" .. tostring(mapW))
 
+-- City-name lookup by plot index so city-centre MAP records carry the
+-- city's name.  Revealed city banners are visible in the normal UI, so
+-- this respects fog: names are only attached to tiles we emit (revealed).
+local cityNameAt = {}
+pcall(function()
+  for pid = 0, 63 do
+    local pp = Players[pid]
+    if pp and pp:IsAlive() then
+      local cities = sf(function() return pp:GetCities() end)
+      if cities then
+        for _, cc in cities:Members() do
+          pcall(function()
+            local cx, cy = cc:GetX(), cc:GetY()
+            local cplot = Map.GetPlot(cx, cy)
+            if cplot then
+              cityNameAt[cplot:GetIndex()] = L(cc:GetName())
+            end
+          end)
+        end
+      end
+    end
+  end
+end)
+
+-- Owner legend: map player id -> readable name, for every id that appears
+-- as a tile owner.  Unmet civs are labelled "unmet" — the UI shows their
+-- borders but not their identity, so we must not leak names.
+local metSet = {}
+metSet[me] = true
+pcall(function()
+  local d = Players[me]:GetDiplomacy()
+  for _, q in ipairs(d:GetPlayersMetIDs() or {}) do metSet[q] = true end
+end)
+local ownerName = {}
+local function legendFor(pid)
+  if ownerName[pid] ~= nil then return end
+  if pid == 63 then
+    ownerName[pid] = "Barbarians"
+  elseif pid == me then
+    local nm = "me"
+    pcall(function() nm = "me (" .. L(PlayerConfigurations[pid]:GetCivilizationShortDescription()) .. ")" end)
+    ownerName[pid] = nm
+  elseif metSet[pid] then
+    local nm = "player " .. pid
+    pcall(function()
+      local pc = PlayerConfigurations[pid]
+      if pc then
+        nm = L(pc:GetCivilizationShortDescription()) or nm
+        local pp = Players[pid]
+        if pp and not pp:IsMajor() then nm = nm .. " (city-state)" end
+      end
+    end)
+    ownerName[pid] = nm
+  else
+    ownerName[pid] = "unmet civilization"
+  end
+end
+
 local revealed, visible, nwCount = 0, 0, 0
 
 local function res_visible(resRow)
@@ -1246,7 +1320,10 @@ for i = 0, totalPlots - 1 do
     end
     local owner = sf(function() return pl:GetOwner() end)
     local ownerStr = ""
-    if owner and owner >= 0 then ownerStr = tostring(owner) end
+    if owner and owner >= 0 then
+      ownerStr = tostring(owner)
+      legendFor(owner)
+    end
     local dCode = ""
     local dt = sf(function() return pl:GetDistrictType() end)
     if dt and dt >= 0 then
@@ -1254,6 +1331,10 @@ for i = 0, totalPlots - 1 do
       if dr then dCode = dr.DistrictType:gsub("DISTRICT_", "") end
     end
     local isCity = sf(function() return pl:IsCity() end)
+    local cityName = ""
+    if isCity then
+      cityName = cityNameAt[pl:GetIndex()] or ""
+    end
     local unitStr = ""
     if isVis then
       pcall(function()
@@ -1278,11 +1359,15 @@ for i = 0, totalPlots - 1 do
     if appeal and appeal ~= 0 then extras[#extras+1] = "A" .. appeal end
     if sf(function() return pl:IsFreshWater() end) then extras[#extras+1] = "F" end
     local extraStr = table.concat(extras, "/")
-    print(string.format("MAP|%d|%d|%d|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s",
+    print(string.format("MAP|%d|%d|%d|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s|%s",
       x, y, isVis and 1 or 0,
       tCode, fCode, rCode, iCode, roadCode, ownerStr,
-      dCode, tostring(isCity or false), unitStr, extraStr))
+      dCode, tostring(isCity or false), unitStr, extraStr, esc(cityName)))
   end)
+end
+-- Owner legend — one line per player id that owns at least one revealed tile.
+for pid, nm in pairs(ownerName) do
+  print(string.format("OWNER|%d|%s", pid, esc(nm)))
 end
 print(string.format("MAPTOTAL|%d|%d|%d", revealed, visible, nwCount))
 
