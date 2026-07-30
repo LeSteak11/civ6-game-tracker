@@ -422,6 +422,14 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
         _inv_line("BONUS", "bonus")
         _inv_line("LUXURY", "luxury")
         _inv_line("STRATEGIC", "strategic")
+    # Spare luxury copies (v1.7.0) — one copy supplies the empire, the rest
+    # are trade bait.  Derived from directly-read amounts.
+    dup = snap.get("luxury_duplicates")
+    if dup:
+        lines.append(
+            "- **tradable spare luxuries:** "
+            + ", ".join(f"{d['name']} ({d['spare']} spare of {d['copies']})" for d in dup)
+        )
     lines.append("")
 
     # ---- Government / policies -------------------------------------------
@@ -530,12 +538,48 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
             ww = sl.get("war_weariness", -1)
             if isinstance(ww, int) and ww > 0:
                 status_extras += f" | war weariness {ww}"
+            # Amenity math (v1.7.0): surplus + how many amenities to the
+            # next tier, derived from the directly-read counts.
+            amen_extra = ""
+            ast = c.get("amenity_status")
+            if ast:
+                nt = ast.get("next_tier")
+                amen_extra = f" ({ast.get('surplus'):+d}"
+                if nt:
+                    amen_extra += f"; +{nt['amenities_needed']} amen → {nt['tier']}"
+                amen_extra += ")"
             lines.append(
                 f"- pop {c.get('population')} | grow {grow_str} (food{c.get('food_surplus'):+.1f}) | "
-                f"hous {c.get('housing')} | amen {c.get('amenities')}/{c.get('amenities_needed')} | "
+                f"hous {c.get('housing')} | amen {c.get('amenities')}/{c.get('amenities_needed')}{amen_extra} | "
                 f"happ {happ_disp} | border+{c.get('border_expansion_turns')}t"
                 + status_extras
             )
+            # District capacity (v1.7.0) — the anti-"build a Harbor with no
+            # slot free" line.  Reconstructed (pop/3+1); absent when inputs
+            # were unreadable, never guessed.
+            dc = c.get("district_capacity")
+            if dc:
+                if dc.get("slots_open", 0) > 0:
+                    cap_str = f"{dc['built']}/{dc['cap']} built — {dc['slots_open']} slot(s) OPEN"
+                else:
+                    cap_str = (
+                        f"{dc['built']}/{dc['cap']} built — FULL, next slot at pop "
+                        f"{dc['next_slot_at_pop']}"
+                    )
+                lines.append(f"- districts: {cap_str} [pop/3+1]")
+            # Housing breakdown (v1.7.0) — reconstructed from static DB
+            # values, cross-checked against the reported total; any gap is
+            # an explicit '?' bucket, never silently absorbed.
+            hb = c.get("housing_breakdown")
+            if hb:
+                bits = " + ".join(
+                    f"{p['label']} {p['value']:g}" for p in hb.get("parts") or []
+                )
+                un = hb.get("unattributed", 0)
+                un_str = f" + unattributed {un:+d}" if un else ""
+                lines.append(
+                    f"- housing {hb.get('total_reported')} = {bits}{un_str} [reconstructed]"
+                )
             lines.append(
                 f"- yields: F{y.get('food', 0):.1f} P{y.get('production', 0):.1f} G{y.get('gold', 0):.1f} "
                 f"S{y.get('science', 0):.1f} C{y.get('culture', 0):.1f} Fa{y.get('faith', 0):.1f}"
@@ -599,15 +643,63 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                     + (f" | features: {feat}" if feat else "")
                     + (f" | improvements: {improv}" if improv else "")
                 )
+            # Production options grouped by category (v1.7.0).  Districts /
+            # wonders / buildings / projects are strategic — always shown in
+            # full.  Units are the long tail — capped by turns with an
+            # explicit "showing X of Y" (all options always in JSON).
             prods = c.get("production_options", []) or []
             if prods:
-                sortable = sorted(prods, key=lambda p: (p.get("turns") if p.get("turns", -1) >= 0 else 999))[:10]
-                lines.append(
-                    "    - top production options: "
-                    + ", ".join(f"{p.get('name')} ({p.get('turns')}t)" for p in sortable)
+                def _turnkey(p):
+                    return p.get("turns") if p.get("turns", -1) >= 0 else 999
+
+                def _opt(p):
+                    prog = p.get("progress", 0) or 0
+                    started = f" [{prog:.0f}/{p.get('cost', 0):.0f} banked]" if prog > 0 else ""
+                    return f"{p.get('name')} ({p.get('cost', 0):.0f}⚙ {p.get('turns')}t){started}"
+
+                by_kind: dict[str, list] = {}
+                for p in prods:
+                    by_kind.setdefault(p.get("kind") or "?", []).append(p)
+                lines.append(f"    - can build now ({len(prods)} options; cost⚙, turns):")
+                for kind, label, cap in (
+                    ("DIST", "districts (need placement)", None),
+                    ("WONDER", "wonders (need placement)", None),
+                    ("BLDG", "buildings", None),
+                    ("PROJ", "projects", None),
+                    ("UNIT", "units", 8),
+                ):
+                    grp = sorted(by_kind.get(kind) or [], key=_turnkey)
+                    if not grp:
+                        continue
+                    shown = grp[:cap] if cap else grp
+                    suffix = (
+                        f" (showing {len(shown)} of {len(grp)} by turns; rest in JSON)"
+                        if len(shown) < len(grp)
+                        else ""
+                    )
+                    lines.append(
+                        f"        - {label}{suffix}: " + ", ".join(_opt(p) for p in shown)
+                    )
+            # Unavailable production — strategically relevant first
+            # (districts and wonders, then buildings, then units); engine
+            # reasons are the game's own red-tooltip text.
+            blocked = c.get("production_unavailable", []) or []
+            if blocked:
+                _cat_rank = {"DIST": 0, "WONDER": 1, "BLDG": 2, "UNIT": 3}
+                ranked = sorted(
+                    blocked,
+                    key=lambda b: (_cat_rank.get(b.get("category"), 9),
+                                   b.get("reason_source") == "unknown",
+                                   b.get("cost", 0)),
                 )
-                if len(prods) > 10:
-                    lines.append(f"    - ...{len(prods) - 10} more options in JSON")
+                shown = ranked[:6]
+                lines.append(
+                    f"    - unavailable (showing {len(shown)} of {len(blocked)}; "
+                    "full list + reasons in JSON):"
+                )
+                for b in shown:
+                    reason = "; ".join(b.get("reasons") or []) or "?"
+                    lines.append(f"        - {b.get('name')} — {reason}")
             for tr_r in c.get("trade_routes", []) or []:
                 y = ", ".join(f"{k} {v:+d}" for k, v in tr_r.get("yields", {}).items())
                 civ = tr_r.get("dest_civ") or "?"
@@ -643,6 +735,35 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                 f"| hp{u.get('hp')}/{u.get('hp_max')} | mv{u.get('moves'):.0f}/{u.get('moves_max'):.0f} "
                 f"| cs{u.get('combat')} rs{u.get('ranged')}{promo}{chrg}{fort}{upg}{idle}"
             )
+        lines.append("")
+
+    # ---- Settler advisor (v1.7.0, only when a settler exists) -------------
+    sa = snap.get("settler_advisor")
+    if sa and sa.get("candidates"):
+        s0 = (sa.get("settlers") or [{}])[0]
+        lines.append("## SETTLER ADVISOR (reconstructed from revealed map — not the engine lens)")
+        lines.append(f"_settler @({s0.get('x')},{s0.get('y')}) — {sa.get('note')}_")
+        for cand in sa["candidates"]:
+            water = (
+                "fresh water" if cand.get("fresh_water")
+                else "coastal" if cand.get("coastal") else "NO water bonus"
+            )
+            res = cand.get("resources_within_2") or []
+            res_str = (
+                ", ".join(
+                    r["name"] + (" (NEW luxury)" if r.get("new_luxury") else f" ({r['class']})")
+                    for r in res
+                )
+                or "none revealed"
+            )
+            near = cand.get("nearest_own_city") or {}
+            lines.append(
+                f"- ({cand['x']},{cand['y']}) score {cand['score']:g} — {water} | "
+                f"ring1 ~{cand['ring1_food']}F/{cand['ring1_production']}P | "
+                f"{cand['dist_from_settler']} tiles {cand['direction_from_settler']} of settler"
+                + (f" | {near.get('dist')} from {near.get('name')}" if near else "")
+            )
+            lines.append(f"    - resources ≤2 tiles: {res_str}")
         lines.append("")
 
     # ---- Diplomacy --------------------------------------------------------
@@ -726,6 +847,18 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
         eliminated = [r for r in (snap.get("rivals") or []) if not r.get("alive", True)]
         for dead in eliminated:
             lines.append(f"- ☠️ **{dead.get('civ_name')}** — ELIMINATED")
+        # Civ accounting (v1.7.0) — fog-safe met/eliminated/unmet summary.
+        ca = snap.get("civ_accounting")
+        if ca:
+            mm = ca.get("map_max_majors")
+            cap_str = f"; map supports up to {mm} majors" if mm else ""
+            lines.append(
+                f"- **civ accounting:** {ca.get('met_alive')} met alive, "
+                f"{ca.get('eliminated')} eliminated{cap_str} — unmet living civs may exist "
+                "(start count not exported; fog-safe)"
+            )
+            for ev in ca.get("unmet_evidence") or []:
+                lines.append(f"    - unmet-civ evidence: {ev}")
     if st.get("city_states_met") == "failed":
         lines.append("### CITY-STATES MET")
         lines.append(_fail_marker("city_states_met", snap))
@@ -910,9 +1043,29 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
             lines.append(f"    - {u}")
     md = "\n".join(lines)
     meta_turn = (snap.get("meta") or {}).get("turn") if snap.get("meta") else None
+
+    # Integrity footer.  counts= mirrors the JSON section lengths so any
+    # external truncation of this document is detectable: if the footer is
+    # missing, the document was cut; if a section's rendered items don't
+    # match its count here, the JSON is the complete record.
+    def _n(key: str) -> int | str:
+        if key not in snap:
+            return 0
+        v = snap[key]
+        # Present-but-None = the section's query FAILED (collector
+        # contract); an absent key is simply not part of this snapshot.
+        return len(v) if isinstance(v, (list, dict)) else "failed" if v is None else 0
+
+    counts = (
+        f"cities={_n('cities')} units={_n('units')} tiles={_n('tiles')} "
+        f"majors={_n('majors_met')} city_states={_n('city_states_met')} "
+        f"gossip={_n('gossip')} rival_cities={_n('rival_cities')} "
+        f"tech_tree={_n('tech_tree')} civic_tree={_n('civic_tree')}"
+    )
     md += (
         f"\n\n<!-- coach snapshot: schema={snap.get('schema')} "
         f"turn={meta_turn} generated_at={snap.get('generated_at_epoch')} "
-        f"failed_sections={','.join(failed_sections) if failed_sections else 'none'} -->\n"
+        f"failed_sections={','.join(failed_sections) if failed_sections else 'none'} "
+        f"counts: {counts} md_chars={len(md)} -->\n"
     )
     return md

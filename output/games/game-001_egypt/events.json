@@ -19,5 +19,33 @@
     "city_state": "Hattusa",
     "from": "ME",
     "to": "none"
+  },
+  {
+    "turn": 120,
+    "event": "religion_founded",
+    "civ": "player 2",
+    "religion": "Hinduism"
+  },
+  {
+    "turn": 131,
+    "event": "suzerain_changed",
+    "city_state": "Hattusa",
+    "from": "none",
+    "to": "ME"
+  },
+  {
+    "turn": 136,
+    "event": "government_changed",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": "Autocracy",
+    "to": "Classical Republic"
+  },
+  {
+    "turn": 136,
+    "event": "suzerain_changed",
+    "city_state": "Stockholm",
+    "from": "none",
+    "to": "SUMERIA"
   }
 ]

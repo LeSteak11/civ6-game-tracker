@@ -132,6 +132,19 @@ async def _run_one(
         else:
             data_lines.append(line)
 
+    # Completeness gate: every coach query prints EOQ immediately before
+    # the sentinel.  The connection layer returns partial output silently
+    # when a query times out mid-stream — without this check a truncated
+    # CITIES stream would parse as "fewer cities", which is a lie.
+    if data_lines and data_lines[-1].strip() == "EOQ":
+        data_lines = data_lines[:-1]
+    else:
+        return (
+            name, None, trace_lines, warn_lines,
+            "TruncatedOutput: EOQ end-marker missing — output cut off "
+            "(likely a mid-stream timeout); section marked failed, not partial",
+        )
+
     parser = PARSERS[name]
     try:
         parsed = parser(data_lines)
@@ -250,6 +263,18 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
     for c in cities_frag.get("cities") or []:
         c["yield_breakdown"] = P.build_yield_breakdown(c)
 
+    # v1.7.0 Part A derivations — pure reorganization of already-collected
+    # data (no new engine reads).  Each helper returns None on missing
+    # inputs; None renders as absent, never as a fake value.
+    map_ok = section_status.get("map") != "failed"
+    tiles_by_xy = (
+        {(t["x"], t["y"]): t for t in map_frag.get("tiles") or []} if map_ok else None
+    )
+    for c in cities_frag.get("cities") or []:
+        c["district_capacity"] = P.district_capacity(c)
+        c["housing_breakdown"] = P.build_housing_breakdown(c, tiles_by_xy)
+        c["amenity_status"] = P.amenity_status(c)
+
     snapshot: dict[str, Any] = {
         "schema": SCHEMA_VERSION,
         "coach_version": COACH_VERSION,
@@ -299,6 +324,27 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
                 "can_found_pantheon": rel_frag.get("can_found_pantheon", False),
                 "city_religion": rel_frag.get("city_religion", {}),
             },
+        ),
+        "luxury_duplicates": P.luxury_duplicates(
+            meta_frag.get("resources") if section_status.get("resources") != "failed" else None
+        ),
+        "settler_advisor": P.settler_advisor(
+            units_frag.get("units") if section_status.get("units") != "failed" else None,
+            map_frag.get("tiles") if map_ok else None,
+            cities_frag.get("cities") if section_status.get("cities") != "failed" else None,
+            map_frag.get("rival_cities") if map_ok else None,
+            diplo_frag.get("city_states") if section_status.get("city_states_met") != "failed" else None,
+            owned_luxury_types={
+                (r.get("type") or "").replace("RESOURCE_", "")
+                for r in meta_frag.get("resources") or []
+                if r.get("class") == "LUXURY"
+            },
+        ),
+        "civ_accounting": P.civ_accounting(
+            diplo_frag.get("majors") if section_status.get("majors_met") != "failed" else None,
+            P.build_rivals(diplo_frag, map_frag, rel_frag, section_status),
+            rel_frag.get("world_religions"),
+            meta_frag.get("meta"),
         ),
         "notifications":     _or_none("notifications", notif_frag.get("notifications", []) or []),
         "end_turn_blockers": notif_frag.get("end_turn_blockers", []) or [],

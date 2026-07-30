@@ -188,7 +188,7 @@ add-only changes stay backwards-compatible.
 ```jsonc
 {
   "schema": "coach-snapshot/1.4",
-  "coach_version": "1.5.0",
+  "coach_version": "1.7.0",
   "generated_at_epoch": 1753728000.123,
 
   "meta": {
@@ -295,9 +295,67 @@ add-only changes stay backwards-compatible.
 - `promotions_available` is `0` or `1` — a unit can have at most one
   pending promotion. Civilians are always `0`.
 
-## Changes in 1.4 (v1.4.0/v1.5.0 — Reports-screen data)
+## Changes in 1.4 (v1.4.0–v1.7.0 — Reports-screen data + Part A derivations)
 
 All additive.
+
+v1.7.0 additions (Part A — derivations over already-collected data; NO
+new engine API surface, every field self-labels its trust tier and is
+absent — never guessed — when its inputs were unreadable):
+
+- `cities[].district_capacity` — `{built, cap, slots_open,
+  next_slot_at_pop}` from the pop/3+1 rule + the static base-game
+  RequiresPopulation district set (`reconstructed:pop/3+1`).  Markdown:
+  `districts: 2/2 built — FULL, next slot at pop 6`.
+- `cities[].housing_breakdown` — per-source housing reconstruction
+  (base + fresh water/coastal, buildings, Aqueduct/Neighborhood, +0.5
+  improvements) from static DB values, cross-checked against the
+  directly-read total; any gap renders as an explicit `unattributed`
+  bucket (`reconstructed:static_db`).  None without map tiles.
+- `cities[].amenity_status` — surplus, tier, and amenities-to-next-tier
+  from the static happiness tier table (`reconstructed:static_db`).
+  The live happiness label stays the authority for the current tier.
+- `luxury_duplicates` — luxuries with >1 copies and their spare
+  (tradable) counts.
+- `settler_advisor` — present only when a Settler exists: top-5 settle
+  candidates ranked from the REVEALED map (fresh water/coastal, ring-1
+  base-terrain yields, resources within 2 tiles, min-distance-3
+  legality vs known cities, distance/direction from the settler,
+  own-territory overlap).  Entirely `reconstructed`; its `note` states
+  the fog/approximation caveats and the direction convention
+  (+y = north).
+- `civ_accounting` — fog-safe met/eliminated arithmetic plus hard
+  unmet-civ evidence (world religions founded by unmet player ids).
+  `map_max_majors` is labeled a map capacity, never a start count.
+- Markdown: city production options are now grouped by category
+  (districts / wonders / buildings / projects in full, units capped at
+  8 by turns with an explicit shown-of-total label) with cost⚙/turns
+  and banked progress; the amenity line carries surplus + next-tier
+  math inline.
+
+v1.6.0 additions:
+
+- `cities[].production_unavailable` — panel-visible-but-blocked items
+  (prereq tech/civic researched, own civ's items only, not obsolete, not
+  already built) with cost and ALL exposed blocking reasons.  Reason
+  sourcing in strict preference order: `engine` (localized
+  FAILURE_REASONS from `CityManager.GetOperationTargets` — the exact
+  query the production panel uses for its red tooltips; a read-only
+  inspection, probed with WARN fallback), `reconstructed` (confirmed DB
+  facts only — building prereq chains, `Units.StrategicResource`,
+  the district pop/3+1 capacity rule — each reason labels its source),
+  `unknown` ("blocked, reason not exposed" — absence from the legal list
+  is never turned into a specific claim).  Markdown shows up to 6 per
+  city, districts/wonders first, with an explicit shown-of-total label.
+- Truncation integrity: every query now prints an `EOQ` end-marker
+  before the sentinel; the collector marks a stream that lacks it as
+  FAILED instead of parsing partial output (previously a mid-stream
+  timeout could silently yield e.g. fewer cities).  Delta damaged/healed
+  lists are no longer sliced to 10 in the JSON.  The Markdown footer
+  comment now carries per-section item counts mirrored from the JSON,
+  plus `md_chars`, so external truncation of the document is detectable
+  (footer missing = document cut).  All intentional Markdown limits are
+  labeled "showing X of Y".
 
 v1.5.0 additions (probe-confirmed):
 

@@ -28,7 +28,11 @@ from civ_mcp.coach import SENTINEL
 
 
 def _sentinel_line() -> str:
-    return f'print("{SENTINEL}")'
+    # EOQ is the completeness marker: the connection layer stops collecting
+    # at the sentinel, but on a timeout it silently returns whatever lines
+    # arrived so far.  The collector treats a data stream that doesn't end
+    # in EOQ as a FAILED query rather than parsing a truncated one.
+    return f'print("EOQ"); print("{SENTINEL}")'
 
 
 # Common prelude used by every query.  Provides:
@@ -817,6 +821,90 @@ local statusGrowthWarned = false
 local statusWWWarned = false
 local plotYieldWarned = false
 
+-- ---- Unavailable-production machinery ------------------------------------
+local pRes = sf(function() return p:GetResources() end)
+local cCul = sf(function() return p:GetCulture() end)
+local function haveTech(t)
+  if not t then return true end
+  local r = GameInfo.Technologies[t]
+  if not (r and cpTech) then return false end
+  return sf(function() return cpTech:HasTech(r.Index) end) or false
+end
+local function haveCivic(cv)
+  if not cv then return true end
+  local r = GameInfo.Civics[cv]
+  if not (r and cCul) then return false end
+  return sf(function() return cCul:HasCivic(r.Index) end) or false
+end
+
+-- My civ/leader trait set: other civs' unique items never appear in the
+-- production panel, so they must not appear in the unavailable list.
+local myTraits = {}
+pcall(function()
+  local myCiv = cfg and cfg:GetCivilizationTypeName() or ""
+  local myLeader = cfg and cfg:GetLeaderTypeName() or ""
+  for row in GameInfo.CivilizationTraits() do
+    if row.CivilizationType == myCiv then myTraits[row.TraitType] = true end
+  end
+  for row in GameInfo.LeaderTraits() do
+    if row.LeaderType == myLeader then myTraits[row.TraitType] = true end
+  end
+end)
+local function traitOK(tt) return tt == nil or myTraits[tt] == true end
+
+-- Building prereq chains (standard DB table; empty on failure -> the
+-- reconstruction path just yields nothing, never a guess).
+local bldgPrereqs = {}
+pcall(function()
+  for row in GameInfo.BuildingPrereqs() do
+    if not bldgPrereqs[row.Building] then bldgPrereqs[row.Building] = {} end
+    table.insert(bldgPrereqs[row.Building], row.PrereqBuilding)
+  end
+end)
+
+-- Engine failure reasons, probed per rule 4.  CityManager.
+-- GetOperationTargets is the QUERY the production panel itself uses to
+-- grey out buttons — it inspects, it never issues an operation (the
+-- banned mutating call is RequestOperation/RequestCommand, not this).
+local opTargetsOK, opBuildKey, failureKey = false, nil, nil
+local opParamUnit, opParamBldg, opParamDist = nil, nil, nil
+pcall(function()
+  if CityManager and type(CityManager.GetOperationTargets) == "function"
+     and CityOperationTypes and CityOperationTypes.BUILD then
+    opTargetsOK = true
+    opBuildKey = CityOperationTypes.BUILD
+    opParamUnit = CityOperationTypes.PARAM_UNIT_TYPE
+    opParamBldg = CityOperationTypes.PARAM_BUILDING_TYPE
+    opParamDist = CityOperationTypes.PARAM_DISTRICT_TYPE
+    if CityOperationResults then failureKey = CityOperationResults.FAILURE_REASONS end
+  end
+end)
+if not opTargetsOK then
+  print("WARN|CITIES.prod_blocked|CityManager.GetOperationTargets unavailable — engine failure reasons off, reconstruction only")
+elseif failureKey == nil then
+  print("WARN|CITIES.prod_blocked|CityOperationResults.FAILURE_REASONS missing — engine failure reasons off, reconstruction only")
+end
+
+local function engineReasons(city, paramKey, hash)
+  if not (opTargetsOK and failureKey and paramKey) then return nil end
+  local reasons = nil
+  pcall(function()
+    local tParams = {}
+    tParams[paramKey] = hash
+    local tResults = CityManager.GetOperationTargets(city, opBuildKey, tParams)
+    local fails = tResults and tResults[failureKey]
+    if type(fails) == "table" then
+      reasons = {}
+      for _, r in ipairs(fails) do
+        local txt = L(tostring(r))
+        if txt and txt ~= "" then reasons[#reasons+1] = txt end
+      end
+    end
+  end)
+  if reasons and #reasons > 0 then return reasons end
+  return nil
+end
+
 -- Static building yield table (GameInfo.Building_YieldChanges — standard
 -- base-game DB).  These are BASE values, tagged static_db downstream:
 -- they don't include percentage modifiers.
@@ -1011,6 +1099,8 @@ for _, c in p:GetCities():Members() do
 
   -- --- Districts + buildings in each ------------------------------------
   local cityBldgY = {}
+  local cityBldgSet, cityDistSet = {}, {}
+  local cityDistCount = 0  -- districts that count against the pop cap
   pcall(function()
     print("TRACE|CITY|" .. cID .. "|districts")
     for _, d in c:GetDistricts():Members() do
@@ -1032,6 +1122,8 @@ for _, c in p:GetCities():Members() do
         print(string.format("DIST|%d|%s|%s|%d|%d|%s|%s",
           cID, dr.DistrictType, esc(L(dr.Name)),
           dx, dy, tostring(pill), table.concat(adjParts, ",")))
+        cityDistSet[dr.DistrictType] = true
+        if dr.RequiresPopulation then cityDistCount = cityDistCount + 1 end
         -- Buildings at this district's plot
         pcall(function()
           local blds = c:GetBuildings()
@@ -1047,6 +1139,7 @@ for _, c in p:GetCities():Members() do
               print(string.format("BLDG|%d|%s|%s|%s|%s|%s",
                 cID, dr.DistrictType, br.BuildingType, esc(L(br.Name)),
                 tostring(br.IsWonder), tostring(pillB)))
+              cityBldgSet[br.BuildingType] = true
               -- Static DB base yields of intact buildings (yield-source
               -- breakdown; pillaged buildings yield nothing).
               if not pillB and bldgYieldDB[br.BuildingType] then
@@ -1161,51 +1254,136 @@ for _, c in p:GetCities():Members() do
   end)
 
   -- --- Production options ------------------------------------------------
+  -- Legal options emit PROD lines (unchanged).  Panel-visible-but-blocked
+  -- items emit PRODX lines with every exposed blocking reason.  Reason
+  -- sourcing, in strict preference order:
+  --   engine        localized FAILURE_REASONS from GetOperationTargets —
+  --                 the same strings the red tooltip shows
+  --   reconstructed confirmed DB facts only (building prereq chains,
+  --                 strategic-resource requirement, district pop-cap rule)
+  --   unknown       blocked, but nothing exposed — never invented
+  -- "Panel-visible" = prereq tech/civic researched, my civ's items only,
+  -- not obsolete, not already built here.  Absence from the legal list is
+  -- NEVER by itself turned into a specific reason.
   pcall(function()
     print("TRACE|CITY|" .. cID .. "|prod_options")
     local bq = sf(function() return c:GetBuildQueue() end)
     if not bq then return end
+
+    local function emitBlocked(cat, typ, name, hash, cost, paramKey, reconFn)
+      local reasons, src = engineReasons(c, paramKey, hash), "engine"
+      if not reasons then
+        reasons = reconFn and reconFn() or nil
+        src = "reconstructed"
+      end
+      if not reasons or #reasons == 0 then
+        reasons = {"blocked (reason not exposed by engine)"}
+        src = "unknown"
+      end
+      print(string.format("PRODX|%d|%s|%s|%s|%.0f|%s|%s",
+        cID, cat, typ, esc(name), cost or 0, src,
+        esc(table.concat(reasons, ";;"))))
+    end
+
     for u in GameInfo.Units() do
       pcall(function()
         local can = sf(function() return bq:CanProduce(u.Hash, true) end)
-        if not can then return end
-        local prog = sf(function() return bq:GetUnitProgress(u.Index) end) or 0
-        local cost = sf(function() return bq:GetUnitCost(u.Index) end) or 0
-        local turns = -1
-        if cost > 0 and prog < cost then
-          turns = sf(function() return bq:GetTurnsLeft(u.Hash) end) or -1
+        if can then
+          local prog = sf(function() return bq:GetUnitProgress(u.Index) end) or 0
+          local cost = sf(function() return bq:GetUnitCost(u.Index) end) or 0
+          local turns = -1
+          if cost > 0 and prog < cost then
+            turns = sf(function() return bq:GetTurnsLeft(u.Hash) end) or -1
+          end
+          print(string.format("PROD|%d|UNIT|%s|%s|%.0f|%.0f|%d",
+            cID, u.UnitType, esc(L(u.Name)), prog, cost, turns))
+          return
         end
-        print(string.format("PROD|%d|UNIT|%s|%s|%.0f|%.0f|%d",
-          cID, u.UnitType, esc(L(u.Name)), prog, cost, turns))
+        if not traitOK(u.TraitType) then return end
+        if not (haveTech(u.PrereqTech) and haveCivic(u.PrereqCivic)) then return end
+        if u.ObsoleteTech and haveTech(u.ObsoleteTech) then return end
+        if u.ObsoleteCivic and haveCivic(u.ObsoleteCivic) then return end
+        local cost = sf(function() return bq:GetUnitCost(u.Index) end) or 0
+        emitBlocked("UNIT", u.UnitType, L(u.Name), u.Hash, cost, opParamUnit, function()
+          local rs = {}
+          if u.StrategicResource and pRes then
+            local rr = GameInfo.Resources[u.StrategicResource]
+            if rr then
+              local amt = sf(function() return pRes:GetResourceAmount(rr.Index) end) or 0
+              local has = sf(function() return pRes:HasResource(rr.Index) end) or false
+              if amt <= 0 and not has then
+                rs[#rs+1] = "Requires " .. L(rr.Name) .. " [reconstructed: Units.StrategicResource]"
+              end
+            end
+          end
+          return rs
+        end)
       end)
     end
     for b in GameInfo.Buildings() do
       pcall(function()
         local can = sf(function() return bq:CanProduce(b.Hash, true) end)
-        if not can then return end
-        local prog = sf(function() return bq:GetBuildingProgress(b.Index) end) or 0
-        local cost = sf(function() return bq:GetBuildingCost(b.Index) end) or 0
-        local turns = -1
-        if cost > 0 and prog < cost then
-          turns = sf(function() return bq:GetTurnsLeft(b.Hash) end) or -1
+        if can then
+          local prog = sf(function() return bq:GetBuildingProgress(b.Index) end) or 0
+          local cost = sf(function() return bq:GetBuildingCost(b.Index) end) or 0
+          local turns = -1
+          if cost > 0 and prog < cost then
+            turns = sf(function() return bq:GetTurnsLeft(b.Hash) end) or -1
+          end
+          print(string.format("PROD|%d|%s|%s|%s|%.0f|%.0f|%d",
+            cID, b.IsWonder and "WONDER" or "BLDG", b.BuildingType, esc(L(b.Name)), prog, cost, turns))
+          return
         end
-        print(string.format("PROD|%d|%s|%s|%s|%.0f|%.0f|%d",
-          cID, b.IsWonder and "WONDER" or "BLDG", b.BuildingType, esc(L(b.Name)), prog, cost, turns))
+        if not traitOK(b.TraitType) then return end
+        if not (haveTech(b.PrereqTech) and haveCivic(b.PrereqCivic)) then return end
+        if cityBldgSet[b.BuildingType] then return end  -- already built here
+        local cost = sf(function() return bq:GetBuildingCost(b.Index) end) or 0
+        emitBlocked(b.IsWonder and "WONDER" or "BLDG", b.BuildingType, L(b.Name),
+                    b.Hash, cost, opParamBldg, function()
+          local rs = {}
+          for _, req in ipairs(bldgPrereqs[b.BuildingType] or {}) do
+            if not cityBldgSet[req] then
+              local rrow = GameInfo.Buildings[req]
+              rs[#rs+1] = "Requires " .. (rrow and L(rrow.Name) or req)
+                .. " [reconstructed: BuildingPrereqs]"
+            end
+          end
+          return rs
+        end)
       end)
     end
     for d in GameInfo.Districts() do
       if d.DistrictType ~= "DISTRICT_CITY_CENTER" and d.DistrictType ~= "DISTRICT_WONDER" then
         pcall(function()
           local can = sf(function() return bq:CanProduce(d.Hash, true) end)
-          if not can then return end
-          local prog = sf(function() return bq:GetDistrictProgress(d.Index) end) or 0
-          local cost = sf(function() return bq:GetDistrictCost(d.Index) end) or 0
-          local turns = -1
-          if cost > 0 and prog < cost then
-            turns = sf(function() return bq:GetTurnsLeft(d.Hash) end) or -1
+          if can then
+            local prog = sf(function() return bq:GetDistrictProgress(d.Index) end) or 0
+            local cost = sf(function() return bq:GetDistrictCost(d.Index) end) or 0
+            local turns = -1
+            if cost > 0 and prog < cost then
+              turns = sf(function() return bq:GetTurnsLeft(d.Hash) end) or -1
+            end
+            print(string.format("PROD|%d|DIST|%s|%s|%.0f|%.0f|%d",
+              cID, d.DistrictType, esc(L(d.Name)), prog, cost, turns))
+            return
           end
-          print(string.format("PROD|%d|DIST|%s|%s|%.0f|%.0f|%d",
-            cID, d.DistrictType, esc(L(d.Name)), prog, cost, turns))
+          if not traitOK(d.TraitType) then return end
+          if not (haveTech(d.PrereqTech) and haveCivic(d.PrereqCivic)) then return end
+          if cityDistSet[d.DistrictType] then return end  -- already placed here
+          local cost = sf(function() return bq:GetDistrictCost(d.Index) end) or 0
+          emitBlocked("DIST", d.DistrictType, L(d.Name), d.Hash, cost, opParamDist, function()
+            local rs = {}
+            if d.RequiresPopulation then
+              local popN = sf(function() return c:GetPopulation() end) or 0
+              local cap = math.floor(popN / 3) + 1
+              if cityDistCount >= cap then
+                rs[#rs+1] = string.format(
+                  "District capacity reached (%d/%d); next slot at population %d [reconstructed: pop/3+1 rule]",
+                  cityDistCount, cap, cap * 3)
+              end
+            end
+            return rs
+          end)
         end)
       end
     end

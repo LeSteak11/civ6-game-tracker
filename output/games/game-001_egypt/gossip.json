@@ -131,5 +131,26 @@
     "text": "Rumor has it that Brazil has been targeted for a declaration of war by Sumeria!",
     "source": "direct",
     "first_seen": 108
+  },
+  {
+    "about": 3,
+    "turn": 125,
+    "text": "Your delegate, Ahmes, learned that Sumeria has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 128
+  },
+  {
+    "about": 3,
+    "turn": 131,
+    "text": "Your delegate, Ahmes, learned that Sumeria has progressed from the Medieval Era to the Renaissance Era.",
+    "source": "direct",
+    "first_seen": 132
+  },
+  {
+    "about": 3,
+    "turn": 135,
+    "text": "Your delegate, Ahmes, learned that Sumeria has switched governments to Classical Republic.",
+    "source": "direct",
+    "first_seen": 136
   }
 ]

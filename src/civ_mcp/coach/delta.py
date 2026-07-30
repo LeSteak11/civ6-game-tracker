@@ -206,8 +206,10 @@ def compute_delta(prev: dict[str, Any] | None, curr: dict[str, Any]) -> dict[str
         "promoted": [{"id": u.get("id"), "type": u.get("type")} for u in promoted],
         "upgraded": upgraded,
         "moved_count": len(moved),
-        "damaged": damaged[:10],
-        "healed": healed[:10],
+        # Full lists — any display trimming happens at render time, with a
+        # label; the JSON delta is never silently truncated.
+        "damaged": damaged,
+        "healed": healed,
     }
 
     # Cities

@@ -299,6 +299,7 @@ def parse_cities(lines: list[str]) -> dict[str, Any]:
                 "production_options": [],
                 "trade_routes": [],
                 "resources": [],
+                "production_unavailable": [],
                 # None until a CITYSTATUS line arrives — a missing status
                 # read must stay distinct from any real value.
                 "status_labels": None,
@@ -375,6 +376,24 @@ def parse_cities(lines: list[str]) -> dict[str, Any]:
                     "culture": _f(p, 7),
                     "faith": _f(p, 8),
                 }
+        elif tag == "PRODX":
+            cid = _i(p, 1)
+            city = cities.get(cid)
+            if city:
+                city["production_unavailable"].append(
+                    {
+                        "category": _s(p, 2),   # UNIT | BLDG | WONDER | DIST
+                        "type": _s(p, 3),
+                        "name": _s(p, 4),
+                        "cost": _f(p, 5),
+                        # engine = localized FAILURE_REASONS from the same
+                        # query the production panel uses; reconstructed =
+                        # confirmed DB facts (each reason says which);
+                        # unknown = blocked but nothing exposed.
+                        "reason_source": _s(p, 6),
+                        "reasons": [r for r in _s(p, 7).split(";;") if r],
+                    }
+                )
         elif tag == "CITYRES":
             cid = _i(p, 1)
             city = cities.get(cid)
@@ -943,6 +962,429 @@ def build_rivals(
         if dead.get("was_major"):
             out.append(dict(dead))
     return out
+
+
+# ---------------------------------------------------------------------------
+# v1.7.0 Part A derivations — pure reorganization/arithmetic over data the
+# snapshot already contains.  NO new engine API surface.  Every output is
+# tagged with its trust tier; every static table below is base-game DB fact
+# (tagged static_db) and every rule-of-thumb is tagged reconstructed with
+# its rule named.  All helpers return None when their inputs are missing —
+# a missing derivation must never render as a real value.
+# ---------------------------------------------------------------------------
+
+# Base-game districts that count against the population district cap
+# (Districts.xml RequiresPopulation=true).  City Center, Wonder plots,
+# Aqueduct and Neighborhood/Mbanza do not count.  [static_db]
+SPECIALTY_DISTRICTS = {
+    "DISTRICT_CAMPUS", "DISTRICT_THEATER", "DISTRICT_HOLY_SITE",
+    "DISTRICT_ENCAMPMENT", "DISTRICT_COMMERCIAL_HUB", "DISTRICT_HARBOR",
+    "DISTRICT_INDUSTRIAL_ZONE", "DISTRICT_ENTERTAINMENT_COMPLEX",
+    # base-game unique replacements
+    "DISTRICT_ACROPOLIS", "DISTRICT_HANSA", "DISTRICT_ROYAL_NAVY_DOCKYARD",
+    "DISTRICT_STREET_CARNIVAL",
+}
+
+
+def district_capacity(city: dict[str, Any]) -> dict[str, Any] | None:
+    """Districts built vs the pop/3+1 cap — the one line that prevents
+    "build a Harbor" advice in a city with no free district slot.
+
+    Reconstructed (pop/3+1 rule + static RequiresPopulation set); returns
+    None when population or districts are unreadable."""
+    pop = city.get("population")
+    dists = city.get("districts")
+    if not isinstance(pop, int) or pop < 0 or not isinstance(dists, list):
+        return None
+    built = sum(1 for d in dists if d.get("type") in SPECIALTY_DISTRICTS)
+    cap = pop // 3 + 1
+    return {
+        "built": built,
+        "cap": cap,
+        "slots_open": max(0, cap - built),
+        # pop that unlocks the next slot beyond the current cap
+        "next_slot_at_pop": (cap) * 3,
+        "source": "reconstructed:pop/3+1",
+    }
+
+
+# --- Housing (base-game static DB values) ----------------------------------
+# Only entries confirmed against the base DB are listed; anything else
+# (wonders, policies, beliefs) lands in the labeled `unattributed` bucket
+# rather than being guessed.
+HOUSING_BUILDINGS = {          # BuildingType -> housing  [static_db]
+    "BUILDING_PALACE": 1,
+    "BUILDING_GRANARY": 2,
+    "BUILDING_SEWER": 2,
+    "BUILDING_LIGHTHOUSE": 1,
+    "BUILDING_BARRACKS": 1,
+    "BUILDING_STABLE": 1,
+    "BUILDING_UNIVERSITY": 1,
+    "BUILDING_MADRASA": 1,     # Arabia's university replacement
+}
+HOUSING_IMPROVEMENTS_HALF = {  # +0.5 housing each  [static_db]
+    "farm", "pasture", "plantation", "camp", "fishing_boats", "fishing boats",
+}
+# Neighborhood housing by tile appeal  [static_db]
+_NEIGHBORHOOD_HOUSING = ((4, 6), (2, 5), (-1, 4), (-3, 3))  # (min appeal, housing)
+
+
+def _hex_neighbors(x: int, y: int) -> list[tuple[int, int]]:
+    """Civ 6 offset-hex neighbors (odd rows shifted east)."""
+    if y % 2 == 0:
+        d = ((1, 0), (-1, 0), (0, 1), (-1, 1), (0, -1), (-1, -1))
+    else:
+        d = ((1, 0), (-1, 0), (0, 1), (1, 1), (0, -1), (1, -1))
+    return [(x + dx, y + dy) for dx, dy in d]
+
+
+def hex_distance(x1: int, y1: int, x2: int, y2: int) -> int:
+    """Hex distance on Civ 6's odd-r offset grid (no wraparound)."""
+    def _cube(x: int, y: int) -> tuple[int, int]:
+        q = x - (y - (y & 1)) // 2
+        return q, y
+    q1, r1 = _cube(x1, y1)
+    q2, r2 = _cube(x2, y2)
+    dq, dr = q2 - q1, r2 - r1
+    return (abs(dq) + abs(dr) + abs(dq + dr)) // 2
+
+
+def _tile_appeal(tile: dict[str, Any]) -> int | None:
+    extra = tile.get("extra") or ""
+    for part in extra.split("/"):
+        if part.startswith("A"):
+            try:
+                return int(part[1:])
+            except ValueError:
+                return None
+    return None
+
+
+def build_housing_breakdown(
+    city: dict[str, Any], tiles_by_xy: dict[tuple[int, int], dict[str, Any]] | None
+) -> dict[str, Any] | None:
+    """Per-source housing reconstruction from static DB values + the city's
+    observed buildings/districts/improvements/water situation.
+
+    The sum is cross-checked against the directly-read housing total; any
+    difference renders as an explicit `unattributed` bucket (wonder, policy
+    and belief housing has no per-source API in the base game).  Returns
+    None when the map tiles or the city rollup aren't readable — a wrong
+    breakdown is worse than none."""
+    total = city.get("housing")
+    if not isinstance(total, int) or total < 0 or not tiles_by_xy:
+        return None
+    ctile = tiles_by_xy.get((city.get("x"), city.get("y")))
+    if ctile is None:
+        return None
+    parts: list[dict[str, Any]] = []
+
+    # Base + water (fresh water 5 / coastal 3 / neither 2) [static_db]
+    fresh = "F" in (ctile.get("extra") or "").split("/")
+    coastal = any(
+        (tiles_by_xy.get(n) or {}).get("terrain") == "co"
+        and "L" not in ((tiles_by_xy.get(n) or {}).get("extra") or "").split("/")
+        for n in _hex_neighbors(city.get("x"), city.get("y"))
+    )
+    parts.append({"label": "base", "value": 2})
+    water_base = 2
+    if fresh:
+        parts.append({"label": "fresh water", "value": 3})
+        water_base = 5
+    elif coastal:
+        parts.append({"label": "coastal", "value": 1})
+        water_base = 3
+
+    # Buildings [static_db] — pillaged buildings grant nothing
+    for b in city.get("buildings") or []:
+        if b.get("pillaged"):
+            continue
+        v = HOUSING_BUILDINGS.get(b.get("type"))
+        if v:
+            parts.append({"label": b.get("name") or b.get("type"), "value": v})
+
+    # Districts: Aqueduct raises water housing to 6; Neighborhood/Mbanza by appeal
+    for d in city.get("districts") or []:
+        if d.get("pillaged"):
+            continue
+        dt = d.get("type")
+        if dt == "DISTRICT_AQUEDUCT":
+            v = max(0, 6 - water_base)
+            if v:
+                parts.append({"label": "Aqueduct (water housing to 6)", "value": v})
+        elif dt in ("DISTRICT_NEIGHBORHOOD", "DISTRICT_MBANZA"):
+            if dt == "DISTRICT_MBANZA":
+                parts.append({"label": "Mbanza", "value": 5})
+            else:
+                ap = _tile_appeal(tiles_by_xy.get((d.get("x"), d.get("y"))) or {})
+                if ap is None:
+                    continue  # appeal unreadable -> lands in unattributed
+                v = next((h for mn, h in _NEIGHBORHOOD_HOUSING if ap >= mn), 2)
+                parts.append({"label": f"Neighborhood (appeal {ap:+d})", "value": v})
+
+    # Improvements: +0.5 each for farm/pasture/plantation/camp/fishing boats
+    imp = (city.get("tiles_rollup") or {}).get("improvements") or {}
+    half = sum(n for k, n in imp.items() if k in HOUSING_IMPROVEMENTS_HALF)
+    if half:
+        parts.append({"label": f"improvements ({half} x 0.5)", "value": half * 0.5})
+
+    attributed = sum(p["value"] for p in parts)
+    floored = int(attributed)  # the game floors fractional housing
+    return {
+        "total_reported": total,
+        "parts": parts,
+        "attributed": round(attributed, 1),
+        "unattributed": total - floored,
+        "source": "reconstructed:static_db",
+    }
+
+
+# --- Amenities (base-game tier table) ---------------------------------------
+# Happiness tier by amenity surplus (amenities - needed)  [static_db]
+def _amenity_tier(surplus: int) -> str:
+    if surplus >= 3:
+        return "Ecstatic"
+    if surplus >= 1:
+        return "Happy"
+    if surplus == 0:
+        return "Content"
+    if surplus >= -2:
+        return "Displeased"
+    if surplus >= -4:
+        return "Unhappy"
+    if surplus >= -6:
+        return "Unrest"
+    return "Revolt"
+
+
+def amenity_status(city: dict[str, Any]) -> dict[str, Any] | None:
+    """Surplus arithmetic + next-tier distance over directly-read amenity
+    counts.  The live tier label (status_labels.happiness_label) stays the
+    authority when present; this adds the "how many more do I need" math."""
+    have, need = city.get("amenities"), city.get("amenities_needed")
+    if not isinstance(have, int) or not isinstance(need, int) or have < 0 or need < 0:
+        return None
+    surplus = have - need
+    tier = _amenity_tier(surplus)
+    to_next = None
+    if tier != "Ecstatic":
+        k = 1
+        while k <= 12 and _amenity_tier(surplus + k) == tier:
+            k += 1
+        to_next = {"tier": _amenity_tier(surplus + k), "amenities_needed": k}
+    return {
+        "surplus": surplus,
+        "tier": tier,
+        "next_tier": to_next,
+        "source": "reconstructed:static_db",
+    }
+
+
+def luxury_duplicates(resources: list[dict[str, Any]] | None) -> list[dict[str, Any]] | None:
+    """Luxuries with spare (tradable) copies — one copy supplies the empire,
+    the rest are trade bait.  Pure arithmetic over the directly-read
+    resource amounts; None when resources weren't readable."""
+    if resources is None:
+        return None
+    return [
+        {"name": r.get("name"), "type": r.get("type"), "copies": r.get("amount"),
+         "spare": r.get("amount") - 1, "source": "reconstructed"}
+        for r in resources
+        if r.get("class") == "LUXURY" and isinstance(r.get("amount"), int) and r.get("amount") > 1
+    ]
+
+
+# --- Settler advisor (reconstructed from the revealed map) ------------------
+# Static base-terrain yields for a quick ring-1 read  [static_db, approx —
+# resources/features add more; they're listed separately, not summed].
+_TERRAIN_YIELDS = {
+    "g": (2, 0), "gh": (2, 1), "gm": (0, 0),
+    "p": (1, 1), "ph": (1, 2), "pm": (0, 0),
+    "d": (0, 0), "dh": (0, 1), "dm": (0, 0),
+    "t": (1, 0), "th": (1, 1), "tm": (0, 0),
+    "s": (0, 0), "sh": (0, 1), "sm": (0, 0),
+    "co": (1, 0), "oc": (1, 0),
+}
+_FEATURE_YIELD_BONUS = {"for": (0, 1), "jun": (1, 0), "mar": (1, 0), "fld": (2, 0), "oas": (3, 0)}
+
+# Vanilla resource classes for map-resource strings  [static_db]
+_LUXURY_RES = {
+    "CITRUS", "COCOA", "COFFEE", "COTTON", "DIAMONDS", "DYES", "FURS",
+    "GYPSUM", "INCENSE", "IVORY", "JADE", "MARBLE", "MERCURY", "PEARLS",
+    "SALT", "SILK", "SILVER", "SPICES", "SUGAR", "TEA", "TOBACCO",
+    "TRUFFLES", "WHALES", "WINE",
+}
+_STRATEGIC_RES = {"HORSES", "IRON", "NITER", "COAL", "OIL", "ALUMINUM", "URANIUM"}
+
+_SETTLE_MIN_CITY_DIST = 3  # centers closer than this are illegal [static_db CITY_MIN_RANGE]
+
+
+def _direction(from_x: int, from_y: int, to_x: int, to_y: int) -> str:
+    dx, dy = to_x - from_x, to_y - from_y
+    ns = "north" if dy > 0 else "south" if dy < 0 else ""
+    ew = "east" if dx > 0 else "west" if dx < 0 else ""
+    return (ns + ew) or "here"
+
+
+def settler_advisor(
+    units: list[dict[str, Any]] | None,
+    tiles: list[dict[str, Any]] | None,
+    cities: list[dict[str, Any]] | None,
+    rival_cities: list[dict[str, Any]] | None,
+    city_states: list[dict[str, Any]] | None,
+    owned_luxury_types: set[str] | None = None,
+    top_n: int = 5,
+) -> dict[str, Any] | None:
+    """Rank settle spots from the revealed map when a Settler exists.
+
+    Entirely reconstructed: legality is the min-distance rule + terrain
+    over *revealed* tiles (an unrevealed rival city can invalidate a spot);
+    yields are base-terrain approximations.  The engine settle lens is NOT
+    queried — this never claims engine truth, and says so in its note.
+    Returns None when units or map weren't readable."""
+    if units is None or tiles is None:
+        return None
+    settlers = [u for u in units if u.get("type") == "UNIT_SETTLER"]
+    if not settlers:
+        return None
+
+    tiles_by_xy = {(t["x"], t["y"]): t for t in tiles}
+    known_centers: list[tuple[int, int, str]] = []
+    for c in cities or []:
+        known_centers.append((c.get("x"), c.get("y"), c.get("name", "?")))
+    for rc in rival_cities or []:
+        known_centers.append((rc.get("x"), rc.get("y"), rc.get("name", "?")))
+    for cs in city_states or []:
+        if cs.get("x", -1) >= 0:
+            known_centers.append((cs.get("x"), cs.get("y"), cs.get("civ_name", "?")))
+
+    owned_lux = owned_luxury_types or set()
+    s0 = settlers[0]
+    candidates: list[dict[str, Any]] = []
+    for (x, y), t in tiles_by_xy.items():
+        terr = t.get("terrain") or ""
+        feat = t.get("feature") or ""
+        if terr in ("co", "oc") or terr.endswith("m"):
+            continue
+        if feat.startswith("nw:") or feat == "oas":
+            continue
+        if t.get("is_city") or t.get("district"):
+            continue
+        owner = t.get("owner") or ""
+        if owner not in ("", "0"):
+            continue  # foreign territory
+        if any(hex_distance(x, y, cx, cy) < _SETTLE_MIN_CITY_DIST for cx, cy, _ in known_centers):
+            continue
+
+        fresh = "F" in (t.get("extra") or "").split("/")
+        ring1 = [tiles_by_xy.get(n) for n in _hex_neighbors(x, y)]
+        coastal = any(
+            r is not None and r.get("terrain") == "co"
+            and "L" not in (r.get("extra") or "").split("/")
+            for r in ring1
+        )
+        f_sum, p_sum = 0, 0
+        for r in ring1:
+            if r is None:
+                continue
+            fy, py = _TERRAIN_YIELDS.get(r.get("terrain") or "", (0, 0))
+            bf, bp = _FEATURE_YIELD_BONUS.get(r.get("feature") or "", (0, 0))
+            f_sum += fy + bf
+            p_sum += py + bp
+        res_r2: list[dict[str, Any]] = []
+        overlap = 0
+        for (nx, ny), nt in tiles_by_xy.items():
+            d = hex_distance(x, y, nx, ny)
+            if d > 2:
+                continue
+            if d > 0 and (nt.get("owner") or "") == "0":
+                overlap += 1
+            rn = nt.get("resource") or ""
+            if rn:
+                cls = (
+                    "luxury" if rn in _LUXURY_RES
+                    else "strategic" if rn in _STRATEGIC_RES
+                    else "bonus"
+                )
+                res_r2.append({
+                    "name": rn, "class": cls, "dist": d,
+                    "new_luxury": cls == "luxury" and rn not in owned_lux,
+                })
+        nearest = None
+        my_cities = [(cx, cy, nm) for cx, cy, nm in known_centers[: len(cities or [])]]
+        if my_cities:
+            cx, cy, nm = min(my_cities, key=lambda c: hex_distance(x, y, c[0], c[1]))
+            nearest = {"name": nm, "dist": hex_distance(x, y, cx, cy)}
+        score = (
+            (3 if fresh else 0) + (1 if coastal else 0)
+            + 0.5 * (f_sum + p_sum)
+            + sum(3 if r["new_luxury"] else 1 if r["class"] == "luxury" else 2 if r["class"] == "strategic" else 0.5 for r in res_r2)
+            - 0.15 * hex_distance(x, y, s0.get("x", x), s0.get("y", y))
+            - 0.1 * overlap
+        )
+        candidates.append({
+            "x": x, "y": y, "score": round(score, 1),
+            "fresh_water": fresh, "coastal": coastal,
+            "ring1_food": f_sum, "ring1_production": p_sum,
+            "resources_within_2": sorted(res_r2, key=lambda r: (r["dist"], r["name"])),
+            "nearest_own_city": nearest,
+            "dist_from_settler": hex_distance(x, y, s0.get("x", x), s0.get("y", y)),
+            "direction_from_settler": _direction(s0.get("x", x), s0.get("y", y), x, y),
+            "overlap_owned_tiles_r2": overlap,
+        })
+    candidates.sort(key=lambda c: -c["score"])
+    return {
+        "settlers": [{"id": s.get("id"), "x": s.get("x"), "y": s.get("y")} for s in settlers],
+        "candidates": candidates[:top_n],
+        "note": (
+            "reconstructed from the REVEALED map only — legality is the "
+            f"min-distance ({_SETTLE_MIN_CITY_DIST}) rule vs KNOWN cities; an unrevealed "
+            "city can invalidate a spot; ring-1 yields are base terrain+feature "
+            "approximations; directions use map coordinates (+y = north, +x = east)"
+        ),
+        "source": "reconstructed",
+    }
+
+
+def civ_accounting(
+    majors_met: list[dict[str, Any]] | None,
+    rivals: list[dict[str, Any]] | None,
+    world_religions: list[dict[str, Any]] | None,
+    meta: dict[str, Any] | None,
+) -> dict[str, Any] | None:
+    """Met / eliminated / possibly-unmet arithmetic (fog-safe).
+
+    The base snapshot does not export the game's starting major count
+    (map max is a capacity, not a participant count — labeled as such),
+    so "unmet" stays a possibility statement plus hard evidence: a world
+    religion founded by a player id we haven't met proves an unmet civ
+    exists.  Never names or locates unmet civs."""
+    if majors_met is None:
+        return None
+    met_ids = {m.get("player_id") for m in majors_met}
+    dead = [r for r in (rivals or []) if not r.get("alive", True)]
+    dead_ids = {r.get("player_id") for r in dead}
+    evidence: list[str] = []
+    for w in world_religions or []:
+        fid = w.get("founder", -1)
+        if fid >= 0 and fid not in met_ids and fid not in dead_ids and fid != 0:
+            evidence.append(
+                f"{w.get('name')} was founded by an unmet civilization (public info)"
+            )
+    return {
+        "met_alive": len(majors_met),
+        "met_alive_names": [m.get("civ_name") for m in majors_met],
+        "eliminated": len(dead),
+        "eliminated_names": [r.get("civ_name") for r in dead],
+        "map_max_majors": (meta or {}).get("max_players") or None,
+        "unmet_evidence": evidence,
+        "note": (
+            "starting major-civ count is not exported by the base snapshot; "
+            "map_max_majors is the MAP's capacity, not the actual player count "
+            "— unmet living civs may exist"
+        ),
+        "source": "reconstructed",
+    }
 
 
 def parse_notifications(lines: list[str]) -> dict[str, Any]:

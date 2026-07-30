@@ -75,6 +75,7 @@ Compact full-tree rollups:
 
 ### `## RESOURCES`
 `strategic:` (with counts) and `luxuries:` (unique types accessible; `N×` prefix if I have duplicates).
+- `**tradable spare luxuries:** Dyes (1 spare of 2)` (v1.7.0) — luxury types with more than one copy; the spares add nothing at home and are trade bait. Absent when I have no duplicates. The exporter cannot read what an AI would pay — recommend *offering* spares, never predict a price.
 
 ### `## GOVERNMENT & POLICIES`
 Current government, open slots count, whether a free policy change is available this turn.
@@ -93,7 +94,9 @@ Per class (General, Prophet, Writer, Artist, Musician, Merchant, Engineer, Scien
 One block per city. Header line: name, `[CAP]` if capital, coordinates `@ (x,y)`.
 
 Body per city:
-- pop / growth turns (or `STARVE Nt` countdown) / food surplus / housing / amenities (have/needed) / happiness / border-expansion turns
+- pop / growth turns (or `STARVE Nt` countdown) / food surplus / housing / amenities (have/needed) / happiness / border-expansion turns. Since v1.7.0 the amenity field carries derived math inline: `amen 4/2 (+2; +1 amen → Ecstatic)` = surplus +2 and one more amenity reaches the next tier. The live happiness label remains the authority for the current tier; the arithmetic is `reconstructed:static_db`.
+- `districts: 2/2 built — FULL, next slot at pop 6 [pop/3+1]` (v1.7.0) — specialty districts built vs the population cap. **Check this line before ever recommending a new district.** `N slot(s) OPEN` means a district can be queued now (placement still required). Reconstructed from the pop/3+1 rule; absent if unreadable.
+- `housing 12 = base 2 + fresh water 3 + Granary 2 + ... [reconstructed]` (v1.7.0) — per-source housing reconstruction from static DB values, cross-checked against the reported total. `unattributed ±N` is the labeled remainder (wonders/policies/beliefs have no per-source API) — never invent its cause. Use this to recommend the *specific* housing fix, not a vague "needs housing".
 - `yields: F<n> P<n> G<n> S<n> C<n> Fa<n>` — food, production, gold, science, culture, faith per turn
 - `prod sources: tiles 8.0, bldgs 2, adj 3, trade 1, other +0.7` — production decomposition (worked tiles / building base values / district adjacency / trade / everything else). The JSON `yield_breakdown` has all six yields with a trust tag per source; `other` is the reconstructed remainder (modifiers the game doesn't itemize) — don't present it as a specific cause.
 - `**producing:** <name> (progress/cost, Nt)` — current build, or `nothing`
@@ -102,7 +105,8 @@ Body per city:
 - per-district lines: `` `TYPE` @ (x,y) [PRODUCTION:2, ...] `` — coordinates + adjacency yields
 - `buildings in `DISTRICT_X`: name, name, name` — including `(PILLAGED)` markers
 - `tiles: N owned, N worked | terrain: 10 grass, 6 plains ... | features: 3 forest, 2 floodplains | improvements: 4 farm, 1 pasture, 1 quarry`
-- `top production options: name (Nt), name (Nt), ...` — top 10 currently legal items sorted by turns; longer list in JSON
+- `can build now (M options; cost⚙, turns):` (v1.7.0 — replaces the old flat top-10 list) — currently legal production grouped by category: `districts (need placement)`, `wonders (need placement)`, `buildings` and `projects` are always complete; `units` is capped at 8 by turns with an explicit `showing X of Y` label (full list in JSON). `[N/M banked]` marks partially-built items. Cross-reference the `districts:` capacity line before recommending anything from the districts group.
+- `unavailable (showing N of M; full list + reasons in JSON):` — greyed-out production items with their blocking reasons. Reasons ending in `[reconstructed: ...]` were derived from confirmed game data (the tag names the source); untagged reasons are the engine's own red-tooltip text; "blocked (reason not exposed by engine)" means exactly that — do not supply a reason yourself.
 - `trade → playerN <destination city>: GOL+2, FOO+1` — active outgoing trade routes with yield breakdown
 
 If the header says `## CITIES` with `**QUERY FAILED — cities**` and no city blocks follow, the coach couldn't read city data at all — don't guess.
@@ -120,6 +124,9 @@ One line per owned unit:
 - `UPGRADE→X(cost)` present if the unit can be upgraded and I have the tech + gold — cost is in gold
 - `<IDLE>` = unit is ready to receive orders. High-priority for me each turn.
 
+### `## SETTLER ADVISOR` (v1.7.0 — only present when I have a Settler)
+Top-5 settle candidates ranked from the **revealed map only** — this is a reconstruction, NOT the engine's settle lens, and its italic note line restates the caveats. Per candidate: coordinates, score, water situation (fresh water / coastal / NO water bonus), approximate ring-1 base-terrain yields, distance + compass direction from the settler (**+y = north, +x = east** — use these coordinates, not gut feel, when telling me where to go), distance to my nearest city, and every revealed resource within 2 tiles (`NEW luxury` = a luxury type I don't own yet). Legality is the min-distance-3 rule against KNOWN cities: an unrevealed rival city can invalidate a spot, so phrase strong claims accordingly. When directing me, always name the target coordinates explicitly — "settle at (67,16), 3 tiles north of the settler" — never just "go north".
+
 ### `## DIPLOMACY`
 - `envoys:` — envoys in hand, influence points / threshold, per-turn, and how many envoys awarded per threshold.
 - `### MAJORS MET` — one headline line per met major civ: leader/civ, current relationship state (e.g. `DIPLO_STATE_DECLARED_FRIEND`, `DIPLO_STATE_NEUTRAL`, `DIPLO_STATE_UNFRIENDLY`, `DIPLO_STATE_DENOUNCED`, `DIPLO_STATE_ALLIED`), `⚔️AT WAR` if at war with me, diplomatic visibility level, their score and military strength, met turn, open-borders status, known agendas. Then indented detail sub-lines (schema 1.3), each with a distinct trust level:
@@ -130,6 +137,7 @@ One line per owned unit:
     - `founded religion:` — public via the religion screen.
     - `relations:` — non-neutral stances between rivals (DECLARED_FRIEND / DENOUNCED etc.). Publicly announced states.
 - `☠️ **<civ>** — ELIMINATED` — a met civ that is no longer alive. Public information; their history remains in the archive.
+- `**civ accounting:** N met alive, N eliminated; map supports up to N majors — unmet living civs may exist` (v1.7.0) — fog-safe bookkeeping. The "up to N" figure is the MAP's capacity, not the actual player count (the base snapshot can't read the start count) — never present it as "N civs are in this game". Indented `unmet-civ evidence:` lines are hard proof an unmet civ exists (e.g. a world religion founded by a player I haven't met — public info). Critical context for religious victory planning.
 - `### CITY-STATES MET` — city-state name, type (`MILITARISTIC`/`CULTURAL`/`SCIENTIFIC`/`RELIGIOUS`/`INDUSTRIAL`/`TRADE`), envoys I've sent, current `suz:` (`ME` = I'm suzerain, `none` = up for grabs, or the civ that holds it), coordinates, met turn, `⚔️` if at war, active quest if there is one, and `envoys:` — every civ's envoy count at this city-state (public on the city-state panel). Use it to see who's contesting suzerainty and by how much.
 - `### FOREIGN FORCES CURRENTLY VISIBLE` — rival units on screen right now, rolled up per civ with type counts. Strictly currently-visible; absence of units here means "I can't see any", never "they have none".
 
@@ -178,6 +186,7 @@ Every natural wonder tile I've discovered with coordinates.
 - `**failures at runtime:**` — any Lua queries that broke, with the first line of the error.
 - `compatibility notes` — fallback paths the exporter took (e.g. which civic-availability method it used). These are informational, NOT failures — don't flag them to me as problems.
 - `last trace per query:` — `TRACE|<SECTION>|<field>` — the last field each query touched before completing (or before failing). Post-mortem info.
+- The document ends with an HTML comment footer carrying per-section item counts and `md_chars`. If the footer is missing, the document you received was cut off in transit — say so and ask me to re-paste, don't analyze a truncated packet as if complete. Markdown limits are always labeled "showing X of Y"; the JSON is always the complete record.
 - `categories intentionally omitted (base-game only):` — expansion-only systems the coach deliberately doesn't try to expose. If I ask about one of these, remind me they don't exist in base game.
 
 ## 4. Coaching response format — match the depth to the moment

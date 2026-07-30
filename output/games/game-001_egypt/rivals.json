@@ -134,6 +134,396 @@
           "wars_with": [],
           "government": "GOVERNMENT_AUTOCRACY",
           "suzerain_of": null
+        },
+        {
+          "turn": 109,
+          "alive": true,
+          "score": 140,
+          "military": 155,
+          "techs": 20,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 110,
+          "alive": true,
+          "score": 142,
+          "military": 162,
+          "techs": 21,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 111,
+          "alive": true,
+          "score": 143,
+          "military": 167,
+          "techs": 21,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 112,
+          "alive": true,
+          "score": 145,
+          "military": 167,
+          "techs": 22,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 114,
+          "alive": true,
+          "score": 145,
+          "military": 171,
+          "techs": 22,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 115,
+          "alive": true,
+          "score": 147,
+          "military": 171,
+          "techs": 23,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 116,
+          "alive": true,
+          "score": 148,
+          "military": 172,
+          "techs": 23,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 117,
+          "alive": true,
+          "score": 151,
+          "military": 172,
+          "techs": 23,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 118,
+          "alive": true,
+          "score": 151,
+          "military": 172,
+          "techs": 23,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 119,
+          "alive": true,
+          "score": 151,
+          "military": 172,
+          "techs": 23,
+          "civics": 12,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 120,
+          "alive": true,
+          "score": 157,
+          "military": 166,
+          "techs": 23,
+          "civics": 13,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 121,
+          "alive": true,
+          "score": 161,
+          "military": 159,
+          "techs": 24,
+          "civics": 14,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 122,
+          "alive": true,
+          "score": 162,
+          "military": 147,
+          "techs": 24,
+          "civics": 14,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 123,
+          "alive": true,
+          "score": 162,
+          "military": 147,
+          "techs": 24,
+          "civics": 14,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 124,
+          "alive": true,
+          "score": 162,
+          "military": 153,
+          "techs": 24,
+          "civics": 14,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 125,
+          "alive": true,
+          "score": 165,
+          "military": 159,
+          "techs": 24,
+          "civics": 14,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 128,
+          "alive": true,
+          "score": 166,
+          "military": 172,
+          "techs": 24,
+          "civics": 14,
+          "tourism": 4,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 129,
+          "alive": true,
+          "score": 171,
+          "military": 172,
+          "techs": 24,
+          "civics": 14,
+          "tourism": 7,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 130,
+          "alive": true,
+          "score": 171,
+          "military": 172,
+          "techs": 24,
+          "civics": 14,
+          "tourism": 7,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 131,
+          "alive": true,
+          "score": 171,
+          "military": 160,
+          "techs": 24,
+          "civics": 14,
+          "tourism": 7,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 132,
+          "alive": true,
+          "score": 173,
+          "military": 160,
+          "techs": 25,
+          "civics": 14,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 133,
+          "alive": true,
+          "score": 175,
+          "military": 166,
+          "techs": 25,
+          "civics": 15,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 134,
+          "alive": true,
+          "score": 175,
+          "military": 137,
+          "techs": 25,
+          "civics": 15,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 135,
+          "alive": true,
+          "score": 176,
+          "military": 137,
+          "techs": 25,
+          "civics": 15,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_AUTOCRACY",
+          "suzerain_of": null
+        },
+        {
+          "turn": 136,
+          "alive": true,
+          "score": 180,
+          "military": 129,
+          "techs": 26,
+          "civics": 16,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
+          "suzerain_of": null
+        },
+        {
+          "turn": 137,
+          "alive": true,
+          "score": 180,
+          "military": 130,
+          "techs": 26,
+          "civics": 16,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
+          "suzerain_of": null
+        },
+        {
+          "turn": 138,
+          "alive": true,
+          "score": 180,
+          "military": 130,
+          "techs": 26,
+          "civics": 16,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
+          "suzerain_of": null
+        },
+        {
+          "turn": 139,
+          "alive": true,
+          "score": 182,
+          "military": 131,
+          "techs": 27,
+          "civics": 16,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
+          "suzerain_of": null
+        },
+        {
+          "turn": 140,
+          "alive": true,
+          "score": 182,
+          "military": 135,
+          "techs": 27,
+          "civics": 16,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
+          "suzerain_of": null
+        },
+        {
+          "turn": 141,
+          "alive": true,
+          "score": 182,
+          "military": 136,
+          "techs": 27,
+          "civics": 16,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
+          "suzerain_of": null
         }
       ]
     },
@@ -271,6 +661,396 @@
           "wars_with": null,
           "government": null,
           "suzerain_of": null
+        },
+        {
+          "turn": 109,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 110,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 111,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 112,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 114,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 115,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 116,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 117,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 118,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 119,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 120,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 121,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 122,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 123,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 124,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 125,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 128,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 129,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 130,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 131,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 132,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 133,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 134,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 135,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 136,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 137,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 138,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 139,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 140,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 141,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
         }
       ]
     }
@@ -366,6 +1146,276 @@
           "suzerain": "none",
           "envoys_by_civ": {
             "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 109,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 110,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 111,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 112,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 114,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 115,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 116,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 117,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 118,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 119,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 120,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 121,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 122,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 123,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 124,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 125,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 128,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 129,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 130,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 131,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 132,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 133,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 134,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 135,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 136,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 137,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 138,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 139,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 140,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 141,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
             "3": 2
           },
           "at_war_with_me": false
@@ -465,6 +1515,276 @@
             "3": 3
           },
           "at_war_with_me": false
+        },
+        {
+          "turn": 109,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 110,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 111,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 112,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 114,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 115,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 116,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 117,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 118,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 119,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 120,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 121,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 122,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 123,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 124,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 125,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 128,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 129,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 130,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 131,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 132,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 133,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 134,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 135,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 136,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 137,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 138,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 139,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 140,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 141,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
         }
       ]
     },
@@ -561,6 +1881,276 @@
             "3": 1
           },
           "at_war_with_me": false
+        },
+        {
+          "turn": 109,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 110,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 111,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 112,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 114,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 115,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 116,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 117,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 118,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 119,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 120,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 121,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 122,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 123,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 124,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 125,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 128,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 129,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 130,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 131,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 132,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 133,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 134,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 135,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 136,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 137,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 138,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 139,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 140,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 141,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 3
+          },
+          "at_war_with_me": false
         }
       ]
     },
@@ -651,6 +2241,276 @@
         },
         {
           "turn": 108,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 109,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 110,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 111,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 112,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 114,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 115,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 116,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 117,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 118,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 119,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 120,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 121,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 122,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 123,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 124,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 125,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 128,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 129,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 130,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 131,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 132,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 133,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 134,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 135,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 136,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 137,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 138,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 139,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 140,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 141,
           "suzerain": "ME",
           "envoys_by_civ": {
             "0": 3,

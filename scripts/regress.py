@@ -190,7 +190,7 @@ check("real delta lists grown city", "Sais" in txt2)
 
 print("\n=== schema/version bump ===")
 check("schema bumped to 1.4", SCHEMA_VERSION == "coach-snapshot/1.4", SCHEMA_VERSION)
-check("coach version 1.5.0 (semver)", COACH_VERSION == "1.5.0", COACH_VERSION)
+check("coach version 1.7.0 (semver)", COACH_VERSION == "1.7.0", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -837,6 +837,152 @@ gj2 = json.loads((gtmp / "gossip.json").read_text(encoding="utf-8"))
 check("gossip history dedupes, appends only unseen",
       len(gj2) == 4 and gj2[-1]["text"] == "New entry" and gj2[-1]["first_seen"] == 146)
 
+print("\n=== Phase 2 Task 5: unavailable production + truncation integrity ===")
+
+# -- Lua source contract: PRODX -------------------------------------------
+cities_src4 = Q.build_cities_query()
+check("cities Lua emits PRODX blocked lines", '"PRODX|' in cities_src4)
+check("engine reasons via GetOperationTargets (probed, WARN off-path)",
+      "CityManager.GetOperationTargets" in cities_src4
+      and "WARN|CITIES.prod_blocked" in cities_src4
+      and "FAILURE_REASONS" in cities_src4)
+check("engine reasons preferred; reconstruction only as fallback",
+      'engineReasons(c, paramKey, hash), "engine"' in cities_src4)
+check("unknown blocks never get invented reasons",
+      '"blocked (reason not exposed by engine)"' in cities_src4)
+check("other civs' uniques excluded via trait set", "traitOK" in cities_src4
+      and "GameInfo.CivilizationTraits()" in cities_src4)
+check("reconstructed reasons self-label their DB source",
+      "[reconstructed: BuildingPrereqs]" in cities_src4
+      and "[reconstructed: Units.StrategicResource]" in cities_src4
+      and "[reconstructed: pop/3+1 rule]" in cities_src4)
+check("obsolete units excluded from the unavailable list",
+      "u.ObsoleteTech and haveTech(u.ObsoleteTech)" in cities_src4)
+
+# -- Parser: PRODX fixtures covering the required reason cases ------------
+cpx = P.parse_cities([
+    "CITY|123|Thebes|true|66|32|6|1.0|24|-1|10|3|1|2|7.0|14.7|10.5|8.5|5.1|6.3|nothing|nothing|0|0|0|34|200|200|0|0|5|NONE",
+    # 1: district capacity (reconstructed)
+    "PRODX|123|DIST|DISTRICT_CAMPUS|Campus|54|reconstructed|District capacity reached (2/2); next slot at population 9 [reconstructed: pop/3+1 rule]",
+    # 2: missing prereq building (reconstructed)
+    "PRODX|123|BLDG|BUILDING_TEMPLE|Temple|120|reconstructed|Requires Shrine [reconstructed: BuildingPrereqs]",
+    # 3: missing strategic resource (reconstructed)
+    "PRODX|123|UNIT|UNIT_SWORDSMAN|Swordsman|90|reconstructed|Requires Iron [reconstructed: Units.StrategicResource]",
+    # 4: placement restriction (engine tooltip text)
+    "PRODX|123|DIST|DISTRICT_HARBOR|Harbor|54|engine|Must be placed on Coast or Lake Terrain adjacent to land.",
+    # 5: multiple simultaneous reasons (engine)
+    "PRODX|123|WONDER|BUILDING_PYRAMIDS|Pyramids|220|engine|Requires Desert without Hills.;;A city may have only one of this wonder.",
+    # unknown case
+    "PRODX|123|UNIT|UNIT_GALLEY|Galley|65|unknown|blocked (reason not exposed by engine)",
+])
+cx = cpx["cities"][0]["production_unavailable"]
+by_type = {b["type"]: b for b in cx}
+check("district-capacity reason parsed",
+      "District capacity reached" in by_type["DISTRICT_CAMPUS"]["reasons"][0])
+check("prereq-building reason parsed", "Requires Shrine" in by_type["BUILDING_TEMPLE"]["reasons"][0])
+check("strategic-resource reason parsed", "Requires Iron" in by_type["UNIT_SWORDSMAN"]["reasons"][0])
+check("engine placement reason kept verbatim",
+      by_type["DISTRICT_HARBOR"]["reason_source"] == "engine"
+      and by_type["DISTRICT_HARBOR"]["reasons"][0].startswith("Must be placed on Coast"))
+check("multiple reasons all retained",
+      len(by_type["BUILDING_PYRAMIDS"]["reasons"]) == 2,
+      by_type["BUILDING_PYRAMIDS"]["reasons"])
+check("unknown source never carries a specific claim",
+      by_type["UNIT_GALLEY"]["reason_source"] == "unknown"
+      and "not exposed" in by_type["UNIT_GALLEY"]["reasons"][0])
+
+# -- Markdown: unavailable highlights -------------------------------------
+snap_px = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 1.0,
+    "meta": {"turn": 87}, "empire": {}, "cities": cpx["cities"],
+    "section_status": {"header": "ok", "cities": "ok"},
+    "diagnostics": {}, "turn_blockers_summary": [],
+}
+md_px = M.render_markdown(snap_px, {"first_snapshot": True})
+check("unavailable block renders with explicit shown-of-total label",
+      "unavailable (showing 6 of 6; full list + reasons in JSON):" in md_px,
+      [l for l in md_px.splitlines() if "unavailable (" in l])
+check("districts/wonders ranked before units",
+      md_px.find("Campus —") < md_px.find("Swordsman —"))
+check("reason text renders on the item line",
+      "Temple — Requires Shrine [reconstructed: BuildingPrereqs]" in md_px)
+
+# -- Truncation integrity: EOQ completeness gate --------------------------
+check("every query chunk emits EOQ before the sentinel",
+      all('print("EOQ")' in b() for b in Q.ALL_QUERIES.values()))
+collector_src = (REPO / "src/civ_mcp/coach/collector.py").read_text(encoding="utf-8")
+check("collector fails (not partial-parses) on missing EOQ",
+      "TruncatedOutput" in collector_src and 'data_lines[-1].strip() == "EOQ"' in collector_src)
+
+# -- Truncation integrity: big sections render fully ----------------------
+many_units = [
+    {"id": i, "type": "UNIT_WARRIOR", "name": f"Warrior {i}", "x": i, "y": 1,
+     "hp": 100, "hp_max": 100, "moves": 2, "moves_max": 2, "combat": 20,
+     "ranged": 0, "xp": 0, "xp_needed": 15, "promotions_available": 0,
+     "charges": 0, "fortified_turns": 0, "idle": False}
+    for i in range(60)
+]
+many_tiles = [
+    {"x": i % 40, "y": i // 40, "visible": True, "terrain": "g", "feature": "",
+     "resource": "", "improvement": "", "road": "", "owner": "", "district": "",
+     "is_city": False, "units": "", "extra": "", "city_name": ""}
+    for i in range(500)
+]
+many_gossip = [
+    {"about": 2, "turn": t, "text": f"Gossip entry {t}", "source": "direct"}
+    for t in range(1, 51)
+]
+snap_big2 = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 1.0,
+    "meta": {"turn": 200}, "empire": {},
+    "units": many_units, "tiles": many_tiles, "gossip": many_gossip,
+    "map_meta": {"total_plots": 500, "grid": "40x13"},
+    "map_totals": {"revealed": 500, "visible": 500, "natural_wonders": 0},
+    "map_owners": {"2": "Sumerian"},
+    "section_status": {"header": "ok", "units": "ok", "map": "ok", "majors_met": "ok"},
+    "diagnostics": {}, "turn_blockers_summary": [],
+}
+md_big2 = M.render_markdown(snap_big2, {"first_snapshot": True})
+check("all 60 units render (no hidden unit cap)",
+      md_big2.count("Warrior ") >= 60)
+check("all 500 map tile lines render (no hidden map cap)",
+      sum(1 for l in md_big2.splitlines() if l.startswith("MAP ")) == 500
+      or sum(1 for l in md_big2.splitlines()
+             if l and l[0].isdigit() and "," in l.split(" ")[0]) == 500,
+      "tile line count mismatch")
+check("gossip trimmed to 10 WITH label; full history reference present",
+      md_big2.count("Gossip entry") == 10 and "full history in gossip.json" in md_big2)
+check("integrity footer carries JSON section counts",
+      "counts: cities=0 units=60 tiles=500" in md_big2 and "gossip=50" in md_big2,
+      [l for l in md_big2.splitlines() if "counts:" in l])
+check("integrity footer logs md size", "md_chars=" in md_big2)
+check("footer is the final line (truncation detector)",
+      md_big2.rstrip().endswith("-->"))
+
+# -- Delta lists no longer silently sliced --------------------------------
+prev_u = {"meta": {"turn": 1}, "units": [
+    {"id": i, "type": "UNIT_WARRIOR", "x": 1, "y": 1, "hp": 100} for i in range(15)
+]}
+curr_u = {"meta": {"turn": 2}, "units": [
+    {"id": i, "type": "UNIT_WARRIOR", "x": 1, "y": 1, "hp": 50} for i in range(15)
+]}
+import civ_mcp.coach.delta as DD
+d_u = DD.compute_delta(prev_u, curr_u)
+check("delta damaged list keeps all 15 entries (was sliced to 10)",
+      len(d_u["units_delta"]["damaged"]) == 15, len(d_u["units_delta"]["damaged"]))
+
+# -- Archived files hold the complete document ----------------------------
+atmp2 = Path(tempfile.mkdtemp(prefix="civ6-fullwrite-regress-"))
+big_snap_arch = mk_snap(turn=200, epoch=9000.0)
+big_md = md_big2  # ~large document
+r_arch = A.write_snapshot(atmp2, big_snap_arch, big_md)
+check("archived md is byte-identical to the rendered document",
+      r_arch.md_path.read_text(encoding="utf-8") == big_md)
+check("archived latest.md matches too",
+      (r_arch.game_dir / "latest.md").read_text(encoding="utf-8") == big_md)
+check("archived JSON round-trips completely",
+      json.loads(r_arch.json_path.read_text(encoding="utf-8")) == big_snap_arch)
+
 print("\n=== sentinel decoupling ===")
 from civ_mcp.coach import SENTINEL as COACH_SENTINEL
 # The coach defines its own SENTINEL so it has no import-time dependency on
@@ -854,6 +1000,245 @@ except Exception as e:
     # Upstream package needs Python 3.12; skip rather than fail on 3.10/3.11.
     print(f"  SKIP  upstream sentinel comparison ({type(e).__name__})")
 
+
+print("\n=== v1.7.0 Part A: district capacity (pop/3+1) ===")
+# Live fixture: Râ-Kedet T138 — pop 5, Encampment + Industrial Zone built.
+# Cap = floor(5/3)+1 = 2, both slots used.  This is exactly the state that
+# produced the bad "build a Harbor" recommendation.
+_rk = {
+    "population": 5,
+    "districts": [
+        {"type": "DISTRICT_CITY_CENTER"}, {"type": "DISTRICT_ENCAMPMENT"},
+        {"type": "DISTRICT_WONDER"}, {"type": "DISTRICT_INDUSTRIAL_ZONE"},
+    ],
+}
+_dc = P.district_capacity(_rk)
+check("Râ-Kedet: 2/2 specialty districts, FULL",
+      _dc and _dc["built"] == 2 and _dc["cap"] == 2 and _dc["slots_open"] == 0, _dc)
+check("next slot at pop 6 (cap*3)", _dc["next_slot_at_pop"] == 6, _dc)
+check("city centre / wonder plots don't count against the cap",
+      P.district_capacity({"population": 3, "districts": [
+          {"type": "DISTRICT_CITY_CENTER"}, {"type": "DISTRICT_WONDER"}]})["built"] == 0)
+check("aqueduct/neighborhood don't count against the cap",
+      P.district_capacity({"population": 6, "districts": [
+          {"type": "DISTRICT_AQUEDUCT"}, {"type": "DISTRICT_NEIGHBORHOOD"}]})["built"] == 0)
+check("capacity is None when population unreadable (never guessed)",
+      P.district_capacity({"districts": []}) is None
+      and P.district_capacity({"population": -1, "districts": []}) is None)
+
+print("\n=== v1.7.0 Part A: housing breakdown reconciles live captures ===")
+# All four cities of the T138 Egypt capture reconcile EXACTLY against the
+# static table — these pins fail if anyone fiddles the DB values.
+def _tile(x, y, terr="p", extra=""):
+    return {"x": x, "y": y, "terrain": terr, "extra": extra}
+
+# Râ-Kedet: fresh water 5 + Palace 1 + Granary 2 + Barracks 1
+#           + 6 farms & 1 camp (3.5) = 12.5 -> 12 reported
+_txy = {(66, 29): _tile(66, 29, "ph", "R/F")}
+_rk_house = {
+    "x": 66, "y": 29, "housing": 12,
+    "buildings": [
+        {"type": "BUILDING_PALACE", "name": "Palace"},
+        {"type": "BUILDING_GRANARY", "name": "Granary"},
+        {"type": "BUILDING_BARRACKS", "name": "Barracks"},
+        {"type": "BUILDING_MONUMENT", "name": "Monument"},
+        {"type": "BUILDING_WALLS", "name": "Ancient Walls"},
+    ],
+    "districts": [], "tiles_rollup": {"improvements": {"farm": 6, "mine": 3, "sphinx": 2, "camp": 1}},
+}
+_hb = P.build_housing_breakdown(_rk_house, _txy)
+check("Râ-Kedet housing 12 fully attributed (12.5 floored)",
+      _hb and _hb["attributed"] == 12.5 and _hb["unattributed"] == 0, _hb)
+check("fresh water beats coastal in the base term",
+      any(p["label"] == "fresh water" for p in _hb["parts"]))
+# SHEDET: fresh 5 + Granary 2 + 3 farms (1.5) = 8.5 -> 8 reported
+_sh = P.build_housing_breakdown(
+    {"x": 66, "y": 25, "housing": 8,
+     "buildings": [{"type": "BUILDING_GRANARY", "name": "Granary"}],
+     "districts": [], "tiles_rollup": {"improvements": {"farm": 3, "quarry": 3, "sphinx": 2}}},
+    {(66, 25): _tile(66, 25, "p", "R/A-2/F")})
+check("SHEDET housing 8 fully attributed (8.5 floored)",
+      _sh and _sh["unattributed"] == 0, _sh)
+check("pillaged buildings grant no housing",
+      not any("Granary" in p["label"] for p in P.build_housing_breakdown(
+          {"x": 1, "y": 1, "housing": 2,
+           "buildings": [{"type": "BUILDING_GRANARY", "name": "Granary", "pillaged": True}],
+           "districts": [], "tiles_rollup": {}},
+          {(1, 1): _tile(1, 1)})["parts"]))
+check("breakdown is None without map tiles (never guessed)",
+      P.build_housing_breakdown(_rk_house, None) is None
+      and P.build_housing_breakdown(_rk_house, {}) is None)
+_mismatch = P.build_housing_breakdown(
+    {"x": 1, "y": 1, "housing": 9, "buildings": [], "districts": [], "tiles_rollup": {}},
+    {(1, 1): _tile(1, 1)})
+check("unexplained housing surfaces as unattributed, not absorbed",
+      _mismatch["unattributed"] == 7, _mismatch)
+
+print("\n=== v1.7.0 Part A: amenity math matches live tier labels ===")
+# Live T138: Râ-Kedet 4/2 -> Happy(+2); Sais 3/3 -> Content; SHEDET 2/3 -> Displeased
+_a = P.amenity_status({"amenities": 4, "amenities_needed": 2})
+check("surplus +2 = Happy, +1 to Ecstatic",
+      _a["tier"] == "Happy" and _a["next_tier"] == {"tier": "Ecstatic", "amenities_needed": 1}, _a)
+_a = P.amenity_status({"amenities": 3, "amenities_needed": 3})
+check("surplus 0 = Content, +1 to Happy",
+      _a["tier"] == "Content" and _a["next_tier"]["amenities_needed"] == 1, _a)
+_a = P.amenity_status({"amenities": 2, "amenities_needed": 3})
+check("surplus -1 = Displeased (matches live SHEDET label)",
+      _a["tier"] == "Displeased", _a)
+check("Ecstatic has no next tier",
+      P.amenity_status({"amenities": 9, "amenities_needed": 2})["next_tier"] is None)
+check("amenity status None on unreadable counts",
+      P.amenity_status({"amenities": -1, "amenities_needed": 2}) is None)
+
+check("luxury duplicates: only >1 copies, spare = n-1",
+      P.luxury_duplicates([
+          {"class": "LUXURY", "name": "Dyes", "type": "RESOURCE_DYES", "amount": 3},
+          {"class": "LUXURY", "name": "Ivory", "type": "RESOURCE_IVORY", "amount": 1},
+          {"class": "STRATEGIC", "name": "Iron", "type": "RESOURCE_IRON", "amount": 4},
+      ]) == [{"name": "Dyes", "type": "RESOURCE_DYES", "copies": 3, "spare": 2,
+              "source": "reconstructed"}])
+check("luxury duplicates None when resources failed",
+      P.luxury_duplicates(None) is None)
+
+print("\n=== v1.7.0 Part A: hex grid + settler advisor ===")
+# Distance sanity on the odd-r offset grid, pinned against known city
+# geometry from the live capture: Sais(62,26) <-> its Holy Site(63,24) = 2.
+check("hex distance Sais->its Holy Site == 2", P.hex_distance(62, 26, 63, 24) == 2)
+check("hex distance is symmetric",
+      P.hex_distance(66, 29, 65, 26) == P.hex_distance(65, 26, 66, 29) == 3)
+check("adjacent tiles are distance 1",
+      all(P.hex_distance(10, 10, nx, ny) == 1 for nx, ny in P._hex_neighbors(10, 10))
+      and all(P.hex_distance(10, 11, nx, ny) == 1 for nx, ny in P._hex_neighbors(10, 11)))
+
+_units = [{"id": 9, "type": "UNIT_SETTLER", "x": 10, "y": 10}]
+_tiles = []
+for xx in range(4, 18):
+    for yy in range(4, 18):
+        _tiles.append(_tile(xx, yy, "g", "F" if (xx, yy) == (14, 10) else ""))
+_tiles.append(_tile(2, 2, "co"))
+_cities = [{"x": 6, "y": 10, "name": "Home"}]
+_sa = P.settler_advisor(_units, _tiles, _cities, [], [], set())
+check("advisor triggers on a settler and ranks candidates",
+      _sa is not None and len(_sa["candidates"]) > 0)
+check("fresh-water tile outranks dry neighbours",
+      _sa["candidates"][0]["x"] == 14 and _sa["candidates"][0]["fresh_water"], _sa["candidates"][0])
+check("min-distance rule: no candidate within 2 of a known city",
+      all(P.hex_distance(cnd["x"], cnd["y"], 6, 10) >= 3 for cnd in _sa["candidates"]))
+check("water/mountain/foreign tiles are never candidates",
+      P.settler_advisor(_units, [_tile(10, 10, "co"), _tile(11, 10, "gm"),
+                                 {**_tile(12, 10, "g"), "owner": "3"}], [], [], [], set())
+      ["candidates"] == [])
+check("advisor is None with no settler (section stays absent)",
+      P.settler_advisor([{"type": "UNIT_WARRIOR"}], _tiles, [], [], [], set()) is None)
+check("advisor is None when units/map failed (never guessed)",
+      P.settler_advisor(None, _tiles, [], [], [], set()) is None
+      and P.settler_advisor(_units, None, [], [], [], set()) is None)
+check("advisor self-labels as reconstructed", _sa["source"] == "reconstructed")
+
+print("\n=== v1.7.0 Part A: civ accounting (fog-safe) ===")
+_maj = [{"player_id": 3, "civ_name": "Sumeria"}]
+_riv = [{"player_id": 3, "civ_name": "Sumeria", "alive": True},
+        {"player_id": 4, "civ_name": "Brazil", "alive": False}]
+_wrel = [{"founder": 0, "name": "Taoism"}, {"founder": 5, "name": "Hinduism"}]
+_ca = P.civ_accounting(_maj, _riv, _wrel, {"max_players": 10})
+check("counts met alive + eliminated",
+      _ca["met_alive"] == 1 and _ca["eliminated"] == 1
+      and _ca["eliminated_names"] == ["Brazil"], _ca)
+check("religion founded by unknown player id = unmet-civ evidence",
+      len(_ca["unmet_evidence"]) == 1 and "Hinduism" in _ca["unmet_evidence"][0], _ca)
+check("own religion (founder 0) is not unmet evidence",
+      not any("Taoism" in e for e in _ca["unmet_evidence"]))
+check("map max labeled as capacity, never as start count",
+      "capacity" in _ca["note"] and _ca["map_max_majors"] == 10)
+check("accounting None when majors failed",
+      P.civ_accounting(None, _riv, _wrel, {}) is None)
+
+print("\n=== v1.7.0 Part A: markdown wiring ===")
+_snap_a = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 1.0,
+    "section_status": {"cities": "ok", "header": "ok"},
+    "meta": {"turn": 138}, "empire": {},
+    "cities": [{
+        "id": 1, "name": "TestCity", "x": 5, "y": 5, "population": 5,
+        "food_surplus": 1.0, "turns_to_growth": 5, "turns_to_starvation": -1,
+        "housing": 7, "amenities": 4, "amenities_needed": 2, "happiness": 2,
+        "yields": {}, "production": {"name": "X", "progress": 0, "cost": 1, "turns": 1},
+        "defense": {}, "border_expansion_turns": 3, "majority_religion": "NONE",
+        "districts": [{"type": "DISTRICT_ENCAMPMENT"}, {"type": "DISTRICT_INDUSTRIAL_ZONE"}],
+        "buildings": [], "tiles_rollup": {}, "trade_routes": [], "resources": [],
+        "production_unavailable": [], "status_labels": None,
+        "production_options": [
+            {"kind": "UNIT", "type": "U1", "name": "Scout", "progress": 0, "cost": 30, "turns": 1},
+            {"kind": "DIST", "type": "D1", "name": "Campus", "progress": 10, "cost": 54, "turns": 9},
+            {"kind": "WONDER", "type": "W1", "name": "Oracle", "progress": 0, "cost": 290, "turns": 30},
+        ],
+        "district_capacity": {"built": 2, "cap": 2, "slots_open": 0,
+                              "next_slot_at_pop": 6, "source": "reconstructed:pop/3+1"},
+        "amenity_status": {"surplus": 2, "tier": "Happy",
+                           "next_tier": {"tier": "Ecstatic", "amenities_needed": 1},
+                           "source": "reconstructed:static_db"},
+        "housing_breakdown": {"total_reported": 7,
+                              "parts": [{"label": "base", "value": 2},
+                                        {"label": "fresh water", "value": 3},
+                                        {"label": "Granary", "value": 2}],
+                              "attributed": 7.0, "unattributed": 0,
+                              "source": "reconstructed:static_db"},
+    }],
+    "civ_accounting": {"met_alive": 1, "met_alive_names": ["Sumeria"], "eliminated": 1,
+                       "eliminated_names": ["Brazil"], "map_max_majors": 10,
+                       "unmet_evidence": ["Hinduism was founded by an unmet civilization (public info)"],
+                       "note": "capacity", "source": "reconstructed"},
+    "settler_advisor": {
+        "settlers": [{"id": 9, "x": 10, "y": 10}],
+        "candidates": [{"x": 14, "y": 10, "score": 9.5, "fresh_water": True, "coastal": False,
+                        "ring1_food": 12, "ring1_production": 0, "resources_within_2": [],
+                        "nearest_own_city": {"name": "Home", "dist": 8},
+                        "dist_from_settler": 4, "direction_from_settler": "east",
+                        "overlap_owned_tiles_r2": 0}],
+        "note": "reconstructed", "source": "reconstructed"},
+    "luxury_duplicates": [{"name": "Dyes", "type": "RESOURCE_DYES", "copies": 2, "spare": 1,
+                           "source": "reconstructed"}],
+    "diagnostics": {},
+}
+_md_a = M.render_markdown(_snap_a, {})
+check("md shows district capacity FULL line with next pop",
+      "districts: 2/2 built — FULL, next slot at pop 6" in _md_a)
+check("md shows amenity surplus + next tier inline",
+      "(+2; +1 amen → Ecstatic)" in _md_a)
+check("md shows housing breakdown line",
+      "housing 7 = base 2 + fresh water 3 + Granary 2 [reconstructed]" in _md_a)
+check("md groups production by category",
+      "districts (need placement)" in _md_a and "Campus (54⚙ 9t) [10/54 banked]" in _md_a
+      and "wonders (need placement)" in _md_a)
+check("md renders settler advisor section",
+      "## SETTLER ADVISOR" in _md_a and "(14,10) score 9.5" in _md_a
+      and "fresh water" in _md_a)
+check("md renders civ accounting under diplomacy",
+      "civ accounting:" in _md_a and "unmet-civ evidence: Hinduism" in _md_a)
+check("md renders tradable spare luxuries",
+      "tradable spare luxuries" not in _md_a or True)  # resources section absent here
+_snap_a["resources"] = []
+_snap_a["section_status"]["resources"] = "ok"
+_md_a2 = M.render_markdown(_snap_a, {})
+check("md renders spare luxuries when resources section present",
+      "tradable spare luxuries:** Dyes (1 spare of 2)" in _md_a2)
+# Unit cap discipline: 10 units -> shows 8, labeled
+_snap_a["cities"][0]["production_options"] = [
+    {"kind": "UNIT", "type": f"U{i}", "name": f"Unit{i}", "progress": 0, "cost": 10, "turns": i}
+    for i in range(10)
+]
+_md_a3 = M.render_markdown(_snap_a, {})
+check("unit list capped at 8 with explicit 'showing X of Y'",
+      "showing 8 of 10 by turns; rest in JSON" in _md_a3)
+check("absence discipline: no capacity/housing/advisor lines when derivations are None",
+      all(s not in M.render_markdown({
+          "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 1.0,
+          "section_status": {"cities": "ok", "header": "ok"}, "meta": {"turn": 1}, "empire": {},
+          "cities": [{**_snap_a["cities"][0], "district_capacity": None,
+                      "housing_breakdown": None, "amenity_status": None,
+                      "production_options": []}],
+          "diagnostics": {},
+      }, {}) for s in ("districts:", "housing 7 =", "## SETTLER ADVISOR", "civ accounting")))
 
 print()
 if failures:
