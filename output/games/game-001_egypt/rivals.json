@@ -524,6 +524,58 @@
           "wars_with": [],
           "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
           "suzerain_of": null
+        },
+        {
+          "turn": 142,
+          "alive": true,
+          "score": 182,
+          "military": 146,
+          "techs": 27,
+          "civics": 16,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
+          "suzerain_of": null
+        },
+        {
+          "turn": 143,
+          "alive": true,
+          "score": 182,
+          "military": 147,
+          "techs": 27,
+          "civics": 16,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
+          "suzerain_of": null
+        },
+        {
+          "turn": 144,
+          "alive": true,
+          "score": 186,
+          "military": 147,
+          "techs": 27,
+          "civics": 16,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
+          "suzerain_of": null
+        },
+        {
+          "turn": 145,
+          "alive": true,
+          "score": 187,
+          "military": 148,
+          "techs": 27,
+          "civics": 16,
+          "tourism": 9,
+          "cities_known": 6,
+          "wars_with": [],
+          "government": "GOVERNMENT_CLASSICAL_REPUBLIC",
+          "suzerain_of": null
         }
       ]
     },
@@ -1051,6 +1103,58 @@
           "wars_with": null,
           "government": null,
           "suzerain_of": null
+        },
+        {
+          "turn": 142,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 143,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 144,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 145,
+          "alive": false,
+          "score": null,
+          "military": null,
+          "techs": null,
+          "civics": null,
+          "tourism": null,
+          "cities_known": null,
+          "wars_with": null,
+          "government": null,
+          "suzerain_of": null
         }
       ]
     }
@@ -1419,6 +1523,42 @@
             "3": 2
           },
           "at_war_with_me": false
+        },
+        {
+          "turn": 142,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 143,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 144,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 145,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 2,
+            "3": 3
+          },
+          "at_war_with_me": false
         }
       ]
     },
@@ -1779,6 +1919,42 @@
         },
         {
           "turn": 141,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 142,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 143,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 144,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 4,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 145,
           "suzerain": "ME",
           "envoys_by_civ": {
             "0": 4,
@@ -2151,6 +2327,42 @@
             "3": 3
           },
           "at_war_with_me": false
+        },
+        {
+          "turn": 142,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 143,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 144,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 3
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 145,
+          "suzerain": "SUMERIA",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 3
+          },
+          "at_war_with_me": false
         }
       ]
     },
@@ -2511,6 +2723,42 @@
         },
         {
           "turn": 141,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 142,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 143,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 144,
+          "suzerain": "ME",
+          "envoys_by_civ": {
+            "0": 3,
+            "3": 2
+          },
+          "at_war_with_me": false
+        },
+        {
+          "turn": 145,
           "suzerain": "ME",
           "envoys_by_civ": {
             "0": 3,

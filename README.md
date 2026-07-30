@@ -188,7 +188,7 @@ add-only changes stay backwards-compatible.
 ```jsonc
 {
   "schema": "coach-snapshot/1.4",
-  "coach_version": "1.7.0",
+  "coach_version": "1.7.1",
   "generated_at_epoch": 1753728000.123,
 
   "meta": {
@@ -295,9 +295,24 @@ add-only changes stay backwards-compatible.
 - `promotions_available` is `0` or `1` — a unit can have at most one
   pending promotion. Civilians are always `0`.
 
-## Changes in 1.4 (v1.4.0–v1.7.0 — Reports-screen data + Part A derivations)
+## Changes in 1.4 (v1.4.0–v1.7.1 — Reports-screen data + Part A derivations)
 
 All additive.
+
+v1.7.1 (Markdown rendering only — JSON unchanged):
+
+- Unit truncation removed: `can build now` renders the COMPLETE unit
+  list, and blocked trainable units render in full with reasons
+  (`unavailable units (all N trainables)`).  Guarantee: a trainable
+  unit absent from both lists does not exist for this civ (other civs'
+  uniques stay trait-excluded by design and never appear).
+- Great People and faith-purchased religious units in the blocked list
+  roll up into one explanatory `not city-trainable by design` line
+  instead of ~14 "reason not exposed" noise lines per city; full
+  detail remains in the JSON.
+- The non-unit unavailable block is relabeled
+  `unavailable buildings/districts/wonders` (still capped at 6 with an
+  explicit shown-of-total label).
 
 v1.7.0 additions (Part A — derivations over already-collected data; NO
 new engine API surface, every field self-labels its trust tier and is

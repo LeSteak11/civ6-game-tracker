@@ -47,5 +47,18 @@
     "city_state": "Stockholm",
     "from": "none",
     "to": "SUMERIA"
+  },
+  {
+    "turn": 143,
+    "event": "religion_founded",
+    "civ": "player 5",
+    "religion": "Eastern Orthodoxy"
+  },
+  {
+    "turn": 143,
+    "event": "suzerain_changed",
+    "city_state": "Kabul",
+    "from": "none",
+    "to": "SUMERIA"
   }
 ]

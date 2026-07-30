@@ -1,10 +1,10 @@
 {
   "schema": "coach-snapshot/1.4",
   "coach_version": "1.7.0",
-  "generated_at_epoch": 1785400545.141477,
+  "generated_at_epoch": 1785400161.8072758,
   "meta": {
-    "turn": 145,
-    "year": "680 AD",
+    "turn": 144,
+    "year": "660 AD",
     "era": "Medieval Era",
     "civ_type": "CIVILIZATION_EGYPT",
     "civ_name": "Egypt",
@@ -27,21 +27,21 @@
     "VICTORY_SCORE"
   ],
   "empire": {
-    "score": 149,
-    "gold": 749.1,
-    "gold_yield": 32.0,
+    "score": 147,
+    "gold": 734.1,
+    "gold_yield": 34.9,
     "gold_maint": 17.0,
-    "gold_net": 15.0,
+    "gold_net": 17.9,
     "science": 27.9,
     "culture": 21.4,
-    "faith": 1478.7,
+    "faith": 1451.2,
     "faith_yield": 27.5,
     "tourism": 20.0,
-    "military": 289,
+    "military": 292,
     "techs_done": 21,
     "civics_done": 15,
     "num_cities": 5,
-    "num_units": 13,
+    "num_units": 12,
     "total_pop": 28,
     "trade_used": 1,
     "trade_cap": 1,
@@ -49,20 +49,20 @@
     "total_land": 1153
   },
   "current_research": {
-    "type": "TECH_MACHINERY",
-    "name": "Machinery",
-    "progress": 188.0,
-    "cost": 300.0,
-    "turns": 5,
-    "boosted": true,
-    "boost_desc": "Own 3 Archers."
+    "type": "",
+    "name": "none",
+    "progress": 0.0,
+    "cost": 0.0,
+    "turns": -1,
+    "boosted": false,
+    "boost_desc": ""
   },
   "current_civic": {
     "type": "CIVIC_MERCENARIES",
     "name": "Mercenaries",
-    "progress": 272.0,
+    "progress": 251.0,
     "cost": 290.0,
-    "turns": 1,
+    "turns": 2,
     "boosted": true,
     "boost_desc": "Have 8 land combat units in your military."
   },
@@ -297,7 +297,7 @@
     {
       "class_type": "GREAT_PERSON_CLASS_GENERAL",
       "class": "GENERAL",
-      "points": 101.0,
+      "points": 99.0,
       "per_turn": 2.4,
       "next_cost": 120,
       "candidate": "Genghis Khan",
@@ -315,7 +315,7 @@
     {
       "class_type": "GREAT_PERSON_CLASS_ENGINEER",
       "class": "ENGINEER",
-      "points": 44.0,
+      "points": 41.0,
       "per_turn": 2.4,
       "next_cost": 120,
       "candidate": "Bi Sheng",
@@ -333,7 +333,7 @@
     {
       "class_type": "GREAT_PERSON_CLASS_PROPHET",
       "class": "PROPHET",
-      "points": 159.0,
+      "points": 156.0,
       "per_turn": 3.6,
       "next_cost": 2147483647,
       "candidate": "",
@@ -342,7 +342,7 @@
     {
       "class_type": "GREAT_PERSON_CLASS_SCIENTIST",
       "class": "SCIENTIST",
-      "points": 112.0,
+      "points": 110.0,
       "per_turn": 2.4,
       "next_cost": 240,
       "candidate": "Galileo Galilei",
@@ -390,9 +390,9 @@
     {
       "type": "TECH_MACHINERY",
       "name": "Machinery",
-      "progress": 188.0,
+      "progress": 150.0,
       "cost": 300.0,
-      "turns": 5,
+      "turns": 6,
       "boosted": true,
       "boost_desc": "Own 3 Archers.",
       "unlocks": "Crossbowman, Crouching Tiger, Lumber Mill"
@@ -432,7 +432,7 @@
       "name": "Cartography",
       "progress": 0.0,
       "cost": 540.0,
-      "turns": 20,
+      "turns": 19,
       "boosted": false,
       "boost_desc": "Build 2 Harbors.",
       "unlocks": "Caravel"
@@ -462,9 +462,9 @@
     {
       "type": "CIVIC_MERCENARIES",
       "name": "Mercenaries",
-      "progress": 272.0,
+      "progress": 251.0,
       "cost": 290.0,
-      "turns": 1,
+      "turns": 2,
       "boosted": true,
       "boost_desc": "Have 8 land combat units in your military.",
       "unlocks": "Sack, Professional Army, Trade Confederation"
@@ -751,10 +751,10 @@
       "type": "TECH_MACHINERY",
       "name": "Machinery",
       "era": "MEDIEVAL",
-      "status": "current",
-      "progress": 188.0,
+      "status": "available",
+      "progress": 150.0,
       "cost": 300.0,
-      "turns": 5,
+      "turns": 6,
       "partial": true,
       "prereqs": [
         "IRON_WORKING",
@@ -821,7 +821,7 @@
       "status": "available",
       "progress": 0.0,
       "cost": 540.0,
-      "turns": 20,
+      "turns": 19,
       "partial": false,
       "prereqs": [
         "SHIPBUILDING"
@@ -1614,9 +1614,9 @@
       "name": "Mercenaries",
       "era": "MEDIEVAL",
       "status": "current",
-      "progress": 272.0,
+      "progress": 251.0,
       "cost": 290.0,
-      "turns": 1,
+      "turns": 2,
       "partial": true,
       "prereqs": [
         "MILITARY_TRAINING",
@@ -2074,7 +2074,7 @@
       "y": 29,
       "population": 5,
       "food_surplus": 1.0,
-      "turns_to_growth": 24,
+      "turns_to_growth": 25,
       "turns_to_starvation": -1,
       "housing": 12,
       "amenities": 3,
@@ -2082,18 +2082,18 @@
       "happiness": 5,
       "yields": {
         "food": 11.0,
-        "production": 22.9,
+        "production": 25.1,
         "gold": 22.0,
         "science": 10.0,
         "culture": 6.8,
         "faith": 12.6
       },
       "production": {
-        "type": "nothing",
-        "name": "nothing",
-        "progress": 0.0,
-        "cost": 0.0,
-        "turns": -1
+        "type": "UNIT_BUILDER",
+        "name": "Builder",
+        "progress": 85.0,
+        "cost": 98.0,
+        "turns": 1
       },
       "defense": {
         "strength": 45,
@@ -2102,7 +2102,7 @@
         "wall_hp": 100,
         "wall_max": 100
       },
-      "border_expansion_turns": 16,
+      "border_expansion_turns": 17,
       "majority_religion": "RELIGION_TAOISM",
       "districts": [
         {
@@ -2205,8 +2205,8 @@
           "plains": 9,
           "plains_hills": 5,
           "coast": 2,
-          "grass_hills": 1,
-          "grass": 1
+          "grass": 1,
+          "grass_hills": 1
         },
         "features": {},
         "improvements": {
@@ -2229,9 +2229,9 @@
           "kind": "UNIT",
           "type": "UNIT_BUILDER",
           "name": "Builder",
-          "progress": 0.0,
-          "cost": 102.0,
-          "turns": 4
+          "progress": 85.0,
+          "cost": 98.0,
+          "turns": 1
         },
         {
           "kind": "UNIT",
@@ -2239,7 +2239,7 @@
           "name": "Trader",
           "progress": 0.0,
           "cost": 76.0,
-          "turns": 3
+          "turns": 4
         },
         {
           "kind": "UNIT",
@@ -2247,7 +2247,7 @@
           "name": "Scout",
           "progress": 0.0,
           "cost": 30.0,
-          "turns": 1
+          "turns": 2
         },
         {
           "kind": "UNIT",
@@ -2255,7 +2255,7 @@
           "name": "Archer",
           "progress": 0.0,
           "cost": 60.0,
-          "turns": 2
+          "turns": 3
         },
         {
           "kind": "UNIT",
@@ -2279,7 +2279,7 @@
           "name": "Horseman",
           "progress": 0.0,
           "cost": 80.0,
-          "turns": 3
+          "turns": 4
         },
         {
           "kind": "UNIT",
@@ -2311,7 +2311,7 @@
           "name": "Knight",
           "progress": 0.0,
           "cost": 180.0,
-          "turns": 7
+          "turns": 8
         },
         {
           "kind": "UNIT",
@@ -2319,7 +2319,7 @@
           "name": "Man-At-Arms",
           "progress": 0.0,
           "cost": 160.0,
-          "turns": 6
+          "turns": 7
         },
         {
           "kind": "WONDER",
@@ -2982,7 +2982,7 @@
             "source": "direct"
           },
           "unattributed": {
-            "value": 1.9,
+            "value": 4.1,
             "source": "reconstructed"
           }
         },
@@ -3131,27 +3131,27 @@
       "x": 62,
       "y": 26,
       "population": 8,
-      "food_surplus": 12.0,
-      "turns_to_growth": 6,
+      "food_surplus": 11.0,
+      "turns_to_growth": 7,
       "turns_to_starvation": -1,
       "housing": 9,
       "amenities": 3,
       "amenities_needed": 3,
       "happiness": 4,
       "yields": {
-        "food": 28.0,
-        "production": 7.0,
+        "food": 27.0,
+        "production": 6.0,
         "gold": 2.0,
         "science": 5.6,
         "culture": 4.4,
         "faith": 12.0
       },
       "production": {
-        "type": "nothing",
-        "name": "nothing",
-        "progress": 0.0,
-        "cost": 0.0,
-        "turns": -1
+        "type": "BUILDING_WATER_MILL",
+        "name": "Water Mill",
+        "progress": 77.0,
+        "cost": 80.0,
+        "turns": 1
       },
       "defense": {
         "strength": 37,
@@ -3160,7 +3160,7 @@
         "wall_hp": 0,
         "wall_max": 0
       },
-      "border_expansion_turns": 16,
+      "border_expansion_turns": 17,
       "majority_religion": "NONE",
       "districts": [
         {
@@ -3198,13 +3198,6 @@
           "pillaged": false
         },
         {
-          "district": "DISTRICT_CITY_CENTER",
-          "type": "BUILDING_WATER_MILL",
-          "name": "Water Mill",
-          "is_wonder": false,
-          "pillaged": false
-        },
-        {
           "district": "DISTRICT_HOLY_SITE",
           "type": "BUILDING_SHRINE",
           "name": "Shrine",
@@ -3225,8 +3218,8 @@
         "terrain": {
           "grass": 10,
           "plains": 2,
-          "grass_hills": 1,
-          "plains_hills": 1
+          "plains_hills": 1,
+          "grass_hills": 1
         },
         "features": {
           "jungle": 2,
@@ -3234,8 +3227,8 @@
         },
         "improvements": {
           "pasture": 2,
-          "plantation": 1,
-          "farm": 1
+          "farm": 1,
+          "plantation": 1
         }
       },
       "production_options": [
@@ -3245,15 +3238,15 @@
           "name": "Settler",
           "progress": 0.0,
           "cost": 200.0,
-          "turns": 29
+          "turns": 34
         },
         {
           "kind": "UNIT",
           "type": "UNIT_BUILDER",
           "name": "Builder",
           "progress": 0.0,
-          "cost": 102.0,
-          "turns": 15
+          "cost": 98.0,
+          "turns": 17
         },
         {
           "kind": "UNIT",
@@ -3261,7 +3254,7 @@
           "name": "Trader",
           "progress": 0.0,
           "cost": 76.0,
-          "turns": 11
+          "turns": 13
         },
         {
           "kind": "UNIT",
@@ -3269,7 +3262,7 @@
           "name": "Scout",
           "progress": 0.0,
           "cost": 30.0,
-          "turns": 4
+          "turns": 5
         },
         {
           "kind": "UNIT",
@@ -3277,7 +3270,7 @@
           "name": "Archer",
           "progress": 0.0,
           "cost": 60.0,
-          "turns": 9
+          "turns": 10
         },
         {
           "kind": "UNIT",
@@ -3285,7 +3278,7 @@
           "name": "Spearman",
           "progress": 0.0,
           "cost": 65.0,
-          "turns": 9
+          "turns": 11
         },
         {
           "kind": "UNIT",
@@ -3293,7 +3286,7 @@
           "name": "Battering Ram",
           "progress": 0.0,
           "cost": 65.0,
-          "turns": 9
+          "turns": 11
         },
         {
           "kind": "UNIT",
@@ -3301,7 +3294,7 @@
           "name": "Horseman",
           "progress": 0.0,
           "cost": 80.0,
-          "turns": 11
+          "turns": 14
         },
         {
           "kind": "UNIT",
@@ -3309,7 +3302,7 @@
           "name": "Catapult",
           "progress": 0.0,
           "cost": 120.0,
-          "turns": 17
+          "turns": 20
         },
         {
           "kind": "UNIT",
@@ -3317,7 +3310,7 @@
           "name": "Siege Tower",
           "progress": 0.0,
           "cost": 100.0,
-          "turns": 14
+          "turns": 17
         },
         {
           "kind": "UNIT",
@@ -3325,7 +3318,7 @@
           "name": "Maryannu Chariot Archer",
           "progress": 0.0,
           "cost": 120.0,
-          "turns": 17
+          "turns": 20
         },
         {
           "kind": "UNIT",
@@ -3333,7 +3326,7 @@
           "name": "Knight",
           "progress": 0.0,
           "cost": 180.0,
-          "turns": 26
+          "turns": 30
         },
         {
           "kind": "UNIT",
@@ -3341,7 +3334,7 @@
           "name": "Man-At-Arms",
           "progress": 0.0,
           "cost": 160.0,
-          "turns": 23
+          "turns": 27
         },
         {
           "kind": "BLDG",
@@ -3349,7 +3342,15 @@
           "name": "Ancient Walls",
           "progress": 0.0,
           "cost": 80.0,
-          "turns": 11
+          "turns": 14
+        },
+        {
+          "kind": "BLDG",
+          "type": "BUILDING_WATER_MILL",
+          "name": "Water Mill",
+          "progress": 77.0,
+          "cost": 80.0,
+          "turns": 1
         },
         {
           "kind": "WONDER",
@@ -3357,7 +3358,7 @@
           "name": "Great Lighthouse",
           "progress": 0.0,
           "cost": 290.0,
-          "turns": 41
+          "turns": 49
         },
         {
           "kind": "WONDER",
@@ -3365,7 +3366,7 @@
           "name": "Colossus",
           "progress": 0.0,
           "cost": 400.0,
-          "turns": 57
+          "turns": 67
         },
         {
           "kind": "WONDER",
@@ -3373,7 +3374,7 @@
           "name": "Petra",
           "progress": 0.0,
           "cost": 400.0,
-          "turns": 57
+          "turns": 67
         },
         {
           "kind": "WONDER",
@@ -3381,7 +3382,7 @@
           "name": "Colosseum",
           "progress": 0.0,
           "cost": 400.0,
-          "turns": 57
+          "turns": 67
         },
         {
           "kind": "WONDER",
@@ -3389,7 +3390,7 @@
           "name": "Terracotta Army",
           "progress": 0.0,
           "cost": 400.0,
-          "turns": 57
+          "turns": 67
         },
         {
           "kind": "DIST",
@@ -3397,7 +3398,7 @@
           "name": "Campus",
           "progress": 0.0,
           "cost": 199.0,
-          "turns": 28
+          "turns": 34
         },
         {
           "kind": "DIST",
@@ -3405,7 +3406,7 @@
           "name": "Encampment",
           "progress": 0.0,
           "cost": 199.0,
-          "turns": 28
+          "turns": 34
         },
         {
           "kind": "DIST",
@@ -3413,7 +3414,7 @@
           "name": "Harbor",
           "progress": 0.0,
           "cost": 199.0,
-          "turns": 28
+          "turns": 34
         },
         {
           "kind": "DIST",
@@ -3421,7 +3422,7 @@
           "name": "Commercial Hub",
           "progress": 0.0,
           "cost": 199.0,
-          "turns": 28
+          "turns": 34
         },
         {
           "kind": "DIST",
@@ -3429,7 +3430,7 @@
           "name": "Entertainment Complex",
           "progress": 0.0,
           "cost": 199.0,
-          "turns": 28
+          "turns": 34
         },
         {
           "kind": "DIST",
@@ -3437,7 +3438,7 @@
           "name": "Theater Square",
           "progress": 0.0,
           "cost": 199.0,
-          "turns": 28
+          "turns": 34
         },
         {
           "kind": "DIST",
@@ -3445,7 +3446,7 @@
           "name": "Industrial Zone",
           "progress": 0.0,
           "cost": 199.0,
-          "turns": 28
+          "turns": 34
         },
         {
           "kind": "DIST",
@@ -3453,7 +3454,7 @@
           "name": "Aqueduct",
           "progress": 0.0,
           "cost": 133.0,
-          "turns": 19
+          "turns": 23
         },
         {
           "kind": "PROJ",
@@ -3990,8 +3991,8 @@
       },
       "yield_sources": {
         "buildings_db": {
-          "food": 2.0,
-          "production": 1.0,
+          "food": 1.0,
+          "production": 0.0,
           "gold": 0.0,
           "science": 0.0,
           "culture": 2.0,
@@ -4013,7 +4014,7 @@
             "source": "direct"
           },
           "buildings_db": {
-            "value": 2.0,
+            "value": 1.0,
             "source": "static_db"
           },
           "district_adjacency": {
@@ -4035,7 +4036,7 @@
             "source": "direct"
           },
           "buildings_db": {
-            "value": 1.0,
+            "value": 0.0,
             "source": "static_db"
           },
           "district_adjacency": {
@@ -4189,7 +4190,7 @@
       "y": 25,
       "population": 8,
       "food_surplus": 13.0,
-      "turns_to_growth": 24,
+      "turns_to_growth": 25,
       "turns_to_starvation": -1,
       "housing": 8,
       "amenities": 2,
@@ -4198,7 +4199,7 @@
       "yields": {
         "food": 29.0,
         "production": 7.6,
-        "gold": 0.0,
+        "gold": 2.9,
         "science": 5.3,
         "culture": 6.1,
         "faith": 1.9
@@ -4206,9 +4207,9 @@
       "production": {
         "type": "DISTRICT_CAMPUS",
         "name": "Campus",
-        "progress": 59.0,
+        "progress": 50.0,
         "cost": 194.0,
-        "turns": 16
+        "turns": 17
       },
       "defense": {
         "strength": 38,
@@ -4217,7 +4218,7 @@
         "wall_hp": 100,
         "wall_max": 100
       },
-      "border_expansion_turns": 19,
+      "border_expansion_turns": 1,
       "majority_religion": "NONE",
       "districts": [
         {
@@ -4270,23 +4271,23 @@
         }
       ],
       "tiles_rollup": {
-        "owned": 13,
+        "owned": 12,
         "worked": 9,
         "terrain": {
           "grass": 8,
-          "grass_mountain": 2,
+          "plains": 1,
           "coast": 1,
-          "grass_hills": 1,
-          "plains": 1
+          "grass_mountain": 1,
+          "grass_hills": 1
         },
         "features": {
-          "forest": 1,
-          "marsh": 1
+          "marsh": 1,
+          "forest": 1
         },
         "improvements": {
           "farm": 3,
-          "sphinx": 2,
-          "quarry": 2
+          "quarry": 2,
+          "sphinx": 2
         }
       },
       "production_options": [
@@ -4303,8 +4304,8 @@
           "type": "UNIT_BUILDER",
           "name": "Builder",
           "progress": 0.0,
-          "cost": 102.0,
-          "turns": 14
+          "cost": 98.0,
+          "turns": 13
         },
         {
           "kind": "UNIT",
@@ -4446,9 +4447,9 @@
           "kind": "DIST",
           "type": "DISTRICT_CAMPUS",
           "name": "Campus",
-          "progress": 59.0,
+          "progress": 50.0,
           "cost": 194.0,
-          "turns": 16
+          "turns": 17
         },
         {
           "kind": "DIST",
@@ -5140,7 +5141,7 @@
             "source": "direct"
           },
           "unattributed": {
-            "value": 0.0,
+            "value": 2.9,
             "source": "reconstructed"
           }
         },
@@ -5260,7 +5261,7 @@
       "y": 22,
       "population": 6,
       "food_surplus": 8.0,
-      "turns_to_growth": 4,
+      "turns_to_growth": 5,
       "turns_to_starvation": -1,
       "housing": 8,
       "amenities": 2,
@@ -5277,9 +5278,9 @@
       "production": {
         "type": "BUILDING_WALLS",
         "name": "Ancient Walls",
-        "progress": 48.0,
+        "progress": 39.0,
         "cost": 80.0,
-        "turns": 4
+        "turns": 5
       },
       "defense": {
         "strength": 35,
@@ -5288,7 +5289,7 @@
         "wall_hp": 0,
         "wall_max": 0
       },
-      "border_expansion_turns": 8,
+      "border_expansion_turns": 9,
       "majority_religion": "NONE",
       "districts": [
         {
@@ -5329,13 +5330,13 @@
         "terrain": {
           "grass": 7,
           "grass_hills": 1,
-          "grass_mountain": 1,
+          "plains": 1,
           "plains_hills": 1,
-          "plains": 1
+          "grass_mountain": 1
         },
         "features": {
-          "jungle": 2,
-          "forest": 2
+          "forest": 2,
+          "jungle": 2
         },
         "improvements": {
           "farm": 2,
@@ -5357,8 +5358,8 @@
           "type": "UNIT_BUILDER",
           "name": "Builder",
           "progress": 0.0,
-          "cost": 102.0,
-          "turns": 12
+          "cost": 98.0,
+          "turns": 11
         },
         {
           "kind": "UNIT",
@@ -5452,9 +5453,9 @@
           "kind": "BLDG",
           "type": "BUILDING_WALLS",
           "name": "Ancient Walls",
-          "progress": 48.0,
+          "progress": 39.0,
           "cost": 80.0,
-          "turns": 4
+          "turns": 5
         },
         {
           "kind": "WONDER",
@@ -6306,7 +6307,7 @@
       "y": 35,
       "population": 1,
       "food_surplus": 2.0,
-      "turns_to_growth": 4,
+      "turns_to_growth": 5,
       "turns_to_starvation": -1,
       "housing": 3,
       "amenities": 1,
@@ -6323,9 +6324,9 @@
       "production": {
         "type": "BUILDING_GRANARY",
         "name": "Granary",
-        "progress": 9.0,
+        "progress": 6.0,
         "cost": 65.0,
-        "turns": 18
+        "turns": 19
       },
       "defense": {
         "strength": 45,
@@ -6334,7 +6335,7 @@
         "wall_hp": 0,
         "wall_max": 0
       },
-      "border_expansion_turns": 30,
+      "border_expansion_turns": 31,
       "majority_religion": "NONE",
       "districts": [
         {
@@ -6374,8 +6375,8 @@
           "type": "UNIT_BUILDER",
           "name": "Builder",
           "progress": 0.0,
-          "cost": 102.0,
-          "turns": 33
+          "cost": 98.0,
+          "turns": 32
         },
         {
           "kind": "UNIT",
@@ -6493,9 +6494,9 @@
           "kind": "BLDG",
           "type": "BUILDING_GRANARY",
           "name": "Granary",
-          "progress": 9.0,
+          "progress": 6.0,
           "cost": 65.0,
-          "turns": 18
+          "turns": 19
         },
         {
           "kind": "BLDG",
@@ -7347,8 +7348,8 @@
       "name": "Scout",
       "class": "FORMATION_CLASS_LAND_COMBAT",
       "x": 70,
-      "y": 8,
-      "hp": 63,
+      "y": 7,
+      "hp": 100,
       "hp_max": 100,
       "moves": 3.0,
       "moves_max": 3.0,
@@ -7356,7 +7357,7 @@
       "ranged": 0,
       "bombard": 0,
       "range": 0,
-      "xp": 22,
+      "xp": 21,
       "xp_needed": 45,
       "promotions_held": 1,
       "promotions_available": 0,
@@ -7373,7 +7374,7 @@
       "name": "Trader",
       "class": "FORMATION_CLASS_CIVILIAN",
       "x": 67,
-      "y": 19,
+      "y": 20,
       "hp": 100,
       "hp_max": 100,
       "moves": 2.0,
@@ -7524,32 +7525,6 @@
       "upgrade_cost": 0
     },
     {
-      "id": 2228232,
-      "type": "UNIT_BUILDER",
-      "name": "Builder",
-      "class": "FORMATION_CLASS_CIVILIAN",
-      "x": 66,
-      "y": 29,
-      "hp": 100,
-      "hp_max": 100,
-      "moves": 2.0,
-      "moves_max": 2.0,
-      "combat": 0,
-      "ranged": 0,
-      "bombard": 0,
-      "range": 0,
-      "xp": 0,
-      "xp_needed": 15,
-      "promotions_held": 0,
-      "promotions_available": 0,
-      "idle": true,
-      "fortify_turns": 0,
-      "charges": 5,
-      "can_upgrade": false,
-      "upgrade_to": "",
-      "upgrade_cost": 0
-    },
-    {
       "id": 1769481,
       "type": "UNIT_MAN_AT_ARMS",
       "name": "Man-At-Arms",
@@ -7656,40 +7631,41 @@
   ],
   "barbarians_visible": [
     {
-      "name": "Galley",
+      "name": "Spearman",
+      "x": 72,
+      "y": 6,
+      "hp": 87,
+      "hp_max": 100
+    },
+    {
+      "name": "Quadrireme",
       "x": 71,
       "y": 6,
       "hp": 100,
       "hp_max": 100
     },
     {
-      "name": "Quadrireme",
-      "x": 69,
-      "y": 7,
-      "hp": 100,
-      "hp_max": 100
-    },
-    {
       "name": "Scout",
-      "x": 56,
+      "x": 57,
       "y": 22,
-      "hp": 58,
+      "hp": 79,
       "hp_max": 100
     },
     {
       "name": "Galley",
-      "x": 70,
+      "x": 69,
       "y": 6,
       "hp": 100,
       "hp_max": 100
     }
   ],
-  "camps_visible": [],
-  "camps_revealed_only": [
+  "camps_visible": [
     {
       "x": 72,
       "y": 6
-    },
+    }
+  ],
+  "camps_revealed_only": [
     {
       "x": 54,
       "y": 16
@@ -7705,7 +7681,7 @@
   },
   "map_totals": {
     "revealed": 679,
-    "visible": 214,
+    "visible": 202,
     "natural_wonders": 2
   },
   "tiles": [
@@ -7776,7 +7752,7 @@
     {
       "x": 69,
       "y": 5,
-      "visible": false,
+      "visible": true,
       "terrain": "co",
       "feature": "ice",
       "resource": "",
@@ -7792,7 +7768,7 @@
     {
       "x": 70,
       "y": 5,
-      "visible": false,
+      "visible": true,
       "terrain": "oc",
       "feature": "",
       "resource": "",
@@ -7808,7 +7784,7 @@
     {
       "x": 71,
       "y": 5,
-      "visible": false,
+      "visible": true,
       "terrain": "co",
       "feature": "",
       "resource": "",
@@ -8009,7 +7985,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "",
+      "units": "63:GALLEY:100",
       "extra": "",
       "city_name": ""
     },
@@ -8025,7 +8001,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "63:GALLEY:100",
+      "units": "",
       "extra": "",
       "city_name": ""
     },
@@ -8041,14 +8017,14 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "63:GALLEY:100",
+      "units": "63:QUADRIREME:100",
       "extra": "",
       "city_name": ""
     },
     {
       "x": 72,
       "y": 6,
-      "visible": false,
+      "visible": true,
       "terrain": "t",
       "feature": "",
       "resource": "",
@@ -8057,7 +8033,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "",
+      "units": "63:SPEARMAN:87",
       "extra": "A5",
       "city_name": ""
     },
@@ -8329,7 +8305,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "63:QUADRIREME:100",
+      "units": "",
       "extra": "",
       "city_name": ""
     },
@@ -8345,7 +8321,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "",
+      "units": "0:SCOUT:100",
       "extra": "A3",
       "city_name": ""
     },
@@ -8672,7 +8648,7 @@
     {
       "x": 68,
       "y": 8,
-      "visible": true,
+      "visible": false,
       "terrain": "gh",
       "feature": "",
       "resource": "",
@@ -8713,7 +8689,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "0:SCOUT:63",
+      "units": "",
       "extra": "",
       "city_name": ""
     },
@@ -8736,7 +8712,7 @@
     {
       "x": 72,
       "y": 8,
-      "visible": true,
+      "visible": false,
       "terrain": "t",
       "feature": "for",
       "resource": "",
@@ -9056,7 +9032,7 @@
     {
       "x": 68,
       "y": 9,
-      "visible": true,
+      "visible": false,
       "terrain": "gm",
       "feature": "",
       "resource": "",
@@ -9072,7 +9048,7 @@
     {
       "x": 69,
       "y": 9,
-      "visible": true,
+      "visible": false,
       "terrain": "g",
       "feature": "",
       "resource": "",
@@ -9088,7 +9064,7 @@
     {
       "x": 70,
       "y": 9,
-      "visible": true,
+      "visible": false,
       "terrain": "g",
       "feature": "",
       "resource": "",
@@ -9104,7 +9080,7 @@
     {
       "x": 71,
       "y": 9,
-      "visible": true,
+      "visible": false,
       "terrain": "g",
       "feature": "mar",
       "resource": "",
@@ -9456,7 +9432,7 @@
     {
       "x": 69,
       "y": 10,
-      "visible": true,
+      "visible": false,
       "terrain": "gm",
       "feature": "",
       "resource": "",
@@ -9472,7 +9448,7 @@
     {
       "x": 70,
       "y": 10,
-      "visible": true,
+      "visible": false,
       "terrain": "g",
       "feature": "",
       "resource": "HORSES",
@@ -9488,7 +9464,7 @@
     {
       "x": 71,
       "y": 10,
-      "visible": true,
+      "visible": false,
       "terrain": "g",
       "feature": "",
       "resource": "",
@@ -10170,7 +10146,7 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "R/F",
+      "extra": "R/A1/F",
       "city_name": ""
     },
     {
@@ -10186,7 +10162,7 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "A-1",
+      "extra": "",
       "city_name": ""
     },
     {
@@ -10634,7 +10610,7 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "R/A-1/F",
+      "extra": "R/F",
       "city_name": ""
     },
     {
@@ -10644,7 +10620,7 @@
       "terrain": "g",
       "feature": "",
       "resource": "",
-      "improvement": "MINE",
+      "improvement": "",
       "road": "",
       "owner": "3",
       "district": "",
@@ -10666,7 +10642,7 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "",
+      "extra": "A1",
       "city_name": ""
     },
     {
@@ -11114,7 +11090,7 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "A-1",
+      "extra": "",
       "city_name": ""
     },
     {
@@ -11130,7 +11106,7 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "",
+      "extra": "A1",
       "city_name": ""
     },
     {
@@ -11632,7 +11608,7 @@
     {
       "x": 65,
       "y": 15,
-      "visible": true,
+      "visible": false,
       "terrain": "dh",
       "feature": "",
       "resource": "",
@@ -11648,7 +11624,7 @@
     {
       "x": 66,
       "y": 15,
-      "visible": true,
+      "visible": false,
       "terrain": "dh",
       "feature": "",
       "resource": "SHEEP",
@@ -11664,7 +11640,7 @@
     {
       "x": 67,
       "y": 15,
-      "visible": true,
+      "visible": false,
       "terrain": "d",
       "feature": "",
       "resource": "",
@@ -12096,7 +12072,7 @@
     {
       "x": 65,
       "y": 16,
-      "visible": true,
+      "visible": false,
       "terrain": "dh",
       "feature": "",
       "resource": "",
@@ -12112,7 +12088,7 @@
     {
       "x": 66,
       "y": 16,
-      "visible": true,
+      "visible": false,
       "terrain": "d",
       "feature": "",
       "resource": "",
@@ -12128,7 +12104,7 @@
     {
       "x": 67,
       "y": 16,
-      "visible": true,
+      "visible": false,
       "terrain": "d",
       "feature": "",
       "resource": "",
@@ -12144,7 +12120,7 @@
     {
       "x": 68,
       "y": 16,
-      "visible": true,
+      "visible": false,
       "terrain": "dh",
       "feature": "",
       "resource": "",
@@ -12585,7 +12561,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "11:CROSSBOWMAN:100",
+      "units": "",
       "extra": "A-1",
       "city_name": ""
     },
@@ -13065,7 +13041,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "11:MAN_AT_ARMS:100",
+      "units": "",
       "extra": "A-1",
       "city_name": ""
     },
@@ -13545,7 +13521,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "",
+      "units": "11:CROSSBOWMAN:100",
       "extra": "A1",
       "city_name": ""
     },
@@ -13577,7 +13553,7 @@
       "owner": "11",
       "district": "CITY_CENTER",
       "is_city": true,
-      "units": "",
+      "units": "11:MAN_AT_ARMS:100",
       "extra": "R/A2/F",
       "city_name": "Amsterdam"
     },
@@ -14009,7 +13985,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "7:ARCHER:100",
+      "units": "",
       "extra": "R/A3/F",
       "city_name": ""
     },
@@ -14073,7 +14049,7 @@
       "owner": "11",
       "district": "",
       "is_city": false,
-      "units": "",
+      "units": "11:MAN_AT_ARMS:100",
       "extra": "",
       "city_name": ""
     },
@@ -14320,7 +14296,7 @@
     {
       "x": 54,
       "y": 21,
-      "visible": true,
+      "visible": false,
       "terrain": "co",
       "feature": "",
       "resource": "",
@@ -14336,7 +14312,7 @@
     {
       "x": 55,
       "y": 21,
-      "visible": true,
+      "visible": false,
       "terrain": "g",
       "feature": "",
       "resource": "STONE",
@@ -14377,7 +14353,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "7:HEAVY_CHARIOT:100",
+      "units": "",
       "extra": "R/A2/F",
       "city_name": ""
     },
@@ -14537,7 +14513,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "11:MAN_AT_ARMS:100",
+      "units": "",
       "extra": "",
       "city_name": ""
     },
@@ -14809,7 +14785,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "63:SCOUT:58",
+      "units": "",
       "extra": "R/F",
       "city_name": ""
     },
@@ -14825,7 +14801,7 @@
       "owner": "8",
       "district": "",
       "is_city": false,
-      "units": "",
+      "units": "63:SCOUT:79",
       "extra": "R/A2/F",
       "city_name": ""
     },
@@ -15209,7 +15185,7 @@
       "owner": "8",
       "district": "",
       "is_city": false,
-      "units": "8:WARRIOR:100",
+      "units": "",
       "extra": "R/A1/F",
       "city_name": ""
     },
@@ -15552,7 +15528,7 @@
     {
       "x": 53,
       "y": 24,
-      "visible": false,
+      "visible": true,
       "terrain": "g",
       "feature": "",
       "resource": "STONE",
@@ -15888,7 +15864,7 @@
     {
       "x": 52,
       "y": 25,
-      "visible": false,
+      "visible": true,
       "terrain": "co",
       "feature": "",
       "resource": "",
@@ -15929,7 +15905,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "",
+      "units": "8:WARRIOR:100",
       "extra": "A2",
       "city_name": ""
     },
@@ -15961,7 +15937,7 @@
       "owner": "8",
       "district": "",
       "is_city": false,
-      "units": "",
+      "units": "8:WARRIOR:100",
       "extra": "R/A3/F",
       "city_name": ""
     },
@@ -15984,7 +15960,7 @@
     {
       "x": 58,
       "y": 25,
-      "visible": false,
+      "visible": true,
       "terrain": "g",
       "feature": "for",
       "resource": "",
@@ -16086,7 +16062,7 @@
       "resource": "",
       "improvement": "",
       "road": "",
-      "owner": "0",
+      "owner": "",
       "district": "",
       "is_city": false,
       "units": "",
@@ -16192,7 +16168,7 @@
     {
       "x": 53,
       "y": 26,
-      "visible": false,
+      "visible": true,
       "terrain": "co",
       "feature": "",
       "resource": "FISH",
@@ -16233,7 +16209,7 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "8:WARRIOR:100",
+      "units": "",
       "extra": "A3",
       "city_name": ""
     },
@@ -16272,7 +16248,7 @@
     {
       "x": 58,
       "y": 26,
-      "visible": false,
+      "visible": true,
       "terrain": "co",
       "feature": "",
       "resource": "",
@@ -16480,7 +16456,7 @@
     {
       "x": 53,
       "y": 27,
-      "visible": true,
+      "visible": false,
       "terrain": "co",
       "feature": "",
       "resource": "",
@@ -16544,7 +16520,7 @@
     {
       "x": 57,
       "y": 27,
-      "visible": false,
+      "visible": true,
       "terrain": "oc",
       "feature": "",
       "resource": "",
@@ -16784,7 +16760,7 @@
     {
       "x": 54,
       "y": 28,
-      "visible": true,
+      "visible": false,
       "terrain": "p",
       "feature": "",
       "resource": "",
@@ -16800,7 +16776,7 @@
     {
       "x": 55,
       "y": 28,
-      "visible": true,
+      "visible": false,
       "terrain": "co",
       "feature": "",
       "resource": "",
@@ -16816,7 +16792,7 @@
     {
       "x": 56,
       "y": 28,
-      "visible": true,
+      "visible": false,
       "terrain": "co",
       "feature": "",
       "resource": "",
@@ -17177,7 +17153,7 @@
       "owner": "0",
       "district": "CITY_CENTER",
       "is_city": true,
-      "units": "0:GREAT_GENERAL:100;0:BUILDER:100",
+      "units": "0:GREAT_GENERAL:100",
       "extra": "R/F",
       "city_name": "R\u00e2-Kedet"
     },
@@ -18598,7 +18574,7 @@
   ],
   "envoys": {
     "in_hand": 0,
-    "points": 36,
+    "points": 31,
     "threshold": 100,
     "per_turn": 5.0,
     "envoys_per_threshold": 1
@@ -18613,8 +18589,8 @@
       "at_war": false,
       "met_turn": 27,
       "diplo_visibility": 1,
-      "score": 187,
-      "military": 148,
+      "score": 186,
+      "military": 147,
       "open_borders_from_them": false,
       "open_borders_from_us": false,
       "delegation_sent": false,
@@ -19034,8 +19010,8 @@
       "at_war": false,
       "met_turn": 27,
       "diplo_visibility": 1,
-      "score": 187,
-      "military": 148,
+      "score": 186,
+      "military": 147,
       "open_borders_from_them": false,
       "open_borders_from_us": false,
       "delegation_sent": false,
@@ -19273,7 +19249,7 @@
       "capital": true,
       "visibility": "visible",
       "population": 9,
-      "defense": 46,
+      "defense": 56,
       "wall_hp": 100,
       "wall_max": 100,
       "original_owner": 11
@@ -19283,17 +19259,18 @@
     "63": {
       "count": 4,
       "types": {
-        "GALLEY": 2,
+        "GALLEY": 1,
         "QUADRIREME": 1,
+        "SPEARMAN": 1,
         "SCOUT": 1
       },
-      "total_hp": 358
+      "total_hp": 366
     },
     "0": {
-      "count": 12,
+      "count": 11,
       "types": {
         "SCOUT": 1,
-        "BUILDER": 2,
+        "BUILDER": 1,
         "SPEARMAN": 1,
         "WARRIOR": 2,
         "ARCHER": 3,
@@ -19301,7 +19278,7 @@
         "HORSEMAN": 1,
         "MAN_AT_ARMS": 1
       },
-      "total_hp": 1163
+      "total_hp": 1100
     },
     "11": {
       "count": 3,
@@ -19311,19 +19288,11 @@
       },
       "total_hp": 300
     },
-    "7": {
-      "count": 2,
-      "types": {
-        "ARCHER": 1,
-        "HEAVY_CHARIOT": 1
-      },
-      "total_hp": 200
-    },
     "8": {
       "count": 3,
       "types": {
-        "WARRIOR": 2,
-        "BUILDER": 1
+        "BUILDER": 1,
+        "WARRIOR": 2
       },
       "total_hp": 300
     }
@@ -19423,14 +19392,14 @@
       "message": "Defeated!"
     },
     {
-      "type": "NOTIFICATION_CHOOSE_CITY_PRODUCTION",
-      "blocker_type": "ENDTURN_BLOCKING_PRODUCTION",
-      "message": "Choose Production"
+      "type": "NOTIFICATION_TECH_DISCOVERED",
+      "blocker_type": "",
+      "message": "Discovered Stirrups"
     },
     {
-      "type": "NOTIFICATION_CHOOSE_CITY_PRODUCTION",
-      "blocker_type": "ENDTURN_BLOCKING_PRODUCTION",
-      "message": "Choose Production"
+      "type": "NOTIFICATION_CHOOSE_TECH",
+      "blocker_type": "ENDTURN_BLOCKING_RESEARCH",
+      "message": "Choose a Technology"
     },
     {
       "type": "NOTIFICATION_COMMAND_UNITS",
@@ -19440,8 +19409,8 @@
   ],
   "end_turn_blockers": [
     {
-      "blocker_type": "ENDTURN_BLOCKING_PRODUCTION",
-      "message": "Choose Production"
+      "blocker_type": "ENDTURN_BLOCKING_RESEARCH",
+      "message": "Choose a Technology"
     },
     {
       "blocker_type": "ENDTURN_BLOCKING_UNITS",
@@ -19474,13 +19443,13 @@
   },
   "diagnostics": {
     "per_query_seconds": {
-      "meta": 0.393,
-      "choices": 0.358,
+      "meta": 0.377,
+      "choices": 0.363,
       "cities": 0.39,
-      "units": 0.342,
-      "map": 0.359,
-      "diplo": 0.357,
-      "religion": 0.344,
+      "units": 0.329,
+      "map": 0.362,
+      "diplo": 0.358,
+      "religion": 0.343,
       "notif": 0.344
     },
     "failures": [
@@ -19608,12 +19577,12 @@
         "TRACE|NOTIF|notifications"
       ]
     },
-    "total_seconds": 2.886
+    "total_seconds": 2.868
   },
   "turn_blockers_summary": [
-    "blocker:ENDTURN_BLOCKING_PRODUCTION (Choose Production)",
+    "blocker:ENDTURN_BLOCKING_RESEARCH (Choose a Technology)",
     "blocker:ENDTURN_BLOCKING_UNITS (Command Units)",
-    "2 idle unit(s)",
-    "2 city/cities with no production"
+    "1 idle unit(s)",
+    "no research selected"
   ]
 }

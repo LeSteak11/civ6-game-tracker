@@ -28,6 +28,21 @@ def _fail_marker(key: str, snap: dict[str, Any]) -> str:
     return f"**QUERY FAILED — {key}{hint}**"
 
 
+# Units that are never city-TRAINED in the base game: Great People are
+# recruited via great-person points; these religious units are purchased
+# with faith.  [static_db]  They still appear in the JSON blocked list;
+# the Markdown rolls them into one explanatory line so real blocked
+# trainables aren't drowned in "reason not exposed" noise.
+_NEVER_CITY_TRAINED = {
+    "UNIT_MISSIONARY", "UNIT_APOSTLE", "UNIT_INQUISITOR", "UNIT_GURU",
+    "UNIT_WARRIOR_MONK",
+}
+
+
+def _is_never_trained(unit_type: str) -> bool:
+    return unit_type.startswith("UNIT_GREAT_") or unit_type in _NEVER_CITY_TRAINED
+
+
 def _unk(v: Any) -> Any:
     """-1 / None are unknown sentinels — render '?', never a fake number."""
     if v is None or (isinstance(v, (int, float)) and v < 0):
@@ -661,45 +676,70 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                 for p in prods:
                     by_kind.setdefault(p.get("kind") or "?", []).append(p)
                 lines.append(f"    - can build now ({len(prods)} options; cost⚙, turns):")
-                for kind, label, cap in (
-                    ("DIST", "districts (need placement)", None),
-                    ("WONDER", "wonders (need placement)", None),
-                    ("BLDG", "buildings", None),
-                    ("PROJ", "projects", None),
-                    ("UNIT", "units", 8),
+                # v1.7.1: every category renders in FULL.  A unit missing
+                # from this list is genuinely not buildable here — the coach
+                # must be able to rely on that.
+                for kind, label in (
+                    ("DIST", "districts (need placement)"),
+                    ("WONDER", "wonders (need placement)"),
+                    ("BLDG", "buildings"),
+                    ("PROJ", "projects"),
+                    ("UNIT", "units (complete list)"),
                 ):
                     grp = sorted(by_kind.get(kind) or [], key=_turnkey)
                     if not grp:
                         continue
-                    shown = grp[:cap] if cap else grp
-                    suffix = (
-                        f" (showing {len(shown)} of {len(grp)} by turns; rest in JSON)"
-                        if len(shown) < len(grp)
-                        else ""
-                    )
                     lines.append(
-                        f"        - {label}{suffix}: " + ", ".join(_opt(p) for p in shown)
+                        f"        - {label}: " + ", ".join(_opt(p) for p in grp)
                     )
             # Unavailable production — strategically relevant first
             # (districts and wonders, then buildings, then units); engine
             # reasons are the game's own red-tooltip text.
             blocked = c.get("production_unavailable", []) or []
             if blocked:
-                _cat_rank = {"DIST": 0, "WONDER": 1, "BLDG": 2, "UNIT": 3}
-                ranked = sorted(
-                    blocked,
-                    key=lambda b: (_cat_rank.get(b.get("category"), 9),
-                                   b.get("reason_source") == "unknown",
-                                   b.get("cost", 0)),
+                # v1.7.1: blocked UNITS render in FULL with their reasons —
+                # "is unit X buildable here, and if not why" must always be
+                # answerable from the Markdown alone.  (Other civs' uniques
+                # are trait-excluded upstream and never appear anywhere.)
+                all_blocked_units = [b for b in blocked if b.get("category") == "UNIT"]
+                never_trained = [
+                    b for b in all_blocked_units if _is_never_trained(b.get("type") or "")
+                ]
+                blocked_units = sorted(
+                    (b for b in all_blocked_units if not _is_never_trained(b.get("type") or "")),
+                    key=lambda b: b.get("cost", 0),
                 )
-                shown = ranked[:6]
-                lines.append(
-                    f"    - unavailable (showing {len(shown)} of {len(blocked)}; "
-                    "full list + reasons in JSON):"
-                )
-                for b in shown:
-                    reason = "; ".join(b.get("reasons") or []) or "?"
-                    lines.append(f"        - {b.get('name')} — {reason}")
+                if blocked_units:
+                    lines.append(
+                        f"    - unavailable units (all {len(blocked_units)} trainables):"
+                    )
+                    for b in blocked_units:
+                        reason = "; ".join(b.get("reasons") or []) or "?"
+                        lines.append(f"        - {b.get('name')} — {reason}")
+                if never_trained:
+                    lines.append(
+                        f"    - not city-trainable by design ({len(never_trained)}): "
+                        + ", ".join(b.get("name", "?") for b in never_trained)
+                        + " — Great People are recruited with points; religious units "
+                        "are purchased with Faith (details in JSON)"
+                    )
+                other = [b for b in blocked if b.get("category") != "UNIT"]
+                if other:
+                    _cat_rank = {"DIST": 0, "WONDER": 1, "BLDG": 2}
+                    ranked = sorted(
+                        other,
+                        key=lambda b: (_cat_rank.get(b.get("category"), 9),
+                                       b.get("reason_source") == "unknown",
+                                       b.get("cost", 0)),
+                    )
+                    shown = ranked[:6]
+                    lines.append(
+                        f"    - unavailable buildings/districts/wonders "
+                        f"(showing {len(shown)} of {len(other)}; full list + reasons in JSON):"
+                    )
+                    for b in shown:
+                        reason = "; ".join(b.get("reasons") or []) or "?"
+                        lines.append(f"        - {b.get('name')} — {reason}")
             for tr_r in c.get("trade_routes", []) or []:
                 y = ", ".join(f"{k} {v:+d}" for k, v in tr_r.get("yields", {}).items())
                 civ = tr_r.get("dest_civ") or "?"

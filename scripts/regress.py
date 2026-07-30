@@ -190,7 +190,7 @@ check("real delta lists grown city", "Sais" in txt2)
 
 print("\n=== schema/version bump ===")
 check("schema bumped to 1.4", SCHEMA_VERSION == "coach-snapshot/1.4", SCHEMA_VERSION)
-check("coach version 1.7.0 (semver)", COACH_VERSION == "1.7.0", COACH_VERSION)
+check("coach version 1.7.1 (semver)", COACH_VERSION == "1.7.1", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -899,11 +899,17 @@ snap_px = {
     "diagnostics": {}, "turn_blockers_summary": [],
 }
 md_px = M.render_markdown(snap_px, {"first_snapshot": True})
-check("unavailable block renders with explicit shown-of-total label",
-      "unavailable (showing 6 of 6; full list + reasons in JSON):" in md_px,
-      [l for l in md_px.splitlines() if "unavailable (" in l])
-check("districts/wonders ranked before units",
-      md_px.find("Campus —") < md_px.find("Swordsman —"))
+# (v1.7.1: blocked units render in FULL in their own block; the
+# shown-of-total cap + district/wonder-first ranking apply to the rest.)
+check("blocked units render in a complete, labeled block",
+      "unavailable units (all 2 trainables):" in md_px
+      and "Swordsman — Requires Iron" in md_px and "Galley —" in md_px,
+      [l for l in md_px.splitlines() if "unavailable" in l])
+check("non-unit unavailable renders with explicit shown-of-total label",
+      "unavailable buildings/districts/wonders (showing 4 of 4; full list + reasons in JSON):" in md_px,
+      [l for l in md_px.splitlines() if "unavailable" in l])
+check("districts/wonders ranked first within the non-unit block",
+      md_px.find("Campus —") < md_px.find("Pyramids —") < md_px.find("Temple —"))
 check("reason text renders on the item line",
       "Temple — Requires Shrine [reconstructed: BuildingPrereqs]" in md_px)
 
@@ -1222,14 +1228,30 @@ _snap_a["section_status"]["resources"] = "ok"
 _md_a2 = M.render_markdown(_snap_a, {})
 check("md renders spare luxuries when resources section present",
       "tradable spare luxuries:** Dyes (1 spare of 2)" in _md_a2)
-# Unit cap discipline: 10 units -> shows 8, labeled
+# v1.7.1: unit list is NEVER truncated — a unit absent from the md must
+# mean "genuinely not buildable here" (the Mamluk/Knight invisibility bug:
+# units fell off both the capped buildable list and the capped
+# unavailable list, so the coach couldn't answer "can I build X?").
 _snap_a["cities"][0]["production_options"] = [
     {"kind": "UNIT", "type": f"U{i}", "name": f"Unit{i}", "progress": 0, "cost": 10, "turns": i}
-    for i in range(10)
+    for i in range(15)
 ]
 _md_a3 = M.render_markdown(_snap_a, {})
-check("unit list capped at 8 with explicit 'showing X of Y'",
-      "showing 8 of 10 by turns; rest in JSON" in _md_a3)
+check("buildable unit list renders in full (15/15, no cap)",
+      all(f"Unit{i} (" in _md_a3 for i in range(15)) and "rest in JSON" not in _md_a3)
+check("full unit list is labeled complete", "units (complete list):" in _md_a3)
+_snap_a["cities"][0]["production_unavailable"] = (
+    [{"category": "UNIT", "type": f"BU{i}", "name": f"BlockedUnit{i}", "cost": 100 + i,
+      "reason_source": "reconstructed", "reasons": [f"needs thing {i}"]} for i in range(9)]
+    + [{"category": "WONDER", "type": f"W{i}", "name": f"Wonder{i}", "cost": 300,
+        "reason_source": "unknown", "reasons": []} for i in range(8)]
+)
+_md_a4 = M.render_markdown(_snap_a, {})
+check("ALL blocked units render with reasons (9/9)",
+      "unavailable units (all 9 trainables):" in _md_a4
+      and all(f"BlockedUnit{i} — needs thing {i}" in _md_a4 for i in range(9)))
+check("non-unit unavailable stays capped with explicit label",
+      "unavailable buildings/districts/wonders (showing 6 of 8" in _md_a4)
 check("absence discipline: no capacity/housing/advisor lines when derivations are None",
       all(s not in M.render_markdown({
           "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 1.0,
@@ -1239,6 +1261,21 @@ check("absence discipline: no capacity/housing/advisor lines when derivations ar
                       "production_options": []}],
           "diagnostics": {},
       }, {}) for s in ("districts:", "housing 7 =", "## SETTLER ADVISOR", "civ accounting")))
+_snap_a["cities"][0]["production_unavailable"] += [
+    {"category": "UNIT", "type": "UNIT_GREAT_WRITER", "name": "Great Writer", "cost": 0,
+     "reason_source": "unknown", "reasons": []},
+    {"category": "UNIT", "type": "UNIT_APOSTLE", "name": "Apostle", "cost": 0,
+     "reason_source": "unknown", "reasons": []},
+]
+_md_a5 = M.render_markdown(_snap_a, {})
+check("GP/faith units roll up into one explanatory line, not noise",
+      "not city-trainable by design (2): Great Writer, Apostle" in _md_a5
+      and "Great Writer — " not in _md_a5)
+check("rollup line names the recruit/faith mechanism",
+      "recruited with points" in _md_a5 and "purchased with Faith" in _md_a5)
+check("trainable blocked list count excludes rolled-up units",
+      "unavailable units (all 9 trainables):" in _md_a5)
+
 
 print()
 if failures:
