@@ -60,5 +60,513 @@
     "city_state": "Kabul",
     "from": "none",
     "to": "SUMERIA"
+  },
+  {
+    "turn": 156,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 137,
+    "to": 199
+  },
+  {
+    "turn": 160,
+    "event": "suzerain_changed",
+    "city_state": "Kabul",
+    "from": "SUMERIA",
+    "to": "none"
+  },
+  {
+    "turn": 166,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 172,
+    "to": 211
+  },
+  {
+    "turn": 173,
+    "event": "government_changed",
+    "player_id": 5,
+    "civ": "Aztec",
+    "from": "Autocracy",
+    "to": "Classical Republic"
+  },
+  {
+    "turn": 179,
+    "event": "suzerain_changed",
+    "city_state": "Kabul",
+    "from": "none",
+    "to": "ME"
+  },
+  {
+    "turn": 190,
+    "event": "military_swing",
+    "player_id": 5,
+    "civ": "Aztec",
+    "from": 138,
+    "to": 104
+  },
+  {
+    "turn": 193,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 126,
+    "to": 191
+  },
+  {
+    "turn": 197,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 182,
+    "to": 223
+  },
+  {
+    "turn": 197,
+    "event": "suzerain_changed",
+    "city_state": "Stockholm",
+    "from": "SUMERIA",
+    "to": "none"
+  },
+  {
+    "turn": 199,
+    "event": "suzerain_changed",
+    "city_state": "Stockholm",
+    "from": "none",
+    "to": "ME"
+  },
+  {
+    "turn": 206,
+    "event": "military_swing",
+    "player_id": 5,
+    "civ": "Aztec",
+    "from": 132,
+    "to": 178
+  },
+  {
+    "turn": 213,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 247,
+    "to": 196
+  },
+  {
+    "turn": 220,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 195,
+    "to": 74
+  },
+  {
+    "turn": 221,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 74,
+    "to": 2
+  },
+  {
+    "turn": 248,
+    "event": "suzerain_changed",
+    "city_state": "Kumasi",
+    "from": "ENGLAND",
+    "to": "none"
+  },
+  {
+    "turn": 261,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 45,
+    "to": 13
+  },
+  {
+    "turn": 265,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 167,
+    "to": 211
+  },
+  {
+    "turn": 270,
+    "event": "suzerain_changed",
+    "city_state": "Mohenjo-Daro",
+    "from": "ENGLAND",
+    "to": "none"
+  },
+  {
+    "turn": 276,
+    "event": "military_swing",
+    "player_id": 5,
+    "civ": "Aztec",
+    "from": 170,
+    "to": 211
+  },
+  {
+    "turn": 276,
+    "event": "suzerain_changed",
+    "city_state": "Stockholm",
+    "from": "ME",
+    "to": "none"
+  },
+  {
+    "turn": 278,
+    "event": "military_swing",
+    "player_id": 5,
+    "civ": "Aztec",
+    "from": 170,
+    "to": 213
+  },
+  {
+    "turn": 279,
+    "event": "military_swing",
+    "player_id": 5,
+    "civ": "Aztec",
+    "from": 213,
+    "to": 289
+  },
+  {
+    "turn": 279,
+    "event": "suzerain_changed",
+    "city_state": "Stockholm",
+    "from": "none",
+    "to": "ME"
+  },
+  {
+    "turn": 284,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 211,
+    "to": 293
+  },
+  {
+    "turn": 292,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 85,
+    "to": 167
+  },
+  {
+    "turn": 292,
+    "event": "suzerain_changed",
+    "city_state": "Buenos Aires",
+    "from": "ENGLAND",
+    "to": "INDIA"
+  },
+  {
+    "turn": 298,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 276,
+    "to": 345
+  },
+  {
+    "turn": 298,
+    "event": "military_swing",
+    "player_id": 5,
+    "civ": "Aztec",
+    "from": 271,
+    "to": 350
+  },
+  {
+    "turn": 298,
+    "event": "suzerain_changed",
+    "city_state": "Mohenjo-Daro",
+    "from": "none",
+    "to": "AZTEC"
+  },
+  {
+    "turn": 300,
+    "event": "suzerain_changed",
+    "city_state": "Kumasi",
+    "from": "none",
+    "to": "AZTEC"
+  },
+  {
+    "turn": 302,
+    "event": "military_swing",
+    "player_id": 2,
+    "civ": "India",
+    "from": 87,
+    "to": 133
+  },
+  {
+    "turn": 305,
+    "event": "suzerain_changed",
+    "city_state": "Mogadishu",
+    "from": "ENGLAND",
+    "to": "INDIA"
+  },
+  {
+    "turn": 308,
+    "event": "suzerain_changed",
+    "city_state": "Mohenjo-Daro",
+    "from": "AZTEC",
+    "to": "INDIA"
+  },
+  {
+    "turn": 311,
+    "event": "military_swing",
+    "player_id": 2,
+    "civ": "India",
+    "from": 145,
+    "to": 109
+  },
+  {
+    "turn": 311,
+    "event": "suzerain_changed",
+    "city_state": "Kabul",
+    "from": "ME",
+    "to": "none"
+  },
+  {
+    "turn": 312,
+    "event": "military_swing",
+    "player_id": 5,
+    "civ": "Aztec",
+    "from": 375,
+    "to": 195
+  },
+  {
+    "turn": 312,
+    "event": "suzerain_changed",
+    "city_state": "Kabul",
+    "from": "none",
+    "to": "ME"
+  },
+  {
+    "turn": 313,
+    "event": "suzerain_changed",
+    "city_state": "Kumasi",
+    "from": "AZTEC",
+    "to": "none"
+  },
+  {
+    "turn": 314,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 160,
+    "to": 239
+  },
+  {
+    "turn": 316,
+    "event": "military_swing",
+    "player_id": 2,
+    "civ": "India",
+    "from": 109,
+    "to": 172
+  },
+  {
+    "turn": 316,
+    "event": "suzerain_changed",
+    "city_state": "Kumasi",
+    "from": "none",
+    "to": "INDIA"
+  },
+  {
+    "turn": 322,
+    "event": "government_changed",
+    "player_id": 1,
+    "civ": "England",
+    "from": "Merchant Republic",
+    "to": "Democracy"
+  },
+  {
+    "turn": 322,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 262,
+    "to": 208
+  },
+  {
+    "turn": 322,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 232,
+    "to": 140
+  },
+  {
+    "turn": 323,
+    "event": "government_changed",
+    "player_id": 5,
+    "civ": "Aztec",
+    "from": "Classical Republic",
+    "to": "Monarchy"
+  },
+  {
+    "turn": 323,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 208,
+    "to": 160
+  },
+  {
+    "turn": 323,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 140,
+    "to": 63
+  },
+  {
+    "turn": 325,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 163,
+    "to": 122
+  },
+  {
+    "turn": 326,
+    "event": "suzerain_changed",
+    "city_state": "Mohenjo-Daro",
+    "from": "INDIA",
+    "to": "none"
+  },
+  {
+    "turn": 335,
+    "event": "military_swing",
+    "player_id": 5,
+    "civ": "Aztec",
+    "from": 201,
+    "to": 320
+  },
+  {
+    "turn": 345,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 159,
+    "to": 200
+  },
+  {
+    "turn": 345,
+    "event": "military_swing",
+    "player_id": 2,
+    "civ": "India",
+    "from": 222,
+    "to": 301
+  },
+  {
+    "turn": 349,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 200,
+    "to": 250
+  },
+  {
+    "turn": 352,
+    "event": "government_changed",
+    "player_id": 2,
+    "civ": "India",
+    "from": "Classical Republic",
+    "to": "Democracy"
+  },
+  {
+    "turn": 357,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 79,
+    "to": 261
+  },
+  {
+    "turn": 367,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 181,
+    "to": 338
+  },
+  {
+    "turn": 370,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 338,
+    "to": 266
+  },
+  {
+    "turn": 374,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 248,
+    "to": 172
+  },
+  {
+    "turn": 374,
+    "event": "suzerain_changed",
+    "city_state": "Yerevan",
+    "from": "none",
+    "to": "ENGLAND"
+  },
+  {
+    "turn": 378,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 297,
+    "to": 383
+  },
+  {
+    "turn": 378,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 172,
+    "to": 60
+  },
+  {
+    "turn": 378,
+    "event": "suzerain_changed",
+    "city_state": "Yerevan",
+    "from": "ENGLAND",
+    "to": "none"
+  },
+  {
+    "turn": 396,
+    "event": "government_changed",
+    "player_id": 5,
+    "civ": "Aztec",
+    "from": "Monarchy",
+    "to": "Democracy"
+  },
+  {
+    "turn": 396,
+    "event": "military_swing",
+    "player_id": 1,
+    "civ": "England",
+    "from": 342,
+    "to": 413
+  },
+  {
+    "turn": 396,
+    "event": "military_swing",
+    "player_id": 2,
+    "civ": "India",
+    "from": 245,
+    "to": 147
+  },
+  {
+    "turn": 396,
+    "event": "military_swing",
+    "player_id": 3,
+    "civ": "Sumeria",
+    "from": 60,
+    "to": 2
   }
 ]

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+  <IconTextureAtlases>
+    <Row Name="ICON_ATLAS_XP2_PROJECTS" IconSize="30"  IconsPerRow="4" IconsPerColumn="4" Filename="XP2_Projects30"/>
+    <Row Name="ICON_ATLAS_XP2_PROJECTS" IconSize="32"  IconsPerRow="4" IconsPerColumn="4" Filename="XP2_Projects32"/>
+    <Row Name="ICON_ATLAS_XP2_PROJECTS" IconSize="38"  IconsPerRow="4" IconsPerColumn="4" Filename="XP2_Projects38"/>
+    <Row Name="ICON_ATLAS_XP2_PROJECTS" IconSize="50"  IconsPerRow="4" IconsPerColumn="4" Filename="XP2_Projects50"/>
+    <Row Name="ICON_ATLAS_XP2_PROJECTS" IconSize="80"  IconsPerRow="4" IconsPerColumn="4" Filename="XP2_Projects80"/>
+    <Row Name="ICON_ATLAS_XP2_PROJECTS" IconSize="256" IconsPerRow="4" IconsPerColumn="4" Filename="XP2_Projects256"/>
+  </IconTextureAtlases>
+  <IconDefinitions>
+    <Row Name="ICON_PROJECT_CONVERT_REACTOR_TO_OIL"				      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="0"/>
+    <Row Name="ICON_PROJECT_DECOMMISSION_OIL_POWER_PLANT"	      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="14"/>
+		<Row Name="ICON_PROJECT_UNUSED_XP2_ICON_1"						      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="1"/>
+    <Row Name="ICON_PROJECT_TERRESTRIAL_LASER"						      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="2"/>
+    <Row Name="ICON_PROJECT_ORBITAL_LASER"								      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="3"/>
+    <Row Name="ICON_PROJECT_CONVERT_REACTOR_TO_URANIUM"		      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="4"/>
+    <Row Name="ICON_PROJECT_DECOMMISSION_NUCLEAR_POWER_PLANT"		Atlas="ICON_ATLAS_XP2_PROJECTS" Index="15"/>
+    <Row Name="ICON_PROJECT_COTHON_CAPITAL_MOVE"					      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="5"/>
+    <Row Name="ICON_PROJECT_LAUNCH_MARS_BASE"							      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="6"/>
+    <Row Name="ICON_PROJECT_LAUNCH_EXOPLANET_EXPEDITION"	      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="7"/>
+		<Row Name="ICON_PROJECT_CARBON_RECAPTURE"							      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="8"/>
+		<Row Name="ICON_PROJECT_SEND_AID"											      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="9"/>
+		<Row Name="ICON_PROJECT_TRAIN_ATHLETES"								      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="10"/>
+		<Row Name="ICON_PROJECT_TRAIN_ASTRONAUTS"							      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="11"/>
+		<Row Name="ICON_PROJECT_CONVERT_REACTOR_TO_COAL"			      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="12"/>
+    <Row Name="ICON_PROJECT_DECOMMISSION_COAL_POWER_PLANT"			Atlas="ICON_ATLAS_XP2_PROJECTS" Index="16"/>
+		<Row Name="ICON_PROJECT_RECOMMISSION_REACTOR"					      Atlas="ICON_ATLAS_XP2_PROJECTS" Index="13"/>
+	</IconDefinitions>
+</GameInfo>

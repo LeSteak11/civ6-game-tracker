@@ -15,7 +15,7 @@ being silently omitted.
 from __future__ import annotations
 
 SCHEMA_VERSION = "coach-snapshot/1.4"  # 1.3 + reports-screen data (additive)
-COACH_VERSION = "1.7.1"
+COACH_VERSION = "1.8.0"  # + GAME PACK builder (archive-side tooling only)
 
 # Terminator every coach Lua chunk prints as its last line.
 #

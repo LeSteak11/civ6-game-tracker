@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICT_BUILDINGS" IconSize="32" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_DistrictBuildings32.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICT_BUILDINGS" IconSize="38" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_DistrictBuildings38.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICT_BUILDINGS" IconSize="50" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_DistrictBuildings50.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICT_BUILDINGS" IconSize="80" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_DistrictBuildings80.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICT_BUILDINGS" IconSize="128" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_DistrictBuildings128.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICT_BUILDINGS" IconSize="256" IconsPerRow="4" IconsPerColumn="1" Filename="XP2_DistrictBuildings256.dds"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+		<Row Name="ICON_BUILDING_GRAND_BAZAAR" Atlas="ICON_ATLAS_EXPANSION_2_DISTRICT_BUILDINGS" Index="0"/>
+    <Row Name="ICON_BUILDING_THERMAL_BATH" Atlas="ICON_ATLAS_EXPANSION_2_DISTRICT_BUILDINGS" Index="1"/>
+    <Row Name="ICON_BUILDING_MARAE" Atlas="ICON_ATLAS_EXPANSION_2_DISTRICT_BUILDINGS" Index="2"/>
+    <Row Name="ICON_BUILDING_QUEENS_BIBLIOTHEQUE" Atlas="ICON_ATLAS_EXPANSION_2_DISTRICT_BUILDINGS" Index="3"/>
+  </IconDefinitions>
+</GameInfo>

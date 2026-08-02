@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="22" IconsPerRow="8" IconsPerColumn="1"      Filename="XP1_CivFreeCities22.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="30" IconsPerRow="8" IconsPerColumn="1"      Filename="XP1_CivFreeCities30.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="32" IconsPerRow="8" IconsPerColumn="1"      Filename="XP1_CivFreeCities32.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="36" IconsPerRow="8" IconsPerColumn="1"      Filename="XP1_CivFreeCities36.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="44" IconsPerRow="8" IconsPerColumn="1"      Filename="XP1_CivFreeCities44.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="45" IconsPerRow="8" IconsPerColumn="1"      Filename="XP1_CivFreeCities45.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="48" IconsPerRow="8" IconsPerColumn="1"      Filename="XP1_CivFreeCities48.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="50" IconsPerRow="8" IconsPerColumn="1"      Filename="XP1_CivFreeCities50.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="64" IconsPerRow="8" IconsPerColumn="1"      Filename="XP1_CivFreeCities64.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="80" IconsPerRow="8" IconsPerColumn="1"      Filename="XP1_CivFreeCities80.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="128" IconsPerRow="8" IconsPerColumn="1"     Filename="XP1_CivFreeCities128.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="200" IconsPerRow="8" IconsPerColumn="1"     Filename="XP1_CivFreeCities200.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_FREE_CITIES" IconSize="256" IconsPerRow="8" IconsPerColumn="1"     Filename="XP1_CivFreeCities256.dds"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+		<Row Name="ICON_CIVILIZATION_FREE_CITIES" Atlas="ICON_ATLAS_EXPANSION_1_FREE_CITIES" Index="0"/>
+	</IconDefinitions>
+</GameInfo>

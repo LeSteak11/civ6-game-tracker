@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS" IconSize="32" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders32.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS" IconSize="38" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders38.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS" IconSize="50" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders50.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS" IconSize="64" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders64.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS" IconSize="128" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders128.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS" IconSize="256" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders256.dds"/>
+
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" IconSize="32" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders32_FOW.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" IconSize="38" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders38_FOW.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" IconSize="50" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders50_FOW.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" IconSize="64" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders64_FOW.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" IconSize="128" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders128_FOW.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" IconSize="256" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_Wonders256_FOW.dds"/>
+	</IconTextureAtlases>
+	
+	<IconDefinitions>
+		<!-- WORLD WONDERS -->
+		<Row Name="ICON_BUILDING_AMUNDSEN_SCOTT_RESEARCH_STATION" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS" Index="0"/>
+		<Row Name="ICON_BUILDING_KILWA_KISIWANI" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS" Index="1"/>
+		<Row Name="ICON_BUILDING_KOTOKU_IN" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS" Index="2"/>
+		<Row Name="ICON_BUILDING_ST_BASILS_CATHEDRAL" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS" Index="3"/>
+		<Row Name="ICON_BUILDING_STATUE_LIBERTY" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS" Index="4"/>
+		<Row Name="ICON_BUILDING_TAJ_MAHAL" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS" Index="5"/>
+		<Row Name="ICON_BUILDING_TEMPLE_ARTEMIS" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS" Index="6"/>
+    <Row Name="ICON_BUILDING_CASA_DE_CONTRATACION" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS" Index="7"/>
+    <!-- WORLD WONDERS FOW -->
+		<Row Name="ICON_BUILDING_AMUNDSEN_SCOTT_RESEARCH_STATION_FOW" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" Index="0"/>
+		<Row Name="ICON_BUILDING_KILWA_KISIWANI_FOW" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" Index="1"/>
+		<Row Name="ICON_BUILDING_KOTOKU_IN_FOW" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" Index="2"/>
+		<Row Name="ICON_BUILDING_ST_BASILS_CATHEDRAL_FOW" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" Index="3"/>
+		<Row Name="ICON_BUILDING_STATUE_LIBERTY_FOW" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" Index="4"/>
+		<Row Name="ICON_BUILDING_TAJ_MAHAL_FOW" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" Index="5"/>
+		<Row Name="ICON_BUILDING_TEMPLE_ARTEMIS_FOW" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS_FOW" Index="6"/>
+    <Row Name="ICON_BUILDING_CASA_DE_CONTRATACION_FOW" Atlas="ICON_ATLAS_EXPANSION_1_WONDERS" Index="7"/>
+
+  </IconDefinitions>
+	
+</GameInfo>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION_2_LEADERS" IconSize="32" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_Leaders32.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_LEADERS" IconSize="45" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_Leaders45.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_LEADERS" IconSize="48" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_Leaders48.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_LEADERS" IconSize="50" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_Leaders50.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_LEADERS" IconSize="55" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_Leaders55.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_LEADERS" IconSize="64" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_Leaders64.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_LEADERS" IconSize="80" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_Leaders80.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_LEADERS" IconSize="256" IconsPerRow="4" IconsPerColumn="1" Filename="XP2_Leaders256.dds"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+		<Row Name="ICON_LEADER_MATTHIAS_CORVINUS" Atlas="ICON_ATLAS_EXPANSION_2_LEADERS" Index="0"/>
+		<Row Name="ICON_LEADER_PACHACUTI"					Atlas="ICON_ATLAS_EXPANSION_2_LEADERS" Index="1"/>
+		<Row Name="ICON_LEADER_MANSA_MUSA"				Atlas="ICON_ATLAS_EXPANSION_2_LEADERS" Index="2"/>
+		<Row Name="ICON_LEADER_DIDO"							Atlas="ICON_ATLAS_EXPANSION_2_LEADERS" Index="3"/>
+		<Row Name="ICON_LEADER_SULEIMAN"					Atlas="ICON_ATLAS_EXPANSION_2_LEADERS" Index="4"/>
+		<Row Name="ICON_LEADER_KUPE"							Atlas="ICON_ATLAS_EXPANSION_2_LEADERS" Index="5"/>
+		<Row Name="ICON_LEADER_LAURIER"						Atlas="ICON_ATLAS_EXPANSION_2_LEADERS" Index="6"/>
+		<Row Name="ICON_LEADER_KRISTINA"					Atlas="ICON_ATLAS_EXPANSION_2_LEADERS" Index="7"/>
+		<Row Name="ICON_LEADER_ELEANOR_ENGLAND"		Atlas="ICON_ATLAS_EXPANSION_2_LEADERS" Index="8"/>
+    <Row Name="ICON_LEADER_ELEANOR_FRANCE"		Atlas="ICON_ATLAS_EXPANSION_2_LEADERS" Index="9"/>
+  </IconDefinitions>
+</GameInfo>

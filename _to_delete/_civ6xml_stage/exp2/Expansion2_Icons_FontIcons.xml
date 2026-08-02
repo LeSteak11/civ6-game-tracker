@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION2_FONT_ICON_BASELINE_4"						Baseline="4" IconSize="20" IconsPerRow="4" IconsPerColumn="1" Filename="XP2_StatusEffects20"/>
+		<Row Name="ICON_ATLAS_EXPANSION2_FONT_ICON_BASELINE_6"						Baseline="6" IconSize="20" IconsPerRow="4" IconsPerColumn="1" Filename="XP2_StatusEffects20"/>
+		<Row Name="ICON_ATLAS_EXPANSION2_FONT_ICON_GRIEVANCES_BASELINE_6" Baseline="6" IconSize="22" IconsPerRow="4" IconsPerColumn="1" Filename="Grievances22"/>
+    <Row Name="ICON_ATLAS_EXPANSION2_FONT_ICON_STATS_BASELINE_4"			Baseline="4" IconSize="16" IconsPerRow="8" IconsPerColumn="2" Filename="XP2_Stats16"/>
+		<Row Name="ICON_ATLAS_EXPANSION2_FONT_ICON_POWER_LEFT"						Baseline="6" IconSize="20" IconsPerRow="1" IconsPerColumn="1" Filename="Power_Left"/>
+		<Row Name="ICON_ATLAS_EXPANSION2_FONT_ICON_POWER_RIGHT"						Baseline="6" IconSize="20" IconsPerRow="1" IconsPerColumn="1" Filename="Power_Right"/>
+    <Row Name="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4"  Baseline="4" IconSize="22" IconsPerRow="4" IconsPerColumn="2" Filename="XP2_Districts22.dds"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+		<Row Name="PowerInsufficient"     Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_BASELINE_4"						Index="0"/>
+		<Row Name="Power"							    Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_BASELINE_6"						Index="1"/>
+		<Row Name="GRIEVANCE_TT"	   			Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_GRIEVANCES_BASELINE_6" Index="0"/>
+    <!-- Font Icons require special Baseline attribute (so keep separate) -->
+    <Row Name="STAT_GRIEVANCE"				Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_STATS_BASELINE_4" Index="5"/>
+    <Row Name="GRIEVANCE"             Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_STATS_BASELINE_4" Index="5"/>
+    <Row Name="VOTE_DOWN"             Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_STATS_BASELINE_4" Index="6"/>
+    <Row Name="VOTE_UP"               Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_STATS_BASELINE_4" Index="7"/>
+		<Row Name="PowerLeft"		   				Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_POWER_LEFT" Index="0"/>
+		<Row Name="PowerRight"		   			Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_POWER_RIGHT" Index="0"/>
+
+    <Row Name="DISTRICT_CANAL"        Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4" Index="0"/>
+    <Row Name="DISTRICT_DAM"          Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4" Index="1"/>
+    <Row Name="ICON_DISTRICT_COTHON"  Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4" Index="2"/>
+    <Row Name="ICON_DISTRICT_SUGUBA"  Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4" Index="3"/>
+    <Row Name="ICON_DISTRICT_WALLED_QUARTER" Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4" Index="4"/>
+	<!-- Provide the more standard names too -->
+	<Row Name="DISTRICT_COTHON"  Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4" Index="2"/>
+    <Row Name="DISTRICT_SUGUBA"  Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4" Index="3"/>
+    <Row Name="DISTRICT_WALLED_QUARTER" Atlas="ICON_ATLAS_EXPANSION2_FONT_ICON_DISTRICTS_BASELINE_4" Index="4"/>
+
+	</IconDefinitions>
+</GameInfo>
+

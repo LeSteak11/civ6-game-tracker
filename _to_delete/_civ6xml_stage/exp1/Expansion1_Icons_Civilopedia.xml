@@ -1,0 +1,9 @@
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION_1_CIVILOPEDIA" IconSize="32" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_CivilopediaChapter32.dds"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+		<Row Name="ICON_CIVILOPEDIA_GOVERNORS"                 Atlas="ICON_ATLAS_EXPANSION_1_CIVILOPEDIA" Index="0"/>
+    <Row Name="ICON_CIVILOPEDIA_HISTORIC_MOMENTS"          Atlas="ICON_ATLAS_EXPANSION_1_CIVILOPEDIA" Index="1"/>
+  </IconDefinitions>
+</GameInfo>

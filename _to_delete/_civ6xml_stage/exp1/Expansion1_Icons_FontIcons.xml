@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+		<Replace Name="ICON_ATLAS_EXPANSION1_FONT_ICON_BASELINE_4" Baseline="4" IconSize="22" IconsPerRow="11" IconsPerColumn="25" Filename="FontIconsXP1.dds"/>
+		<Replace Name="ICON_ATLAS_EXPANSION1_FONT_ICON_BASELINE_5" Baseline="5" IconSize="22" IconsPerRow="11" IconsPerColumn="25" Filename="FontIconsXP1.dds"/>
+		<Replace Name="ICON_ATLAS_EXPANSION1_FONT_ICON_BASELINE_6" Baseline="6" IconSize="22" IconsPerRow="11" IconsPerColumn="25" Filename="FontIconsXP1.dds"/>
+		<Replace Name="ICON_ATLAS_EXPANSION1_FONT_ICON_BASELINE_8" Baseline="8" IconSize="22" IconsPerRow="11" IconsPerColumn="25" Filename="FontIconsXP1.dds"/>
+    <Replace Name="ICON_ATLAS_EXPANSION1_FONT_ICON_DISTRICTS_BASELINE_4" Baseline="4" IconSize="22" IconsPerRow="4"  IconsPerColumn="1"  Filename="XP1_Districts22.dds"/>
+
+		<Replace Name="ICON_ATLAS_GLORY_ICONS" IconSize="18" Baseline="4" IconsPerRow="4" IconsPerColumn="1" Filename="Ages_18.dds"/>
+  </IconTextureAtlases>
+
+	<IconDefinitions>
+		<Replace Name="Governor" 								    Atlas="ICON_ATLAS_EXPANSION1_FONT_ICON_BASELINE_6" Index="3"/>
+		<Replace Name="DECLARE_GOLDEN_AGE_WAR"	    Atlas="ICON_ATLAS_FONT_ICON_BASELINE_4" Index="262"/>
+		<Replace Name="DECLARE_WAR_OF_RETRIBUTION"	Atlas="ICON_ATLAS_FONT_ICON_BASELINE_4" Index="262"/>
+		<Replace Name="DECLARE_IDEOLOGICAL_WAR"	    Atlas="ICON_ATLAS_FONT_ICON_BASELINE_4" Index="262"/>
+    
+    <!--District Icons-->
+    <Replace Name="DISTRICT_GOVERNMENT"                   Atlas="ICON_ATLAS_EXPANSION1_FONT_ICON_DISTRICTS_BASELINE_4" Index="0"/>
+    <Replace Name="DISTRICT_WATER_ENTERTAINMENT_COMPLEX"  Atlas="ICON_ATLAS_EXPANSION1_FONT_ICON_DISTRICTS_BASELINE_4" Index="1"/>
+    <Replace Name="DISTRICT_SEOWON"                       Atlas="ICON_ATLAS_EXPANSION1_FONT_ICON_DISTRICTS_BASELINE_4" Index="2"/>
+    <Replace Name="DISTRICT_IKANDA"                       Atlas="ICON_ATLAS_EXPANSION1_FONT_ICON_DISTRICTS_BASELINE_4" Index="3"/>
+
+    <!-- Glory Icons -->
+		<Replace Name="GLORY_GOLDEN_AGE" Atlas="ICON_ATLAS_GLORY_ICONS" Index="2" />
+		<Replace Name="GLORY_SUPER_GOLDEN_AGE" Atlas="ICON_ATLAS_GLORY_ICONS" Index="3" />
+		<Replace Name="GLORY_DARK_AGE" Atlas="ICON_ATLAS_GLORY_ICONS" Index="0" />
+		<Replace Name="GLORY_NORMAL_AGE" Atlas="ICON_ATLAS_GLORY_ICONS" Index="1" />
+
+		<Replace Name="RESOURCE_AMBER" Atlas="ICON_ATLAS_EXPANSION1_FONT_ICON_BASELINE_6" Index="7" />
+		<Replace Name="RESOURCE_TURTLES" Atlas="ICON_ATLAS_EXPANSION1_FONT_ICON_BASELINE_6" Index="6" />
+		<Replace Name="RESOURCE_OLIVES" Atlas="ICON_ATLAS_EXPANSION1_FONT_ICON_BASELINE_6" Index="5" />
+  </IconDefinitions>
+</GameInfo>

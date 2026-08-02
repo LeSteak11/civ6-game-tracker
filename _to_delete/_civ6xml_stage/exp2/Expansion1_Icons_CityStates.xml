@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+	  <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="128"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates128.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="200"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates200.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="22"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates22.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="256"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates256.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="30"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates30.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="32"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates32.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="36"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates36.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="44"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates44.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="45"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates45.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="48"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates48.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="50"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates50.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="64"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates64.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_CITY_STATES" IconSize="80"  IconsPerRow="2" IconsPerColumn="1" Filename="XP1_CityStates80.dds"/>
+  </IconTextureAtlases>
+	<IconDefinitions>
+    <Row Name="ICON_CIVILIZATION_ANTIOCH"			Atlas="ICON_ATLAS_EXPANSION_1_CITY_STATES" Index="0"/>
+    <Row Name="ICON_CIVILIZATION_BABYLON"			Atlas="ICON_ATLAS_EXPANSION_1_CITY_STATES" Index="1"/>
+  </IconDefinitions>
+</GameInfo>
+

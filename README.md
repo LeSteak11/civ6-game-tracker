@@ -46,7 +46,13 @@ chat).  You never touch the terminal during normal play.
 3. Play.  Whenever you want coaching, hit **`Ctrl+Shift+C`**.  The window
    prints one confirmation line per snapshot (turn number, timing, tile
    counts, clipboard status).
-4. Paste into an AI chat.
+4. Paste into an AI chat.  (Set the chat up once by uploading
+   `AI-COACH-INSTRUCTIONS.md` + `CIV6-REFERENCE.md` +
+   `AI-GAME-HANDOFF-INSTRUCTIONS.md`.  When a chat gets long, say
+   "handoff" — the AI writes a `=== GAME HANDOFF ===` report you paste
+   into a fresh chat to continue the same game seamlessly.  For
+   postgame deep dives, upload the game folder with
+   `AI-GAME-ANALYSIS-INSTRUCTIONS.md` instead.)
 
 The launcher can stay open across turns and even across save-loads — the
 bridge reconnects on its own if the game or tuner drops the socket.
@@ -116,6 +122,8 @@ Every capture is filed into a **persistent per-game archive** (under
         snapshots\turn-0087_r01.md / .json           # first capture on turn 87
         snapshots\turn-0087_r02.md / .json           # second capture, same turn
         snapshots\turn-0088_r01.md / .json
+        GAME-PACK.md                                 # written by Make Game Pack.bat,
+        GAME-PACK-LEAN.md                            #   never by a capture
 
 Archive behaviour:
 
@@ -137,6 +145,46 @@ Archive behaviour:
   under `output/`.
 
 The JSON schema is documented in the appendix at the bottom of this file.
+
+## Making a game pack (whole game -> one uploadable file)
+
+Double-click **`Make Game Pack.bat`** with the game closed.  It lists every
+archived game with its civ, turn span and capture count, you type a number,
+and it writes `GAME-PACK.md` into that game's folder — one file containing
+the entire game, sized for a single AI-chat upload.
+
+    Make Game Pack.bat                         # numbered menu
+    python scripts\make_game_pack.py --newest  # skip the menu
+    python scripts\make_game_pack.py --game game-001_egypt
+
+Pack contents, in order:
+
+1. **Coverage header** — identity, real turn span, every gap, how far back
+   gossip back-fills, and a loud warning if the archive spans coach
+   versions (field derivations changed between them, so cross-version
+   comparisons can mislead).
+2. **Your timeline** — one row per captured turn, mined from the snapshot
+   JSONs, highest revision per turn.  This is the only place the player's
+   own arc exists: `rivals.json` tracks opponents, nothing tracks you.
+3. **Rival timelines** — every met major plus city-state suzerain history.
+4. **Master chronology** — `gossip.json` + `events.json` merged, turn-sorted
+   and deduped.
+5. **Turn-by-turn narrative** — the CHANGES / WORLD NEWS blocks from every
+   turn's `.md`.
+6. **Final state** — `latest.md` verbatim.
+
+For reference, `game-001_egypt` (208 captures, T87-T396) produces a ~327k
+character pack, about 81k tokens.  `--lean` additionally writes
+`GAME-PACK-LEAN.md` (~96k chars) with the revealed-map tile dump removed —
+same timelines, same chronology, for smaller context windows.
+
+The builder is read-only, stdlib-only and never needs the game running.  A
+character budget (`--budget`, default 600,000) acts purely as a safety net
+for archives far larger than any seen so far; when it fires it drops the map
+dump first, then the narrative oldest-first, and **never** the timelines or
+chronology.  Every drop is named in the coverage header.
+
+Upload the pack alongside `AI-GAME-ANALYSIS-INSTRUCTIONS.md`.
 
 ## Testing without a hotkey
 
@@ -294,6 +342,26 @@ add-only changes stay backwards-compatible.
   from `queries.py:build_map_query`.
 - `promotions_available` is `0` or `1` — a unit can have at most one
   pending promotion. Civilians are always `0`.
+
+## Changes in 1.5 (v1.8.0 — GAME PACK builder)
+
+Archive-side tooling only; no Lua changes, no new engine API, no change to
+what a capture writes.
+
+- **`Make Game Pack.bat` + `scripts/make_game_pack.py`** compile one game
+  folder into a single `GAME-PACK.md` an AI chat can read without any other
+  upload.  See "Making a game pack" above.
+- The pack mines a **per-turn player timeline** out of the snapshot archive.
+  Until now no file carried the local player's own arc over time —
+  `rivals.json` recorded every opponent per turn while the player existed
+  only in whichever single snapshot you happened to open.
+- The coverage header reports **capture gaps, the uncaptured pre-archive
+  turns, and coach-version drift** across the snapshots it read, so an
+  analyst is told what the pack cannot support before it is asked to
+  conclude anything.
+- Honesty rules carry over: an unreadable section renders `?`, never `0`;
+  every budget trim is labelled "showing X of Y"; the timelines and
+  chronology are never trimmed.
 
 ## Changes in 1.4 (v1.4.0–v1.7.1 — Reports-screen data + Part A derivations)
 

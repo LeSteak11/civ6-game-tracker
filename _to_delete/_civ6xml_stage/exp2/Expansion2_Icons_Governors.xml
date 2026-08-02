@@ -1,0 +1,26 @@
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION_2_GOVERNORS" IconSize="32" IconsPerRow="8" IconsPerColumn="1" Filename="XP2_Governors32.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_GOVERNORS" IconSize="64" IconsPerRow="8" IconsPerColumn="1" Filename="XP2_Governors64.dds"/>
+
+		<!-- Atlasses bellow are used in CityBanner governor meters -->
+		<Row Name="ICON_ATLAS_EXPANSION_2_GOVERNORS_FILL" IconSize="32" IconsPerRow="8" IconsPerColumn="2" Filename="XP2_GovernorsCityBannerFill32.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_GOVERNORS_SLOT" IconSize="32" IconsPerRow="8" IconsPerColumn="2" Filename="XP2_GovernorsCityBannerSlot32.dds"/>
+
+    <Row Name="ICON_ATLAS_EXPANSION_2_GOVERNORS_FILL" Baseline="6" IconSize="22" IconsPerRow="8" IconsPerColumn="2" Filename="XP2_GovernorsCityBannerFill22.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_GOVERNORS_SLOT" Baseline="6" IconSize="22" IconsPerRow="8" IconsPerColumn="2" Filename="XP2_GovernorsCityBannerSlot22.dds"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+		<Row Name="ICON_GOVERNOR_IBRAHIM"          Atlas="ICON_ATLAS_EXPANSION_2_GOVERNORS" Index="0"/>
+
+		<!-- Icons bellow are used in CityBanner governor meters -->
+		<Row Name="ICON_GOVERNOR_IBRAHIM_FILL"          Atlas="ICON_ATLAS_EXPANSION_2_GOVERNORS_FILL" Index="0"/>
+
+		<Row Name="ICON_GOVERNOR_IBRAHIM_SLOT"          Atlas="ICON_ATLAS_EXPANSION_2_GOVERNORS_SLOT" Index="0"/>
+  </IconDefinitions>
+  <IconAliases>
+    <Row Name="GOVERNOR_IBRAHIM_SLOT"         OtherName="ICON_GOVERNOR_IBRAHIM_SLOT"         />
+    
+    <Row Name="GOVERNOR_IBRAHIM_FILL"         OtherName="ICON_GOVERNOR_IBRAHIM_FILL"         />
+  </IconAliases>
+</GameInfo>

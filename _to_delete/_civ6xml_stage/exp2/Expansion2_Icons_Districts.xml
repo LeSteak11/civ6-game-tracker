@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+    <Row Name="ICON_ATLAS_EXPANSION_2_DISTRICTS" IconSize="22"  IconsPerRow="4" IconsPerColumn="2"  Filename="XP2_Districts22.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICTS" IconSize="32"  IconsPerRow="4" IconsPerColumn="2"  Filename="XP2_Districts32.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICTS" IconSize="38"  IconsPerRow="4" IconsPerColumn="2"  Filename="XP2_Districts38.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICTS" IconSize="50"  IconsPerRow="4" IconsPerColumn="2"  Filename="XP2_Districts50.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICTS" IconSize="80"  IconsPerRow="4" IconsPerColumn="2"  Filename="XP2_Districts80.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICTS" IconSize="128" IconsPerRow="4" IconsPerColumn="2"  Filename="XP2_Districts128.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_DISTRICTS" IconSize="256" IconsPerRow="4" IconsPerColumn="2"  Filename="XP2_Districts256.dds"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+		<Row Name="ICON_DISTRICT_CANAL"						Atlas="ICON_ATLAS_EXPANSION_2_DISTRICTS" Index="0"/>
+    <Row Name="ICON_DISTRICT_DAM"							Atlas="ICON_ATLAS_EXPANSION_2_DISTRICTS" Index="1"/>
+    <Row Name="ICON_DISTRICT_COTHON"					Atlas="ICON_ATLAS_EXPANSION_2_DISTRICTS" Index="2"/>
+    <Row Name="ICON_DISTRICT_SUGUBA"					Atlas="ICON_ATLAS_EXPANSION_2_DISTRICTS" Index="3"/>
+		<Row Name="ICON_DISTRICT_WALLED_QUARTER"	Atlas="ICON_ATLAS_EXPANSION_2_DISTRICTS" Index="4"/>
+	</IconDefinitions>
+</GameInfo>

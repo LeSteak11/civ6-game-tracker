@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconDefinitions>
+		<Row Name="ICON_GOVERNMENT_CORPORATE_LIBERTARIANISM"       Atlas="ICON_ATLAS_GOVERNMENTS" Index="0"/>
+		<Row Name="ICON_GOVERNMENT_DIGITAL_DEMOCRACY"              Atlas="ICON_ATLAS_GOVERNMENTS" Index="0"/>
+		<Row Name="ICON_GOVERNMENT_SYNTHETIC_TECHNOCRACY"          Atlas="ICON_ATLAS_GOVERNMENTS" Index="0"/>
+	</IconDefinitions>
+</GameInfo>

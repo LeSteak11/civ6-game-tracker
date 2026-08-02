@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION_2_TECH"			IconSize="30"		IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Tech30.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_TECH"			IconSize="38"		IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Tech38.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_TECH"			IconSize="42"		IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Tech42.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_TECH"			IconSize="128"	IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Tech128.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_TECH"			IconSize="160"	IconsPerRow="8"		IconsPerColumn="4"	Filename="XP2_Tech160.dds" />		
+		<Row Name="ICON_ATLAS_EXPANSION_2_TECH_FOW" IconSize="30"		IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Tech30_FOW.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_TECH_FOW" IconSize="38"		IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Tech38_FOW.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_TECH_FOW" IconSize="42"		IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Tech42_FOW.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_TECH_FOW" IconSize="128"	IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Tech128_FOW.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_TECH_FOW" IconSize="160"	IconsPerRow="8"		IconsPerColumn="4"	Filename="XP2_Tech160_FOW.dds" />
+	</IconTextureAtlases>	
+	<IconDefinitions>
+		<Row Name="ICON_TECH_UNREVEALED"						Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="0" />
+		<Row Name="ICON_TECH_MEDICINE"							Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="1" />
+		<Row Name="ICON_TECH_CIVIL_ENGINEERING"			Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="2" />
+		<Row Name="ICON_TECH_INVENTION"							Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="3" />
+		<Row Name="ICON_TECH_SEASTEADS"							Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="4" />
+		<Row Name="ICON_TECH_ADVANCED_AI"						Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="5" />
+		<Row Name="ICON_TECH_ADVANCED_POWER_CELLS"	Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="6" />
+		<Row Name="ICON_TECH_CYBERNETICS"						Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="7" />
+		<Row Name="ICON_TECH_SMART_MATERIALS"				Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="8" />
+		<Row Name="ICON_TECH_PREDICTIVE_SYSTEMS"		Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="9" />
+		<Row Name="ICON_TECH_OFFWORLD_MISSION"			Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="10" />
+		<Row Name="ICON_TECH_BUTTRESS"							Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="11" />
+		<Row Name="ICON_TECH_REFINING"							Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="12" />
+		<Row Name="ICON_TECH_AIRCRAFT"							Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="13" />
+		<Row Name="ICON_TECH_FORTIFICATIONS"				Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="13" />
+		<Row Name="ICON_TECH_HEAVY_ARTILLERY"				Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="13" />
+		<Row Name="ICON_TECH_LOGISTICS"							Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="13" />
+		<Row Name="ICON_TECH_COMMAND"								Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="13" />
+		<Row Name="ICON_TECH_INDUSTRIAL_WARFARE"		Atlas="ICON_ATLAS_EXPANSION_2_TECH"				Index="13" />
+
+		<Row Name="ICON_TECH_UNREVEALED_FOW"						Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"   	Index="0" />
+		<Row Name="ICON_TECH_MEDICINE_FOW"							Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="1" />
+		<Row Name="ICON_TECH_CIVIL_ENGINEERING_FOW"			Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="2" />
+		<Row Name="ICON_TECH_INVENTION_FOW"							Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="3" />
+		<Row Name="ICON_TECH_SEASTEADS_FOW"							Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="4" />
+		<Row Name="ICON_TECH_ADVANCED_AI_FOW"						Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="5" />
+		<Row Name="ICON_TECH_ADVANCED_POWER_CELLS_FOW"	Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="6" />
+		<Row Name="ICON_TECH_CYBERNETICS_FOW"						Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="7" />
+		<Row Name="ICON_TECH_SMART_MATERIALS_FOW"				Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="8" />
+		<Row Name="ICON_TECH_PREDICTIVE_SYSTEMS_FOW"		Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="9" />
+		<Row Name="ICON_TECH_OFFWORLD_MISSION_FOW"			Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="10" />
+		<Row Name="ICON_TECH_BUTTRESS_FOW"							Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="11" />
+		<Row Name="ICON_TECH_REFINING_FOW"							Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="12" />
+		<Row Name="ICON_TECH_AIRCRAFT_FOW"							Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="13" />
+		<Row Name="ICON_TECH_FORTIFICATIONS_FOW"				Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="13" />
+		<Row Name="ICON_TECH_HEAVY_ARTILLERY_FOW"				Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="13" />
+		<Row Name="ICON_TECH_LOGISTICS_FOW"							Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="13" />
+		<Row Name="ICON_TECH_COMMAND_FOW"								Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="13" />
+		<Row Name="ICON_TECH_INDUSTRIAL_WARFARE_FOW"		Atlas="ICON_ATLAS_EXPANSION_2_TECH_FOW"			Index="13" />
+	</IconDefinitions>
+</GameInfo>

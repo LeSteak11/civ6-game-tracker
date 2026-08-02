@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameInfo>
+	<Types>
+		<Row Type="FEATURE_DELICATE_ARCH" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_EYE_OF_THE_SAHARA" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_LAKE_RETBA" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_MATTERHORN" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_RORAIMA" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_UBSUNUR_HOLLOW" Kind="KIND_FEATURE"/>
+		<Row Type="FEATURE_ZHANGYE_DANXIA" Kind="KIND_FEATURE"/>
+	</Types>
+	<Features>
+		<!--Natural Wonders -->
+		<Row FeatureType="FEATURE_DELICATE_ARCH" Name="LOC_FEATURE_DELICATE_ARCH_NAME" Description="LOC_FEATURE_DELICATE_ARCH_DESCRIPTION" Quote="LOC_FEATURE_DELICATE_ARCH_QUOTE" QuoteAudio="PLAY_DELICATE_ARCH_QUOTE" NaturalWonder="true" Appeal="2" NoRiver="true" Settlement="false" NoCoast="true" SightThroughModifier="1" Impassable="true" FollowRulesInWB="false" MinDistanceNW="8"/>
+		<Row FeatureType="FEATURE_EYE_OF_THE_SAHARA" Name="LOC_FEATURE_EYE_OF_THE_SAHARA_NAME" Description="LOC_FEATURE_EYE_OF_THE_SAHARA_DESCRIPTION" Quote="LOC_FEATURE_EYE_OF_THE_SAHARA_QUOTE" QuoteAudio="PLAY_EYE_OF_THE_SAHARA_QUOTE" NaturalWonder="true" Appeal="2" Tiles="3" NoRiver="true" Settlement="false" NoCoast="true" FollowRulesInWB="false" MinDistanceNW="8"/>
+		<Row FeatureType="FEATURE_LAKE_RETBA" Name="LOC_FEATURE_LAKE_RETBA_NAME" Description="LOC_FEATURE_LAKE_RETBA_DESCRIPTION" Quote="LOC_FEATURE_LAKE_RETBA_QUOTE" QuoteAudio="PLAY_LAKE_RETBA_QUOTE" NaturalWonder="true" Appeal="2" Tiles="2" NoRiver="true" Settlement="false" Lake="true" NoCoast="true" FollowRulesInWB="false" MinDistanceNW="8"/>
+		<Row FeatureType="FEATURE_MATTERHORN" Name="LOC_FEATURE_MATTERHORN_NAME" Description="LOC_FEATURE_MATTERHORN_DESCRIPTION" Quote="LOC_FEATURE_MATTERHORN_QUOTE" QuoteAudio="PLAY_MATTERHORN_QUOTE" NaturalWonder="true" Appeal="2" NoRiver="true" Settlement="false" NoCoast="true" Impassable="true" SightThroughModifier="2" FollowRulesInWB="false" MinDistanceNW="8"/>
+		<Row FeatureType="FEATURE_RORAIMA" Name="LOC_FEATURE_RORAIMA_NAME" Description="LOC_FEATURE_RORAIMA_DESCRIPTION" Quote="LOC_FEATURE_RORAIMA_QUOTE" QuoteAudio="PLAY_MOUNT_RORAIMA_QUOTE" NaturalWonder="true" Appeal="2" Tiles="4" NoRiver="true" Settlement="false" NoCoast="true" Impassable="true" SightThroughModifier="2" FollowRulesInWB="false" MinDistanceNW="8" CustomPlacement="PLACEMENT_RORAIMA"/>
+		<Row FeatureType="FEATURE_UBSUNUR_HOLLOW" Name="LOC_FEATURE_UBSUNUR_HOLLOW_NAME" Description="LOC_FEATURE_UBSUNUR_HOLLOW_DESCRIPTION" Quote="LOC_FEATURE_UBSUNUR_HOLLOW_QUOTE" QuoteAudio="PLAY_UBSUNUR_HOLLOW_QUOTE" NaturalWonder="true" Appeal="2" Tiles="4" NoRiver="true" Settlement="false" NoCoast="true" DefenseModifier="-2" MovementChange="1" FollowRulesInWB="false" MinDistanceNW="8"/>
+		<Row FeatureType="FEATURE_ZHANGYE_DANXIA" Name="LOC_FEATURE_ZHANGYE_DANXIA_NAME" Description="LOC_FEATURE_ZHANGYE_DANXIA_DESCRIPTION" Quote="LOC_FEATURE_ZHANGYE_DANXIA_QUOTE" QuoteAudio="PLAY_ZHANGYE_DANXIA_QUOTE" NaturalWonder="true" Appeal="2" Tiles="3" NoRiver="true" Settlement="false" NoCoast="true" Impassable="true" SightThroughModifier="2" FollowRulesInWB="false" MinDistanceNW="8" CustomPlacement="PLACEMENT_ZHANGYE_DANXIA"/>
+	</Features>
+	<Feature_AdjacentTerrains>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_GRASS"/>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_GRASS_HILLS"/>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_PLAINS"/>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_PLAINS_HILLS"/>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_DESERT"/>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_DESERT_HILLS"/>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_SNOW"/>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_SNOW_HILLS"/>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_TUNDRA"/>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_TUNDRA_HILLS"/>
+	</Feature_AdjacentTerrains>
+	<Feature_ValidTerrains>
+		<Row FeatureType="FEATURE_DELICATE_ARCH" TerrainType="TERRAIN_DESERT"/>
+		<Row FeatureType="FEATURE_DELICATE_ARCH" TerrainType="TERRAIN_DESERT_HILLS"/>
+		<Row FeatureType="FEATURE_EYE_OF_THE_SAHARA" TerrainType="TERRAIN_DESERT"/>
+		<Row FeatureType="FEATURE_EYE_OF_THE_SAHARA" TerrainType="TERRAIN_DESERT_HILLS"/>
+		<Row FeatureType="FEATURE_LAKE_RETBA" TerrainType="TERRAIN_GRASS"/>
+		<Row FeatureType="FEATURE_LAKE_RETBA" TerrainType="TERRAIN_PLAINS"/>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_GRASS_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_MATTERHORN" TerrainType="TERRAIN_PLAINS_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_RORAIMA" TerrainType="TERRAIN_GRASS_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_RORAIMA" TerrainType="TERRAIN_GRASS_HILLS"/>
+		<Row FeatureType="FEATURE_RORAIMA" TerrainType="TERRAIN_GRASS"/>
+		<Row FeatureType="FEATURE_RORAIMA" TerrainType="TERRAIN_PLAINS_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_RORAIMA" TerrainType="TERRAIN_PLAINS_HILLS"/>
+		<Row FeatureType="FEATURE_RORAIMA" TerrainType="TERRAIN_PLAINS"/>
+		<Row FeatureType="FEATURE_UBSUNUR_HOLLOW" TerrainType="TERRAIN_TUNDRA"/>
+		<Row FeatureType="FEATURE_UBSUNUR_HOLLOW" TerrainType="TERRAIN_TUNDRA_HILLS"/>
+		<Row FeatureType="FEATURE_ZHANGYE_DANXIA" TerrainType="TERRAIN_GRASS_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_ZHANGYE_DANXIA" TerrainType="TERRAIN_PLAINS_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_ZHANGYE_DANXIA" TerrainType="TERRAIN_DESERT_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_ZHANGYE_DANXIA" TerrainType="TERRAIN_TUNDRA_MOUNTAIN"/>
+		<Row FeatureType="FEATURE_ZHANGYE_DANXIA" TerrainType="TERRAIN_SNOW_MOUNTAIN"/>
+	</Feature_ValidTerrains>
+	<Feature_YieldChanges>
+		<!--Natural Wonders -->
+		<Row FeatureType="FEATURE_EYE_OF_THE_SAHARA" YieldType="YIELD_PRODUCTION" YieldChange="1"/>
+		<Row FeatureType="FEATURE_LAKE_RETBA" YieldType="YIELD_CULTURE" YieldChange="2"/>
+		<Row FeatureType="FEATURE_LAKE_RETBA" YieldType="YIELD_GOLD" YieldChange="2"/>
+		<Row FeatureType="FEATURE_LAKE_RETBA" YieldType="YIELD_PRODUCTION" YieldChange="1"/>
+		<Row FeatureType="FEATURE_UBSUNUR_HOLLOW" YieldType="YIELD_FAITH" YieldChange="2"/>
+		<Row FeatureType="FEATURE_UBSUNUR_HOLLOW" YieldType="YIELD_FOOD" YieldChange="1"/>
+		<Row FeatureType="FEATURE_UBSUNUR_HOLLOW" YieldType="YIELD_PRODUCTION" YieldChange="1"/>
+	</Feature_YieldChanges>
+	<Feature_AdjacentYields>
+		<Row FeatureType="FEATURE_DELICATE_ARCH" YieldType="YIELD_FAITH" YieldChange="2"/>
+		<Row FeatureType="FEATURE_DELICATE_ARCH" YieldType="YIELD_GOLD" YieldChange="1"/>
+		<Row FeatureType="FEATURE_MATTERHORN" YieldType="YIELD_CULTURE" YieldChange="1"/>
+		<Row FeatureType="FEATURE_RORAIMA" YieldType="YIELD_FAITH" YieldChange="1"/>
+		<Row FeatureType="FEATURE_RORAIMA" YieldType="YIELD_SCIENCE" YieldChange="1"/>
+	</Feature_AdjacentYields>
+	<Modifiers>
+		<Row>
+			<ModifierId>EYESAHARA_PRODUCTION_ATOMIC</ModifierId>
+			<ModifierType>MODIFIER_GAME_ADJUST_PLOT_YIELD</ModifierType>
+			<SubjectRequirementSetId>GAME_HAS_ATOMIC_EYE_REQUIREMENTS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>EYESAHARA_SCIENCE_ATOMIC</ModifierId>
+			<ModifierType>MODIFIER_GAME_ADJUST_PLOT_YIELD</ModifierType>
+			<SubjectRequirementSetId>GAME_HAS_ATOMIC_EYE_REQUIREMENTS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>GREAT_GENERAL_ZHANGYE</ModifierId>
+			<ModifierType>MODIFIER_ALL_PLAYERS_ADJUST_GREAT_PERSON_POINTS</ModifierType>
+			<SubjectRequirementSetId>PLAYER_HAS_ZHANGYE_GENERAL</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>GREAT_MERCHANT_ZHANGYE</ModifierId>
+			<ModifierType>MODIFIER_ALL_PLAYERS_ADJUST_GREAT_PERSON_POINTS</ModifierType>
+			<SubjectRequirementSetId>PLAYER_HAS_ZHANGYE_MERCHANT</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>MATTERHORN_ADJACENT_UNITS_GRANT_ABILITY</ModifierId>
+			<ModifierType>MODIFIER_ALL_UNITS_GRANT_ABILITY</ModifierType>
+			<Permanent>true</Permanent>
+			<OwnerRequirementSetId>MATTERHORN_REQUIREMENTS</OwnerRequirementSetId>
+			<SubjectRequirementSetId>MATTERHORN_ADJACENT_UNITS_GRANT_ABILITY_REQUIREMENTS</SubjectRequirementSetId>
+		</Row>
+	</Modifiers>
+	<ModifierArguments>
+		<Row>
+			<ModifierId>EYESAHARA_PRODUCTION_ATOMIC</ModifierId>
+			<Name>YieldType</Name>
+			<Value>YIELD_PRODUCTION</Value>
+		</Row>
+		<Row>
+			<ModifierId>EYESAHARA_PRODUCTION_ATOMIC</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+		<Row>
+			<ModifierId>EYESAHARA_SCIENCE_ATOMIC</ModifierId>
+			<Name>YieldType</Name>
+			<Value>YIELD_SCIENCE</Value>
+		</Row>
+		<Row>
+			<ModifierId>EYESAHARA_SCIENCE_ATOMIC</ModifierId>
+			<Name>Amount</Name>
+			<Value>3</Value>
+		</Row>
+		<Row>
+			<ModifierId>GREAT_GENERAL_ZHANGYE</ModifierId>
+			<Name>GreatPersonClassType</Name>
+			<Value>GREAT_PERSON_CLASS_GENERAL</Value>
+		</Row>
+		<Row>
+			<ModifierId>GREAT_GENERAL_ZHANGYE</ModifierId>
+			<Name>Amount</Name>
+			<Value>2</Value>
+		</Row>
+		<Row>
+			<ModifierId>GREAT_MERCHANT_ZHANGYE</ModifierId>
+			<Name>GreatPersonClassType</Name>
+			<Value>GREAT_PERSON_CLASS_MERCHANT</Value>
+		</Row>
+		<Row>
+			<ModifierId>GREAT_MERCHANT_ZHANGYE</ModifierId>
+			<Name>Amount</Name>
+			<Value>2</Value>
+		</Row>
+		<Row>
+			<ModifierId>MATTERHORN_ADJACENT_UNITS_GRANT_ABILITY</ModifierId>
+			<Name>AbilityType</Name>
+			<Value>ABILITY_ALPINE_TRAINING</Value>
+		</Row>
+	</ModifierArguments>
+	<GameModifiers>
+		<Row ModifierId="EYESAHARA_PRODUCTION_ATOMIC"/>
+		<Row ModifierId="EYESAHARA_SCIENCE_ATOMIC"/>
+		<Row ModifierId="GREAT_GENERAL_ZHANGYE"/>
+		<Row ModifierId="GREAT_MERCHANT_ZHANGYE"/>
+		<Row ModifierId="MATTERHORN_ADJACENT_UNITS_GRANT_ABILITY"/>
+	</GameModifiers>
+	<RequirementSets>
+		<Row>
+			<RequirementSetId>GAME_HAS_ATOMIC_EYE_REQUIREMENTS</RequirementSetId>
+			<RequirementSetType>REQUIREMENTSET_TEST_ALL</RequirementSetType>
+		</Row>
+		<Row>
+			<RequirementSetId>PLAYER_HAS_ZHANGYE_GENERAL</RequirementSetId>
+			<RequirementSetType>REQUIREMENTSET_TEST_ALL</RequirementSetType>
+		</Row>
+		<Row>
+			<RequirementSetId>PLAYER_HAS_ZHANGYE_MERCHANT</RequirementSetId>
+			<RequirementSetType>REQUIREMENTSET_TEST_ALL</RequirementSetType>
+		</Row>
+		<Row>
+			<RequirementSetId>MATTERHORN_REQUIREMENTS</RequirementSetId>
+			<RequirementSetType>REQUIREMENTSET_TEST_ALL</RequirementSetType>
+		</Row>
+		<Row>
+			<RequirementSetId>MATTERHORN_ADJACENT_UNITS_GRANT_ABILITY_REQUIREMENTS</RequirementSetId>
+			<RequirementSetType>REQUIREMENTSET_TEST_ALL</RequirementSetType>
+		</Row>
+	</RequirementSets>
+	<Requirements>
+		<Row>
+			<RequirementId>REQUIRES_ERA_ATLEASTEXPANSION_ATOMIC</RequirementId>
+			<RequirementType>REQUIREMENT_GAME_ERA_ATLEAST_EXPANSION</RequirementType>
+		</Row>
+		<Row>
+			<RequirementId>REQUIRES_PLOT_HAS_EYE_SAHARA</RequirementId>
+			<RequirementType>REQUIREMENT_PLOT_FEATURE_TYPE_MATCHES</RequirementType>
+		</Row>
+		<Row>
+			<RequirementId>PLAYER_HAS_ZHANGYE_DANXIA</RequirementId>
+			<RequirementType>REQUIREMENT_PLAYER_HAS_FEATURE</RequirementType>
+		</Row>
+		<Row>
+			<RequirementId>MAP_CONTAINS_MATTERHORN</RequirementId>
+			<RequirementType>REQUIREMENT_MAP_HAS_FEATURE</RequirementType>
+		</Row>
+		<Row>
+			<RequirementId>MATTERHORN_REQUIRES_ADJACENT_UNIT</RequirementId>
+			<RequirementType>REQUIREMENT_PLOT_ADJACENT_FEATURE_TYPE_MATCHES</RequirementType>
+		</Row>
+	</Requirements>
+	<RequirementArguments>
+		<Row>
+			<RequirementId>REQUIRES_ERA_ATLEASTEXPANSION_ATOMIC</RequirementId>
+			<Name>EraType</Name>
+			<Value>ERA_ATOMIC</Value>
+		</Row>
+		<Row>
+			<RequirementId>REQUIRES_PLOT_HAS_EYE_SAHARA</RequirementId>
+			<Name>FeatureType</Name>
+			<Value>FEATURE_EYE_OF_THE_SAHARA</Value>
+		</Row>
+		<Row>
+			<RequirementId>PLAYER_HAS_ZHANGYE_DANXIA</RequirementId>
+			<Name>FeatureType</Name>
+			<Value>FEATURE_ZHANGYE_DANXIA</Value>
+		</Row>
+		<Row>
+			<RequirementId>MAP_CONTAINS_MATTERHORN</RequirementId>
+			<Name>FeatureType</Name>
+			<Value>FEATURE_MATTERHORN</Value>
+		</Row>
+		<Row>
+			<RequirementId>MATTERHORN_REQUIRES_ADJACENT_UNIT</RequirementId>
+			<Name>FeatureType</Name>
+			<Value>FEATURE_MATTERHORN</Value>
+		</Row>
+	</RequirementArguments>
+	<RequirementSetRequirements>
+		<Row>
+			<RequirementSetId>GAME_HAS_ATOMIC_EYE_REQUIREMENTS</RequirementSetId>
+			<RequirementId>REQUIRES_ERA_ATLEASTEXPANSION_ATOMIC</RequirementId>
+		</Row>
+		<Row>
+			<RequirementSetId>GAME_HAS_ATOMIC_EYE_REQUIREMENTS</RequirementSetId>
+			<RequirementId>REQUIRES_PLOT_HAS_EYE_SAHARA</RequirementId>
+		</Row>
+		<Row>
+			<RequirementSetId>PLAYER_HAS_ZHANGYE_GENERAL</RequirementSetId>
+			<RequirementId>PLAYER_HAS_ZHANGYE_DANXIA</RequirementId>
+		</Row>
+		<Row>
+			<RequirementSetId>PLAYER_HAS_ZHANGYE_MERCHANT</RequirementSetId>
+			<RequirementId>PLAYER_HAS_ZHANGYE_DANXIA</RequirementId>
+		</Row>
+		<Row>
+			<RequirementSetId>MATTERHORN_REQUIREMENTS</RequirementSetId>
+			<RequirementId>MAP_CONTAINS_MATTERHORN</RequirementId>
+		</Row>
+		<Row>
+			<RequirementSetId>MATTERHORN_ADJACENT_UNITS_GRANT_ABILITY_REQUIREMENTS</RequirementSetId>
+			<RequirementId>REQUIRES_LAND_UNIT</RequirementId>
+		</Row>
+		<Row>
+			<RequirementSetId>MATTERHORN_ADJACENT_UNITS_GRANT_ABILITY_REQUIREMENTS</RequirementSetId>
+			<RequirementId>MATTERHORN_REQUIRES_ADJACENT_UNIT</RequirementId>
+		</Row>
+	</RequirementSetRequirements>
+	<MomentIllustrations>
+		<Row MomentIllustrationType="MOMENT_ILLUSTRATION_NATURAL_WONDER" MomentDataType="MOMENT_DATA_FEATURE" GameDataType="FEATURE_DELICATE_ARCH" Texture="Moment_NaturalWonder_DelicateArch.dds"/>
+		<Row MomentIllustrationType="MOMENT_ILLUSTRATION_NATURAL_WONDER" MomentDataType="MOMENT_DATA_FEATURE" GameDataType="FEATURE_EYE_OF_THE_SAHARA" Texture="Moment_NaturalWonder_EyeoftheSahara.dds"/>
+		<Row MomentIllustrationType="MOMENT_ILLUSTRATION_NATURAL_WONDER" MomentDataType="MOMENT_DATA_FEATURE" GameDataType="FEATURE_LAKE_RETBA" Texture="Moment_Naturalwonder_Retba.dds"/>
+		<Row MomentIllustrationType="MOMENT_ILLUSTRATION_NATURAL_WONDER" MomentDataType="MOMENT_DATA_FEATURE" GameDataType="FEATURE_MATTERHORN" Texture="Moment_NaturalWonder_Matterhorn.dds"/>
+		<Row MomentIllustrationType="MOMENT_ILLUSTRATION_NATURAL_WONDER" MomentDataType="MOMENT_DATA_FEATURE" GameDataType="FEATURE_RORAIMA" Texture="Moment_NaturalWonder_Roraima.dds"/>
+		<Row MomentIllustrationType="MOMENT_ILLUSTRATION_NATURAL_WONDER" MomentDataType="MOMENT_DATA_FEATURE" GameDataType="FEATURE_UBSUNUR_HOLLOW" Texture="Moment_NaturalWonder_Ubsunur.dds"/>
+		<Row MomentIllustrationType="MOMENT_ILLUSTRATION_NATURAL_WONDER" MomentDataType="MOMENT_DATA_FEATURE" GameDataType="FEATURE_ZHANGYE_DANXIA" Texture="Moment_NaturalWonder_Zhangye.dds"/>
+	</MomentIllustrations>
+</GameInfo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+	  <Row Name="ICON_ATLAS_EXPANSION_1_RESOURCES" IconSize="256"  IconsPerRow="3" IconsPerColumn="1" Filename="XP1_Resources256.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_RESOURCES" IconSize="32"  IconsPerRow="3" IconsPerColumn="1" Filename="XP1_Resources32.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_RESOURCES" IconSize="38"  IconsPerRow="3" IconsPerColumn="1" Filename="XP1_Resources38.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_RESOURCES" IconSize="50"  IconsPerRow="3" IconsPerColumn="1" Filename="XP1_Resources50.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_RESOURCES" IconSize="64"  IconsPerRow="3" IconsPerColumn="1" Filename="XP1_Resources64.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_RESOURCES_FOW" IconSize="256"  IconsPerRow="3" IconsPerColumn="1" Filename="XP1_Resources256_FOW.dds"/>
+
+  </IconTextureAtlases>
+	<IconDefinitions>
+		<Row Name="ICON_RESOURCE_OLIVES"            Atlas="ICON_ATLAS_EXPANSION_1_RESOURCES" Index="0"/>
+    <Row Name="ICON_RESOURCE_TURTLES"           Atlas="ICON_ATLAS_EXPANSION_1_RESOURCES" Index="1"/>
+    <Row Name="ICON_RESOURCE_AMBER"             Atlas="ICON_ATLAS_EXPANSION_1_RESOURCES" Index="2"/>
+
+    <Row Name="ICON_RESOURCE_OLIVES_FOW"            Atlas="ICON_ATLAS_EXPANSION_1_RESOURCES_FOW" Index="0"/>
+    <Row Name="ICON_RESOURCE_TURTLES_FOW"           Atlas="ICON_ATLAS_EXPANSION_1_RESOURCES_FOW" Index="1"/>
+    <Row Name="ICON_RESOURCE_AMBER_FOW"             Atlas="ICON_ATLAS_EXPANSION_1_RESOURCES_FOW" Index="2"/>
+  </IconDefinitions>
+</GameInfo>
+

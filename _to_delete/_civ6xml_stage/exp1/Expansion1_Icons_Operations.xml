@@ -1,0 +1,12 @@
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION_1_ESPIONAGE" IconSize="20" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_EspionageMissions20.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_1_ESPIONAGE" IconSize="40" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_EspionageMissions40.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_ESPIONAGE" IconSize="200" IconsPerRow="8" IconsPerColumn="1" Filename="XP1_EspionageMissions200.dds"/>
+  </IconTextureAtlases>
+	<IconDefinitions>
+    <Row Name="ICON_UNITOPERATION_SPY_FABRICATE_SCANDAL" Atlas="ICON_ATLAS_EXPANSION_1_ESPIONAGE" Index="0"/>
+    <Row Name="ICON_UNITOPERATION_SPY_FOMENT_UNREST" Atlas="ICON_ATLAS_EXPANSION_1_ESPIONAGE" Index="1"/>
+    <Row Name="ICON_UNITOPERATION_SPY_NEUTRALIZE_GOVERNOR" Atlas="ICON_ATLAS_EXPANSION_1_ESPIONAGE" Index="2"/>
+  </IconDefinitions>
+</GameInfo>

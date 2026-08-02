@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<LoadingInfo>
+		<Row LeaderType="LEADER_DIDO"								ForegroundImage="LEADER_DIDO_NEUTRAL"								BackgroundImage="LEADER_DIDO_BACKGROUND" />
+		<Row LeaderType="LEADER_ELEANOR_ENGLAND"		ForegroundImage="LEADER_ELEANOR_ENGLAND_NEUTRAL"		BackgroundImage="LEADER_ELEANOR_ENGLAND_BACKGROUND" />
+		<Row LeaderType="LEADER_ELEANOR_FRANCE"			ForegroundImage="LEADER_ELEANOR_FRANCE_NEUTRAL"			BackgroundImage="LEADER_ELEANOR_FRANCE_BACKGROUND" />
+		<Row LeaderType="LEADER_KRISTINA"						ForegroundImage="LEADER_KRISTINA_NEUTRAL"						BackgroundImage="LEADER_KRISTINA_BACKGROUND" />
+		<Row LeaderType="LEADER_KUPE"								ForegroundImage="LEADER_KUPE_NEUTRAL"								BackgroundImage="LEADER_KUPE_BACKGROUND" />
+		<Row LeaderType="LEADER_LAURIER"						ForegroundImage="LEADER_LAURIER_NEUTRAL"						BackgroundImage="LEADER_LAURIER_BACKGROUND" />
+		<Row LeaderType="LEADER_MANSA_MUSA"					ForegroundImage="LEADER_MANSA_MUSA_NEUTRAL"					BackgroundImage="LEADER_MANSA_MUSA_BACKGROUND" />
+		<Row LeaderType="LEADER_MATTHIAS_CORVINUS"	ForegroundImage="LEADER_MATTHIAS_CORVINUS_NEUTRAL"	BackgroundImage="LEADER_MATTHIAS_CORVINUS_BACKGROUND" />
+		<Row LeaderType="LEADER_PACHACUTI"					ForegroundImage="LEADER_PACHACUTI_NEUTRAL"					BackgroundImage="LEADER_PACHACUTI_BACKGROUND" />
+		<Row LeaderType="LEADER_SULEIMAN"						ForegroundImage="LEADER_SULEIMAN_NEUTRAL"						BackgroundImage="LEADER_SULEIMAN_BACKGROUND" />					
+	</LoadingInfo>
+</GameInfo>

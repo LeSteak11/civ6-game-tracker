@@ -1,140 +1,132 @@
-# CIV6 COACH SNAPSHOT — turn 145
-_Egypt (Cleopatra) — 680 AD / Medieval Era — Chieftain / Standard / Small Continents — schema coach-snapshot/1.4 coach 1.7.0_
+# CIV6 COACH SNAPSHOT — turn 396
+_Egypt (Cleopatra) — 1975 AD / Information Era — Chieftain / Standard / Small Continents — schema coach-snapshot/1.4 coach 1.7.1_
 
 ## CHANGES SINCE LAST SNAPSHOT
-- turns elapsed: 1
-- empire: score: +2, gold: +15.0, gold_net: -2.8999999999999986, faith: +27.5, military: -3, num_units: +1
+- turns elapsed: 16
+- empire: score: +9, gold: +1530.6999999999998, gold_net: -17.599999999999994, science: +13.400000000000006, culture: -4.200000000000003, faith: +504.5, military: +173, num_units: -1, total_pop: +4
 - units born: 1
-- units moved: 2
-- cities production_completed: Râ-Kedet, Sais
+- units lost: 2
+- units moved: 6
+- cities grew: Râ-Kedet, Luxis, ASRUS, ANKH SPRINGS
+- cities production_completed: Râ-Kedet, Sais, SHEDET, Luxis, NILECREST, ANKH SPRINGS
 
 ## GOSSIP (recent — full history in gossip.json)
-- T88 [Sumeria] Your delegate, Ahmes, learned that Sumeria has just declared war on Brazil!
-- T88 [player 4] Rumor has it that Brazil has been targeted for a declaration of war by Sumeria!
-- T90 [Sumeria] Your delegate, Ahmes, learned that Sumeria has conquered Recife.
-- T90 [Sumeria] Your delegate, Ahmes, learned that Sumeria is expanding, adding the new settlement: Recife.
-- T94 [Sumeria] Your delegate, Ahmes, learned that Sumeria has declared their friendship with Egypt.
-- T98 [Sumeria] Your delegate, Ahmes, learned that Sumeria has used a War-Cart to clear a Barbarian Outpost.
-- T107 [Sumeria] Your delegate, Ahmes, learned that Sumeria is expanding, adding the new settlement: Kish.
-- T125 [Sumeria] Your delegate, Ahmes, learned that Sumeria has declared their friendship with Egypt.
-- T131 [Sumeria] Your delegate, Ahmes, learned that Sumeria has progressed from the Medieval Era to the Renaissance Era.
-- T135 [Sumeria] Your delegate, Ahmes, learned that Sumeria has switched governments to Classical Republic.
+- T388 [Aztec] A recent news article revealed that the Aztec have denounced the evil deeds of England.
+- T389 [England] Your delegate, Hotep, learned that England has declared their friendship with Sumeria.
+- T389 [Sumeria] Your delegate, Hamadi, learned that Sumeria has declared their friendship with England.
+- T390 [India] Your Spy, Layla, uncovered news that India completed development of Professional Sports.
+- T390 [India] Your Spy, Layla, uncovered news that India adopted the Economic policy Sports Media.
+- T392 [Aztec] A recent news article revealed that the Aztec have switched governments to Democracy.
+- T393 [India] Your Spy, Layla, uncovered news that India completed research on Combustion.
+- T394 [India] Your Spy, Layla, uncovered news that Gandhi has warned Montezuma about interfering with the agenda: Paranoid.
+- T394 [Aztec] A recent news article revealed that the Aztec have completed the Space Race project Launch Earth Satellite.
+- T395 [Sumeria] Your delegate, Hamadi, learned that Sumeria has built a Commercial Hub in Recife.
+
+## WORLD NEWS
+- 🏛️ Aztec changed government: Monarchy → Democracy
+- 📈 England military 342 → 413
+- 📉 India military 245 → 147
+- 📉 Sumeria military 60 → 2
 
 ## TURN BLOCKERS
 - blocker:ENDTURN_BLOCKING_PRODUCTION (Choose Production)
-- blocker:ENDTURN_BLOCKING_UNITS (Command Units)
-- 2 idle unit(s)
 - 2 city/cities with no production
 
 ## EMPIRE
-- **score:** 149
-- **gold:** 749 (net +15.0 = yield 32.0 − maint 17.0)
-- **science:** 27.9/turn
-- **culture:** 21.4/turn
-- **faith:** 1479 (+27.5/turn)
-- **tourism:** 20.0/turn
-- **military:** 289
-- **techs / civics done:** 21 / 15
-- **cities / units / pop:** 5 / 13 / 28
-- **trade routes:** 1/1
-- **explored land:** 489/1153 tiles
+- **score:** 467
+- **gold:** 5704 (net +136.9 = yield 227.9 − maint 91.0)
+- **science:** 239.3/turn
+- **culture:** 78.8/turn
+- **faith:** 7611 (+31.8/turn)
+- **tourism:** 72.0/turn
+- **military:** 1073
+- **techs / civics done:** 68 / 39
+- **cities / units / pop:** 9 / 23 / 105
+- **trade routes:** 7/7
+- **explored land:** 1153/1153 tiles
 - **enabled victories:** VICTORY_TECHNOLOGY, VICTORY_CULTURE, VICTORY_RELIGIOUS, VICTORY_CONQUEST, VICTORY_SCORE
 
 ## RESEARCH / CIVIC
-- **tech:** Machinery 188/300 (5t) — eureka:True
-- **civic:** Mercenaries 272/290 (1t) — inspiration:True
-
-### TECHS AVAILABLE (up to 10, sorted by turns)
-- Machinery ★ — 300sci (5t) — unlocks: Crossbowman, Crouching Tiger, Lumber Mill
-- Military Tactics  — 300sci (11t) — unlocks: Berserker, Pikeman, Huey Teocalli — boost: Kill a unit with a Spearman.
-- Education  — 390sci (14t) — unlocks: University, Hagia Sophia, Mission — boost: Earn a Great Scientist.
-- Military Engineering  — 390sci (14t) — unlocks: Military Engineer, Trebuchet, Armory, Reveals Niter — boost: Build an Aqueduct.
-- Castles  — 390sci (14t) — unlocks: Medieval Walls, Alhambra — boost: Have a government with 6 policy slots.
-- Cartography  — 540sci (20t) — unlocks: Caravel — boost: Build 2 Harbors.
+- **tech:** Future Tech 1553/2500 (4t) — eureka:False
+- **civic:** Capitalism 1490/1560 (1t) — inspiration:False [need: Build 3 Stock Exchanges.]
 
 ### CIVICS AVAILABLE (up to 10, sorted by turns)
-- Mercenaries ★ — 290cul (1t) — unlocks: Sack, Professional Army, Trade Confederation
-- Civil Service  — 275cul (5t) — unlocks: Retainers, Meritocracy — inspiration: Grow a city to 10 population.
-- Naval Tradition  — 200cul (10t) — unlocks: Naval Infrastructure, Navigation — inspiration: Kill a unit with a Quadrireme.
-- Medieval Faires  — 385cul (18t) — unlocks: Merchant Confederation, Aesthetics, Medina Quarter — inspiration: Maintain 4 Trade Routes.
+- Capitalism  — 1560cul (1t) — unlocks: Laissez-Faire, Market Economy — inspiration: Build 3 Stock Exchanges.
+- Nuclear Program ★ — 1715cul (11t) — unlocks: Nobel Prize, Nuclear Espionage
+- Scorched Earth  — 1060cul (14t) — unlocks: Total War, Expropriation, Military Organization — inspiration: Build 2 Field Cannons.
+- Conservation  — 1255cul (16t) — unlocks: Resource Management — inspiration: Have a Neighborhood district with Breathtaking Appeal.
+- Suffrage  — 1715cul (22t) — unlocks: Economic Union, Their Finest Hour, Arsenal of Democracy, New Deal, Government: Democracy — inspiration: Build 4 Sewers.
+- Totalitarianism  — 1715cul (22t) — unlocks: Lightning Warfare, Third Alternative, Martial Law, Gunboat Diplomacy, Government: Fascism — inspiration: Build 3 Military Academies.
+- Professional Sports  — 2185cul (28t) — unlocks: Sports Media — inspiration: Build 4 Entertainment Complex districts.
+- Rapid Deployment  — 2415cul (31t) — unlocks: Military First — inspiration: Build an Aerodrome or Airstrip on a foreign continent.
 
-### TECH TREE (21/68 completed)
-- **completed:** Pottery, Animal Husbandry, Mining, Sailing, Astrology, Irrigation, Archery, Writing, Masonry, Bronze Working, Wheel, Celestial Navigation, Currency, Horseback Riding, Iron Working, Shipbuilding, Mathematics, Construction, Engineering, Apprenticeship, Stirrups
-- **current:** Machinery — 188/300sci (5t)
-- **available now:** 5 (top picks listed above)
-- **blocked:** 41 — nearest 8, missing prereqs:
-    - Mass Production ← EDUCATION
-    - Banking ← EDUCATION
-    - Gunpowder ← MILITARY_ENGINEERING
-    - Printing ← MACHINERY
-    - Square Rigging ← CARTOGRAPHY
-    - Astronomy ← EDUCATION
-    - Metal Casting ← GUNPOWDER
-    - Siege Tactics ← CASTLES
-    - ...and 33 more (see JSON)
+### TECH TREE (68/68 completed)
+- **completed:** Pottery, Animal Husbandry, Mining, Sailing, Astrology, Irrigation, Archery, Writing, Masonry, Bronze Working, Wheel, Celestial Navigation, Currency, Horseback Riding, Iron Working, Shipbuilding, Mathematics, Construction, Engineering, Military Tactics, Apprenticeship, Machinery, Education, Stirrups, Military Engineering, Castles, Cartography, Mass Production, Banking, Gunpowder, Printing, Square Rigging, Astronomy, Metal Casting, Siege Tactics, Industrialization, Scientific Theory, Ballistics, Military Science, Steam Power, Sanitation, Economics, Rifling, Flight, Replaceable Parts, Steel, Electricity, Radio, Chemistry, Combustion, Advanced Flight, Rocketry, Advanced Ballistics, Combined Arms, Plastics, Computers, Nuclear Fission, Synthetic Materials, Telecommunications, Satellites, Guidance Systems, Lasers, Composites, Stealth Technology, Robotics, Nanotechnology, Nuclear Fusion, Future Tech
+- **available now:** 0 (top picks listed above)
 
-### CIVIC TREE (15/51 completed)
-- **completed:** Code of Laws, Craftsmanship, Foreign Trade, Military Tradition, State Workforce, Early Empire, Mysticism, Games and Recreation, Political Philosophy, Drama and Poetry, Military Training, Defensive Tactics, Recorded History, Theology, Feudalism
-- **current:** Mercenaries — 272/290cul (1t)
-- **available now:** 3 (top picks listed above)
-- **partially banked:** Civil Service (179/275cul)
-- **blocked:** 32 — nearest 8, missing prereqs:
-    - Divine Right ← CIVIL_SERVICE
-    - Guilds ← CIVIL_SERVICE
-    - Diplomatic Service ← GUILDS
-    - Mercantilism ← HUMANISM
-    - Colonialism ← MERCANTILISM
-    - Opera and Ballet ← THE_ENLIGHTENMENT
-    - Natural History ← COLONIALISM
-    - Civil Engineering ← MERCANTILISM
-    - ...and 24 more (see JSON)
+### CIVIC TREE (39/51 completed)
+- **completed:** Code of Laws, Craftsmanship, Foreign Trade, Military Tradition, State Workforce, Early Empire, Mysticism, Games and Recreation, Political Philosophy, Drama and Poetry, Military Training, Defensive Tactics, Recorded History, Theology, Naval Tradition, Feudalism, Civil Service, Mercenaries, Medieval Faires, Guilds, Divine Right, Exploration, Humanism, Diplomatic Service, Reformed Church, Mercantilism, The Enlightenment, Colonialism, Civil Engineering, Nationalism, Opera and Ballet, Natural History, Urbanization, Mass Media, Mobilization, Ideology, Class Struggle, Cold War, Space Race
+- **current:** Capitalism — 1490/1560cul (1t)
+- **available now:** 7 (top picks listed above)
+- **partially banked:** Nuclear Program (850/1715cul), Social Media (1440/2880cul)
+- **blocked:** 4 — nearest 4, missing prereqs:
+    - Cultural Heritage ← CONSERVATION
+    - Globalization ← RAPID_DEPLOYMENT
+    - Social Media ← PROFESSIONAL_SPORTS
+    - Future Civic ← GLOBALIZATION, SOCIAL_MEDIA
 
 ## RESOURCES
-- **strategic:** 2 Horses, 3 Iron
-- **luxuries:** Dyes, Ivory
-- **owned bonus tiles:** 3× Rice, 2× Bananas (1/2 improved), 2× Cattle, 2× Stone, Fish (0/1 improved)
-- **owned luxury tiles:** Dyes, Ivory
-- **owned strategic tiles:** 2× Iron (1/2 improved)
+- **strategic:** 3 Aluminum, 1 Coal, 4 Horses, 3 Iron, 2 Niter, 1 Oil, 1 Uranium
+- **luxuries:** 2× Dyes, Ivory, 2× Marble, Pearls, Salt, Sugar, Tobacco
+- **owned bonus tiles:** 8× Fish (5/8 improved), 4× Bananas, 4× Rice (3/4 improved), 4× Wheat, 2× Cattle, 2× Crabs, 2× Deer (1/2 improved), 2× Sheep, 2× Stone
+- **owned luxury tiles:** 2× Dyes (1/2 improved), 2× Pearls (1/2 improved), Ivory, Marble, Salt, Sugar (0/1 improved), Tobacco
+- **owned strategic tiles:** 3× Aluminum, 2× Iron (1/2 improved), Coal, Niter
+- **tradable spare luxuries:** Dyes (1 spare of 2), Marble (1 spare of 2)
 
 ## GOVERNMENT & POLICIES
-- **government:** Classical Republic — 0 open slot(s) — free change avail: True
+- **government:** Communism — 0 open slot(s) — free change avail: True
 - **slotted:**
-    - `ECONOMIC` Serfdom — Newly trained Builders gain 2 extra build actions.
-    - `ECONOMIC` Scripture — +100% Holy Site adjacency bonuses.
-    - `DIPLOMATIC` Charismatic Leader — +2 Influence points per turn toward earning city-state [ICON_Envoy] Envoys.
-    - `WILDCARD` Inspiration — +2 [ICON_GreatScientist] Great Scientist points per turn.
-- **available (unslotted):** 20 card(s)
-    - `MILITARY` Discipline — +5 [ICON_Strength] Unit Combat Strength when fighting Barbarians.
-    - `MILITARY` Survey — Double experience for recon units.
-    - `ECONOMIC` Urban Planning — +1 [ICON_Production] Production in all cities.
-    - `ECONOMIC` Caravansaries — +2 [ICON_Gold] Gold from all [ICON_TradeRoute] Trade Routes.
-    - `MILITARY` Maritime Industries — +100% [ICON_Production] Production toward Ancient and Classical era naval units.
-    - `MILITARY` Maneuver — +50% [ICON_Production] Production toward Ancient and Classical era heavy and light cavalry units.
+    - `MILITARY` Integrated Space Cell — +15% [ICON_Production] Production toward Space Race projects if a city has either a Military Academy or a Seaport.
+    - `MILITARY` Levée en Masse — Unit maintenance cost reduced by 2 [ICON_Gold] Gold per turn, per unit.
+    - `MILITARY` Logistics — +1 Movement if starting turn in friendly territory.
+    - `ECONOMIC` Liberalism — +1 [ICON_Amenities] Amenity to all cities with at least 2 specialty districts.
+    - `ECONOMIC` Five-Year Plan — +100% Campus and Industrial Zone district adjacency bonuses.
+    - `ECONOMIC` Collectivization — +4 [ICON_Food] Food from domestic [ICON_TradeRoute] Trade Routes.
+    - `DIPLOMATIC` Raj — +2 [ICON_Science] Science, [ICON_Culture] Culture, [ICON_Faith] Faith, and [ICON_Gold] Gold from each city-state you are Suzerain of.
+    - `WILDCARD` Merchant Confederation — +1 [ICON_Gold] Gold from each of your [ICON_Envoy] Envoys at city-states.
+- **available (unslotted):** 47 card(s)
     - `GREAT_PERSON` Strategos — +2 [ICON_GreatGeneral] Great General points per turn.
-    - `ECONOMIC` Corvée — +15% [ICON_Production] Production toward Ancient and Classical wonders.
-    - `MILITARY` Conscription — Unit maintenance reduced by 1 [ICON_Gold] Gold per turn, per unit.
     - `ECONOMIC` Land Surveyors — Reduces the cost of purchasing a tile by 20%.
     - `ECONOMIC` Colonization — +50% [ICON_Production] Production toward Settlers.
-    - `ECONOMIC` Insulae — +1 [ICON_Housing] Housing in all cities with at least 2 specialty districts.
+    - `DIPLOMATIC` Charismatic Leader — +2 Influence points per turn toward earning city-state [ICON_Envoy] Envoys.
     - `DIPLOMATIC` Diplomatic League — The first [ICON_Envoy] Envoy you send to each city-state counts as two [ICON_Envoy] Envoys.
-    - `GREAT_PERSON` Literary Tradition — +2 [ICON_GreatWriter] Great Writer points per turn.
     - `MILITARY` Raid — Yields gained from pillaging are doubled for pillaging improvements.
     - `MILITARY` Veterancy — +30% [ICON_Production] Production toward Encampment districts and buildings for that district.
-    - `MILITARY` Bastions — +6 City [ICON_Strength] Defense Strength. +5 City [ICON_Ranged] Ranged Strength.
     - `MILITARY` Limes — +100% [ICON_Production] Production toward defensive buildings.
-    - `ECONOMIC` Natural Philosophy — +100% Campus district adjacency bonuses.
-    - `MILITARY` Feudal Contract — +50% [ICON_Production] Production toward Ancient, Classical, Medieval, and Renaissance era melee, anti-cavalry, and ranged units.
+    - `ECONOMIC` Scripture — +100% Holy Site adjacency bonuses.
+    - `ECONOMIC` Naval Infrastructure — +100% Harbor district adjacency bonuses.
+    - `GREAT_PERSON` Navigation — +2 [ICON_GreatAdmiral] Great Admiral points per turn.
+    - `ECONOMIC` Meritocracy — Each city receives +1 [ICON_Culture] Culture for each specialty district it constructs.
+    - `MILITARY` Sack — Yields gained from pillaging are doubled for pillaging districts.
+    - `MILITARY` Professional Army — 50% discount on all unit upgrades.
+    - `ECONOMIC` Trade Confederation — +1 [ICON_Culture] Culture and +1 [ICON_Science] Science from international [ICON_TradeRoute] Trade Routes.
+    - `ECONOMIC` Aesthetics — +100% Theater Square district adjacency bonuses.
+    - `ECONOMIC` Medina Quarter — +2 [ICON_Housing] Housing in all cities with at least 3 specialty districts.
+    - `ECONOMIC` Town Charters — +100% Commercial Hub district adjacency bonuses.
+    - `GREAT_PERSON` Traveling Merchants — +2 [ICON_GreatMerchant] Great Merchant points per turn.
+    - `MILITARY` Chivalry — +50% [ICON_Production] Production toward Industrial era and earlier heavy and light cavalry units.
+    - ...and 27 more (see JSON)
 
 ## GREAT PEOPLE
-- **GENERAL** 101pts (+2.4/turn) — next recruit cost 120 — candidate: Genghis Khan
-- **ADMIRAL** 0pts (+0.0/turn) — next recruit cost 240 — candidate: Yi Sun-sin
-- **ENGINEER** 44pts (+2.4/turn) — next recruit cost 120 — candidate: Bi Sheng
-- **MERCHANT** 0pts (+0.0/turn) — next recruit cost 60 — candidate: Zhang Qian
-- **PROPHET** 159pts (+3.6/turn) — next recruit cost 2147483647
-- **SCIENTIST** 112pts (+2.4/turn) — next recruit cost 240 — candidate: Galileo Galilei
-- **WRITER** 0pts (+0.0/turn) — next recruit cost 240 — candidate: Miguel de Cervantes
-- **ARTIST** 0pts (+0.0/turn) — next recruit cost 240 — candidate: Hieronymus Bosch
-- **MUSICIAN** 0pts (+0.0/turn) — next recruit cost 420 — candidate: Yatsuhashi Kengyo
+- **GENERAL** 753pts (+5.2/turn) — next recruit cost 1320 — candidate: Ahmad Shah Massoud
+- **ADMIRAL** 943pts (+9.4/turn) — next recruit cost 1320 — candidate: Clancy Fernando
+- **ENGINEER** 1085pts (+7.3/turn) — next recruit cost 1320 — candidate: Joseph Paxton
+- **MERCHANT** 495pts (+6.3/turn) — next recruit cost 1320 — candidate: Masaru Ibuka
+- **PROPHET** 1259pts (+4.2/turn) — next recruit cost 2147483647
+- **SCIENTIST** 3295pts (+29.3/turn) — next recruit cost 2147483647
+- **WRITER** 450pts (+6.3/turn) — next recruit cost 2147483647
+- **ARTIST** 368pts (+4.2/turn) — next recruit cost 1320 — candidate: Gustav Klimt
+- **MUSICIAN** 368pts (+4.2/turn) — next recruit cost 1320 — candidate: Mykola Leontovych
 
 ## RELIGION
 - pantheon: River Goddess (+1 [ICON_Amenities] Amenity to cities if they have a Holy Site district adjacent to a River.)
@@ -142,197 +134,1205 @@ _Egypt (Cleopatra) — 680 AD / Medieval Era — Chieftain / Standard / Small Co
     - BELIEF_CLASS_FOLLOWER: Work Ethic — +1% [ICON_Production] Production for each citizen following this religion in the city.
     - BELIEF_CLASS_ENHANCER: Holy Order — Missionaries and Apostles are 30% cheaper to purchase.
 
-## CITIES (5)
+## CITIES (9)
 ### Râ-Kedet [CAP] @ (66,29)
-- pop 5 | grow 24t (food+1.0) | hous 12 | amen 3/2 (+1; +2 amen → Ecstatic) | happ Happy | border+16t | growth +10%
-- districts: 2/2 built — FULL, next slot at pop 6 [pop/3+1]
-- housing 12 = base 2 + fresh water 3 + Palace 1 + Granary 2 + Barracks 1 + improvements (7 x 0.5) 3.5 [reconstructed]
-- yields: F11.0 P22.9 G22.0 S10.0 C6.8 Fa12.6
-- prod sources: tiles 14.0, bldgs 6, adj 1, other +1.9 (see JSON for all yields)
+- pop 15 | grow 28t (food+21.0) | hous 15 | amen 5/7 (-2; +2 amen → Content) | happ Displeased | border+25t | growth -15%
+- districts: 4/6 built — 2 slot(s) OPEN [pop/3+1]
+- housing 15 = base 2 + fresh water 3 + Palace 1 + Granary 2 + Barracks 1 + University 1 + improvements (9 x 0.5) 4.5 + unattributed +1 [reconstructed]
+- yields: F51.0 P84.5 G45.6 S42.3 C16.6 Fa8.6
+- prod sources: tiles 42.0, bldgs 14, adj 2, trade 6, other +20.5 (see JSON for all yields)
 - **producing:** nothing (0/0, -1t)
-- defense: str 45 | garrison 200/200 | walls 100/100
+- defense: str 99 | garrison 200/200 | walls 400/400
 - majority religion: RELIGION_TAOISM
     - district `CITY_CENTER` @ (66,29)
     - district `ENCAMPMENT` @ (65,26)
     - district `WONDER` @ (66,27)
-    - district `INDUSTRIAL_ZONE` @ (66,31) [+1PRODUCTION]
+    - district `INDUSTRIAL_ZONE` @ (66,31) [+2PRODUCTION]
+    - district `CAMPUS` @ (67,30) [+2SCIENCE]
+    - district `WONDER` @ (66,30)
+    - district `SPACEPORT` @ (64,27)
+    - district `ENTERTAINMENT_COMPLEX` @ (67,32)
     - buildings in `CITY_CENTER`: Monument, Palace, Granary, Ancient Walls, Water Mill
-    - buildings in `ENCAMPMENT`: Barracks
-    - buildings in `WONDER`: Stonehenge
-    - buildings in `INDUSTRIAL_ZONE`: Workshop
-    - tiles: 18 owned, 6 worked | terrain: 9 plains, 5 plains_hills, 2 coast, 1 grass_hills, 1 grass | improvements: 6 farm, 3 mine, 2 sphinx, 1 camp
-    - can build now (27 options; cost⚙, turns):
-        - districts (need placement): Aqueduct (133⚙ 6t), Holy Site (199⚙ 9t), Campus (199⚙ 9t), Harbor (199⚙ 9t), Commercial Hub (199⚙ 9t), Entertainment Complex (199⚙ 9t), Theater Square (199⚙ 9t)
-        - wonders (need placement): Great Lighthouse (290⚙ 13t), Colossus (400⚙ 18t), Petra (400⚙ 18t), Colosseum (400⚙ 18t), Terracotta Army (400⚙ 18t)
-        - projects: Encampment Training (130⚙ -1t), Industrial Zone Logistics (130⚙ -1t)
-        - units (showing 8 of 13 by turns; rest in JSON): Scout (30⚙ 1t), Archer (60⚙ 2t), Trader (76⚙ 3t), Spearman (65⚙ 3t), Battering Ram (65⚙ 3t), Horseman (80⚙ 3t), Builder (102⚙ 4t), Siege Tower (100⚙ 4t)
-    - unavailable (showing 6 of 46; full list + reasons in JSON):
-        - Great Library — Requires Library [reconstructed: BuildingPrereqs]
+    - buildings in `ENCAMPMENT`: Barracks, Armory, Military Academy
+    - buildings in `WONDER`: Stonehenge, Ruhr Valley
+    - buildings in `INDUSTRIAL_ZONE`: Workshop, Factory
+    - buildings in `CAMPUS`: Library, University, Research Lab
+    - buildings in `SPACEPORT`: Large Rocket
+    - tiles: 32 owned, 15 worked | terrain: 14 plains, 10 coast, 5 plains_hills, 2 grass, 1 grass_hills | improvements: 7 farm, 5 mine, 1 sphinx, 1 camp, 1 fishing_boats
+    - can build now (47 options; cost⚙, turns):
+        - districts (need placement): Entertainment Complex (279⚙ 3t), Holy Site (320⚙ 4t), Aerodrome (320⚙ 4t), Aqueduct (360⚙ 4t), Harbor (540⚙ 6t), Commercial Hub (540⚙ 6t), Theater Square (540⚙ 6t), Neighborhood (540⚙ 6t)
+        - wonders (need placement): Colossus (400⚙ 5t), Petra (400⚙ 5t), Colosseum (400⚙ 5t), Terracotta Army (400⚙ 5t), Hagia Sophia (710⚙ 8t), Mont St. Michel (710⚙ 8t), Huey Teocalli (710⚙ 8t), Venetian Arsenal (920⚙ 11t), Great Zimbabwe (920⚙ 11t), Forbidden City (920⚙ 11t), Bolshoi Theatre (1240⚙ 14t), Big Ben (1450⚙ 17t), Hermitage (1450⚙ 17t), Eiffel Tower (1620⚙ 19t), Broadway (1620⚙ 19t), Cristo Redentor (1620⚙ 19t)
+        - buildings: Sewer (200⚙ 2t), Power Plant (580⚙ 7t)
+        - projects: Manhattan Project (1000⚙ -1t), Encampment Training (375⚙ -1t), Industrial Zone Logistics (375⚙ -1t), Campus Research Grants (375⚙ -1t)
+        - units (complete list): Builder (166⚙ 2t), Trader (160⚙ 2t), Military Engineer (170⚙ 2t), Spy (300⚙ 3t), Observation Balloon (240⚙ 3t), Settler (320⚙ 4t), Medic (370⚙ 4t), Ranger (380⚙ 4t), Machine Gun (540⚙ 6t), Modern AT (580⚙ 6t), Helicopter (600⚙ 7t), Mechanized Infantry (650⚙ 7t), Mobile SAM (590⚙ 7t), Jet Fighter (650⚙ 7t), Rocket Artillery (680⚙ 8t), Jet Bomber (700⚙ 8t), Modern Armor (680⚙ 8t)
+    - unavailable units (all 41 trainables):
+        - Scout — blocked (reason not exposed by engine)
+        - Slinger — blocked (reason not exposed by engine)
+        - Warrior — blocked (reason not exposed by engine)
+        - Archer — blocked (reason not exposed by engine)
+        - Galley — blocked (reason not exposed by engine)
+        - Spearman — blocked (reason not exposed by engine)
+        - Heavy Chariot — blocked (reason not exposed by engine)
+        - Horseman — blocked (reason not exposed by engine)
+        - Swordsman — blocked (reason not exposed by engine)
+        - Catapult — blocked (reason not exposed by engine)
+        - Quadrireme — blocked (reason not exposed by engine)
+        - Maryannu Chariot Archer — blocked (reason not exposed by engine)
+        - Man-At-Arms — blocked (reason not exposed by engine)
+        - Knight — blocked (reason not exposed by engine)
+        - Crossbowman — blocked (reason not exposed by engine)
+        - Pikeman — blocked (reason not exposed by engine)
+        - Trebuchet — blocked (reason not exposed by engine)
+        - Musketman — blocked (reason not exposed by engine)
+        - Caravel — blocked (reason not exposed by engine)
+        - Bombard — blocked (reason not exposed by engine)
+        - Frigate — blocked (reason not exposed by engine)
+        - Privateer — blocked (reason not exposed by engine)
+        - Field Cannon — blocked (reason not exposed by engine)
+        - Cavalry — blocked (reason not exposed by engine)
+        - Line Infantry — blocked (reason not exposed by engine)
+        - Ironclad — blocked (reason not exposed by engine)
+        - Archaeologist — blocked (reason not exposed by engine)
+        - AT Crew — blocked (reason not exposed by engine)
+        - Biplane — blocked (reason not exposed by engine)
+        - Infantry — blocked (reason not exposed by engine)
+        - Artillery — blocked (reason not exposed by engine)
+        - Battleship — blocked (reason not exposed by engine)
+        - Anti-Air Gun — blocked (reason not exposed by engine)
+        - Submarine — blocked (reason not exposed by engine)
+        - Tank — blocked (reason not exposed by engine)
+        - Fighter — blocked (reason not exposed by engine)
+        - Aircraft Carrier — blocked (reason not exposed by engine)
+        - Destroyer — blocked (reason not exposed by engine)
+        - Bomber — blocked (reason not exposed by engine)
+        - Nuclear Submarine — blocked (reason not exposed by engine)
+        - Missile Cruiser — blocked (reason not exposed by engine)
+    - not city-trainable by design (14): Missionary, Apostle, Inquisitor, Guru, Warrior Monk, Great General, Great Admiral, Great Engineer, Great Merchant, Great Prophet, Great Scientist, Great Writer, Great Artist, Great Musician — Great People are recruited with points; religious units are purchased with Faith (details in JSON)
+    - unavailable buildings/districts/wonders (showing 6 of 40; full list + reasons in JSON):
+        - Great Lighthouse — Requires Lighthouse [reconstructed: BuildingPrereqs]
         - Mahabodhi Temple — Requires Temple [reconstructed: BuildingPrereqs]
         - Hanging Gardens — blocked (reason not exposed by engine)
         - Pyramids — blocked (reason not exposed by engine)
         - Oracle — blocked (reason not exposed by engine)
-        - Shrine — This building requires a Holy Site district.
-    - trade → Amsterdam (Amsterdam): Gold +12
+        - Great Library — blocked (reason not exposed by engine)
+    - trade → Hattusa (Hattusa): Gold +12, Science +2
+    - trade → Sais (domestic): Food +7, Production +2
+    - trade → Agra (India): Production +2, Gold +10, Science +1, Culture +1, Faith +1
+    - trade → Delhi (India): Food +1, Production +2, Gold +14, Science +1, Culture +1, Faith +1
 ### Sais @ (62,26)
-- pop 8 | grow 6t (food+12.0) | hous 9 | amen 3/3 (+0; +1 amen → Happy) | happ Content | border+16t
-- districts: 1/3 built — 2 slot(s) OPEN [pop/3+1]
-- housing 9 = base 2 + fresh water 3 + Granary 2 + improvements (4 x 0.5) 2 [reconstructed]
-- yields: F28.0 P7.0 G2.0 S5.6 C4.4 Fa12.0
-- prod sources: tiles 6.0, bldgs 1 (see JSON for all yields)
+- pop 16 | grow 22t (food+18.0) | hous 14 | amen 6/7 (-1; +1 amen → Content) | happ Displeased | border+21t | growth -15%
+- districts: 4/6 built — 2 slot(s) OPEN [pop/3+1]
+- housing 14 = base 2 + fresh water 3 + Granary 2 + University 1 + Aqueduct (water housing to 6) 1 + improvements (8 x 0.5) 4 + unattributed +1 [reconstructed]
+- yields: F50.0 P18.4 G7.6 S31.5 C7.4 Fa10.5
+- prod sources: tiles 12.0, bldgs 3, adj 2, other +1.4 (see JSON for all yields)
 - **producing:** nothing (0/0, -1t)
-- defense: str 37 | garrison 200/200 | walls 0/0
+- defense: str 91 | garrison 200/200 | walls 400/400
+- majority religion: RELIGION_TAOISM
     - district `CITY_CENTER` @ (62,26)
-    - district `HOLY_SITE` @ (63,24) [+6FAITH]
+    - district `HOLY_SITE` @ (63,24) [+3FAITH]
+    - district `CAMPUS` @ (62,25) [+6SCIENCE]
+    - district `AQUEDUCT` @ (61,25)
+    - district `INDUSTRIAL_ZONE` @ (60,25) [+2PRODUCTION]
+    - district `ENTERTAINMENT_COMPLEX` @ (60,26)
     - buildings in `CITY_CENTER`: Monument, Granary, Water Mill
     - buildings in `HOLY_SITE`: Shrine, Temple
-    - tiles: 14 owned, 9 worked | terrain: 10 grass, 2 plains, 1 grass_hills, 1 plains_hills | features: 2 jungle, 1 marsh | improvements: 2 pasture, 1 plantation, 1 farm
-    - can build now (28 options; cost⚙, turns):
-        - districts (need placement): Aqueduct (133⚙ 19t), Campus (199⚙ 28t), Encampment (199⚙ 28t), Harbor (199⚙ 28t), Commercial Hub (199⚙ 28t), Entertainment Complex (199⚙ 28t), Theater Square (199⚙ 28t), Industrial Zone (199⚙ 28t)
-        - wonders (need placement): Great Lighthouse (290⚙ 41t), Colossus (400⚙ 57t), Petra (400⚙ 57t), Colosseum (400⚙ 57t), Terracotta Army (400⚙ 57t)
-        - buildings: Ancient Walls (80⚙ 11t)
-        - projects: Holy Site Prayers (130⚙ -1t)
-        - units (showing 8 of 13 by turns; rest in JSON): Scout (30⚙ 4t), Archer (60⚙ 9t), Spearman (65⚙ 9t), Battering Ram (65⚙ 9t), Trader (76⚙ 11t), Horseman (80⚙ 11t), Siege Tower (100⚙ 14t), Builder (102⚙ 15t)
-    - unavailable (showing 6 of 48; full list + reasons in JSON):
-        - Great Library — Requires Library [reconstructed: BuildingPrereqs]
+    - buildings in `CAMPUS`: Library, University
+    - buildings in `INDUSTRIAL_ZONE`: Workshop
+    - tiles: 23 owned, 16 worked | terrain: 12 grass, 4 grass_mountain, 3 plains, 2 coast, 1 grass_hills, 1 plains_hills | features: 3 jungle, 1 marsh | improvements: 5 farm, 2 plantation, 1 quarry, 1 pasture
+    - can build now (51 options; cost⚙, turns):
+        - districts (need placement): Entertainment Complex (271⚙ 6t) [116/271 banked], Encampment (320⚙ 13t), Aerodrome (320⚙ 13t), Harbor (540⚙ 23t), Commercial Hub (540⚙ 23t), Theater Square (540⚙ 23t), Neighborhood (540⚙ 23t), Spaceport (1800⚙ 76t)
+        - wonders (need placement): Colossus (400⚙ 17t), Petra (400⚙ 17t), Colosseum (400⚙ 17t), Terracotta Army (400⚙ 17t), Hagia Sophia (710⚙ 30t), Mont St. Michel (710⚙ 30t), Huey Teocalli (710⚙ 30t), Venetian Arsenal (920⚙ 39t), Great Zimbabwe (920⚙ 39t), Forbidden City (920⚙ 39t), Bolshoi Theatre (1240⚙ 52t), Big Ben (1450⚙ 61t), Hermitage (1450⚙ 61t), Eiffel Tower (1620⚙ 68t), Broadway (1620⚙ 68t), Cristo Redentor (1620⚙ 68t)
+        - buildings: Ancient Walls (80⚙ 3t) [7/80 banked], Sewer (200⚙ 8t), Power Plant (580⚙ 24t), Research Lab (580⚙ 24t)
+        - projects: Manhattan Project (1000⚙ -1t), Industrial Zone Logistics (375⚙ -1t), Holy Site Prayers (375⚙ -1t), Campus Research Grants (375⚙ -1t)
+        - units (complete list): Missionary (75⚙ 3t), Guru (120⚙ 5t), Builder (166⚙ 7t), Trader (160⚙ 7t), Apostle (200⚙ 8t), Observation Balloon (240⚙ 10t), Settler (320⚙ 13t), Spy (300⚙ 13t), Medic (370⚙ 16t), Ranger (380⚙ 16t), Machine Gun (540⚙ 23t), Modern AT (580⚙ 24t), Helicopter (600⚙ 25t), Mobile SAM (590⚙ 25t), Mechanized Infantry (650⚙ 27t), Jet Fighter (650⚙ 27t), Rocket Artillery (680⚙ 29t), Jet Bomber (700⚙ 29t), Modern Armor (680⚙ 29t)
+    - unavailable units (all 42 trainables):
+        - Scout — blocked (reason not exposed by engine)
+        - Slinger — blocked (reason not exposed by engine)
+        - Warrior — blocked (reason not exposed by engine)
+        - Archer — blocked (reason not exposed by engine)
+        - Galley — blocked (reason not exposed by engine)
+        - Spearman — blocked (reason not exposed by engine)
+        - Heavy Chariot — blocked (reason not exposed by engine)
+        - Horseman — blocked (reason not exposed by engine)
+        - Swordsman — blocked (reason not exposed by engine)
+        - Catapult — blocked (reason not exposed by engine)
+        - Quadrireme — blocked (reason not exposed by engine)
+        - Maryannu Chariot Archer — blocked (reason not exposed by engine)
+        - Man-At-Arms — blocked (reason not exposed by engine)
+        - Military Engineer — blocked (reason not exposed by engine)
+        - Knight — blocked (reason not exposed by engine)
+        - Crossbowman — blocked (reason not exposed by engine)
+        - Pikeman — blocked (reason not exposed by engine)
+        - Trebuchet — blocked (reason not exposed by engine)
+        - Musketman — blocked (reason not exposed by engine)
+        - Caravel — blocked (reason not exposed by engine)
+        - Bombard — blocked (reason not exposed by engine)
+        - Frigate — blocked (reason not exposed by engine)
+        - Privateer — blocked (reason not exposed by engine)
+        - Field Cannon — blocked (reason not exposed by engine)
+        - Cavalry — blocked (reason not exposed by engine)
+        - Line Infantry — blocked (reason not exposed by engine)
+        - Ironclad — blocked (reason not exposed by engine)
+        - Archaeologist — blocked (reason not exposed by engine)
+        - AT Crew — blocked (reason not exposed by engine)
+        - Biplane — blocked (reason not exposed by engine)
+        - Infantry — blocked (reason not exposed by engine)
+        - Artillery — blocked (reason not exposed by engine)
+        - Battleship — blocked (reason not exposed by engine)
+        - Anti-Air Gun — blocked (reason not exposed by engine)
+        - Submarine — blocked (reason not exposed by engine)
+        - Tank — blocked (reason not exposed by engine)
+        - Fighter — blocked (reason not exposed by engine)
+        - Aircraft Carrier — blocked (reason not exposed by engine)
+        - Destroyer — blocked (reason not exposed by engine)
+        - Bomber — blocked (reason not exposed by engine)
+        - Nuclear Submarine — blocked (reason not exposed by engine)
+        - Missile Cruiser — blocked (reason not exposed by engine)
+    - not city-trainable by design (11): Inquisitor, Warrior Monk, Great General, Great Admiral, Great Engineer, Great Merchant, Great Prophet, Great Scientist, Great Writer, Great Artist, Great Musician — Great People are recruited with points; religious units are purchased with Faith (details in JSON)
+    - unavailable buildings/districts/wonders (showing 6 of 46; full list + reasons in JSON):
+        - Great Lighthouse — Requires Lighthouse [reconstructed: BuildingPrereqs]
+        - Ruhr Valley — Requires Factory [reconstructed: BuildingPrereqs]
         - Stonehenge — blocked (reason not exposed by engine)
         - Hanging Gardens — blocked (reason not exposed by engine)
         - Pyramids — blocked (reason not exposed by engine)
         - Oracle — blocked (reason not exposed by engine)
-        - Mahabodhi Temple — blocked (reason not exposed by engine)
 ### SHEDET @ (66,25)
-- pop 8 | grow 24t (food+13.0) | hous 8 | amen 2/3 (-1; +1 amen → Content) | happ Displeased | border+19t | growth -15%
-- districts: 1/3 built — 2 slot(s) OPEN [pop/3+1]
-- housing 8 = base 2 + fresh water 3 + Granary 2 + improvements (3 x 0.5) 1.5 [reconstructed]
-- yields: F29.0 P7.6 G0.0 S5.3 C6.1 Fa1.9
-- prod sources: tiles 7.0, bldgs 1, other -0.4 (see JSON for all yields)
-- **producing:** Campus (59/194, 16t)
-- defense: str 38 | garrison 200/200 | walls 100/100
+- pop 15 | grow 14t (food+19.0) | hous 12 | amen 6/7 (-1; +1 amen → Content) | happ Displeased | border+2t | growth -15%
+- districts: 2/6 built — 4 slot(s) OPEN [pop/3+1]
+- housing 12 = base 2 + fresh water 3 + Granary 2 + University 1 + Aqueduct (water housing to 6) 1 + improvements (5 x 0.5) 2.5 + unattributed +1 [reconstructed]
+- yields: F49.0 P24.6 G10.5 S41.0 C12.8 Fa1.0
+- prod sources: tiles 16.0, bldgs 1, trade 3, other +4.6 (see JSON for all yields)
+- **producing:** Campus Research Grants (189/375, 7t)
+- defense: str 92 | garrison 200/200 | walls 400/400
+- majority religion: RELIGION_TAOISM
     - district `CITY_CENTER` @ (66,25)
-    - district `CAMPUS` @ (67,24) [+1SCIENCE]
+    - district `CAMPUS` @ (67,24) [+4SCIENCE]
+    - district `AQUEDUCT` @ (66,24)
+    - district `THEATER` @ (67,25) [+1CULTURE]
     - buildings in `CITY_CENTER`: Monument, Granary, Ancient Walls, Water Mill
-    - tiles: 13 owned, 9 worked | terrain: 8 grass, 2 grass_mountain, 1 coast, 1 grass_hills, 1 plains | features: 1 forest, 1 marsh | improvements: 3 farm, 2 sphinx, 2 quarry
-    - can build now (27 options; cost⚙, turns):
-        - districts (need placement): Campus (194⚙ 16t) [59/194 banked], Aqueduct (133⚙ 18t), Holy Site (199⚙ 27t), Encampment (199⚙ 27t), Harbor (199⚙ 27t), Commercial Hub (199⚙ 27t), Entertainment Complex (199⚙ 27t), Theater Square (199⚙ 27t), Industrial Zone (199⚙ 27t)
-        - wonders (need placement): Great Lighthouse (290⚙ 39t), Colossus (400⚙ 53t), Petra (400⚙ 53t), Colosseum (400⚙ 53t), Terracotta Army (400⚙ 53t)
-        - units (showing 8 of 13 by turns; rest in JSON): Scout (30⚙ 4t), Archer (60⚙ 8t), Spearman (65⚙ 9t), Battering Ram (65⚙ 9t), Trader (76⚙ 10t), Horseman (80⚙ 11t), Builder (102⚙ 14t), Siege Tower (100⚙ 14t)
-    - unavailable (showing 6 of 50; full list + reasons in JSON):
-        - Great Library — Requires Library [reconstructed: BuildingPrereqs]
+    - buildings in `CAMPUS`: Library, University, Research Lab
+    - buildings in `THEATER`: Amphitheater
+    - tiles: 22 owned, 14 worked | terrain: 10 grass, 6 coast, 2 ocean, 2 grass_mountain, 1 plains, 1 grass_hills | features: 1 marsh, 1 forest | improvements: 3 farm, 2 quarry, 2 fishing_boats, 1 lumber_mill, 1 sphinx, 1 mine
+    - can build now (48 options; cost⚙, turns):
+        - districts (need placement): Holy Site (320⚙ 14t), Encampment (320⚙ 14t), Aerodrome (320⚙ 14t), Harbor (540⚙ 22t), Commercial Hub (540⚙ 22t), Entertainment Complex (540⚙ 22t), Industrial Zone (540⚙ 22t), Neighborhood (540⚙ 22t), Spaceport (1800⚙ 74t)
+        - wonders (need placement): Colossus (400⚙ 17t), Petra (400⚙ 17t), Colosseum (400⚙ 17t), Terracotta Army (400⚙ 17t), Hagia Sophia (710⚙ 29t), Mont St. Michel (710⚙ 29t), Huey Teocalli (710⚙ 29t), Venetian Arsenal (920⚙ 38t), Great Zimbabwe (920⚙ 38t), Forbidden City (920⚙ 38t), Bolshoi Theatre (1240⚙ 51t), Big Ben (1450⚙ 59t), Hermitage (1450⚙ 59t), Eiffel Tower (1620⚙ 66t), Broadway (1620⚙ 66t), Cristo Redentor (1620⚙ 66t)
+        - buildings: Sewer (200⚙ 9t), Art Museum (290⚙ 12t), Archaeological Museum (290⚙ 12t), Broadcast Center (580⚙ 24t)
+        - projects: Manhattan Project (1000⚙ -1t), Campus Research Grants (375⚙ -1t) [189/375 banked], Theater Square Festival (375⚙ -1t)
+        - units (complete list): Builder (166⚙ 7t), Trader (160⚙ 7t), Observation Balloon (240⚙ 10t), Spy (300⚙ 13t), Settler (320⚙ 14t), Medic (370⚙ 16t), Ranger (380⚙ 16t), Machine Gun (540⚙ 22t), Mobile SAM (590⚙ 24t), Modern AT (580⚙ 24t), Helicopter (600⚙ 25t), Mechanized Infantry (650⚙ 27t), Jet Fighter (650⚙ 27t), Rocket Artillery (680⚙ 28t), Modern Armor (680⚙ 28t), Jet Bomber (700⚙ 29t)
+    - unavailable units (all 42 trainables):
+        - Scout — blocked (reason not exposed by engine)
+        - Slinger — blocked (reason not exposed by engine)
+        - Warrior — blocked (reason not exposed by engine)
+        - Archer — blocked (reason not exposed by engine)
+        - Galley — blocked (reason not exposed by engine)
+        - Spearman — blocked (reason not exposed by engine)
+        - Heavy Chariot — blocked (reason not exposed by engine)
+        - Horseman — blocked (reason not exposed by engine)
+        - Swordsman — blocked (reason not exposed by engine)
+        - Catapult — blocked (reason not exposed by engine)
+        - Quadrireme — blocked (reason not exposed by engine)
+        - Maryannu Chariot Archer — blocked (reason not exposed by engine)
+        - Man-At-Arms — blocked (reason not exposed by engine)
+        - Military Engineer — blocked (reason not exposed by engine)
+        - Knight — blocked (reason not exposed by engine)
+        - Crossbowman — blocked (reason not exposed by engine)
+        - Pikeman — blocked (reason not exposed by engine)
+        - Trebuchet — blocked (reason not exposed by engine)
+        - Musketman — blocked (reason not exposed by engine)
+        - Caravel — blocked (reason not exposed by engine)
+        - Bombard — blocked (reason not exposed by engine)
+        - Frigate — blocked (reason not exposed by engine)
+        - Privateer — blocked (reason not exposed by engine)
+        - Field Cannon — blocked (reason not exposed by engine)
+        - Cavalry — blocked (reason not exposed by engine)
+        - Line Infantry — blocked (reason not exposed by engine)
+        - Ironclad — blocked (reason not exposed by engine)
+        - Archaeologist — blocked (reason not exposed by engine)
+        - AT Crew — blocked (reason not exposed by engine)
+        - Biplane — blocked (reason not exposed by engine)
+        - Infantry — blocked (reason not exposed by engine)
+        - Artillery — blocked (reason not exposed by engine)
+        - Battleship — blocked (reason not exposed by engine)
+        - Anti-Air Gun — blocked (reason not exposed by engine)
+        - Submarine — blocked (reason not exposed by engine)
+        - Tank — blocked (reason not exposed by engine)
+        - Fighter — blocked (reason not exposed by engine)
+        - Aircraft Carrier — blocked (reason not exposed by engine)
+        - Destroyer — blocked (reason not exposed by engine)
+        - Bomber — blocked (reason not exposed by engine)
+        - Nuclear Submarine — blocked (reason not exposed by engine)
+        - Missile Cruiser — blocked (reason not exposed by engine)
+    - not city-trainable by design (14): Missionary, Apostle, Inquisitor, Guru, Warrior Monk, Great General, Great Admiral, Great Engineer, Great Merchant, Great Prophet, Great Scientist, Great Writer, Great Artist, Great Musician — Great People are recruited with points; religious units are purchased with Faith (details in JSON)
+    - unavailable buildings/districts/wonders (showing 6 of 46; full list + reasons in JSON):
+        - Great Lighthouse — Requires Lighthouse [reconstructed: BuildingPrereqs]
         - Mahabodhi Temple — Requires Temple [reconstructed: BuildingPrereqs]
+        - Ruhr Valley — Requires Factory [reconstructed: BuildingPrereqs]
         - Stonehenge — blocked (reason not exposed by engine)
         - Hanging Gardens — blocked (reason not exposed by engine)
         - Pyramids — blocked (reason not exposed by engine)
-        - Oracle — blocked (reason not exposed by engine)
+    - trade → Râ-Kedet (domestic): Food +6, Production +3
 ### Luxis @ (64,22)
-- pop 6 | grow 4t (food+8.0) | hous 8 | amen 2/2 (+0; +1 amen → Happy) | happ Content | border+8t
-- districts: 0/3 built — 3 slot(s) OPEN [pop/3+1]
-- housing 8 = base 2 + fresh water 3 + Granary 2 + improvements (3 x 0.5) 1.5 [reconstructed]
-- yields: F20.0 P9.0 G8.0 S5.2 C3.8 Fa1.0
-- prod sources: tiles 8.0, bldgs 1 (see JSON for all yields)
-- **producing:** Ancient Walls (48/80, 4t)
-- defense: str 35 | garrison 200/200 | walls 0/0
+- pop 14 | grow 17t (food+7.0) | hous 18 | amen 5/6 (-1; +1 amen → Content) | happ Displeased | border+15t | growth -15%
+- districts: 2/5 built — 3 slot(s) OPEN [pop/3+1]
+- housing 18 = base 2 + fresh water 3 + Granary 2 + Sewer 2 + University 1 + Aqueduct (water housing to 6) 1 + Neighborhood (appeal +1) 4 + improvements (4 x 0.5) 2 + unattributed +1 [reconstructed]
+- yields: F35.0 P22.3 G30.4 S43.6 C5.9 Fa1.9
+- prod sources: tiles 20.0, bldgs 1, other +1.3 (see JSON for all yields)
+- **producing:** Campus Research Grants (179/375, 7t)
+- defense: str 94 | garrison 200/200 | walls 400/400
+- majority religion: RELIGION_TAOISM
     - district `CITY_CENTER` @ (64,22)
-    - buildings in `CITY_CENTER`: Monument, Granary, Water Mill
-    - tiles: 11 owned, 7 worked | terrain: 7 grass, 1 grass_hills, 1 grass_mountain, 1 plains_hills, 1 plains | features: 2 jungle, 2 forest | improvements: 2 farm, 1 mine, 1 plantation
-    - can build now (28 options; cost⚙, turns):
-        - districts (need placement): Aqueduct (133⚙ 15t), Holy Site (199⚙ 23t), Campus (199⚙ 23t), Encampment (199⚙ 23t), Harbor (199⚙ 23t), Commercial Hub (199⚙ 23t), Entertainment Complex (199⚙ 23t), Theater Square (199⚙ 23t), Industrial Zone (199⚙ 23t)
-        - wonders (need placement): Great Lighthouse (290⚙ 33t), Colossus (400⚙ 45t), Petra (400⚙ 45t), Colosseum (400⚙ 45t), Terracotta Army (400⚙ 45t)
-        - buildings: Ancient Walls (80⚙ 4t) [48/80 banked]
-        - units (showing 8 of 13 by turns; rest in JSON): Scout (30⚙ 4t), Archer (60⚙ 7t), Spearman (65⚙ 8t), Battering Ram (65⚙ 8t), Trader (76⚙ 9t), Horseman (80⚙ 9t), Builder (102⚙ 12t), Siege Tower (100⚙ 12t)
-    - unavailable (showing 6 of 50; full list + reasons in JSON):
-        - Great Library — Requires Library [reconstructed: BuildingPrereqs]
+    - district `AQUEDUCT` @ (63,21)
+    - district `CAMPUS` @ (63,22) [+4SCIENCE]
+    - district `COMMERCIAL_HUB` @ (65,20)
+    - district `NEIGHBORHOOD` @ (62,22)
+    - buildings in `CITY_CENTER`: Monument, Granary, Ancient Walls, Water Mill, Sewer
+    - buildings in `CAMPUS`: Library, University, Research Lab
+    - buildings in `COMMERCIAL_HUB`: Market, Bank
+    - tiles: 20 owned, 13 worked | terrain: 14 grass, 2 grass_hills, 2 grass_mountain, 1 plains_hills, 1 plains | features: 4 forest, 1 jungle | improvements: 3 farm, 2 mine, 2 lumber_mill, 1 plantation
+    - can build now (45 options; cost⚙, turns):
+        - districts (need placement): Holy Site (320⚙ 13t), Encampment (320⚙ 13t), Aerodrome (320⚙ 13t), Neighborhood (501⚙ 20t), Harbor (540⚙ 22t), Entertainment Complex (540⚙ 22t), Theater Square (540⚙ 22t), Industrial Zone (540⚙ 22t), Spaceport (1800⚙ 71t)
+        - wonders (need placement): Colossus (400⚙ 16t), Petra (400⚙ 16t), Colosseum (400⚙ 16t), Terracotta Army (400⚙ 16t), Hagia Sophia (710⚙ 28t), Mont St. Michel (710⚙ 28t), Huey Teocalli (710⚙ 28t), Venetian Arsenal (920⚙ 37t), Great Zimbabwe (920⚙ 37t), Forbidden City (920⚙ 37t), Bolshoi Theatre (1240⚙ 49t), Big Ben (1450⚙ 58t), Hermitage (1450⚙ 58t), Eiffel Tower (1620⚙ 64t), Broadway (1620⚙ 64t), Cristo Redentor (1620⚙ 64t)
+        - buildings: Stock Exchange (390⚙ 16t)
+        - projects: Manhattan Project (1000⚙ -1t), Commercial Hub Investment (375⚙ -1t), Campus Research Grants (375⚙ -1t) [179/375 banked]
+        - units (complete list): Builder (166⚙ 7t), Trader (160⚙ 7t), Observation Balloon (240⚙ 10t), Spy (300⚙ 12t), Settler (320⚙ 13t), Medic (370⚙ 15t), Ranger (380⚙ 15t), Machine Gun (540⚙ 22t), Modern AT (580⚙ 23t), Helicopter (600⚙ 24t), Mobile SAM (590⚙ 24t), Mechanized Infantry (650⚙ 26t), Jet Fighter (650⚙ 26t), Rocket Artillery (680⚙ 27t), Modern Armor (680⚙ 27t), Jet Bomber (700⚙ 28t)
+    - unavailable units (all 42 trainables):
+        - Scout — blocked (reason not exposed by engine)
+        - Slinger — blocked (reason not exposed by engine)
+        - Warrior — blocked (reason not exposed by engine)
+        - Archer — blocked (reason not exposed by engine)
+        - Galley — blocked (reason not exposed by engine)
+        - Spearman — blocked (reason not exposed by engine)
+        - Heavy Chariot — blocked (reason not exposed by engine)
+        - Horseman — blocked (reason not exposed by engine)
+        - Swordsman — blocked (reason not exposed by engine)
+        - Catapult — blocked (reason not exposed by engine)
+        - Quadrireme — blocked (reason not exposed by engine)
+        - Maryannu Chariot Archer — blocked (reason not exposed by engine)
+        - Man-At-Arms — blocked (reason not exposed by engine)
+        - Military Engineer — blocked (reason not exposed by engine)
+        - Knight — blocked (reason not exposed by engine)
+        - Crossbowman — blocked (reason not exposed by engine)
+        - Pikeman — blocked (reason not exposed by engine)
+        - Trebuchet — blocked (reason not exposed by engine)
+        - Musketman — blocked (reason not exposed by engine)
+        - Caravel — blocked (reason not exposed by engine)
+        - Bombard — blocked (reason not exposed by engine)
+        - Frigate — blocked (reason not exposed by engine)
+        - Privateer — blocked (reason not exposed by engine)
+        - Field Cannon — blocked (reason not exposed by engine)
+        - Cavalry — blocked (reason not exposed by engine)
+        - Line Infantry — blocked (reason not exposed by engine)
+        - Ironclad — blocked (reason not exposed by engine)
+        - Archaeologist — blocked (reason not exposed by engine)
+        - AT Crew — blocked (reason not exposed by engine)
+        - Biplane — blocked (reason not exposed by engine)
+        - Infantry — blocked (reason not exposed by engine)
+        - Artillery — blocked (reason not exposed by engine)
+        - Battleship — blocked (reason not exposed by engine)
+        - Anti-Air Gun — blocked (reason not exposed by engine)
+        - Submarine — blocked (reason not exposed by engine)
+        - Tank — blocked (reason not exposed by engine)
+        - Fighter — blocked (reason not exposed by engine)
+        - Aircraft Carrier — blocked (reason not exposed by engine)
+        - Destroyer — blocked (reason not exposed by engine)
+        - Bomber — blocked (reason not exposed by engine)
+        - Nuclear Submarine — blocked (reason not exposed by engine)
+        - Missile Cruiser — blocked (reason not exposed by engine)
+    - not city-trainable by design (14): Missionary, Apostle, Inquisitor, Guru, Warrior Monk, Great General, Great Admiral, Great Engineer, Great Merchant, Great Prophet, Great Scientist, Great Writer, Great Artist, Great Musician — Great People are recruited with points; religious units are purchased with Faith (details in JSON)
+    - unavailable buildings/districts/wonders (showing 6 of 47; full list + reasons in JSON):
+        - Great Lighthouse — Requires Lighthouse [reconstructed: BuildingPrereqs]
         - Mahabodhi Temple — Requires Temple [reconstructed: BuildingPrereqs]
+        - Ruhr Valley — Requires Factory [reconstructed: BuildingPrereqs]
         - Stonehenge — blocked (reason not exposed by engine)
         - Hanging Gardens — blocked (reason not exposed by engine)
         - Pyramids — blocked (reason not exposed by engine)
-        - Oracle — blocked (reason not exposed by engine)
 ### ASRUS @ (68,35)
-- pop 1 | grow 4t (food+2.0) | hous 3 | amen 1/0 (+1; +2 amen → Ecstatic) | happ Happy | border+30t | growth +10%
-- districts: 0/1 built — 1 slot(s) OPEN [pop/3+1]
-- housing 3 = base 2 + coastal 1 [reconstructed]
-- yields: F4.0 P3.1 G0.0 S1.8 C0.3 Fa0.0
-- prod sources: tiles 3.0, other +0.1 (see JSON for all yields)
-- **producing:** Granary (9/65, 18t)
-- defense: str 45 | garrison 200/200 | walls 0/0
+- pop 10 | grow 35t (food+12.0) | hous 9 | amen 3/4 (-1; +1 amen → Content) | happ Displeased | border+43t | growth -15%
+- districts: 2/4 built — 2 slot(s) OPEN [pop/3+1]
+- housing 9 = base 2 + coastal 1 + Granary 2 + Lighthouse 1 + University 1 + improvements (5 x 0.5) 2.5 [reconstructed]
+- yields: F32.0 P11.4 G21.9 S26.3 C4.8 Fa0.0
+- prod sources: tiles 6.0, other +5.4 (see JSON for all yields)
+- **producing:** Campus Research Grants (226/375, 12t)
+- defense: str 92 | garrison 200/200 | walls 400/400
+- majority religion: RELIGION_TAOISM
     - district `CITY_CENTER` @ (68,35)
-    - tiles: 7 owned, 2 worked | terrain: 4 coast, 2 grass_hills, 1 grass_mountain | features: 1 forest
-    - can build now (32 options; cost⚙, turns):
-        - districts (need placement): Aqueduct (133⚙ 43t), Holy Site (199⚙ 64t), Campus (199⚙ 64t), Encampment (199⚙ 64t), Harbor (199⚙ 64t), Commercial Hub (199⚙ 64t), Entertainment Complex (199⚙ 64t), Theater Square (199⚙ 64t), Industrial Zone (199⚙ 64t)
-        - wonders (need placement): Great Lighthouse (290⚙ 93t), Colossus (400⚙ 128t), Petra (400⚙ 128t), Colosseum (400⚙ 128t), Terracotta Army (400⚙ 128t)
-        - buildings: Granary (65⚙ 18t) [9/65 banked], Monument (60⚙ 20t), Ancient Walls (80⚙ 26t)
-        - units (showing 8 of 15 by turns; rest in JSON): Scout (30⚙ 10t), Archer (60⚙ 20t), Galley (65⚙ 21t), Spearman (65⚙ 21t), Battering Ram (65⚙ 21t), Trader (76⚙ 25t), Horseman (80⚙ 26t), Siege Tower (100⚙ 32t)
-    - unavailable (showing 6 of 49; full list + reasons in JSON):
-        - Great Library — Requires Library [reconstructed: BuildingPrereqs]
+    - district `HARBOR` @ (68,34) [+2GOLD]
+    - district `CAMPUS` @ (67,36) [+2SCIENCE]
+    - buildings in `CITY_CENTER`: Monument, Granary, Ancient Walls
+    - buildings in `HARBOR`: Lighthouse, Shipyard
+    - buildings in `CAMPUS`: Library, University
+    - tiles: 19 owned, 11 worked | terrain: 7 coast, 6 grass, 3 grass_hills, 2 ocean, 1 grass_mountain | features: 2 forest, 1 marsh | improvements: 3 farm, 1 fishing_boats, 1 camp
+    - can build now (52 options; cost⚙, turns):
+        - districts (need placement): Holy Site (320⚙ 28t), Encampment (320⚙ 28t), Aerodrome (320⚙ 28t), Aqueduct (360⚙ 32t), Commercial Hub (540⚙ 48t), Entertainment Complex (540⚙ 48t), Theater Square (540⚙ 48t), Industrial Zone (540⚙ 48t), Neighborhood (540⚙ 48t), Spaceport (1800⚙ 158t)
+        - wonders (need placement): Colossus (400⚙ 35t), Petra (400⚙ 35t), Colosseum (400⚙ 35t), Terracotta Army (400⚙ 35t), Hagia Sophia (710⚙ 63t), Mont St. Michel (710⚙ 63t), Huey Teocalli (710⚙ 63t), Venetian Arsenal (920⚙ 81t), Great Zimbabwe (920⚙ 81t), Forbidden City (920⚙ 81t), Bolshoi Theatre (1240⚙ 109t), Big Ben (1450⚙ 127t), Hermitage (1450⚙ 127t), Eiffel Tower (1620⚙ 142t), Broadway (1620⚙ 142t), Cristo Redentor (1620⚙ 142t)
+        - buildings: Sewer (200⚙ 18t), Seaport (580⚙ 51t), Research Lab (580⚙ 51t)
+        - projects: Manhattan Project (1000⚙ -1t), Harbor Shipping (375⚙ -1t), Campus Research Grants (375⚙ -1t) [226/375 banked]
+        - units (complete list): Trader (160⚙ 14t), Builder (166⚙ 15t), Observation Balloon (240⚙ 21t), Spy (300⚙ 27t), Settler (320⚙ 28t), Medic (370⚙ 33t), Ranger (380⚙ 34t), Machine Gun (540⚙ 48t), Aircraft Carrier (540⚙ 48t), Destroyer (540⚙ 48t), Modern AT (580⚙ 51t), Mobile SAM (590⚙ 52t), Helicopter (600⚙ 53t), Mechanized Infantry (650⚙ 57t), Jet Fighter (650⚙ 57t), Nuclear Submarine (680⚙ 60t), Rocket Artillery (680⚙ 60t), Missile Cruiser (680⚙ 60t), Modern Armor (680⚙ 60t), Jet Bomber (700⚙ 62t)
+    - unavailable units (all 38 trainables):
+        - Scout — blocked (reason not exposed by engine)
+        - Slinger — blocked (reason not exposed by engine)
+        - Warrior — blocked (reason not exposed by engine)
+        - Archer — blocked (reason not exposed by engine)
+        - Galley — blocked (reason not exposed by engine)
+        - Spearman — blocked (reason not exposed by engine)
+        - Heavy Chariot — blocked (reason not exposed by engine)
+        - Horseman — blocked (reason not exposed by engine)
+        - Swordsman — blocked (reason not exposed by engine)
+        - Catapult — blocked (reason not exposed by engine)
+        - Quadrireme — blocked (reason not exposed by engine)
+        - Maryannu Chariot Archer — blocked (reason not exposed by engine)
+        - Man-At-Arms — blocked (reason not exposed by engine)
+        - Military Engineer — blocked (reason not exposed by engine)
+        - Knight — blocked (reason not exposed by engine)
+        - Crossbowman — blocked (reason not exposed by engine)
+        - Pikeman — blocked (reason not exposed by engine)
+        - Trebuchet — blocked (reason not exposed by engine)
+        - Musketman — blocked (reason not exposed by engine)
+        - Caravel — blocked (reason not exposed by engine)
+        - Bombard — blocked (reason not exposed by engine)
+        - Frigate — blocked (reason not exposed by engine)
+        - Privateer — blocked (reason not exposed by engine)
+        - Field Cannon — blocked (reason not exposed by engine)
+        - Cavalry — blocked (reason not exposed by engine)
+        - Line Infantry — blocked (reason not exposed by engine)
+        - Ironclad — blocked (reason not exposed by engine)
+        - Archaeologist — blocked (reason not exposed by engine)
+        - AT Crew — blocked (reason not exposed by engine)
+        - Biplane — blocked (reason not exposed by engine)
+        - Infantry — blocked (reason not exposed by engine)
+        - Artillery — blocked (reason not exposed by engine)
+        - Battleship — blocked (reason not exposed by engine)
+        - Anti-Air Gun — blocked (reason not exposed by engine)
+        - Submarine — blocked (reason not exposed by engine)
+        - Tank — blocked (reason not exposed by engine)
+        - Fighter — blocked (reason not exposed by engine)
+        - Bomber — blocked (reason not exposed by engine)
+    - not city-trainable by design (14): Missionary, Apostle, Inquisitor, Guru, Warrior Monk, Great General, Great Admiral, Great Engineer, Great Merchant, Great Prophet, Great Scientist, Great Writer, Great Artist, Great Musician — Great People are recruited with points; religious units are purchased with Faith (details in JSON)
+    - unavailable buildings/districts/wonders (showing 6 of 48; full list + reasons in JSON):
         - Mahabodhi Temple — Requires Temple [reconstructed: BuildingPrereqs]
+        - Ruhr Valley — Requires Factory [reconstructed: BuildingPrereqs]
         - Stonehenge — blocked (reason not exposed by engine)
         - Hanging Gardens — blocked (reason not exposed by engine)
         - Pyramids — blocked (reason not exposed by engine)
         - Oracle — blocked (reason not exposed by engine)
+    - trade → Hattusa (Hattusa): Gold +12, Science +2
+### NILECREST @ (68,15)
+- pop 10 | grow 118t (food+2.0) | hous 11 | amen 3/4 (-1; +1 amen → Content) | happ Displeased | border+36t | growth -15%
+- districts: 2/4 built — 2 slot(s) OPEN [pop/3+1]
+- housing 11 = base 2 + fresh water 3 + Granary 2 + Sewer 2 + University 1 + improvements (3 x 0.5) 1.5 [reconstructed]
+- yields: F22.0 P23.8 G17.1 S29.9 C4.8 Fa0.0
+- prod sources: tiles 24.0, bldgs 1, other -1.2 (see JSON for all yields)
+- **producing:** Campus Research Grants (86/375, 12t)
+- defense: str 89 | garrison 200/200 | walls 400/400
+    - district `CITY_CENTER` @ (68,15)
+    - district `CAMPUS` @ (70,13) [+2SCIENCE]
+    - district `COMMERCIAL_HUB` @ (67,14) [+2GOLD]
+    - buildings in `CITY_CENTER`: Monument, Granary, Water Mill, Sewer
+    - buildings in `CAMPUS`: Library, University, Research Lab
+    - tiles: 20 owned, 11 worked | terrain: 7 desert, 6 grass, 3 desert_hills, 3 plains, 1 grass_mountain | features: 6 forest, 2 floodplains, 1 oasis | improvements: 2 lumber_mill, 1 mine, 1 farm, 1 plantation, 1 pasture
+    - can build now (48 options; cost⚙, turns):
+        - districts (need placement): Holy Site (320⚙ 14t), Encampment (320⚙ 14t), Aerodrome (320⚙ 14t), Aqueduct (360⚙ 16t), Harbor (540⚙ 23t), Entertainment Complex (540⚙ 23t), Theater Square (540⚙ 23t), Industrial Zone (540⚙ 23t), Neighborhood (540⚙ 23t), Spaceport (1800⚙ 76t)
+        - wonders (need placement): Colossus (400⚙ 17t), Petra (400⚙ 17t), Colosseum (400⚙ 17t), Terracotta Army (400⚙ 17t), Hagia Sophia (710⚙ 30t), Mont St. Michel (710⚙ 30t), Huey Teocalli (710⚙ 30t), Venetian Arsenal (920⚙ 39t), Great Zimbabwe (920⚙ 39t), Forbidden City (920⚙ 39t), Bolshoi Theatre (1240⚙ 53t), Big Ben (1450⚙ 62t), Hermitage (1450⚙ 62t), Eiffel Tower (1620⚙ 69t), Broadway (1620⚙ 69t), Cristo Redentor (1620⚙ 69t)
+        - buildings: Market (120⚙ 6t), Bank (290⚙ 13t), Stock Exchange (390⚙ 17t)
+        - projects: Manhattan Project (1000⚙ -1t), Commercial Hub Investment (375⚙ -1t), Campus Research Grants (375⚙ -1t) [86/375 banked]
+        - units (complete list): Trader (160⚙ 7t), Builder (166⚙ 8t), Observation Balloon (240⚙ 11t), Spy (300⚙ 13t), Settler (320⚙ 14t), Medic (370⚙ 16t), Ranger (380⚙ 16t), Machine Gun (540⚙ 23t), Mobile SAM (590⚙ 25t), Modern AT (580⚙ 25t), Helicopter (600⚙ 26t), Mechanized Infantry (650⚙ 28t), Jet Fighter (650⚙ 28t), Rocket Artillery (680⚙ 29t), Modern Armor (680⚙ 29t), Jet Bomber (700⚙ 30t)
+    - unavailable units (all 42 trainables):
+        - Scout — blocked (reason not exposed by engine)
+        - Slinger — blocked (reason not exposed by engine)
+        - Warrior — blocked (reason not exposed by engine)
+        - Archer — blocked (reason not exposed by engine)
+        - Galley — blocked (reason not exposed by engine)
+        - Spearman — blocked (reason not exposed by engine)
+        - Heavy Chariot — blocked (reason not exposed by engine)
+        - Horseman — blocked (reason not exposed by engine)
+        - Swordsman — blocked (reason not exposed by engine)
+        - Catapult — blocked (reason not exposed by engine)
+        - Quadrireme — blocked (reason not exposed by engine)
+        - Maryannu Chariot Archer — blocked (reason not exposed by engine)
+        - Man-At-Arms — blocked (reason not exposed by engine)
+        - Military Engineer — blocked (reason not exposed by engine)
+        - Knight — blocked (reason not exposed by engine)
+        - Crossbowman — blocked (reason not exposed by engine)
+        - Pikeman — blocked (reason not exposed by engine)
+        - Trebuchet — blocked (reason not exposed by engine)
+        - Musketman — blocked (reason not exposed by engine)
+        - Caravel — blocked (reason not exposed by engine)
+        - Bombard — blocked (reason not exposed by engine)
+        - Frigate — blocked (reason not exposed by engine)
+        - Privateer — blocked (reason not exposed by engine)
+        - Field Cannon — blocked (reason not exposed by engine)
+        - Cavalry — blocked (reason not exposed by engine)
+        - Line Infantry — blocked (reason not exposed by engine)
+        - Ironclad — blocked (reason not exposed by engine)
+        - Archaeologist — blocked (reason not exposed by engine)
+        - AT Crew — blocked (reason not exposed by engine)
+        - Biplane — blocked (reason not exposed by engine)
+        - Infantry — blocked (reason not exposed by engine)
+        - Artillery — blocked (reason not exposed by engine)
+        - Battleship — blocked (reason not exposed by engine)
+        - Anti-Air Gun — blocked (reason not exposed by engine)
+        - Submarine — blocked (reason not exposed by engine)
+        - Tank — blocked (reason not exposed by engine)
+        - Fighter — blocked (reason not exposed by engine)
+        - Aircraft Carrier — blocked (reason not exposed by engine)
+        - Destroyer — blocked (reason not exposed by engine)
+        - Bomber — blocked (reason not exposed by engine)
+        - Nuclear Submarine — blocked (reason not exposed by engine)
+        - Missile Cruiser — blocked (reason not exposed by engine)
+    - not city-trainable by design (14): Missionary, Apostle, Inquisitor, Guru, Warrior Monk, Great General, Great Admiral, Great Engineer, Great Merchant, Great Prophet, Great Scientist, Great Writer, Great Artist, Great Musician — Great People are recruited with points; religious units are purchased with Faith (details in JSON)
+    - unavailable buildings/districts/wonders (showing 6 of 48; full list + reasons in JSON):
+        - Great Lighthouse — Requires Lighthouse [reconstructed: BuildingPrereqs]
+        - Mahabodhi Temple — Requires Temple [reconstructed: BuildingPrereqs]
+        - Ruhr Valley — Requires Factory [reconstructed: BuildingPrereqs]
+        - Stonehenge — blocked (reason not exposed by engine)
+        - Hanging Gardens — blocked (reason not exposed by engine)
+        - Pyramids — blocked (reason not exposed by engine)
+### ANKH SPRINGS @ (54,28)
+- pop 8 | grow 81t (food+5.0) | hous 7 | amen 2/3 (-1; +1 amen → Content) | happ Displeased | border+28t | growth -15%
+- districts: 1/3 built — 2 slot(s) OPEN [pop/3+1]
+- housing 7 = base 2 + coastal 1 + Granary 2 + improvements (4 x 0.5) 2 [reconstructed]
+- yields: F21.0 P5.9 G20.8 S5.3 C4.2 Fa0.0
+- prod sources: tiles 6.0, other -0.1 (see JSON for all yields)
+- **producing:** Harbor Shipping (93/375, 47t)
+- defense: str 87 | garrison 200/200 | walls 400/400
+- majority religion: RELIGION_TAOISM
+    - district `CITY_CENTER` @ (54,28)
+    - district `HARBOR` @ (53,27) [+4GOLD]
+    - buildings in `CITY_CENTER`: Monument, Granary
+    - tiles: 14 owned, 9 worked | terrain: 11 coast, 3 plains | features: 1 forest | improvements: 3 fishing_boats, 1 lumber_mill, 1 farm
+    - can build now (53 options; cost⚙, turns):
+        - districts (need placement): Holy Site (320⚙ 54t), Encampment (320⚙ 54t), Aerodrome (320⚙ 54t), Aqueduct (360⚙ 61t), Campus (540⚙ 91t), Commercial Hub (540⚙ 91t), Entertainment Complex (540⚙ 91t), Theater Square (540⚙ 91t), Industrial Zone (540⚙ 91t), Neighborhood (540⚙ 91t), Spaceport (1800⚙ 303t)
+        - wonders (need placement): Colossus (400⚙ 68t), Petra (400⚙ 68t), Colosseum (400⚙ 68t), Terracotta Army (400⚙ 68t), Hagia Sophia (710⚙ 120t), Mont St. Michel (710⚙ 120t), Huey Teocalli (710⚙ 120t), Venetian Arsenal (920⚙ 155t), Great Zimbabwe (920⚙ 155t), Forbidden City (920⚙ 155t), Bolshoi Theatre (1240⚙ 209t), Big Ben (1450⚙ 245t), Hermitage (1450⚙ 245t), Eiffel Tower (1620⚙ 273t), Broadway (1620⚙ 273t), Cristo Redentor (1620⚙ 273t)
+        - buildings: Lighthouse (120⚙ 21t), Sewer (200⚙ 34t), Shipyard (290⚙ 49t), Seaport (580⚙ 98t)
+        - projects: Manhattan Project (1000⚙ -1t), Harbor Shipping (375⚙ -1t) [93/375 banked]
+        - units (complete list): Trader (160⚙ 27t), Builder (166⚙ 29t), Observation Balloon (240⚙ 41t), Spy (300⚙ 51t), Settler (320⚙ 54t), Medic (370⚙ 63t), Ranger (380⚙ 64t), Machine Gun (540⚙ 91t), Aircraft Carrier (540⚙ 91t), Destroyer (540⚙ 91t), Modern AT (580⚙ 98t), Mobile SAM (590⚙ 100t), Helicopter (600⚙ 101t), Mechanized Infantry (650⚙ 110t), Jet Fighter (650⚙ 110t), Nuclear Submarine (680⚙ 115t), Rocket Artillery (680⚙ 115t), Missile Cruiser (680⚙ 115t), Modern Armor (680⚙ 115t), Jet Bomber (700⚙ 118t)
+    - unavailable units (all 38 trainables):
+        - Scout — blocked (reason not exposed by engine)
+        - Slinger — blocked (reason not exposed by engine)
+        - Warrior — blocked (reason not exposed by engine)
+        - Archer — blocked (reason not exposed by engine)
+        - Galley — blocked (reason not exposed by engine)
+        - Spearman — blocked (reason not exposed by engine)
+        - Heavy Chariot — blocked (reason not exposed by engine)
+        - Horseman — blocked (reason not exposed by engine)
+        - Swordsman — blocked (reason not exposed by engine)
+        - Catapult — blocked (reason not exposed by engine)
+        - Quadrireme — blocked (reason not exposed by engine)
+        - Maryannu Chariot Archer — blocked (reason not exposed by engine)
+        - Man-At-Arms — blocked (reason not exposed by engine)
+        - Military Engineer — blocked (reason not exposed by engine)
+        - Knight — blocked (reason not exposed by engine)
+        - Crossbowman — blocked (reason not exposed by engine)
+        - Pikeman — blocked (reason not exposed by engine)
+        - Trebuchet — blocked (reason not exposed by engine)
+        - Musketman — blocked (reason not exposed by engine)
+        - Caravel — blocked (reason not exposed by engine)
+        - Bombard — blocked (reason not exposed by engine)
+        - Frigate — blocked (reason not exposed by engine)
+        - Privateer — blocked (reason not exposed by engine)
+        - Field Cannon — blocked (reason not exposed by engine)
+        - Cavalry — blocked (reason not exposed by engine)
+        - Line Infantry — blocked (reason not exposed by engine)
+        - Ironclad — blocked (reason not exposed by engine)
+        - Archaeologist — blocked (reason not exposed by engine)
+        - AT Crew — blocked (reason not exposed by engine)
+        - Biplane — blocked (reason not exposed by engine)
+        - Infantry — blocked (reason not exposed by engine)
+        - Artillery — blocked (reason not exposed by engine)
+        - Battleship — blocked (reason not exposed by engine)
+        - Anti-Air Gun — blocked (reason not exposed by engine)
+        - Submarine — blocked (reason not exposed by engine)
+        - Tank — blocked (reason not exposed by engine)
+        - Fighter — blocked (reason not exposed by engine)
+        - Bomber — blocked (reason not exposed by engine)
+    - not city-trainable by design (14): Missionary, Apostle, Inquisitor, Guru, Warrior Monk, Great General, Great Admiral, Great Engineer, Great Merchant, Great Prophet, Great Scientist, Great Writer, Great Artist, Great Musician — Great People are recruited with points; religious units are purchased with Faith (details in JSON)
+    - unavailable buildings/districts/wonders (showing 6 of 52; full list + reasons in JSON):
+        - Great Lighthouse — Requires Lighthouse [reconstructed: BuildingPrereqs]
+        - Great Library — Requires Library [reconstructed: BuildingPrereqs]
+        - Mahabodhi Temple — Requires Temple [reconstructed: BuildingPrereqs]
+        - Ruhr Valley — Requires Factory [reconstructed: BuildingPrereqs]
+        - Oxford University — Requires University [reconstructed: BuildingPrereqs]
+        - Stonehenge — blocked (reason not exposed by engine)
+### ISIDORA @ (66,38)
+- pop 7 | grow 3t (food+16.0) | hous 7 | amen 2/3 (-1; +1 amen → Content) | happ Displeased | border+7t | growth -15%
+- districts: 1/3 built — 2 slot(s) OPEN [pop/3+1]
+- housing 7 = base 2 + coastal 1 + Granary 2 + Lighthouse 1 + improvements (3 x 0.5) 1.5 [reconstructed]
+- yields: F30.0 P8.1 G11.6 S4.7 C5.8 Fa1.0
+- prod sources: tiles 5.0, trade 3, other +0.1 (see JSON for all yields)
+- **producing:** Harbor Shipping (197/375, 21t)
+- defense: str 87 | garrison 200/200 | walls 400/400
+- majority religion: RELIGION_TAOISM
+    - district `CITY_CENTER` @ (66,38)
+    - district `HARBOR` @ (65,37) [+3GOLD]
+    - buildings in `CITY_CENTER`: Monument, Granary
+    - buildings in `HARBOR`: Lighthouse
+    - tiles: 15 owned, 8 worked | terrain: 8 coast, 2 grass, 2 ocean, 2 grass_hills, 1 tundra | improvements: 1 fishing_boats, 1 farm, 1 pasture, 1 sphinx
+    - can build now (52 options; cost⚙, turns):
+        - districts (need placement): Holy Site (320⚙ 40t), Encampment (320⚙ 40t), Aerodrome (320⚙ 40t), Aqueduct (360⚙ 45t), Campus (540⚙ 67t), Commercial Hub (540⚙ 67t), Entertainment Complex (540⚙ 67t), Theater Square (540⚙ 67t), Industrial Zone (540⚙ 67t), Neighborhood (540⚙ 67t), Spaceport (1800⚙ 223t)
+        - wonders (need placement): Colossus (400⚙ 50t), Petra (400⚙ 50t), Colosseum (400⚙ 50t), Terracotta Army (400⚙ 50t), Hagia Sophia (710⚙ 88t), Mont St. Michel (710⚙ 88t), Huey Teocalli (710⚙ 88t), Venetian Arsenal (920⚙ 114t), Great Zimbabwe (920⚙ 114t), Forbidden City (920⚙ 114t), Bolshoi Theatre (1240⚙ 154t), Big Ben (1450⚙ 180t), Hermitage (1450⚙ 180t), Eiffel Tower (1620⚙ 201t), Broadway (1620⚙ 201t), Cristo Redentor (1620⚙ 201t)
+        - buildings: Sewer (200⚙ 25t), Shipyard (290⚙ 36t), Seaport (580⚙ 72t)
+        - projects: Manhattan Project (1000⚙ -1t), Harbor Shipping (375⚙ -1t) [197/375 banked]
+        - units (complete list): Trader (160⚙ 20t), Builder (166⚙ 21t), Observation Balloon (240⚙ 30t), Spy (300⚙ 38t), Settler (320⚙ 40t), Medic (370⚙ 46t), Ranger (380⚙ 48t), Machine Gun (540⚙ 67t), Aircraft Carrier (540⚙ 67t), Destroyer (540⚙ 67t), Modern AT (580⚙ 72t), Mobile SAM (590⚙ 74t), Helicopter (600⚙ 75t), Mechanized Infantry (650⚙ 81t), Jet Fighter (650⚙ 81t), Nuclear Submarine (680⚙ 85t), Rocket Artillery (680⚙ 85t), Missile Cruiser (680⚙ 85t), Modern Armor (680⚙ 85t), Jet Bomber (700⚙ 87t)
+    - unavailable units (all 38 trainables):
+        - Scout — blocked (reason not exposed by engine)
+        - Slinger — blocked (reason not exposed by engine)
+        - Warrior — blocked (reason not exposed by engine)
+        - Archer — blocked (reason not exposed by engine)
+        - Galley — blocked (reason not exposed by engine)
+        - Spearman — blocked (reason not exposed by engine)
+        - Heavy Chariot — blocked (reason not exposed by engine)
+        - Horseman — blocked (reason not exposed by engine)
+        - Swordsman — blocked (reason not exposed by engine)
+        - Catapult — blocked (reason not exposed by engine)
+        - Quadrireme — blocked (reason not exposed by engine)
+        - Maryannu Chariot Archer — blocked (reason not exposed by engine)
+        - Man-At-Arms — blocked (reason not exposed by engine)
+        - Military Engineer — blocked (reason not exposed by engine)
+        - Knight — blocked (reason not exposed by engine)
+        - Crossbowman — blocked (reason not exposed by engine)
+        - Pikeman — blocked (reason not exposed by engine)
+        - Trebuchet — blocked (reason not exposed by engine)
+        - Musketman — blocked (reason not exposed by engine)
+        - Caravel — blocked (reason not exposed by engine)
+        - Bombard — blocked (reason not exposed by engine)
+        - Frigate — blocked (reason not exposed by engine)
+        - Privateer — blocked (reason not exposed by engine)
+        - Field Cannon — blocked (reason not exposed by engine)
+        - Cavalry — blocked (reason not exposed by engine)
+        - Line Infantry — blocked (reason not exposed by engine)
+        - Ironclad — blocked (reason not exposed by engine)
+        - Archaeologist — blocked (reason not exposed by engine)
+        - AT Crew — blocked (reason not exposed by engine)
+        - Biplane — blocked (reason not exposed by engine)
+        - Infantry — blocked (reason not exposed by engine)
+        - Artillery — blocked (reason not exposed by engine)
+        - Battleship — blocked (reason not exposed by engine)
+        - Anti-Air Gun — blocked (reason not exposed by engine)
+        - Submarine — blocked (reason not exposed by engine)
+        - Tank — blocked (reason not exposed by engine)
+        - Fighter — blocked (reason not exposed by engine)
+        - Bomber — blocked (reason not exposed by engine)
+    - not city-trainable by design (14): Missionary, Apostle, Inquisitor, Guru, Warrior Monk, Great General, Great Admiral, Great Engineer, Great Merchant, Great Prophet, Great Scientist, Great Writer, Great Artist, Great Musician — Great People are recruited with points; religious units are purchased with Faith (details in JSON)
+    - unavailable buildings/districts/wonders (showing 6 of 52; full list + reasons in JSON):
+        - Great Library — Requires Library [reconstructed: BuildingPrereqs]
+        - Mahabodhi Temple — Requires Temple [reconstructed: BuildingPrereqs]
+        - Ruhr Valley — Requires Factory [reconstructed: BuildingPrereqs]
+        - Oxford University — Requires University [reconstructed: BuildingPrereqs]
+        - Stonehenge — blocked (reason not exposed by engine)
+        - Hanging Gardens — blocked (reason not exposed by engine)
+    - trade → Râ-Kedet (domestic): Food +6, Production +3
+### Swenett @ (6,19)
+- pop 10 | grow 6t (food+12.0) | hous 11 | amen 3/4 (-1; +1 amen → Content) | happ Displeased | border+14t | growth -15%
+- districts: 1/4 built — 3 slot(s) OPEN [pop/3+1]
+- housing 11 = base 2 + fresh water 3 + Granary 2 + Sewer 2 + improvements (4 x 0.5) 2 [reconstructed]
+- yields: F32.0 P13.3 G8.6 S6.7 C8.5 Fa1.0
+- prod sources: tiles 13.0, bldgs 1, other -0.7 (see JSON for all yields)
+- **producing:** Theater Square Festival (356/375, 1t)
+- defense: str 87 | garrison 200/200 | walls 400/400
+- majority religion: RELIGION_PROTESTANTISM
+    - district `CITY_CENTER` @ (6,19)
+    - district `THEATER` @ (5,20)
+    - buildings in `CITY_CENTER`: Monument, Granary, Water Mill, Sewer
+    - buildings in `THEATER`: Amphitheater
+    - tiles: 16 owned, 11 worked | terrain: 6 plains, 6 coast, 2 grass, 1 plains_hills, 1 grass_hills | features: 5 jungle | improvements: 2 plantation, 1 farm, 1 mine, 1 pasture
+    - can build now (52 options; cost⚙, turns):
+        - districts (need placement): Holy Site (320⚙ 25t), Encampment (320⚙ 25t), Aerodrome (320⚙ 25t), Aqueduct (360⚙ 28t), Campus (540⚙ 41t), Harbor (540⚙ 41t), Commercial Hub (540⚙ 41t), Entertainment Complex (540⚙ 41t), Industrial Zone (540⚙ 41t), Neighborhood (540⚙ 41t), Spaceport (1800⚙ 136t)
+        - wonders (need placement): Colossus (400⚙ 31t), Petra (400⚙ 31t), Colosseum (400⚙ 31t), Terracotta Army (400⚙ 31t), Hagia Sophia (710⚙ 54t), Mont St. Michel (710⚙ 54t), Huey Teocalli (710⚙ 54t), Venetian Arsenal (920⚙ 70t), Great Zimbabwe (920⚙ 70t), Forbidden City (920⚙ 70t), Bolshoi Theatre (1240⚙ 94t), Big Ben (1450⚙ 110t), Hermitage (1450⚙ 110t), Eiffel Tower (1620⚙ 122t), Broadway (1620⚙ 122t), Cristo Redentor (1620⚙ 122t)
+        - buildings: Art Museum (290⚙ 22t), Archaeological Museum (290⚙ 22t), Broadcast Center (580⚙ 44t)
+        - projects: Manhattan Project (1000⚙ -1t), Theater Square Festival (375⚙ -1t) [356/375 banked]
+        - units (complete list): Builder (166⚙ 13t), Trader (160⚙ 13t), Observation Balloon (240⚙ 19t), Spy (300⚙ 23t), Settler (320⚙ 25t), Medic (370⚙ 28t), Ranger (380⚙ 29t), Machine Gun (540⚙ 41t), Aircraft Carrier (540⚙ 41t), Destroyer (540⚙ 41t), Modern AT (580⚙ 44t), Mobile SAM (590⚙ 45t), Helicopter (600⚙ 46t), Mechanized Infantry (650⚙ 49t), Jet Fighter (650⚙ 49t), Nuclear Submarine (680⚙ 52t), Rocket Artillery (680⚙ 52t), Missile Cruiser (680⚙ 52t), Modern Armor (680⚙ 52t), Jet Bomber (700⚙ 53t)
+    - unavailable units (all 38 trainables):
+        - Scout — blocked (reason not exposed by engine)
+        - Slinger — blocked (reason not exposed by engine)
+        - Warrior — blocked (reason not exposed by engine)
+        - Archer — blocked (reason not exposed by engine)
+        - Galley — blocked (reason not exposed by engine)
+        - Spearman — blocked (reason not exposed by engine)
+        - Heavy Chariot — blocked (reason not exposed by engine)
+        - Horseman — blocked (reason not exposed by engine)
+        - Swordsman — blocked (reason not exposed by engine)
+        - Catapult — blocked (reason not exposed by engine)
+        - Quadrireme — blocked (reason not exposed by engine)
+        - Maryannu Chariot Archer — blocked (reason not exposed by engine)
+        - Man-At-Arms — blocked (reason not exposed by engine)
+        - Military Engineer — blocked (reason not exposed by engine)
+        - Knight — blocked (reason not exposed by engine)
+        - Crossbowman — blocked (reason not exposed by engine)
+        - Pikeman — blocked (reason not exposed by engine)
+        - Trebuchet — blocked (reason not exposed by engine)
+        - Musketman — blocked (reason not exposed by engine)
+        - Caravel — blocked (reason not exposed by engine)
+        - Bombard — blocked (reason not exposed by engine)
+        - Frigate — blocked (reason not exposed by engine)
+        - Privateer — blocked (reason not exposed by engine)
+        - Field Cannon — blocked (reason not exposed by engine)
+        - Cavalry — blocked (reason not exposed by engine)
+        - Line Infantry — blocked (reason not exposed by engine)
+        - Ironclad — blocked (reason not exposed by engine)
+        - Archaeologist — blocked (reason not exposed by engine)
+        - AT Crew — blocked (reason not exposed by engine)
+        - Biplane — blocked (reason not exposed by engine)
+        - Infantry — blocked (reason not exposed by engine)
+        - Artillery — blocked (reason not exposed by engine)
+        - Battleship — blocked (reason not exposed by engine)
+        - Anti-Air Gun — blocked (reason not exposed by engine)
+        - Submarine — blocked (reason not exposed by engine)
+        - Tank — blocked (reason not exposed by engine)
+        - Fighter — blocked (reason not exposed by engine)
+        - Bomber — blocked (reason not exposed by engine)
+    - not city-trainable by design (14): Missionary, Apostle, Inquisitor, Guru, Warrior Monk, Great General, Great Admiral, Great Engineer, Great Merchant, Great Prophet, Great Scientist, Great Writer, Great Artist, Great Musician — Great People are recruited with points; religious units are purchased with Faith (details in JSON)
+    - unavailable buildings/districts/wonders (showing 6 of 50; full list + reasons in JSON):
+        - Great Lighthouse — Requires Lighthouse [reconstructed: BuildingPrereqs]
+        - Great Library — Requires Library [reconstructed: BuildingPrereqs]
+        - Mahabodhi Temple — Requires Temple [reconstructed: BuildingPrereqs]
+        - Ruhr Valley — Requires Factory [reconstructed: BuildingPrereqs]
+        - Oxford University — Requires University [reconstructed: BuildingPrereqs]
+        - Stonehenge — blocked (reason not exposed by engine)
 
-## UNITS (13)
-- **Builder** #1900544 @(65,21) | hp100/100 | mv2/2 | cs0 rs0 xp0/15 ch1
-- **Scout** #1835009 @(70,8) | hp63/100 | mv3/3 | cs10 rs0 xp22/45 <IDLE>
-- **Trader** #786434 @(67,19) | hp100/100 | mv2/2 | cs0 rs0 xp0/15
-- **Warrior** #655363 @(62,26) | hp100/100 | mv2/2 | cs20 rs0 xp0/15 fort:2
-- **Spearman** #1638404 @(65,25) | hp100/100 | mv2/2 | cs25 rs0 xp0/15 fort:2
-- **Great General** #1310725 @(66,29) | hp100/100 | mv4/4 | cs0 rs0 xp0/15
-- **Archer** #1048582 @(66,31) | hp100/100 | mv2/2 | cs15 rs25 xp26/45 fort:2
-- **Warrior** #983047 @(66,25) | hp100/100 | mv2/2 | cs20 rs0 xp0/15 fort:2
-- **Builder** #2228232 @(66,29) | hp100/100 | mv2/2 | cs0 rs0 xp0/15 ch5 <IDLE>
-- **Man-At-Arms** #1769481 @(68,35) | hp100/100 | mv2/2 | cs45 rs0 xp15/45 fort:2
-- **Archer** #2031626 @(65,26) | hp100/100 | mv2/2 | cs15 rs25 xp0/15 fort:2
-- **Archer** #2097163 @(67,25) | hp100/100 | mv2/2 | cs15 rs25 xp0/15 fort:2
-- **Horseman** #2162700 @(67,35) | hp100/100 | mv4/4 | cs36 rs0 xp0/15 fort:2
+## UNITS (23)
+- **Crossbowman** #2621440 @(67,25) | hp100/100 | mv3/3 | cs30 rs40 xp0/15 fort:2
+- **Trader** #3080193 @(56,24) | hp100/100 | mv0/3 | cs0 rs0 xp0/15
+- **Trader** #786434 @(11,38) | hp100/100 | mv0/6 | cs0 rs0 xp0/15
+- **Musketman** #4456451 @(67,35) | hp100/100 | mv3/3 | cs55 rs0 xp25/45 fort:2
+- **Spearman** #1638404 @(68,15) | hp100/100 | mv3/3 | cs25 rs0 xp0/15 fort:2
+- **Trader** #2949125 @(73,35) | hp100/100 | mv0/6 | cs0 rs0 xp0/15
+- **Trader** #3473414 @(64,28) | hp100/100 | mv0/3 | cs0 rs0 xp0/15
+- **Musketman** #4259847 @(62,26) | hp100/100 | mv3/3 | cs55 rs0 xp0/15
+- **Trader** #3014664 @(67,35) | hp100/100 | mv0/3 | cs0 rs0 xp0/15
+- **Scout** #4849673 @(47,33) | hp100/100 | mv0/3 | cs10 rs0 xp0/15
+- **Trader** #5570570 @(65,29) | hp100/100 | mv0/3 | cs0 rs0 xp0/15
+- **Frigate** #3932171 @(53,27) | hp100/100 | mv6/6 | cs45 rs55 xp14/15
+- **Horseman** #2162700 @(66,38) | hp100/100 | mv5/5 | cs36 rs0 xp31/45 fort:2
+- **Crossbowman** #2555917 @(68,35) | hp100/100 | mv3/3 | cs30 rs40 xp30/45 fort:2
+- **Crossbowman** #2686991 @(67,26) | hp100/100 | mv3/3 | cs30 rs40 xp15/45 fort:2
+- **Cavalry** #4063249 @(54,28) | hp100/100 | mv6/6 | cs62 rs0 xp15/45 fort:2
+- **Spy** #5505042 @(20,34) | hp100/100 | mv0/1 | cs0 rs0 xp0/15
+- **Trader** #4915219 @(66,28) | hp100/100 | mv0/3 | cs0 rs0 xp0/15
+- **Builder** #4718612 @(54,28) | hp100/100 | mv3/3 | cs0 rs0 xp0/15 ch1
+- **Builder** #4980757 @(6,17) | hp100/100 | mv3/3 | cs0 rs0 xp0/15 ch1
+- **Mechanized Infantry** #5373974 @(66,29) | hp100/100 | mv4/4 | cs85 rs0 xp4/15
+- **Modern Armor** #5636119 @(66,37) | hp100/100 | mv5/5 | cs95 rs0 xp45/90 fort:2
+- **Builder** #5308440 @(60,26) | hp100/100 | mv3/3 | cs0 rs0 xp0/15 ch1
 
 ## DIPLOMACY
-- **envoys:** 0 in hand | 36/100 pts (+5.0/turn — 1 envoys/threshold)
+- **envoys:** 0 in hand | 188/200 pts (+7.2/turn — 3 envoys/threshold)
 ### MAJORS MET
-- **Sumeria (Gilgamesh)** — DIPLO_STATE_DECLARED_FRIEND | vis 1 | score 187 mil 148 | met T27
-    - public: techs 27 | civics 16 | tourism 9
-    - known cities (6): Uruk★?, Lagash?, Rio de Janeiro?, Adab?, Recife?, Kish?
-    - government: Classical Republic (vis 1)
+- **England (Victoria)** — DIPLO_STATE_FRIENDLY | vis 2 | score 512 mil 413 | met T240
+    - public: techs 48 | civics 42 | tourism 264
+    - known cities (9): London★?, Birmingham?, Plymouth?, Newcastle upon Tyne?, Manchester?, Liverpool?, Bristol p9, Bradford?, Sheffield?
+    - government: Democracy (vis 2)
+    - founded religion: Protestantism
+    - relations: India: ALLIED, Sumeria: DECLARED_FRIEND, Aztec: DENOUNCED
+- **India (Gandhi)** — DIPLO_STATE_NEUTRAL | vis 4 | score 414 mil 147 | met T243
+    - public: techs 42 | civics 40 | tourism 147
+    - known cities (9): Delhi★ p26, Agra?, Mumbai?, Madurai?, Chennai?, Patna?, Mysore?, Srinagar?, Ahmadabad?
+    - government: Democracy (vis 4)
+    - founded religion: Hinduism
+    - relations: England: ALLIED, Sumeria: DECLARED_FRIEND, Aztec: DENOUNCED
+- **Sumeria (Gilgamesh)** — DIPLO_STATE_DECLARED_FRIEND | vis 2 | score 454 mil 2 | met T27
+    - public: techs 68 | civics 34 | tourism 132
+    - known cities (12): Uruk★?, Lagash?, Rio de Janeiro?, Adab?, Recife?, Kish?, Bad-Tibira?, Shuruppak?, Ur p6, Sippar?, Larak?, Isin?
+    - government: Classical Republic (vis 2)
+    - relations: England: DECLARED_FRIEND, India: DECLARED_FRIEND, Aztec: DENOUNCED
+- **Aztec (Montezuma)** — DIPLO_STATE_DENOUNCED | vis 1 | score 456 mil 227 | met T160
+    - public: techs 64 | civics 35 | tourism 148
+    - known cities (10): Tenochtitlan★?, Cempoala?, Atzcapotzalco?, Ixtapaluca?, Chapultepec?, Teayo?, Texcoco?, Teotihuacán?, Chalco?, Malinalco?
+    - government: Democracy (vis 1)
+    - founded religion: Eastern Orthodoxy
+    - relations: England: DENOUNCED, India: DENOUNCED, Sumeria: DENOUNCED
 - ☠️ **Brazil** — ELIMINATED
-- **civ accounting:** 1 met alive, 1 eliminated; map supports up to 10 majors — unmet living civs may exist (start count not exported; fog-safe)
-    - unmet-civ evidence: Protestantism was founded by an unmet civilization (public info)
-    - unmet-civ evidence: Hinduism was founded by an unmet civilization (public info)
-    - unmet-civ evidence: Eastern Orthodoxy was founded by an unmet civilization (public info)
+- **civ accounting:** 4 met alive, 1 eliminated; map supports up to 10 majors — unmet living civs may exist (start count not exported; fog-safe)
 ### CITY-STATES MET
-- **Kabul** (KABUL) — envoys sent 2 | suz: SUMERIA | @(61,18) | met T20 | envoys: Sumeria 3, me (Egypt) 2
-    - thresholds met: 1 | envoy race: +2 envoys to lead (3 tops)
+- **Mohenjo-Daro** (MOHENJO_DARO) — envoys sent 0 | suz: none | @(11,32) | met T243 | envoys: India 9, Aztec 9, England 7, Sumeria 6
+    - thresholds met: none | envoy race: +10 envoys to lead (9 tops)
+- **Kabul** (KABUL) — envoys sent 9 | suz: ME | @(61,18) | met T20 | envoys: me (Egypt) 9, Sumeria 6
+    - thresholds met: 1/3/6 | envoy race: leading
     - suzerain bonus: Your units receive double experience from battles they initiate.
-- **Hattusa** (HATTUSA) — envoys sent 4 | suz: ME | @(56,24) | met T19 | envoys: me (Egypt) 4, Sumeria 3
-    - thresholds met: 1/3 | envoy race: leading
+- **Hattusa** (HATTUSA) — envoys sent 14 | suz: ME | @(56,24) | met T19 | envoys: me (Egypt) 14, Sumeria 8, England 7
+    - thresholds met: 1/3/6 | envoy race: leading
     - suzerain bonus: Provides you with 1 of each Strategic resource you have revealed but do not own.
-- **Stockholm** (STOCKHOLM) — envoys sent 1 | suz: SUMERIA | @(64,13) | met T32 | envoys: Sumeria 3, me (Egypt) 1
-    - thresholds met: 1 | envoy race: +3 envoys to lead (3 tops)
-- **Amsterdam** (AMSTERDAM) — envoys sent 3 | suz: ME | @(67,19) | met T54 | envoys: me (Egypt) 3, Sumeria 2
-    - thresholds met: 1/3 | envoy race: leading
+- **Mogadishu** (LISBON) — envoys sent 0 | suz: INDIA | @(20,26) | met T243 | envoys: India 8, England 7, Aztec 2, Sumeria 1
+    - thresholds met: none | envoy race: +9 envoys to lead (8 tops)
+- **Stockholm** (STOCKHOLM) — envoys sent 11 | suz: ME | @(64,13) | met T32 | envoys: me (Egypt) 11, Aztec 7, England 6, Sumeria 6, India 1
+    - thresholds met: 1/3/6 | envoy race: leading
+    - suzerain bonus: Your districts provide +1 [ICON_GreatPerson] Great Person point of their type ([ICON_GreatWriter] Great Writer, [ICON_GreatArtist] Great Artist, and [ICON_GreatMusician] Great Musician for Theater Square districts).
+- **Amsterdam** (AMSTERDAM) — envoys sent 7 | suz: ME | @(67,19) | met T54 | envoys: me (Egypt) 7, Aztec 4, England 3, Sumeria 2, India 1
+    - thresholds met: 1/3/6 | envoy race: leading
     - suzerain bonus: Your [ICON_TradeRoute] Trade Routes to foreign cities earn +1 [ICON_Gold] Gold for each Luxury resource at the destination.
+- **Kumasi** (KUMASI) — envoys sent 2 | suz: INDIA | @(9,21) | met T243 | envoys: India 8, England 7, Aztec 7, Sumeria 6, me (Egypt) 2
+    - thresholds met: 1 | envoy race: +7 envoys to lead (8 tops)
+- **Buenos Aires** (BUENOS_AIRES) — envoys sent 1 | suz: INDIA | @(16,22) | met T243 | envoys: India 8, England 7, Aztec 6, me (Egypt) 1
+    - thresholds met: 1 | envoy race: +8 envoys to lead (8 tops)
+- **Yerevan** (YEREVAN) — envoys sent 2 | suz: none | @(44,37) | met T300 | envoys: England 4, India 4, me (Egypt) 2, Aztec 1
+    - thresholds met: 1 | envoy race: +3 envoys to lead (4 tops)
 ### FOREIGN FORCES CURRENTLY VISIBLE
-- Amsterdam (city-state): 3 unit(s) — 2× MAN_AT_ARMS, CROSSBOWMAN
-- Hattusa (city-state): 3 unit(s) — 2× WARRIOR, BUILDER
-- Kabul (city-state): 2 unit(s) — ARCHER, HEAVY_CHARIOT
+- Amsterdam (city-state): 3 unit(s) — MACHINE_GUN, BUILDER, MECHANIZED_INFANTRY
+- Hattusa (city-state): 3 unit(s) — BUILDER, MODERN_AT, BATTLESHIP
+- Stockholm (city-state): 2 unit(s) — MACHINE_GUN, MECHANIZED_INFANTRY
+- India: 2 unit(s) — CAVALRY, GREAT_MUSICIAN
+- Mohenjo-Daro (city-state): 2 unit(s) — MAN_AT_ARMS, PIKEMAN
+- Aztec: 1 unit(s) — BUILDER
+- Kabul (city-state): 1 unit(s) — BUILDER
+- Kumasi (city-state): 1 unit(s) — KNIGHT
+- England: 1 unit(s) — GREAT_ADMIRAL
 
 ## BARBARIANS (only what we can currently see)
-- **units visible (4):** Galley @(71,6) hp100/100; Quadrireme @(69,7) hp100/100; Scout @(56,22) hp58/100; Galley @(70,6) hp100/100
-- camps previously revealed but not currently visible (3): (72,6), (54,16), (48,20)
+- camps previously revealed but not currently visible (1): (48,20)
 
 ## NOTIFICATIONS
 - `NOTIFICATION_WONDER_COMPLETED`: Wonder Completed
-- `NOTIFICATION_PLAYER_DEFEATED`: Defeated!
+- `NOTIFICATION_WONDER_COMPLETED`: Wonder Completed
+- `NOTIFICATION_WONDER_COMPLETED`: Wonder Completed
 - `NOTIFICATION_CHOOSE_CITY_PRODUCTION` [BLOCKS: ENDTURN_BLOCKING_PRODUCTION]: Choose Production
 - `NOTIFICATION_CHOOSE_CITY_PRODUCTION` [BLOCKS: ENDTURN_BLOCKING_PRODUCTION]: Choose Production
-- `NOTIFICATION_COMMAND_UNITS` [BLOCKS: ENDTURN_BLOCKING_UNITS]: Command Units
+- `NOTIFICATION_HOUSING_PREVENTING_GROWTH`: Need More Housing
+- `NOTIFICATION_CITY_LOW_AMENITIES`: Need More Amenities
+- `NOTIFICATION_CITY_LOW_AMENITIES`: Need More Amenities
 
 ## REVEALED MAP
-_679 revealed, 214 currently visible, 2 natural wonders_
-**Owner IDs:** 0=me (Egypt), 3=Sumeria, 7=Kabul (city-state), 8=Hattusa (city-state), 10=Stockholm (city-state), 11=Amsterdam (city-state)
+_3404 revealed, 513 currently visible, 6 natural wonders_
+**Owner IDs:** 0=me (Egypt), 1=England, 2=India, 3=Sumeria, 5=Aztec, 6=Mohenjo-Daro (city-state), 7=Kabul (city-state), 8=Hattusa (city-state), 9=Mogadishu (city-state), 10=Stockholm (city-state), 11=Amsterdam (city-state), 12=Kumasi (city-state), 13=Buenos Aires (city-state), 14=Yerevan (city-state)
 **Line schema:** `MAP x,y v|terr|feat|res|imp|road|owner|dist|city|units|extra|cityname`  (`v`=1 currently visible; `terr` = g/p/d/t/s (+h for hills, +m for mountain); `feat` = for/jun/mar/fld/oas/reef/nw:NAME; `imp` may end `:P` if pillaged; `extra` R=river L=lake F=freshwater A±N=appeal; `cityname` set on city-centre tiles)
 ```
+0,0 0|oc|||||||0|||
+1,0 0|oc|ice||||||0|||
+2,0 0|oc|ice||||||0|||
+3,0 0|oc|ice||||||0|||
+4,0 0|oc|||||||0|||
+5,0 0|oc|ice||||||0|||
+6,0 0|oc|ice||||||0|||
+7,0 0|oc|ice||||||0|||
+8,0 0|oc|||||||0|||
+9,0 0|oc|ice||||||0|||
+10,0 0|oc|ice||||||0|||
+11,0 0|oc|ice||||||0|||
+12,0 0|oc|ice||||||0|||
+13,0 0|oc|||||||0|||
+14,0 0|oc|||||||0|||
+15,0 0|oc|ice||||||0|||
+16,0 0|oc|ice||||||0|||
+17,0 0|oc|ice||||||0|||
+18,0 0|oc|ice||||||0|||
+19,0 0|oc|ice||||||0|||
+20,0 0|oc|||||||0|||
+21,0 0|oc|ice||||||0|||
+22,0 0|oc|ice||||||0|||
+23,0 0|oc|||||||0|||
+24,0 0|oc|ice||||||0|||
+25,0 0|oc|ice||||||0|||
+26,0 0|oc|ice||||||0|||
+27,0 0|oc|ice||||||0|||
+28,0 0|oc|ice||||||0|||
+29,0 0|oc|ice||||||0|||
+30,0 0|oc|||||||0|||
+31,0 0|oc|ice||||||0|||
+32,0 0|oc|ice||||||0|||
+33,0 0|oc|||||||0|||
+34,0 0|oc|ice||||||0|||
+35,0 0|oc|ice||||||0|||
+36,0 0|oc|ice||||||0|||
+37,0 0|oc|ice||||||0|||
+38,0 0|oc|ice||||||0|||
+39,0 0|oc|ice||||||0|||
+40,0 0|oc|ice||||||0|||
+41,0 0|oc|ice||||||0|||
+42,0 0|oc|ice||||||0|||
+43,0 0|oc|||||||0|||
+44,0 0|oc|ice||||||0|||
+45,0 0|oc|ice||||||0|||
+46,0 0|oc|ice||||||0|||
+47,0 0|oc|ice||||||0|||
+48,0 0|oc|ice||||||0|||
+49,0 0|oc|ice||||||0|||
+50,0 0|oc|||||||0|||
+51,0 0|oc|ice||||||0|||
+52,0 0|oc|ice||||||0|||
+53,0 0|oc|ice||||||0|||
+54,0 0|oc|ice||||||0|||
+55,0 0|oc|ice||||||0|||
+56,0 0|oc|ice||||||0|||
+57,0 0|oc|ice||||||0|||
+58,0 0|oc|ice||||||0|||
+59,0 0|oc|ice||||||0|||
+60,0 0|oc|ice||||||0|||
+61,0 0|oc|ice||||||0|||
+62,0 0|oc|ice||||||0|||
+63,0 0|oc|||||||0|||
+64,0 0|oc|ice||||||0|||
+65,0 0|oc|ice||||||0|||
+66,0 0|oc|ice||||||0|||
+67,0 0|oc|ice||||||0|||
+68,0 0|oc|ice||||||0|||
+69,0 0|oc|ice||||||0|||
+70,0 0|oc|ice||||||0|||
+71,0 0|oc|ice||||||0|||
+72,0 0|oc|||||||0|||
+73,0 0|oc|ice||||||0|||
+0,1 0|oc|ice||||||0|||
+1,1 0|oc|ice||||||0|||
+2,1 0|oc|ice||||||0|||
+3,1 0|oc|ice||||||0|||
+4,1 0|oc|ice||||||0|||
+5,1 0|oc|ice||||||0|||
+6,1 0|oc|ice||||||0|||
+7,1 0|oc|ice||||||0|||
+8,1 0|oc|||||||0|||
+9,1 0|oc|ice||||||0|||
+10,1 0|oc|ice||||||0|||
+11,1 0|oc|ice||||||0|||
+12,1 0|oc|ice||||||0|||
+13,1 0|oc|||||||0|||
+14,1 0|oc|ice||||||0|||
+15,1 0|oc|ice||||||0|||
+16,1 0|oc|ice||||||0|||
+17,1 0|oc|ice||||||0|||
+18,1 0|oc|ice||||||0|||
+19,1 0|oc|ice||||||0|||
+20,1 0|oc|ice||||||0|||
+21,1 0|oc|ice||||||0|||
+22,1 0|oc|ice||||||0|||
+23,1 0|oc|ice||||||0|||
+24,1 0|oc|ice||||||0|||
+25,1 0|oc|ice||||||0|||
+26,1 0|oc|ice||||||0|||
+27,1 0|oc|ice||||||0|||
+28,1 0|oc|ice||||||0|||
+29,1 0|oc|ice||||||0|||
+30,1 0|oc|ice||||||0|||
+31,1 0|oc|ice||||||0|||
+32,1 0|oc|ice||||||0|||
+33,1 0|oc|ice||||||0|||
+34,1 0|oc|ice||||||0|||
+35,1 0|oc|ice||||||0|||
+36,1 0|oc|ice||||||0|||
+37,1 0|oc|ice||||||0|||
+38,1 0|oc|ice||||||0|||
+39,1 0|oc|ice||||||0|||
+40,1 0|oc|ice||||||0|||
+41,1 0|oc|ice||||||0|||
+42,1 0|oc|||||||0|||
+43,1 0|oc|ice||||||0|||
+44,1 0|oc|ice||||||0|||
+45,1 0|oc|ice||||||0|||
+46,1 0|oc|ice||||||0|||
+47,1 0|oc|ice||||||0|||
+48,1 0|oc|ice||||||0|||
+49,1 0|oc|ice||||||0|||
+50,1 0|oc|ice||||||0|||
+51,1 0|oc|ice||||||0|||
+52,1 0|oc|ice||||||0|||
+53,1 0|oc|ice||||||0|||
+54,1 0|oc|ice||||||0|||
+55,1 0|oc|ice||||||0|||
+56,1 0|oc|ice||||||0|||
+57,1 0|oc|ice||||||0|||
+58,1 0|oc|ice||||||0|||
+59,1 0|oc|ice||||||0|||
+60,1 0|oc|ice||||||0|||
+61,1 0|oc|ice||||||0|||
+62,1 0|oc|ice||||||0|||
+63,1 0|oc|ice||||||0|||
+64,1 0|oc|ice||||||0|||
+65,1 0|oc|ice||||||0|||
+66,1 0|oc|ice||||||0|||
+67,1 0|oc|ice||||||0|||
+68,1 0|oc|ice||||||0|||
+69,1 0|oc|ice||||||0|||
+70,1 0|oc|ice||||||0|||
+71,1 0|oc|ice||||||0|||
+72,1 0|oc|ice||||||0|||
+73,1 0|oc|ice||||||0|||
+0,2 0|oc|ice||||||0|||
+1,2 0|oc|ice||||||0|||
+2,2 0|oc|ice||||||0|||
+3,2 0|oc|ice||||||0|||
+4,2 0|oc|ice||||||0|||
+5,2 0|oc|ice||||||0|||
+6,2 0|oc|ice||||||0|||
+7,2 0|oc|ice||||||0|||
+8,2 0|oc|ice||||||0|||
+9,2 0|oc|ice||||||0|||
+10,2 0|oc|ice||||||0|||
+11,2 0|oc|ice||||||0|||
+12,2 0|oc|ice||||||0|||
+13,2 0|oc|ice||||||0|||
+14,2 0|oc|ice||||||0|||
+15,2 0|oc|ice||||||0|||
+16,2 0|oc|||||||0|||
+17,2 0|oc|||||||0|||
+18,2 0|oc|ice||||||0|||
+19,2 0|oc|ice||||||0|||
+20,2 0|oc|ice||||||0|||
+21,2 0|oc|ice||||||0|||
+22,2 0|oc|ice||||||0|||
+23,2 0|oc|ice||||||0|||
+24,2 0|oc|ice||||||0|||
+25,2 0|oc|ice||||||0|||
+26,2 0|oc|ice||||||0|||
+27,2 0|oc|ice||||||0|||
+28,2 0|oc|ice||||||0|||
+29,2 0|oc|||||||0|||
+30,2 0|oc|||||||0|||
+31,2 0|oc|ice||||||0|||
+32,2 0|oc|ice||||||0|||
+33,2 0|oc|ice||||||0|||
+34,2 0|oc|ice||||||0|||
+35,2 0|oc|ice||||||0|||
+36,2 0|oc|ice||||||0|||
+37,2 0|oc|ice||||||0|||
+38,2 0|oc|ice||||||0|||
+39,2 0|oc|||||||0|||
+40,2 0|oc|ice||||||0|||
+41,2 0|oc|ice||||||0|||
+42,2 0|oc|ice||||||0|||
+43,2 0|oc|ice||||||0|||
+44,2 0|oc|ice||||||0|||
+45,2 0|oc|ice||||||0|||
+46,2 0|oc|ice||||||0|||
+47,2 0|oc|ice||||||0|||
+48,2 0|oc|||||||0|||
+49,2 0|oc|ice||||||0|||
+50,2 0|oc|||||||0|||
+51,2 0|oc|ice||||||0|||
+52,2 0|oc|ice||||||0|||
+53,2 0|oc|ice||||||0|||
+54,2 0|oc|ice||||||0|||
+55,2 0|oc|ice||||||0|||
+56,2 0|oc|ice||||||0|||
+57,2 0|oc|ice||||||0|||
+58,2 0|oc|ice||||||0|||
+59,2 0|oc|ice||||||0|||
+60,2 0|oc|ice||||||0|||
+61,2 0|oc|ice||||||0|||
+62,2 0|oc|ice||||||0|||
+63,2 0|oc|ice||||||0|||
+64,2 0|oc|ice||||||0|||
+65,2 0|oc|ice||||||0|||
+66,2 0|oc|ice||||||0|||
+67,2 0|oc|ice||||||0|||
+68,2 0|oc|ice||||||0|||
+69,2 0|oc|ice||||||0|||
+70,2 0|oc|ice||||||0|||
+71,2 0|oc|ice||||||0|||
+72,2 0|co|ice||||||0|||
+73,2 0|oc|ice||||||0|||
+0,3 0|oc|ice||||||0|||
+1,3 0|oc|ice||||||0|||
+2,3 0|oc|ice||||||0|||
+3,3 0|oc|ice||||||0|||
+4,3 0|oc|ice||||||0|||
+5,3 0|oc|ice||||||0|||
+6,3 0|oc|ice||||||0|||
+7,3 0|oc|||||||0|||
+8,3 0|oc|ice||||||0|||
+9,3 0|oc|ice||||||0|||
+10,3 0|oc|ice||||||0|||
+11,3 0|oc|ice||||||0|||
+12,3 0|oc|||||||0|||
+13,3 0|oc|ice||||||0|||
+14,3 0|oc|||||||0|||
+15,3 0|oc|||||||0|||
+16,3 0|oc|ice||||||0|||
+17,3 0|oc|ice||||||0|||
+18,3 0|oc|ice||||||0|||
+19,3 0|oc|ice||||||0|||
+20,3 0|oc|ice||||||0|||
+21,3 0|oc|ice||||||0|||
+22,3 0|oc|||||||0|||
+23,3 0|oc|ice||||||0|||
+24,3 0|oc|||||||0|||
+25,3 0|oc|ice||||||0|||
+26,3 0|oc|ice||||||0|||
+27,3 0|oc|ice||||||0|||
+28,3 0|oc|ice||||||0|||
+29,3 0|oc|ice||||||0|||
+30,3 0|oc|ice||||||0|||
+31,3 0|oc|ice||||||0|||
+32,3 0|oc|ice||||||0|||
+33,3 0|oc|ice||||||0|||
+34,3 0|oc|||||||0|||
+35,3 0|oc|||||||0|||
+36,3 0|oc|ice||||||0|||
+37,3 0|oc|ice||||||0|||
+38,3 0|oc|ice||||||0|||
+39,3 0|oc|ice||||||0|||
+40,3 0|oc|ice||||||0|||
+41,3 0|oc|ice||||||0|||
+42,3 0|oc|ice||||||0|||
+43,3 0|oc|ice||||||0|||
+44,3 0|oc|ice||||||0|||
+45,3 0|oc|ice||||||0|||
+46,3 0|oc|ice||||||0|||
+47,3 0|oc|ice||||||0|||
+48,3 0|oc|ice||||||0|||
+49,3 0|oc|ice||||||0|||
+50,3 0|oc|||||||0|||
+51,3 0|oc|ice||||||0|||
+52,3 0|oc|ice||||||0|||
+53,3 0|oc|ice||||||0|||
+54,3 0|oc|ice||||||0|||
+55,3 0|oc|ice||||||0|||
+56,3 0|oc|ice||||||0|||
+57,3 0|oc|ice||||||0|||
+58,3 0|oc|ice||||||0|||
+59,3 0|oc|ice||||||0|||
+60,3 0|oc|ice||||||0|||
+61,3 0|oc|ice||||||0|||
+62,3 0|oc|ice||||||0|||
+63,3 0|oc|ice||||||0|||
+64,3 0|oc|ice||||||0|||
+65,3 0|oc|ice||||||0|||
+66,3 0|oc|||||||0|||
+67,3 0|oc|ice||||||0|||
+68,3 0|oc|ice||||||0|||
+69,3 0|oc|||||||0|||
+70,3 0|oc|||||||0|||
+71,3 0|co|||||||0|||
+72,3 0|oc|ice||||||0|||
+73,3 0|oc|ice||||||0|||
+0,4 0|oc|ice||||||0|||
+1,4 0|oc|||||||0|||
+2,4 0|oc|ice||||||0|||
+3,4 0|oc|ice||||||0|||
+4,4 0|oc|ice||||||0|||
+5,4 0|oc|ice||||||0|||
+6,4 0|oc|ice||||||0|||
+7,4 0|oc|||||||0|||
+8,4 0|oc|ice||||||0|||
+9,4 0|oc|ice||||||0|||
+10,4 0|oc|ice||||||0|||
+11,4 0|oc|ice||||||0|||
+12,4 0|oc|ice||||||0|||
+13,4 0|oc|||||||0|||
+14,4 0|oc|ice||||||0|||
+15,4 0|oc|||||||0|||
+16,4 0|oc|||||||0|||
+17,4 0|oc|ice||||||0|||
+18,4 0|oc|ice||||||0|||
+19,4 0|oc|||||||0|||
+20,4 0|oc|||||||0|||
+21,4 0|oc|ice||||||0|||
+22,4 0|oc|||||||0|||
+23,4 0|oc|ice||||||0|||
+24,4 0|oc|ice||||||0|||
+25,4 0|oc|ice||||||0|||
+26,4 0|oc|ice||||||0|||
+27,4 0|oc|ice||||||0|||
+28,4 0|oc|ice||||||0|||
+29,4 0|oc|ice||||||0|||
+30,4 0|oc|ice||||||0|||
+31,4 0|oc|ice||||||0|||
+32,4 0|oc|ice||||||0|||
+33,4 0|oc|||||||0|||
+34,4 0|oc|||||||0|||
+35,4 0|oc|ice||||||0|||
+36,4 0|oc|ice||||||0|||
+37,4 0|oc|ice||||||0|||
+38,4 0|oc|ice||||||0|||
+39,4 0|oc|ice||||||0|||
+40,4 0|oc|ice||||||0|||
+41,4 0|oc|||||||0|||
+42,4 0|oc|||||||0|||
+43,4 0|oc|||||||0|||
+44,4 0|oc|ice||||||0|||
+45,4 0|oc|ice||||||0|||
+46,4 0|oc|||||||0|||
+47,4 0|oc|ice||||||0|||
+48,4 0|oc|ice||||||0|||
+49,4 0|oc|ice||||||0|||
+50,4 0|oc|||||||0|||
+51,4 0|oc|ice||||||0|||
+52,4 0|co|ice||||||0|||
+53,4 0|oc|||||||0|||
+54,4 0|oc|||||||0|||
+55,4 0|oc|ice||||||0|||
+56,4 0|co|ice||||||0|||
+57,4 0|oc|ice||||||0|||
+58,4 0|co|ice||||||0|||
+59,4 0|co|ice||||||0|||
+60,4 0|co|ice||||||0|||
+61,4 0|oc|ice||||||0|||
+62,4 0|co|ice||||||0|||
+63,4 0|oc|ice||||||0|||
+64,4 0|oc|ice||||||0|||
+65,4 0|oc|ice||||||0|||
+66,4 0|oc|||||||0|||
+67,4 0|co|ice||||||0|||
+68,4 0|oc|ice||||||0|||
+69,4 0|oc|ice||||||0|||
+70,4 0|oc|ice||||||0|||
+71,4 0|co|ice||||||0|||
+72,4 0|oc|ice||||||0|||
+73,4 0|co|ice||||||0|||
+0,5 0|oc|ice||||||0|||
+1,5 0|oc|ice||||||0|||
+2,5 0|oc|ice||||||0|||
+3,5 0|oc|ice||||||0|||
+4,5 0|oc|ice||||||0|||
+5,5 0|oc|ice||||||0|||
+6,5 0|oc|ice||||||0|||
+7,5 0|oc|||||||0|||
+8,5 0|oc|ice||||||0|||
+9,5 0|oc|||||||0|||
+10,5 0|oc|ice||||||0|||
+11,5 0|oc|ice||||||0|||
+12,5 0|oc|ice||||||0|||
+13,5 0|oc|ice||||||0|||
+14,5 0|oc|ice||||||0|||
+15,5 0|oc|||||||0|||
+16,5 0|oc|||||||0|||
+17,5 0|oc|||||||0|||
+18,5 0|oc|ice||||||0|||
+19,5 0|oc|ice||||||0|||
+20,5 0|oc|ice||||||0|||
+21,5 0|oc|ice||||||0|||
+22,5 0|oc|ice||||||0|||
+23,5 0|oc|ice||||||0|||
+24,5 0|oc|ice||||||0|||
+25,5 0|oc|ice||||||0|||
+26,5 0|oc|ice||||||0|||
+27,5 0|oc|||||||0|||
+28,5 0|oc|||||||0|||
+29,5 0|oc|ice||||||0|||
+30,5 0|oc|ice||||||0|||
+31,5 0|oc|ice||||||0|||
+32,5 0|oc|ice||||||0|||
+33,5 0|oc|||||||0|||
+34,5 0|oc|ice||||||0|||
+35,5 0|oc|||||||0|||
+36,5 0|oc|ice||||||0|||
+37,5 0|oc|||||||0|||
+38,5 0|oc|ice||||||0|||
+39,5 0|oc|||||||0|||
+40,5 0|oc|||||||0|||
+41,5 0|oc|ice||||||0|||
+42,5 0|oc|ice||||||0|||
+43,5 0|oc|ice||||||0|||
+44,5 0|oc|ice||||||0|||
+45,5 0|oc|ice||||||0|||
+46,5 0|oc|ice||||||0|||
+47,5 0|oc|ice||||||0|||
+48,5 0|oc|ice||||||0|||
+49,5 0|oc|||||||0|||
+50,5 0|oc|ice||||||0|||
+51,5 0|oc|ice||||||0|||
+52,5 0|co|||||||0|||
+53,5 0|co|||||||0|||
+54,5 0|co|||||||0|||
+55,5 0|co|||||||0|||
+56,5 0|co|||||||0|||
+57,5 0|co|||||||0|||
+58,5 0|co|ice||||||0|||
 59,5 0|co|||||||0|||
 60,5 0|co|||||||0|||
 61,5 0|co|||||||0|||
 62,5 0|co|||||||0|||
+63,5 0|oc|ice||||||0|||
+64,5 0|oc|ice||||||0|||
+65,5 0|co||CRABS|||||0|||
+66,5 0|oc|ice||||||0|||
+67,5 0|co|ice||||||0|||
+68,5 0|oc|ice||||||0|||
 69,5 0|co|ice||||||0|||
 70,5 0|oc|||||||0|||
 71,5 0|co|||||||0|||
@@ -340,684 +1340,2978 @@ _679 revealed, 214 currently visible, 2 natural wonders_
 73,5 0|co|ice||||||0|||
 0,6 0|co||CRABS|||||0|||
 1,6 0|co||CRABS|||||0|||
-55,6 0|sh|||||||0||A4|
-56,6 0|sh|||||||0||A3|
-59,6 0|co|||||||0|||
-60,6 0|th||COPPER|||||0||A5|
-61,6 0|t|for||||||0||A3|
+2,6 0|oc|||||||0|||
+3,6 0|oc|||||||0|||
+4,6 0|oc|||||||0|||
+5,6 0|oc|||||||0|||
+6,6 0|oc|||||||0|||
+7,6 0|oc|||||||0|||
+8,6 0|oc|||||||0|||
+9,6 0|oc|||||||0|||
+10,6 0|oc|||||||0|||
+11,6 0|oc|||||||0|||
+12,6 0|oc|||||||0|||
+13,6 0|oc|||||||0|||
+14,6 0|oc|||||||0|||
+15,6 0|oc|||||||0|||
+16,6 0|oc|||||||0|||
+17,6 0|oc|||||||0|||
+18,6 0|oc|||||||0|||
+19,6 0|oc|||||||0|||
+20,6 0|oc|||||||0|||
+21,6 0|oc|||||||0|||
+22,6 0|oc|||||||0|||
+23,6 0|oc|||||||0|||
+24,6 0|oc|||||||0|||
+25,6 0|oc|||||||0|||
+26,6 0|oc|||||||0|||
+27,6 0|oc|||||||0|||
+28,6 0|oc|||||||0|||
+29,6 0|oc|||||||0|||
+30,6 0|oc|||||||0|||
+31,6 0|oc|||||||0|||
+32,6 0|oc|||||||0|||
+33,6 0|oc|||||||0|||
+34,6 0|oc|||||||0|||
+35,6 0|oc|||||||0|||
+36,6 0|oc|||||||0|||
+37,6 0|oc|||||||0|||
+38,6 0|oc|||||||0|||
+39,6 0|oc|||||||0|||
+40,6 0|oc|||||||0|||
+41,6 0|oc|||||||0|||
+42,6 0|oc|||||||0|||
+43,6 0|oc|||||||0|||
+44,6 0|oc|||||||0|||
+45,6 0|oc|||||||0|||
+46,6 0|oc|||||||0|||
+47,6 0|oc|||||||0|||
+48,6 0|oc|||||||0|||
+49,6 0|oc|||||||0|||
+50,6 0|co|||||||0|||
+51,6 0|co|||||||0|||
+52,6 0|co|||||||0|||
+53,6 0|t|for|IVORY|CAMP||3||0||A5|
+54,6 0|co|||||3|HARBOR|0|||
+55,6 0|sh|||||3||0||A3|
+56,6 0|sh|||||3||0||A2|
+57,6 0|s|||||||0||R/A5/F|
+58,6 0|co|||||||0|||
+59,6 0|co|||||3||0|||
+60,6 0|th||COPPER|||3||0||A5|
+61,6 0|t|for||||3||0||A4|
 62,6 0|t|||||||0||A4|
 63,6 0|co||CRABS|||||0|||
-69,6 1|co||CRABS|||||0|||
-70,6 1|co|||||||0|63:GALLEY:100||
-71,6 1|co||FISH|||||0|63:GALLEY:100||
-72,6 0|t|||BARBARIAN_CAMP||||0||A5|
+64,6 0|co|||||||0|||
+65,6 0|oc|||||||0|||
+66,6 0|co|||||||0|||
+67,6 0|co||FISH|||||0|||
+68,6 0|oc|||||||0|||
+69,6 0|co||CRABS|||||0|||
+70,6 0|co|||||||0|||
+71,6 0|co||FISH|||||0|||
+72,6 0|t|||||||0||A5|
 73,6 0|co|||||||0|||
 0,7 0|co|||||||0|||
 1,7 0|oc|||||||0|||
-54,7 0|th|for||||||0||A3|
-55,7 0|th||IRON|||3||0||A4|
-56,7 0|tm|||||||0||R/A4|
-57,7 0|th|||||||0||R/A3/F|
-58,7 0|th||DEER|||||0||A2|
-59,7 0|th|||||||0||A2|
-60,7 0|th|for||||||0||A2|
-61,7 0|t|||||||0||A3|
+2,7 0|co||FISH|||||0|||
+3,7 0|oc|||||||0|||
+4,7 0|oc|||||||0|||
+5,7 0|oc|||||||0|||
+6,7 0|oc|||||||0|||
+7,7 0|oc|||||||0|||
+8,7 0|oc|||||||0|||
+9,7 0|oc|||||||0|||
+10,7 0|oc|||||||0|||
+11,7 0|oc|||||||0|||
+12,7 0|oc|||||||0|||
+13,7 0|oc|||||||0|||
+14,7 0|oc|||||||0|||
+15,7 0|oc|||||||0|||
+16,7 0|oc|||||||0|||
+17,7 0|oc|||||||0|||
+18,7 0|oc|||||||0|||
+19,7 0|oc|||||||0|||
+20,7 0|oc|||||||0|||
+21,7 0|oc|||||||0|||
+22,7 0|oc|||||||0|||
+23,7 0|oc|||||||0|||
+24,7 0|oc|||||||0|||
+25,7 0|oc|||||||0|||
+26,7 0|oc|||||||0|||
+27,7 0|oc|||||||0|||
+28,7 0|oc|||||||0|||
+29,7 0|oc|||||||0|||
+30,7 0|oc|||||||0|||
+31,7 0|oc|||||||0|||
+32,7 0|oc|||||||0|||
+33,7 0|oc|||||||0|||
+34,7 0|oc|||||||0|||
+35,7 0|oc|||||||0|||
+36,7 0|oc|||||||0|||
+37,7 0|oc|||||||0|||
+38,7 0|oc|||||||0|||
+39,7 0|oc|||||||0|||
+40,7 0|oc|||||||0|||
+41,7 0|oc|||||||0|||
+42,7 0|oc|||||||0|||
+43,7 0|oc|||||||0|||
+44,7 0|oc|||||||0|||
+45,7 0|oc|||||||0|||
+46,7 0|oc|||||||0|||
+47,7 0|co||CRABS|||||0|||
+48,7 0|oc|||||||0|||
+49,7 0|co|||||||0|||
+50,7 0|co||FISH|||3||0|||
+51,7 0|ph|||||3||0||A4|
+52,7 0|t|||||3||0||A3|
+53,7 0|th||||3|3|CITY_CENTER|1||A4|Isin
+54,7 0|th|for||||3||0||A3|
+55,7 0|th||IRON|MINE||3||0||A4|
+56,7 0|tm|||||3||0||R/A4|
+57,7 0|th|||||3||0||R/A2/F|
+58,7 0|th||DEER|||3||0||A2|
+59,7 0|th|||||3||0||A2|
+60,7 0|th|for||LUMBER_MILL||3||0||A3|
+61,7 0|t|||ZIGGURAT||3||0||A3|
 62,7 0|t|||||||0||A2|
 63,7 0|co|||||||0|||
 64,7 0|co||FISH|||||0|||
 65,7 0|co|||||||0|||
-68,7 1|co|||||||0|||
-69,7 1|co|||||||0|63:QUADRIREME:100||
-70,7 1|t|||||||0||A3|
-71,7 1|th|||||||0||A2|
-72,7 0|t|for||||||0||A4/F|
+66,7 0|th|||||||0||A5|
+67,7 0|co||FISH|||||0|||
+68,7 0|co|||||||0|||
+69,7 0|co|||||||0|||
+70,7 0|t||ANTIQUITY_SITE|||||0||A3|
+71,7 0|th|||||||0||A3|
+72,7 0|t|for||||||0||A5/F|
 73,7 0|t|||||||0||A7/F|
 0,8 0|t|||||||0||A5/F|
 1,8 0|co||FISH|||||0|||
 2,8 0|co|||||||0|||
-54,8 0|th|for||||||0||A2|
-55,8 0|tm|||||||0||A4|
-56,8 0|th||||1|3|HOLY_SITE|0||A3|
-57,8 0|t|||||3||0||A3|
-58,8 0|th|||||3||0|||
-59,8 0|th|||||||0||A1|
-60,8 0|th|||||||0||A3|
-61,8 0|t|for|IVORY|||||0||A1|
-62,8 0|t|||||||0||A1|
-63,8 0|th|||||||0||R/A2/F|
-64,8 0|t|||||||0||R/A3/F|
+3,8 0|co|||||||0|||
+4,8 0|oc|||||||0|||
+5,8 0|oc|||||||0|||
+6,8 0|oc|||||||0|||
+7,8 0|oc|||||||0|||
+8,8 0|oc|||||||0|||
+9,8 0|oc|||||||0|||
+10,8 0|oc|||||||0|||
+11,8 0|oc|||||||0|||
+12,8 0|oc|||||||0|||
+13,8 0|oc|||||||0|||
+14,8 0|oc|||||||0|||
+15,8 0|oc|||||||0|||
+16,8 0|oc|||||||0|||
+17,8 0|oc|||||||0|||
+18,8 0|oc|||||||0|||
+19,8 0|oc|||||||0|||
+20,8 0|oc|||||||0|||
+21,8 0|oc|||||||0|||
+22,8 0|oc|||||||0|||
+23,8 0|oc|||||||0|||
+24,8 0|oc|||||||0|||
+25,8 0|oc|||||||0|||
+26,8 0|oc|||||||0|||
+27,8 0|oc|||||||0|||
+28,8 0|oc|||||||0|||
+29,8 0|oc|||||||0|||
+30,8 0|oc|||||||0|||
+31,8 0|oc|||||||0|||
+32,8 0|oc|||||||0|||
+33,8 0|oc|||||||0|||
+34,8 0|oc|||||||0|||
+35,8 0|oc|||||||0|||
+36,8 0|oc|||||||0|||
+37,8 0|oc|||||||0|||
+38,8 0|oc|||||||0|||
+39,8 0|oc|||||||0|||
+40,8 0|oc|||||||0|||
+41,8 0|oc|||||||0|||
+42,8 0|oc|||||||0|||
+43,8 0|oc|||||||0|||
+44,8 0|oc|||||||0|||
+45,8 0|oc|||||||0|||
+46,8 0|oc|||||||0|||
+47,8 0|co||CRABS|||||0|||
+48,8 0|co|||||||0|||
+49,8 0|co||FISH|||3||0|||
+50,8 0|co|||||3||0|||
+51,8 0|p|||||3||0||A3|
+52,8 0|pm|||||||0||A4|
+53,8 0|t|||ZIGGURAT||3||0||A3|
+54,8 0|th|for||||3||0||A3|
+55,8 0|tm|||||3||0||A4|
+56,8 0|th||||3|3|HOLY_SITE|0||A1|
+57,8 0|t||OIL|OIL_WELL||3||0||A3|
+58,8 0|th|||||3||0||A-1|
+59,8 0|th|||||3||0|||
+60,8 0|th||||3|3|CITY_CENTER|1||A2|Sippar
+61,8 0|t|for|IVORY|CAMP||3||0||A2|
+62,8 1|t|||||3||0||A1|
+63,8 1|th|||||||0||R/A2/F|
+64,8 1|t|||||||0||R/A3/F|
 65,8 0|t|||||||0||A4|
-66,8 0|gh|for|SILK|||||0||A2|
-67,8 0|gh|||||||0||A2|
-68,8 1|gh|||||||0||A2|
-69,8 1|g|mar||||||0||A3|
-70,8 1|gh||COPPER|||||0|0:SCOUT:63||
-71,8 1|th|||||||0|||
-72,8 1|t|for||||||0||A4/F|
+66,8 0|gh|for|SILK|PLANTATION||3||0||A3|
+67,8 0|gh|||||3||0||A2|
+68,8 0|gh|||||3||0||A2|
+69,8 0|g|mar||||3||0||A3|
+70,8 0|gh||COPPER|||||0|||
+71,8 0|th|||||||0||A-1|
+72,8 0|t|for||||||0||A3/F|
 73,8 0|co|nw:CRATER_LAKE||||||0||L/A5|
 0,9 0|th|||||||0||A3|
 1,9 0|co|||||||0|||
 2,9 0|co|||||||0|||
-53,9 0|ph|||||||0||A1|
+3,9 0|oc|||||||0|||
+4,9 0|oc|||||||0|||
+5,9 0|oc|||||||0|||
+6,9 0|oc|||||||0|||
+7,9 0|oc|||||||0|||
+8,9 0|oc|||||||0|||
+9,9 0|oc|||||||0|||
+10,9 0|oc|||||||0|||
+11,9 0|oc|||||||0|||
+12,9 0|oc|||||||0|||
+13,9 0|oc|||||||0|||
+14,9 0|oc|||||||0|||
+15,9 0|oc|||||||0|||
+16,9 0|oc|||||||0|||
+17,9 0|oc|||||||0|||
+18,9 0|oc|||||||0|||
+19,9 0|oc|||||||0|||
+20,9 0|oc|||||||0|||
+21,9 0|oc|||||||0|||
+22,9 0|oc|||||||0|||
+23,9 0|oc|||||||0|||
+24,9 0|oc|||||||0|||
+25,9 0|oc|||||||0|||
+26,9 0|oc|||||||0|||
+27,9 0|oc|||||||0|||
+28,9 0|oc|||||||0|||
+29,9 0|oc|||||||0|||
+30,9 0|oc|||||||0|||
+31,9 0|oc|||||||0|||
+32,9 0|oc|||||||0|||
+33,9 0|oc|||||||0|||
+34,9 0|oc|||||||0|||
+35,9 0|oc|||||||0|||
+36,9 0|oc|||||||0|||
+37,9 0|oc|||||||0|||
+38,9 0|oc|||||||0|||
+39,9 0|oc|||||||0|||
+40,9 0|oc|||||||0|||
+41,9 0|oc|||||||0|||
+42,9 0|oc|||||||0|||
+43,9 0|oc|||||||0|||
+44,9 0|co||WHALES|||||0|||
+45,9 0|co|||||||0|||
+46,9 0|co|||||||0|||
+47,9 0|co|||||||0|||
+48,9 0|co|||||||0|||
+49,9 0|co|||||3||0|||
+50,9 0|g||||3|3|CITY_CENTER|1||A3|Larak
+51,9 0|g||TEA|||3||0||A2|
+52,9 0|ph|for|ANTIQUITY_SITE|||3||0||A1|
+53,9 0|ph|||||3||0||A1|
 54,9 0|p||IVORY|CAMP||3||0||A3|
 55,9 0|th|||||3||0||A4|
 56,9 0|tm|||||3||0||A4|
-57,9 0|ph|||||3||0||A2|
-58,9 0|ph|||||3||0||A2|
-59,9 0|gh|for||||||0|||
-60,9 0|g|||||||0||A2|
-61,9 0|gh|||||||0||A2|
-62,9 0|g|||||||0||A1|
-63,9 0|g||MARBLE|||||0||R/A1/F|
-64,9 0|gh|||||||0||R/A2/F|
+57,9 0|ph|||||3||0||A1|
+58,9 0|ph|||||3||0||A1|
+59,9 0|gh|for|URANIUM|MINE||3||0||A1|
+60,9 0|g|||||3||0||A1|
+61,9 1|gh|||||3||0||A2|
+62,9 1|g|||||3||0||A1|
+63,9 1|g||MARBLE|||||0||R/A1/F|
+64,9 1|gh|||||||0||R/A2/F|
 65,9 0|g|for||||||0||R/A3/F|
-66,9 0|gh|||||||0||A3|
-67,9 0|gh|||||||0||A2|
-68,9 1|gm|||||||0||A4|
-69,9 1|g|||||||0||A1|
-70,9 1|g|||||||0||A-1|
-71,9 1|g|mar||||||0||A2|
-72,9 0|g|for||||||0||A3/F|
+66,9 0|gh|||||3||0||A3|
+67,9 0|gh|||||3||0||A2|
+68,9 0|gm|||||3||0||A4|
+69,9 0|g|||||||0||A1|
+70,9 0|g|||||3||0||A-2|
+71,9 0|g|mar|OIL|OIL_WELL||3||0||A2|
+72,9 0|g|for||||3||0||A3/F|
 73,9 0|th||COPPER|||||0||A4/F|
 0,10 0|g|||||||0||A1|
 1,10 0|co|||||||0|||
-2,10 0|co|||||||0|||
+2,10 0|co||OIL|||||0|||
+3,10 0|co|||||||0|||
+4,10 0|oc|||||||0|||
+5,10 0|oc|||||||0|||
+6,10 0|oc|||||||0|||
+7,10 0|oc|||||||0|||
+8,10 0|oc|||||||0|||
+9,10 0|co||OIL|||||0|||
+10,10 0|co|||||||0|||
+11,10 0|co|||||5||0|||
+12,10 0|oc|||||||0|||
+13,10 0|oc|||||||0|||
+14,10 0|oc|||||||0|||
+15,10 0|oc|||||||0|||
+16,10 0|oc|||||||0|||
+17,10 0|oc|||||||0|||
+18,10 0|oc|||||||0|||
+19,10 0|oc|||||||0|||
+20,10 0|oc|||||||0|||
+21,10 0|oc|||||||0|||
+22,10 0|oc|||||||0|||
+23,10 0|oc|||||||0|||
+24,10 0|oc|||||||0|||
+25,10 0|oc|||||||0|||
+26,10 0|oc|||||||0|||
+27,10 0|oc|||||||0|||
+28,10 0|oc|||||||0|||
+29,10 0|oc|||||||0|||
+30,10 0|oc|||||||0|||
+31,10 0|oc|||||||0|||
+32,10 0|oc|||||||0|||
+33,10 0|oc|||||||0|||
+34,10 0|oc|||||||0|||
+35,10 0|oc|||||||0|||
+36,10 0|oc|||||||0|||
+37,10 0|oc|||||||0|||
+38,10 0|oc|||||||0|||
+39,10 0|oc|||||||0|||
+40,10 0|oc|||||||0|||
+41,10 0|oc|||||||0|||
+42,10 0|oc|||||||0|||
+43,10 0|co|||||||0|||
+44,10 0|oc|||||||0|||
+45,10 0|co|||||||0|||
+46,10 0|co|||||||0|||
+47,10 0|co|||||3|HARBOR|0|||
+48,10 0|p|||||||0||A3|
+49,10 0|g||STONE|||3||0||A3|
+50,10 0|g|for||||3||0||A2|
+51,10 0|g||TEA|PLANTATION||3||0||A1|
+52,10 0|g|||ZIGGURAT||3||0||R/A1/F|
 53,10 0|ph||IRON|MINE||3||0||R/A2/F|
-54,10 0|p|||||||0||R/A1/F|
+54,10 0|p|||||3||0||R/A1/F|
 55,10 0|pm|||||3||0||R/A4|
-56,10 0|p||||1|3|CAMPUS|0||A3|
-57,10 0|ph||||1|3|CITY_CENTER|1||R/A4/F|Uruk
-58,10 0|gh||||1|3|WONDER|0||R/A1/F|
-59,10 0|gh|||||3||0||A2|
-60,10 0|g|||||||0||A1|
+56,10 0|p||||3|3|CAMPUS|0||A3|
+57,10 0|ph||||3|3|CITY_CENTER|1||R/A4/F|Uruk
+58,10 0|gh||||3|3|WONDER|0||R/A1/F|
+59,10 0|gh|||||3||0||A1|
+60,10 0|g|||||3||0|||
 61,10 0|gh|||||3||0||R/A2/F|
-62,10 0|g|for||||||0||R/A1/F|
-63,10 0|g|||||||0||R/A2/F|
-64,10 0|g|||||||0||R/A2/F|
-65,10 0|g||RICE|||||0||R/A4/F|
-66,10 0|gm|||||||0||R/A4|
-67,10 0|g|||||||0||R/A3/F|
-68,10 0|gh|for|DEER|||||0||A2|
-69,10 1|gm|||||||0||A4|
-70,10 1|g||HORSES|||||0||A2|
-71,10 1|g|||||||0||A-1|
-72,10 0|g|||||||0|||
+62,10 1|g|for|ANTIQUITY_SITE|||3||0||R/A2/F|
+63,10 1|g|||||||0|10:MACHINE_GUN:100|R/A2/F|
+64,10 1|g|||||||0||R/A2/F|
+65,10 1|g||RICE|||3||0||R/A4/F|
+66,10 1|gm|||||3||0||R/A4|
+67,10 0|g|||ZIGGURAT||3||0||R/A3/F|
+68,10 0|gh|for|DEER|||3||0||A3|
+69,10 0|gm|||||3||0||A4|
+70,10 0|g||HORSES|PASTURE||3||0||A1|
+71,10 0|g|||ZIGGURAT||3||0||A-3|
+72,10 0|g||||3|3|CAMPUS|0||A-1|
 73,10 0|g|||||||0||A1|
 0,11 0|g|||||||0||A3|
 1,11 0|co|||||||0|||
 2,11 0|co|||||||0|||
-52,11 0|g|||||3||0||R/F|
-53,11 0|g|||ZIGGURAT||3||0||R/A1/F|
-54,11 0|p||WHEAT|||3||0||R/A3/F|
+3,11 0|oc|||||||0|||
+4,11 0|oc|||||||0|||
+5,11 0|oc|||||||0|||
+6,11 0|oc|||||||0|||
+7,11 0|oc|||||||0|||
+8,11 0|oc|||||||0|||
+9,11 0|co|||||||0|||
+10,11 0|co||FISH|FISHING_BOATS||5||0|||
+11,11 0|co|||||5||0|||
+12,11 0|co|||||5||0|||
+13,11 0|oc|||||||0|||
+14,11 0|oc|||||||0|||
+15,11 0|oc|||||||0|||
+16,11 0|oc|||||||0|||
+17,11 0|oc|||||||0|||
+18,11 0|co|||||||0|||
+19,11 0|oc|||||||0|||
+20,11 0|oc|||||||0|||
+21,11 0|oc|||||||0|||
+22,11 0|oc|||||||0|||
+23,11 0|oc|||||||0|||
+24,11 0|oc|||||||0|||
+25,11 0|oc|||||||0|||
+26,11 0|oc|||||||0|||
+27,11 0|oc|||||||0|||
+28,11 0|oc|||||||0|||
+29,11 0|oc|||||||0|||
+30,11 0|oc|||||||0|||
+31,11 0|oc|||||||0|||
+32,11 0|oc|||||||0|||
+33,11 0|oc|||||||0|||
+34,11 0|oc|||||||0|||
+35,11 0|oc|||||||0|||
+36,11 0|oc|||||||0|||
+37,11 0|oc|||||||0|||
+38,11 0|oc|||||||0|||
+39,11 0|oc|||||||0|||
+40,11 0|oc|||||||0|||
+41,11 0|oc|||||||0|||
+42,11 0|oc|||||||0|||
+43,11 0|co|||||||0|||
+44,11 0|co|||||||0|||
+45,11 0|co|||||||0|||
+46,11 0|co|||||||0|||
+47,11 0|g|||BEACH_RESORT||3||0||R/A3/F|
+48,11 0|g|||||3||0||A-1|
+49,11 0|g|||||3||0|||
+50,11 0|g|||||3||0||A1|
+51,11 0|g|||||3|SPACEPORT|0|||
+52,11 0|g||||3|3|AQUEDUCT|0||R/F|
+53,11 0|g|||ZIGGURAT||3||0||R/F|
+54,11 0|p||WHEAT|||3||0||R/A2/F|
 55,11 0|ph|||||3||0||R/A2/F|
-56,11 0|p||||1|3|WONDER|0||R/F|
-57,11 0|g|||ZIGGURAT||3||0||R/A4/F|
-58,11 0|g|||ZIGGURAT||3||0||R/A3/F|
+56,11 0|p||||3|3|WONDER|0||R/F|
+57,11 0|g|||ZIGGURAT||3||0||R/A3/F|
+58,11 0|g|||ZIGGURAT||3||0||R/A2/F|
 59,11 0|g||RICE|||3||0||R/A1/F|
 60,11 0|g||HORSES|PASTURE||3||0||R/A1/F|
-61,11 0|g|||||||0||R/A2/F|
-62,11 0|g|||||||0||R/A2/F|
-63,11 0|g|||||||0||R/A2/F|
-64,11 0|g|for|DYES|||10||0||A-1|
-65,11 0|g|||||||0||R/A2/F|
-66,11 0|g||STONE|||||0||R/A2/F|
-67,11 0|gh|||||||0||R/A2/F|
-68,11 0|gh|||||||0||A4|
-69,11 0|gh|for||||||0||A2|
-70,11 0|g|||||||0||A1|
-71,11 0|g|||||||0|||
-72,11 0|g||CATTLE|||||0|||
-73,11 0|g|||||||0|||
-0,12 0|g|||||||0||A1|
+61,11 1|g|||ZIGGURAT||3||0||R/A2/F|
+62,11 1|g|||||3||0||R/A2/F|
+63,11 1|g|||FARM||10||0||R/A2/F|
+64,11 1|g|for|DYES|PLANTATION||10||0||A1|
+65,11 1|g|||FARM||10||0||R/A3/F|
+66,11 1|g||STONE|||3||0||R/A2/F|
+67,11 0|gh||||3|3|CITY_CENTER|1||R/A3/F|Bad-Tibira
+68,11 0|gh||||3|3|CAMPUS|0||A5|
+69,11 0|gh|for||||3||0||A2|
+70,11 0|g||||3|3|AERODROME|0||A1|
+71,11 0|g||||3|3|CITY_CENTER|1||A-1|Shuruppak
+72,11 0|g||CATTLE|||3||0|||
+73,11 0|g|||||3||0|||
+0,12 0|g||NITER|||||0||A1|
 1,12 0|co|||||||0|||
 2,12 0|oc|||||||0|||
-48,12 0|g|||||3||0||R/A3/F|
-49,12 0|gh||||0|3||0|||
+3,12 0|oc|||||||0|||
+4,12 0|oc|||||||0|||
+5,12 0|co|||||||0|||
+6,12 0|oc|||||||0|||
+7,12 0|oc|||||||0|||
+8,12 0|oc|||||||0|||
+9,12 0|co||OIL|||||0|||
+10,12 0|co|||||5||0|||
+11,12 0|g|for|ANTIQUITY_SITE|||5||0||A5|
+12,12 0|g||CATTLE||3|5|CITY_CENTER|1||A4|Chalco
+13,12 0|co|||||5||0|||
+14,12 0|co|||||5||0|||
+15,12 0|co|||||||0|||
+16,12 0|oc|||||||0|||
+17,12 0|oc|||||||0|||
+18,12 0|co|||||||0|||
+19,12 0|co|||||||0|||
+20,12 0|oc|||||||0|||
+21,12 0|oc|||||||0|||
+22,12 0|co||CRABS|||||0|||
+23,12 0|co|||||||0|||
+24,12 0|oc|||||||0|||
+25,12 0|oc|||||||0|||
+26,12 0|oc|||||||0|||
+27,12 0|oc|||||||0|||
+28,12 0|oc|||||||0|||
+29,12 0|oc|||||||0|||
+30,12 0|oc|||||||0|||
+31,12 0|oc|||||||0|||
+32,12 0|oc|||||||0|||
+33,12 0|oc|||||||0|||
+34,12 0|oc|||||||0|||
+35,12 0|oc|||||||0|||
+36,12 0|oc|||||||0|||
+37,12 0|oc|||||||0|||
+38,12 0|oc|||||||0|||
+39,12 0|oc|||||||0|||
+40,12 0|oc|||||||0|||
+41,12 0|oc|||||||0|||
+42,12 0|oc|||||||0|||
+43,12 0|co|||||||0|||
+44,12 0|ph||IVORY|||||0||A3|
+45,12 0|ph|||||||0||A3|
+46,12 0|p||WHEAT|||3||0||A4|
+47,12 0|g||||3|3|COMMERCIAL_HUB|0||R/A3/F|
+48,12 0|g|||ZIGGURAT||3||0||R/F|
+49,12 0|gh||COAL|MINE|3|3||0||A-1|
+50,12 0|g|||||3||0||A-3|
+51,12 0|g|||||3||0||A-2|
 52,12 0|g||TEA|PLANTATION||3||0||A-1|
-53,12 0|g||||1|3|CITY_CENTER|1||R/A2/F|Lagash
-54,12 0|gh|for||||3||0||R/A2/F|
-55,12 0|ph|||||||0||R/A2/F|
-56,12 0|ph||MARBLE|QUARRY||3||0||R/A2/F|
-57,12 0|g|||||3||0||R/A3/F|
-58,12 0|g|for||||3||0||R/A3/F|
-59,12 0|g|||||3||0||R/A2/F|
-60,12 0|g||||1|3|CITY_CENTER|1||R/F|Adab
-61,12 0|g|||||3||0||R/F|
-62,12 0|g|||||||0||A-1|
-63,12 0|g||STONE|||||0||R/A1/F|
-64,12 0|g|||FARM||10||0||R/F|
-65,12 0|gh|||MINE||10||0||R/F|
-66,12 0|g|||FARM||10||0||R/A-1/F|
-67,12 0|g|||||||0||R/A1/F|
-68,12 0|g|||||||0||A1|
-69,12 0|g|for||||||0||A2|
-70,12 0|gh|||||||0||A3|
-71,12 0|gh||STONE|||||0|||
-72,12 0|g|||||||0|||
-73,12 0|g|||||||0|||
+53,12 0|g||||3|3|CITY_CENTER|1||R/A1/F|Lagash
+54,12 0|gh||||3|3||0||R/A2/F|
+55,12 0|ph|||||3||0||R/A1/F|
+56,12 0|ph||MARBLE|QUARRY||3||0||R/A1/F|
+57,12 0|g|||||3||0||R/A1/F|
+58,12 0|g|||||3|SPACEPORT|0||R/A2/F|
+59,12 0|g|||ZIGGURAT||3||0||R/F|
+60,12 0|g||||3|3|CITY_CENTER|1||R/F|Adab
+61,12 0|g|||ZIGGURAT||3||0||R/F|
+62,12 1|g|||ZIGGURAT||3||0||A-1|
+63,12 1|g|||FARM||10||0||R/A1/F|
+64,12 1|g|||FARM||10||0||R/A1/F|
+65,12 1|gh|||FARM||10||0||R/F|
+66,12 1|g|||FARM||10||0||R/F|
+67,12 1|g|||||3||0||R/A2/F|
+68,12 1|g||||3|3|THEATER|0||A1|
+69,12 1|g|for||||3||0||A4|
+70,12 1|gh|||||||0||A2|
+71,12 1|gh||STONE|||3||0||A-1|
+72,12 0|g|||||3||0||A-1|
+73,12 0|g|||||3||0||A-1|
 0,13 0|d|||||||0||A3|
 1,13 0|co|||||||0|||
 2,13 0|oc|||||||0|||
-47,13 0|g||TEA|||3||0||R/A1/F|
-48,13 0|g||||1|3|CITY_CENTER|1||R/A1/F|Recife
-49,13 0|g|||FARM||3||0|||
-50,13 0|g|mar|RICE|||3||0||A-1|
-51,13 0|gh||||1|3|ENCAMPMENT|0|||
+3,13 0|oc|||||||0|||
+4,13 0|oc|||||||0|||
+5,13 0|co||FISH|||||0|||
+6,13 0|oc|||||||0|||
+7,13 0|co|||||||0|||
+8,13 0|co|||||||0|||
+9,13 0|co|||||||0|||
+10,13 0|co|||||||0|||
+11,13 0|g|||||5|THEATER|0||A4|
+12,13 0|g|||BEACH_RESORT||5||0||A5|
+13,13 0|p|||BEACH_RESORT||5||0||A4|
+14,13 0|p||MERCURY|||||0||A4|
+15,13 0|co|||||||0|||
+16,13 0|co|||||||0|||
+17,13 0|co||FISH|||||0|||
+18,13 0|co|||||5||0|||
+19,13 0|co||WHALES|FISHING_BOATS||5||0|||
+20,13 0|co|||||5||0|||
+21,13 0|co|||||5||0|||
+22,13 0|co|||||||0|||
+23,13 0|oc|||||||0|||
+24,13 0|oc|||||||0|||
+25,13 0|oc|||||||0|||
+26,13 0|oc|||||||0|||
+27,13 0|oc|||||||0|||
+28,13 0|oc|||||||0|||
+29,13 0|oc|||||||0|||
+30,13 0|oc|||||||0|||
+31,13 0|oc|||||||0|||
+32,13 0|oc|||||||0|||
+33,13 0|oc|||||||0|||
+34,13 0|oc|||||||0|||
+35,13 0|oc|||||||0|||
+36,13 0|oc|||||||0|||
+37,13 0|oc|||||||0|||
+38,13 0|oc|||||||0|||
+39,13 0|oc|||||||0|||
+40,13 0|oc|||||||0|||
+41,13 0|oc|||||||0|||
+42,13 0|co|||||||0|||
+43,13 0|p|||||||0||A2|
+44,13 0|p|||||||0||A2|
+45,13 0|p|for||||||0||A1|
+46,13 0|g||||3|3|THEATER|0|||
+47,13 0|g||TEA|PLANTATION||3||0||R/A1/F|
+48,13 0|g||||3|3|CITY_CENTER|1||R/A-1/F|Recife
+49,13 0|g|||FARM:P||3||0||A-2|
+50,13 0|g|mar|RICE|||3||0||A-2|
+51,13 0|gh||||3|3|ENCAMPMENT|0|||
 52,13 0|gh|||||3||0||R/A1/F|
-53,13 0|g||||1|3|CAMPUS|0||R/A3/F|
-54,13 0|gm|||||||0||A4|
-55,13 0|gh|||||||0|||
-56,13 0|gh|||||||0||A-1|
-57,13 0|gm|||||||0||A4|
-58,13 0|g|for||||||0||R/A3/F|
-59,13 0|g|||MINE||3||0||R/A2/F|
-60,13 0|g|||||3||0||R/A-1/F|
-61,13 0|g|||MINE||3||0|||
-62,13 0|gh|||||||0|||
-63,13 0|g|||FARM||10||0||R/A1/F|
-64,13 0|d|fld|||1|10|CITY_CENTER|1||R/A-1/F|Stockholm
-65,13 0|d|fld||FARM||10||0||R/A-1/F|
-66,13 0|g|||||||0||R/A-1/F|
-67,13 0|g||TOBACCO|||||0||R/A1/F|
-68,13 0|g|||||||0||R/A4/F|
-69,13 0|g|for|DEER|||||0||A2|
-70,13 0|g|||||||0||A3|
-71,13 0|gh|||||||0||R/A1/F|
-72,13 0|gh|||||||0||A-1|
-73,13 0|d|||||||0|||
-0,14 0|dh|||||||0||A1|
+53,13 0|g||||3|3|CAMPUS|0||R/A3/F|
+54,13 0|gm|||||3||0||A4|
+55,13 0|gh|||||3||0||A-2|
+56,13 0|gh||||3|3|INDUSTRIAL_ZONE|0||A-2|
+57,13 0|gm|||||3||0||A4|
+58,13 0|g||||3|3|CAMPUS|0||R/A2/F|
+59,13 0|g||NITER|MINE||3||0||R/F|
+60,13 0|g|||ZIGGURAT||3||0||R/A-3/F|
+61,13 1|g||NITER|MINE||3||0||A-1|
+62,13 1|gh|||FARM||10||0|||
+63,13 1|g|||FARM||10||0||R/A1/F|
+64,13 1|d|fld|||3|10|CITY_CENTER|1||R/F|Stockholm
+65,13 1|d|fld||FARM||10||0||R/F|
+66,13 1|g|||FARM||10||0||R/A-1/F|
+67,13 1|g||TOBACCO|PLANTATION||0||0||R/A2/F|
+68,13 1|g|||ZIGGURAT||3||0||R/A5/F|
+69,13 1|g|for|DEER|||0||0||A2|
+70,13 1|g||||3|0|CAMPUS|0||A3|
+71,13 1|gh|||||||0||R/F|
+72,13 0|gh||COAL|MINE||3||0||A-1|
+73,13 0|d|||||||0||A-1|
+0,14 0|dh|||||5||0||A1|
 1,14 0|co|||||||0|||
 2,14 0|co|||||||0|||
+3,14 0|co|||||||0|||
+4,14 0|oc|||||||0|||
+5,14 0|oc|||||||0|||
+6,14 0|co|||||||0|||
+7,14 0|co||WHALES|||||0|||
+8,14 0|co|||||||0|||
+9,14 0|co|||||5||0|||
+10,14 0|g|||FARM||5||0||A3|
+11,14 0|g|||BEACH_RESORT||5||0||A3|
+12,14 0|p|nw:YOSEMITE||||1||0||A5|
+13,14 0|p|nw:YOSEMITE||||1||0||A5|
+14,14 0|p|||BEACH_RESORT||1||0||A4|
+15,14 0|co|||||5||0|||
+16,14 0|co||FISH|FISHING_BOATS||5||0|||
+17,14 0|co|||||5||0|||
+18,14 0|g|for|ANTIQUITY_SITE|||5||0||A5|
+19,14 0|co|||||5|HARBOR|0|||
+20,14 0|g|||FARM||5||0||A2|
+21,14 0|g||STONE|QUARRY||5||0||A4|
+22,14 0|co|||||5||0|||
+23,14 0|co||CRABS|||5||0|||
+24,14 0|oc|||||||0|||
+25,14 0|oc|||||||0|||
+26,14 0|oc|||||||0|||
+27,14 0|oc|||||||0|||
+28,14 0|oc|||||||0|||
+29,14 0|oc|||||||0|||
+30,14 0|oc|||||||0|||
+31,14 0|oc|||||||0|||
+32,14 0|oc|||||||0|||
+33,14 0|oc|||||||0|||
+34,14 0|oc|||||||0|||
+35,14 0|oc|||||||0|||
+36,14 0|oc|||||||0|||
+37,14 0|oc|||||||0|||
+38,14 0|oc|||||||0|||
+39,14 0|oc|||||||0|||
+40,14 0|oc|||||||0|||
+41,14 0|oc|||||||0|||
+42,14 0|co|||||||0|||
+43,14 0|p||WHEAT|||||0||A4|
+44,14 0|p|||||||0||A3|
+45,14 0|p|for|URANIUM|||||0||A1|
+46,14 0|g|mar||||||0||A2|
+47,14 0|g|||||3||0||A-2|
 48,14 0|g|||FARM:P||3||0|||
 49,14 0|gm|||||3||0||A4|
-50,14 0|g|||||3||0||A1|
-51,14 0|g||RICE|||||0|||
-52,14 0|gh|for||||3||0||R/F|
-53,14 0|g||CATTLE|||3||0||R/A3/F|
-54,14 0|gh|||||||0||A2|
-55,14 0|gh|||||||0||A1|
-56,14 0|g||MARBLE|||3||0|||
-57,14 0|g||MARBLE|QUARRY||3||0||A3|
-58,14 0|gh|for||||3||0||R/A2/F|
-59,14 0|g|||||3||0||R/A2/F|
-60,14 0|g|||||3|ENCAMPMENT|0||A-1|
-61,14 0|g|||||||0||A-1|
-62,14 0|dh|||||||0|||
-63,14 0|dm|||||||0||A4|
-64,14 0|d||||1|10|CAMPUS|0|||
-65,14 0|d||||1|10||0||A-2|
-66,14 0|d|||||||0||A-2|
-67,14 0|d|fld||||||0||R/A2/F|
-68,14 0|g|for||||||0||R/A-1/F|
-69,14 0|g|||||||0||R/A4/F|
-70,14 0|gm|||||||0||R/A4|
-71,14 0|g|for||||||0||R/A2/F|
-72,14 0|d|fld||||||0||R/A2/F|
-73,14 0|d|||||||0||A-1|
-0,15 0|g|||||||0||A4|
-1,15 0|co||PEARLS|||||0|||
+50,14 0|g|||||3||0||A-1|
+51,14 0|g||RICE|||3||0|||
+52,14 0|gh|for||||3||0||R/A1/F|
+53,14 0|g||||3|3||0||R/A4/F|
+54,14 0|gh||||3|3|ENTERTAINMENT_COMPLEX|0||A1|
+55,14 0|gh|||||3||0|||
+56,14 0|g||MARBLE|QUARRY||3||0||A-1|
+57,14 0|g||MARBLE|QUARRY||3||0||A1|
+58,14 0|gh|for||LUMBER_MILL||3||0||R/A2/F|
+59,14 0|g|||||3||0||R/F|
+60,14 0|g||||3|3|ENCAMPMENT|0||A-2|
+61,14 0|g||||3|3|AERODROME|0||A-2|
+62,14 1|dh|||||3||0||A-1|
+63,14 1|dm|||||||0||A4|
+64,14 1|d||||3|10|CAMPUS|0|||
+65,14 1|d||||3|10||0||A-3|
+66,14 1|d||||3|||0||A-3|
+67,14 1|d|fld|||3|0|COMMERCIAL_HUB|0||R/A2/F|
+68,14 1|g|for||LUMBER_MILL||0||0||R/A-1/F|
+69,14 1|g|||FARM||0||0||R/A4/F|
+70,14 1|gm|||||0||0||R/A4|
+71,14 1|g|for||||||0||R/A2/F|
+72,14 0|d|fld||||||0||R/A1/F|
+73,14 0|d|||||5||0||A-2|
+0,15 0|g|||||5||0||A4|
+1,15 0|co||PEARLS|||5||0|||
 2,15 0|co|||||||0|||
-48,15 0|g|||||3||0||A3|
-49,15 0|g|||||3||0||A4|
-50,15 0|g|for||||||0|||
-51,15 0|g|||||||0||R/A3/F|
-52,15 0|g|||||||0||R/A3/F|
+3,15 0|co||FISH|||||0|||
+4,15 1|oc|||||||0|||
+5,15 1|co|||||||0|||
+6,15 1|g|||||||0||A3|
+7,15 1|g|for||||5||0|5:BUILDER:100|A3|
+8,15 0|g||RICE|FARM||5||0||A3|
+9,15 0|g||ANTIQUITY_SITE||3|5|CITY_CENTER|1||A1|Teotihuacán
+10,15 0|gh||SHEEP|PASTURE||5||0||A-1|
+11,15 0|p|||FARM||1||0|||
+12,15 0|ph||IRON|MINE||1||0||A5|
+13,15 0|ph|for||||1||0||A2|
+14,15 0|p|||BEACH_RESORT||5||0||R/A4/F|
+15,15 0|co|||||5||0|||
+16,15 0|co|||||5|HARBOR|0|||
+17,15 0|co|||||||0|||
+18,15 0|g|mar|OIL|||5||0||A2|
+19,15 0|g|||FARM||5||0|||
+20,15 0|g|||FARM|3|5||0||A1|
+21,15 0|co|||||5||0|||
+22,15 0|oc|||||5||0|||
+23,15 0|co|||||5||0|||
+24,15 0|co||OIL|OFFSHORE_OIL_RIG||5||0|||
+25,15 0|oc|||||||0|||
+26,15 0|oc|||||||0|||
+27,15 0|oc|||||||0|||
+28,15 0|oc|||||||0|||
+29,15 0|oc|||||||0|||
+30,15 0|co|||||||0|||
+31,15 0|oc|||||||0|||
+32,15 0|oc|||||||0|||
+33,15 0|oc|||||||0|||
+34,15 0|oc|||||||0|||
+35,15 0|oc|||||||0|||
+36,15 0|oc|||||||0|||
+37,15 0|oc|||||||0|||
+38,15 0|oc|||||||0|||
+39,15 0|oc|||||||0|||
+40,15 0|co||FISH|||||0|||
+41,15 0|co||FISH|||||0|||
+42,15 0|co|||||||0|||
+43,15 0|co|||||||0|||
+44,15 0|p|for||||||0||A2|
+45,15 0|p|||||||0|||
+46,15 0|p||ALUMINUM|MINE||3||0||A-1|
+47,15 0|g||ANTIQUITY_SITE|||3||0||A-1|
+48,15 0|g|||||3||0||A2|
+49,15 0|g||URANIUM|MINE||3||0||A4|
+50,15 0|g|for||||||0||A-1|
+51,15 0|g|||||||0||R/A2/F|
+52,15 0|g|||||||0||R/A2/F|
 53,15 0|gm|||||||0||R/A4|
-54,15 0|gh|||||||0||A2|
-55,15 0|gh|||||||0||A3|
+54,15 0|gh||COAL|MINE||3||0||A4|
+55,15 0|gh|||||3||0||A1|
 56,15 0|gh|for||||3||0||R/A1/F|
-57,15 0|g||||1|3|CITY_CENTER|1||R/A2/F|Kish
-58,15 0|g|||||3|CAMPUS|0||R/A3/F|
-59,15 0|gh||SHEEP|||3||0||A1|
-60,15 0|ph|||||||0|||
-61,15 0|p|||||||0||A-1|
-62,15 0|d|||||||0|||
-63,15 0|d||||1|||0||A1|
-64,15 0|d|||||||0|||
-65,15 1|dh||||1|||0|||
-66,15 1|dh||SHEEP|||||0||A-1|
-67,15 1|d|||||||0||A-1|
-68,15 0|d|fld|SUGAR|||||0||R/A3/F|
-69,15 0|p|for||||||0||R/A3/F|
-70,15 0|p|for||||||0||R/A6/F|
-71,15 0|g|||||||0||R/A3/F|
-72,15 0|dh|||||||0||A-1|
-73,15 0|d|||||||0||A1|
-0,16 0|gh|for||||||0|||
+57,15 0|g||||3|3|CITY_CENTER|1||R/A2/F|Kish
+58,15 0|g||||3|3|CAMPUS|0||R/A3/F|
+59,15 0|gh||SHEEP|||3||0|||
+60,15 1|ph|||||3||0||A-2|
+61,15 1|p|||||3||0||A-2|
+62,15 1|d|||||||0|||
+63,15 1|d||||1|10||0||A1|
+64,15 1|d|||||10||0||A-1|
+65,15 1|dh|||MINE|3|10||0|||
+66,15 1|dh||SHEEP|PASTURE||0||0||A-2|
+67,15 1|d||||3|0||0||A-1|
+68,15 1|d|fld|SUGAR||3|0|CITY_CENTER|1|0:SPEARMAN:100|R/A3/F|NILECREST
+69,15 1|p|for||LUMBER_MILL||0||0||R/A3/F|
+70,15 1|p|for||||0||0||R/A6/F|
+71,15 1|g|||||||0||R/A2/F|
+72,15 0|dh|||||5||0||A-2|
+73,15 0|d||||3|5|CITY_CENTER|1||A1|Malinalco
+0,16 0|gh|for||||5||0||A2|
 1,16 0|co|||||||0|||
 2,16 0|co|||||||0|||
-48,16 0|g|for||||||0|||
-49,16 0|g|nw:TSINGY||||||0||A5|
-50,16 0|g|||||||0||A1|
-51,16 0|g|||||||0||R/F|
-52,16 0|g||HORSES|PASTURE||3||0||R/A-1/F|
+3,16 0|co|||||||0|||
+4,16 1|oc|||||||0|||
+5,16 1|co||PEARLS|||0||0|||
+6,16 1|g|mar||||||0||A2|
+7,16 1|g|||||||0||A-2|
+8,16 1|g|||||5||0||A-1|
+9,16 0|g||RICE|FARM||5||0||A-1|
+10,16 0|g|||FARM||5||0||A-2|
+11,16 0|ph||||3|5|INDUSTRIAL_ZONE|0||A-2|
+12,16 0|p|||FARM||1||0||R/A-2/F|
+13,16 0|ph||||3|1|COMMERCIAL_HUB|0||R/A2/F|
+14,16 0|p||WHEAT|FARM||1||0||R/A2/F|
+15,16 0|p|||||5||0||R/A1/F|
+16,16 0|p||WHEAT||3|5|CITY_CENTER|1||A2|Texcoco
+17,16 0|g||RICE|FARM||5||0|||
+18,16 0|g||||3|5|AERODROME|0|||
+19,16 0|g|||FARM||5||0||A-1|
+20,16 0|g||||3|5|CITY_CENTER|1|||Cempoala
+21,16 0|g|for|SPICES|PLANTATION||5||0||A3|
+22,16 0|co|||||5||0|||
+23,16 0|co|||||5||0|||
+24,16 0|co|||||5||0|||
+25,16 0|oc|||||5||0|||
+26,16 0|oc|||||||0|||
+27,16 0|oc|||||||0|||
+28,16 0|oc|||||||0|||
+29,16 0|co||CRABS|||||0|||
+30,16 0|co|||||||0|||
+31,16 0|co|||||||0|||
+32,16 0|oc|||||||0|||
+33,16 0|oc|||||||0|||
+34,16 0|oc|||||||0|||
+35,16 0|oc|||||||0|||
+36,16 0|oc|||||||0|||
+37,16 0|oc|||||||0|||
+38,16 0|oc|||||||0|||
+39,16 0|oc|||||||0|||
+40,16 0|co|||||||0|||
+41,16 0|co|||||||0|||
+42,16 0|co|||||||0|||
+43,16 0|co||CRABS|||||0|||
+44,16 0|ph|||||||0||A3|
+45,16 0|ph||IRON|||||0||A-1|
+46,16 0|p|||||||0||A-3|
+47,16 0|g|||||||0||A-2|
+48,16 0|g|for||||3||0||A1|
+49,16 0|g|nw:TSINGY||||3||0||A5|
+50,16 0|g|||||||0|||
+51,16 0|g|||||||0||R/A-1/F|
+52,16 0|g||HORSES|PASTURE:P||3||0||R/A-2/F|
 53,16 0|g|||||||0||R/F|
-54,16 0|gh|for||BARBARIAN_CAMP||||0||A1|
+54,16 0|gh|for|ANTIQUITY_SITE|||||0|||
 55,16 0|gm|||||||0||A4|
-56,16 0|dm|||||||0||A4|
-57,16 0|g|||||3||0||R/A3/F|
-58,16 0|g||RICE|||3||0||R/A2/F|
-59,16 0|gm|||||||0||A4|
-60,16 0|p|||||||0|||
-61,16 0|p||HORSES|||||0||A-2|
-62,16 0|g|mar||||||0||A-2|
-63,16 0|d||||1|||0||A-2|
-64,16 0|d|||||||0||A-1|
-65,16 1|dh|||||||0||A-2|
-66,16 1|d||||1|||0||A-1|
-67,16 1|d|||||||0|||
-68,16 1|dh|||||||0||F|
-69,16 0|d|||||||0||A2/F|
-70,16 0|p|for||||||0||R/A4/F|
-71,16 0|g|for||||||0||R/A3/F|
-72,16 0|dh|||||||0||A1|
-73,16 0|d|||||||0|||
+56,16 0|dm|||||3||0||A4|
+57,16 0|g|||ZIGGURAT||3||0||R/A2/F|
+58,16 0|g|||ZIGGURAT||3||0||R/A1/F|
+59,16 1|gm|||||3||0||A4|
+60,16 1|p|||||||0|||
+61,16 1|p||HORSES|PASTURE||7||0||A-1|
+62,16 1|g|mar||||||0|||
+63,16 1|d||||1|||0||A-1|
+64,16 1|d|||||||0|10:MECHANIZED_INFANTRY:100|A-1|
+65,16 1|dh||ANTIQUITY_SITE|||||0||A-3|
+66,16 1|d||||3|||0||A-2|
+67,16 1|d|||||0||0||A-1|
+68,16 1|dh|||||0||0||A-1/F|
+69,16 1|d||||3|0||0||A2/F|
+70,16 1|p|for||||0||0||R/A4/F|
+71,16 1|g|for||||0||0||R/A3/F|
+72,16 1|dh||ALUMINUM|MINE||1||0||A2|
+73,16 0|d|||||5||0|||
 0,17 0|dh|||||||0||A3|
-1,17 0|co|||||||0|||
+1,17 0|co||OIL|||||0|||
+2,17 0|oc|||||||0|||
+3,17 0|co||PEARLS|||||0|||
+4,17 1|co|||||||0|||
+5,17 1|co|||||0||0|||
+6,17 1|p|jun|BANANAS|PLANTATION||0||0|0:BUILDER:100|A-3|
+7,17 1|ph|jun||||0||0||A-4|
+8,17 1|p|jun|COCOA|PLANTATION||5||0||A-3|
+9,17 0|p|||||5||0||A-4|
+10,17 0|p|jun|BANANAS|PLANTATION||1||0||A-4|
+11,17 0|ph|jun||||1||0||A-4|
+12,17 0|p||||3|1|CITY_CENTER|1||R/A-1/F|Manchester
+13,17 0|p||||3|1|THEATER|0||R/A-2/F|
+14,17 0|d|fld|WHEAT|FARM||1||0||R/F|
+15,17 0|p|||FARM||5||0||A-2|
+16,17 0|p||||3|5|CAMPUS|0||A-2|
+17,17 0|p|jun|ANTIQUITY_SITE|||5||0|||
+18,17 0|p||||3|5|THEATER|0|||
+19,17 0|ph||||3|5|CAMPUS|0|||
+20,17 0|p|jun|SPICES|PLANTATION|3|5||0||A2|
+21,17 0|dh||||3|5|WONDER|0||R/A3/F|
+22,17 0|ph|jun||||5||0||R/A6/F|
+23,17 0|co||PEARLS|FISHING_BOATS||5||0|||
+24,17 0|oc|||||5||0|||
+25,17 0|co|||||5||0|||
+26,17 0|oc|||||||0|||
+27,17 0|oc|||||||0|||
+28,17 0|co|||||||0|||
+29,17 0|co|||||||0|||
+30,17 0|ph|jun||||||0||A6|
+31,17 0|co|||||||0|||
+32,17 0|co||PEARLS|||||0|||
+33,17 0|oc|||||||0|||
+34,17 0|oc|||||||0|||
+35,17 0|oc|||||||0|||
+36,17 0|oc|||||||0|||
+37,17 0|oc|||||||0|||
+38,17 0|oc|||||||0|||
+39,17 0|oc|||||||0|||
+40,17 0|co||CRABS|||||0|||
+41,17 0|co||CRABS|||||0|||
+42,17 0|oc|||||||0|||
+43,17 0|co||CRABS|||||0|||
+44,17 0|p|jun||||||0||A2|
+45,17 0|ph|jun||||||0|||
+46,17 0|p|jun||||||0|||
 47,17 0|g|mar||||||0|||
 48,17 0|p|jun|DYES|||||0||A2|
-49,17 0|ph|jun||||||0|||
+49,17 0|ph|jun||||3||0|||
 50,17 0|p|jun|BANANAS|||3||0||R/A-3/F|
-51,17 0|ph|jun||||3||0||R/A-1/F|
-52,17 0|p||||1|3|ENCAMPMENT|0||A-1|
-53,17 0|p|jun||||||0|||
-54,17 0|dh||COPPER|||||0||A2|
+51,17 0|ph|jun||||3||0||R/A-2/F|
+52,17 0|p||||3|3|ENCAMPMENT|0||A-2|
+53,17 0|p|jun||||3||0||A1|
+54,17 0|dh||COPPER|||||0||A3|
 55,17 0|dm|||||||0||A4|
-56,17 0|dh||SHEEP|||||0||A3|
-57,17 0|d|||||||0|||
-58,17 0|d|||||||0||A1|
-59,17 0|p|jun|BANANAS|||||0||A1|
-60,17 0|p|||FARM||7||0||A-3|
-61,17 0|ph|||MINE||7||0||A-2|
-62,17 0|p|jun|BANANAS||1|7||0||A-1|
-63,17 0|d|||||||0|||
-64,17 1|p|jun||||||0|||
+56,17 0|dh||SHEEP|||3||0||A2|
+57,17 0|d||||3|3|AERODROME|0||A-1|
+58,17 1|d|||ZIGGURAT||3||0||A-1|
+59,17 1|p|jun|BANANAS|PLANTATION||7||0||A2|
+60,17 1|p|||FARM||7||0||A-1|
+61,17 1|ph|||FARM||7||0||A-1|
+62,17 1|p|||FARM|3|7||0||A-1|
+63,17 1|d|||||||0|11:MACHINE_GUN:100||
+64,17 1|p|jun|URANIUM|||||0|||
 65,17 1|p|jun||||||0||A-1|
-66,17 1|d||||1|||0|11:CROSSBOWMAN:100|A-1|
-67,17 1|d||SALT|||||0||A1/F|
-68,17 1|d|oas||||||0||F|
-69,17 0|dh|||||||0||A1/F|
-70,17 0|d|||||||0||A2|
-71,17 0|d|||||||0||A2|
-72,17 0|d|||||||0||A-2|
-73,17 0|p|jun||||||0|||
-0,18 0|dh|||||||0||A1|
+66,17 1|d||||3|||0||A-2|
+67,17 1|d||SALT|MINE||0||0||A1/F|
+68,17 1|d|oas|ANTIQUITY_SITE||3|0||0||A-1/F|
+69,17 1|dh|||||0||0||A1/F|
+70,17 1|d|||||||0||A3|
+71,17 1|d||||3|1|THEATER|0||A1|
+72,17 0|d|||||1||0|||
+73,17 0|p|||FARM||1||0|||
+0,18 0|dh||URANIUM|MINE||1||0||A3|
 1,18 0|co|||||||0|||
 2,18 0|oc|||||||0|||
+3,18 0|oc|||||||0|||
+4,18 1|co|||||||0|||
+5,18 1|co|||||0||0|||
+6,18 1|p|jun|ANTIQUITY_SITE|||0||0||A1|
+7,18 1|p|jun|BANANAS|PLANTATION||0||0||A-5|
+8,18 1|p|jun|ANTIQUITY_SITE|||0||0||A-6|
+9,18 1|p|jun||||||0||A-4|
+10,18 0|p|jun|BANANAS|PLANTATION||1||0||A-3|
+11,18 0|ph|jun||||1||0||A-4|
+12,18 0|ph|jun||||1||0||A-2|
+13,18 0|p|jun|COCOA|PLANTATION|3|1||0|||
+14,18 0|p|jun||||1||0||A-3|
+15,18 0|p|jun|ANTIQUITY_SITE|||5||0||A-3|
+16,18 0|g|||FARM||5||0||A-2|
+17,18 0|p|jun|BANANAS|PLANTATION|3|5||0||A-1|
+18,18 0|gm|||||5||0||R/A4|
+19,18 0|ph||||3|5|HOLY_SITE|0||A2|
+20,18 0|ph|jun|||3|5||0||A2|
+21,18 0|dm|||||5||0||A4|
+22,18 0|p||||3|5|HOLY_SITE|0||R/A4/F|
+23,18 0|gh||||3|5|CITY_CENTER|1||R/A3/F|Tenochtitlan
+24,18 0|co|||||5|HARBOR|0|||
+25,18 0|co|||||5||0|||
+26,18 0|co|||||5||0|||
+27,18 0|oc|||||||0|||
+28,18 0|oc|||||||0|||
+29,18 0|co|||||||0|||
+30,18 0|g|for||||||0||A4|
+31,18 0|g|for||||||0||A4|
+32,18 0|co|||||||0|||
+33,18 0|co|||||||0|||
+34,18 0|oc|||||||0|||
+35,18 0|oc|||||||0|||
+36,18 0|oc|||||||0|||
+37,18 0|oc|||||||0|||
+38,18 0|oc|||||||0|||
+39,18 0|oc|||||||0|||
+40,18 0|oc|||||||0|||
+41,18 0|oc|||||||0|||
+42,18 0|oc|||||||0|||
+43,18 0|oc|||||||0|||
+44,18 0|co|||||||0|||
+45,18 0|ph|for||||||0||A2|
 46,18 0|p|for|DYES|||||0||A1|
 47,18 0|g|for|DYES|||||0||A-2|
 48,18 0|gh||||1|||0||A-1|
 49,18 0|gh|for||||||0||A-3|
 50,18 0|p|jun||||3||0||R/F|
 51,18 0|g|||ZIGGURAT:P||3||0||R/A-1/F|
-52,18 0|g|for||||3||0||R/A-2/F|
+52,18 0|g|for||||3||0||R/A-1/F|
+53,18 0|gh||||3|3|CAMPUS|0||A1|
 54,18 0|gm|||||||0||A4|
 55,18 0|dh|||||||0||A4|
 56,18 0|dm|||||||0||A4|
-57,18 0|dh|||||||0||A1|
-58,18 0|d|||||||0|||
-59,18 0|p|for||||||0||A-4|
-60,18 0|ph|||MINE||7||0||A-1|
-61,18 0|ph||||1|7|CITY_CENTER|1||A-2|Kabul
-62,18 0|g|||FARM|1|7||0||A-1|
-63,18 0|g|for||||||0||A1|
-64,18 1|g|for||||||0||A2|
+57,18 0|dh|||||||0||A-1|
+58,18 0|d||OIL|OIL_WELL||3||0||A-1|
+59,18 1|p|for||||3||0||A-3|
+60,18 1|ph|||FARM||7||0||A-1|
+61,18 1|ph||||3|7|CITY_CENTER|1|||Kabul
+62,18 1|g|||FARM|3|7||0|||
+63,18 1|g|||FARM||7||0|7:BUILDER:100|A2|
+64,18 1|g|for||||||0||A1|
 65,18 1|g|||||||0|||
-66,18 1|g||STONE|||||0|11:MAN_AT_ARMS:100|A-1|
-67,18 1|g|||FARM|1|11||0|||
-68,18 1|d||||1|11|COMMERCIAL_HUB|0||A2/F|
+66,18 1|g|||FARM||11||0||A-1|
+67,18 1|g|||FARM|3|11||0||A-1|
+68,18 1|d||||3|11|COMMERCIAL_HUB|0||A1/F|
 69,18 1|d|||||||0||A1/F|
-70,18 0|p|jun||||||0||A1|
-71,18 0|p|for||||||0|||
-72,18 0|d|||||||0||A1|
-73,18 0|g|mar||||||0|||
+70,18 1|p|jun|ANTIQUITY_SITE|||1||0||A1|
+71,18 0|p|for||LUMBER_MILL||1||0||A1|
+72,18 0|d||ANTIQUITY_SITE|||1||0||A2|
+73,18 0|g|||FARM||1||0|||
 0,19 0|co|||||||0|||
 1,19 0|oc|||||||0|||
+2,19 0|co|||||||0|||
+3,19 1|co|||||||0|||
+4,19 1|co|||||0||0|||
+5,19 1|co|||||0||0|||
+6,19 1|p||||3|0|CITY_CENTER|1||R/A-1/F|Swenett
+7,19 1|gh|||MINE||0||0||R/A-2/F|
+8,19 1|p||MERCURY|MINE||12||0||A-3|
+9,19 0|p|||FARM||12||0||A-2|
+10,19 0|p|||FARM||12||0||A-1|
+11,19 0|ph|||||1||0||A-1|
+12,19 0|ph|for|||3|1||0|||
+13,19 0|ph||||3|1|CAMPUS|0||A-1|
+14,19 0|p||MERCURY|MINE||1||0||A-2|
+15,19 0|p|||||||0||A-2|
+16,19 0|g|||FARM||5||0||A-1|
+17,19 0|ph|jun|BANANAS|PLANTATION|3|5||0||R/A3/F|
+18,19 0|gm|||||5||0||R/A4|
+19,19 0|gh|for|URANIUM|MINE|3|5||0||A3|
+20,19 0|dm|||||5||0||A4|
+21,19 0|dm|||||5||0||A4|
+22,19 0|g||||3|5|THEATER|0||A2|
+23,19 0|g||STONE|QUARRY|3|5||0||A2|
+24,19 0|g|||FARM||5||0||A-2|
+25,19 0|g||||3|5|SPACEPORT|0||A3|
+26,19 0|co|||||5||0|||
+27,19 0|co|||||5||0|||
+28,19 0|oc|||||||0|||
+29,19 0|co||FISH|||||0|||
+30,19 0|g|for||||||0||A6|
+31,19 0|co||PEARLS|||||0|||
+32,19 0|co|||||||0|||
+33,19 0|oc|||||||0|||
+34,19 0|oc|||||||0|||
+35,19 0|oc|||||||0|||
+36,19 0|oc|||||||0|||
+37,19 0|oc|||||||0|||
+38,19 0|oc|||||||0|||
+39,19 0|oc|||||||0|||
+40,19 0|oc|||||||0|||
+41,19 0|oc|||||||0|||
+42,19 0|co||FISH|||||0|||
+43,19 0|co|||||||0|||
+44,19 0|co||FISH|||||0|||
 45,19 0|co|||||||0|||
 46,19 0|p|||||||0||A3|
 47,19 0|p|jun||||||0||A-1|
 48,19 0|p||||0|||0||A-1|
-49,19 0|g||STONE|||3||0||A3|
-50,19 0|g|for||||3||0||R/A-1/F|
-51,19 0|g||||1|3|CITY_CENTER|1||R/F|Rio de Janeiro
-52,19 0|gh||STONE|||3||0||R/A3/F|
-53,19 0|gm|||||||0||A4|
+49,19 0|g||||3|3|THEATER|0||A2|
+50,19 0|g|for||||3||0||R/F|
+51,19 0|g||||3|3|CITY_CENTER|1||R/A-1/F|Rio de Janeiro
+52,19 0|gh||STONE|||3||0||R/A2/F|
+53,19 0|gm|||||3||0||A4|
 54,19 0|gm|||||||0||A4|
-55,19 0|gh||TEA|||||0||A3/F|
-56,19 0|gh|||||||0||R/A3/F|
-57,19 0|gh|||||||0||R/A1/F|
-58,19 0|g|mar||||||0||A1|
-59,19 0|p|jun||||||0||A-1|
-60,19 0|p|||FARM||7||0||A-4|
-61,19 0|p|||FARM||7||0||A-1|
-62,19 0|g||HORSES||1|||0||A2|
+55,19 0|gh||TEA|||||0||A2/F|
+56,19 0|gh|||FARM||3||0||R/A2/F|
+57,19 0|gh|||FARM||3||0||R/F|
+58,19 0|g||||3|3|AERODROME|0|||
+59,19 1|p|jun|ANTIQUITY_SITE|||3||0|||
+60,19 1|p|||FARM||7||0||A-2|
+61,19 1|p|||FARM||7||0|||
+62,19 1|g||HORSES|PASTURE|3|7||0||A1|
 63,19 1|gm|||||||0||A4|
-64,19 1|g|for|DYES|||||0||A3|
-65,19 1|g|||||||0||A1|
+64,19 1|g|for|DYES|||0||0||A3|
+65,19 1|g|||FARM||11||0|11:BUILDER:100|A1|
 66,19 1|g|||FARM||11||0|||
-67,19 1|p||||1|11|CITY_CENTER|1||R/A2/F|Amsterdam
+67,19 1|p||||3|11|CITY_CENTER|1||R/A2/F|Amsterdam
 68,19 1|gm|||||11||0||R/A4|
-69,19 1|ph|||||||0||A-2|
-70,19 0|p||WHEAT|||||0||A1|
-71,19 0|p|for||||||0||A3|
-72,19 0|p||WHEAT|||||0||A3|
-73,19 0|co|||||||0|||
-0,20 0|co|||||||0|||
+69,19 1|ph|||FARM||11||0||A-2|
+70,19 1|p||WHEAT|FARM||1||0|||
+71,19 0|p|||FARM||1||0||A3|
+72,19 0|p||WHEAT||3|1|CITY_CENTER|1||A3|Sheffield
+73,19 0|co||SHIPWRECK|||1||0|||
+0,20 0|co||OIL|||||0|||
 1,20 0|co|||||||0|||
+2,20 0|co|||||||0|||
+3,20 1|co||SHIPWRECK|||||0|||
+4,20 1|co||FISH|||0||0|||
+5,20 1|p||||3|0|THEATER|0||A5|
+6,20 1|g||CATTLE|PASTURE||0||0||R/A4/F|
+7,20 1|g||ANTIQUITY_SITE|FARM|3|0||0||R/F|
+8,20 1|p|||FARM||12||0||R/A-1/F|
+9,20 0|gh|||FARM||12||0||R/A1/F|
+10,20 0|p||ALUMINUM||3|12|THEATER|0||A1|
+11,20 0|p|||||1||0||A2|
+12,20 0|p|||FARM|3|1||0||R/A3/F|
+13,20 0|pm|||||1||0||A4|
+14,20 0|ph|||FARM|3|1||0||A-1|
+15,20 0|ph|||FARM||13||0|||
+16,20 0|gh|||FARM||13||0||A2|
+17,20 0|gm|||||5||0||A4|
+18,20 0|g|||FARM|3|5||0||R/A2/F|
+19,20 0|p||||3|5|CITY_CENTER|1||R/A1/F|Teayo
+20,20 0|gh||||3|5|CAMPUS|0||A2|
+21,20 0|gm|||||5||0||A4|
+22,20 0|g||||3|5|CAMPUS|0||A4|
+23,20 0|g|for||LUMBER_MILL||5||0||A1|
+24,20 0|gh||STONE|QUARRY|3|5||0||A-1|
+25,20 0|g||||3|5|AERODROME|0||A-2|
+26,20 0|g||||3|5|HOLY_SITE|0||A1|
+27,20 0|co||CRABS|FISHING_BOATS||5||0|||
+28,20 0|oc|||||||0|||
+29,20 0|co|||||||0|||
+30,20 0|co||FISH|||5||0|||
+31,20 0|co|||||||0|||
+32,20 0|co|||||||0|||
+33,20 0|oc|||||||0|||
+34,20 0|oc|||||||0|||
+35,20 0|oc|||||||0|||
+36,20 0|oc|||||||0|||
+37,20 0|oc|||||||0|||
+38,20 0|oc|||||||0|||
+39,20 0|oc|||||||0|||
+40,20 0|oc|||||||0|||
+41,20 0|oc|||||||0|||
+42,20 0|oc|||||||0|||
+43,20 0|oc|||||||0|||
+44,20 0|co|||||||0|||
 45,20 0|co||FISH|||||0|||
 46,20 0|co|||||||0|||
 47,20 0|p|||||||0||A-1|
 48,20 0|p|jun||BARBARIAN_CAMP||||0|||
 49,20 0|p|for||||||0||A-1|
-50,20 0|pm|||||||0||A4|
-51,20 0|g|mar||||3||0||R/A3/F|
-52,20 0|g||STONE|QUARRY||3||0||R/A2/F|
-53,20 0|gm|||||||0||A4|
+50,20 0|pm|||||3||0||A4|
+51,20 0|g|mar||||3||0||R/A1/F|
+52,20 0|g||STONE|QUARRY:P|3|3||0||R/F|
+53,20 0|gm|||||3||0||A4|
 54,20 0|co|||||||0||L|
 55,20 0|co|||||||0||L|
-56,20 0|gh|||||||0||A1/F|
-57,20 0|pm|||||||0||R/A4|
-58,20 0|g|||||||0||R/A2/F|
-59,20 0|gh|for||||||0||A-2|
-60,20 0|gh||COPPER|MINE||7||0|||
-61,20 0|p|jun||||||0||A-1|
-62,20 1|gh|||||||0||A-1|
-63,20 1|g||||1|||0|7:ARCHER:100|R/A3/F|
+56,20 0|gh||||3|3|ENCAMPMENT|0||A1/F|
+57,20 1|pm|||||3||0||R/A4|
+58,20 1|g||||3|3|CITY_CENTER|1||R/A2/F|Ur
+59,20 1|gh|for||||3||0||A-1|
+60,20 1|gh||||3|7|ENCAMPMENT|0||A1|
+61,20 1|p|||FARM||7||0||A-1|
+62,20 1|gh|||FARM||7||0|||
+63,20 1|g||||3|0||0||R/A3/F|
 64,20 1|g|for|DYES|PLANTATION||0||0||R/A2/F|
-65,20 1|g||||1|||0||A2|
-66,20 1|g||STONE||1|||0||A1|
-67,20 1|g|||FARM|1|11||0|||
+65,20 1|g||||3|0|COMMERCIAL_HUB|0||A2|
+66,20 1|g|||FARM|3|11||0||A1|
+67,20 1|g|||FARM|3|11||0|||
 68,20 1|g|||FARM||11||0||R/A1/F|
 69,20 1|ph||IRON|MINE||11||0||R/A1/F|
 70,20 1|p|jun||||||0||A1|
 71,20 0|co|||||||0|||
-72,20 0|co|||||||0|||
-73,20 0|co|||||||0|||
+72,20 0|co|||||1||0|||
+73,20 0|co|||||1|ROYAL_NAVY_DOCKYARD|0|||
+0,21 0|oc|||||||0|||
+1,21 0|co||CRABS|||||0|||
+2,21 0|oc|||||||0|||
+3,21 1|co|||||||0|12:KNIGHT:100||
+4,21 1|co|||||1||0|||
+5,21 1|g|for|ANTIQUITY_SITE|||1||0||R/A4/F|
+6,21 1|g||CATTLE|||1||0|||
+7,21 1|g|||FARM|3|12||0||R/F|
+8,21 0|g|||FARM|3|12||0||R/F|
+9,21 0|gh||||3|12|CITY_CENTER|1||R/A1/F|Kumasi
+10,21 0|gm|||||12||0||A4|
+11,21 0|g||||3|12|NEIGHBORHOOD|0||R/A1/F|
+12,21 0|g||COFFEE|||1||0||R/A1/F|
+13,21 0|ph|jun|ANTIQUITY_SITE|||||0|||
+14,21 0|gh|||FARM|3|13||0||A-1|
+15,21 0|gm|||||13||0||A4|
+16,21 0|g|||FARM||13||0||A1|
+17,21 0|g|||FARM||5||0||R/A1/F|
+18,21 0|g|||FARM|3|5||0||R/A-1/F|
+19,21 0|g||||3|5|INDUSTRIAL_ZONE|0|||
+20,21 0|gm|||||5||0||A4|
+21,21 0|gh|||FARM||5||0||A4|
+22,21 0|g||CATTLE|PASTURE||5||0||A3|
+23,21 0|gm|||||5||0||A5|
+24,21 0|g||||3|5|INDUSTRIAL_ZONE|0||R/F|
+25,21 0|p|jun|COCOA|PLANTATION||5||0||R/A1/F|
+26,21 0|gh|for||LUMBER_MILL||5||0||R/A4/F|
+27,21 0|co|||||5||0|||
+28,21 0|co|||||5||0|||
+29,21 0|oc|||||5||0|||
+30,21 0|co|||||||0|||
+31,21 0|oc|||||||0|||
+32,21 0|oc|||||||0|||
+33,21 0|oc|||||||0|||
+34,21 0|oc|||||||0|||
+35,21 0|oc|||||||0|||
+36,21 0|oc|||||||0|||
+37,21 0|oc|||||||0|||
+38,21 0|oc|||||||0|||
+39,21 0|oc|||||||0|||
+40,21 0|oc|||||||0|||
+41,21 0|oc|||||||0|||
+42,21 0|oc|||||||0|||
+43,21 0|oc|||||||0|||
+44,21 0|oc|||||||0|||
 45,21 0|co|||||||0|||
 46,21 0|co||PEARLS|||||0|||
 47,21 0|g|||||||0|||
 48,21 0|g||TEA|||||0||A-1|
 49,21 0|g|||||||0||A3|
-50,21 0|g|for||||3||0||R/A1/F|
-51,21 0|g|||||3||0||R/F|
+50,21 0|g|for||||3||0||R/A-1/F|
+51,21 0|g|||ZIGGURAT:P|3|3||0||R/A-4/F|
 52,21 0|gm|||||3||0||A4|
-53,21 0|co||PEARLS|||||0||L|
+53,21 0|co||PEARLS|||3||0||L|
 54,21 1|co|||||||0||L|
-55,21 1|g||STONE|||||0||A1/F|
-56,21 1|p|jun||||||0||R/A2/F|
-57,21 1|g|||||||0|7:HEAVY_CHARIOT:100|R/A2/F|
-58,21 0|gh||SHEEP|||||0||A3|
-59,21 0|gh|for||||||0||A1|
-60,21 0|g|||||||0|||
-61,21 1|g|||||||0||A-2|
-62,21 1|g||RICE|FARM||0||0||A-1|
-63,21 1|g||||1|0||0||R/A1/F|
-64,21 1|p|jun|||1|0||0||R/A4/F|
-65,21 1|g|for||||0||0|0:BUILDER:100|A1|
-66,21 1|g||||1|||0||A2|
-67,21 1|g|||||||0|11:MAN_AT_ARMS:100||
+55,21 1|g||STONE|||||0||F|
+56,21 1|p|jun||||3||0||R/A1/F|
+57,21 1|g|||ZIGGURAT|3|3||0||R/A1/F|
+58,21 1|gh||SHEEP|PASTURE||3||0||A2|
+59,21 1|gh|for||||3||0||A2|
+60,21 1|g|||||||0|||
+61,21 1|g||ANTIQUITY_SITE|||0||0||A-1|
+62,21 1|g||RICE|FARM||0||0|||
+63,21 1|g||||3|0|AQUEDUCT|0||R/A1/F|
+64,21 1|p|jun|||3|0||0||R/A4/F|
+65,21 1|g|for||LUMBER_MILL||0||0||A1|
+66,21 1|g||||3|0||0||A1|
+67,21 1|g|||||||0|11:MECHANIZED_INFANTRY:100|A-1|
 68,21 1|g||RICE|FARM||11||0||R/A1/F|
 69,21 1|gh|||||||0||R/A2/F|
 70,21 0|co|||||||0|||
 71,21 0|co|||||||0|||
-72,21 0|oc|||||||0|||
-73,21 0|co|||||||0|||
+72,21 0|oc|||||1||0|||
+73,21 0|co|||||1||0|||
+0,22 0|oc|||||||0|||
+1,22 0|oc|||||||0|||
+2,22 0|oc|||||||0|||
+3,22 0|oc|||||||0|||
+4,22 0|co||FISH|||1||0|||
+5,22 0|g|||||1||0||R/A5/F|
+6,22 0|g|||||1||0||R/A1/F|
+7,22 0|p|jun||||1||0||A-1|
+8,22 0|g||||3|1||0||R/A-2/F|
+9,22 0|g||STONE|QUARRY|3|12||0||R/A1/F|
+10,22 0|gh|||MINE|3|12||0||R/F|
+11,22 0|g||STONE|QUARRY|3|12||0||R/F|
+12,22 0|g||||3|1||0||R/A1/F|
+13,22 0|g||||2|1||0||A-1|
+14,22 0|g||URANIUM||3|13|INDUSTRIAL_ZONE|0||A-1|
+15,22 0|g|||FARM|3|13||0||R/A1/F|
+16,22 0|g||||3|13|CITY_CENTER|1||R/A1/F|Buenos Aires
+17,22 0|p|jun|COCOA|PLANTATION||13||0||R/A1/F|
+18,22 0|g|||FARM|3|13||0||R/A-1/F|
+19,22 0|gh||IRON|MINE||5||0||R/A-1/F|
+20,22 0|gh|||||5|HOLY_SITE|0|||
+21,22 0|gm|||||5||0||A4|
+22,22 0|gm|||||5||0||A5|
+23,22 0|g||||3|5|CAMPUS|0||A3|
+24,22 0|g||||3|5||0||R/A3/F|
+25,22 0|g||||3|5|CITY_CENTER|1||R/A-1/F|Atzcapotzalco
+26,22 0|p|jun|COCOA|PLANTATION|3|5||0||R/A2/F|
+27,22 0|g||||3|5||0||R/A1/F|
+28,22 0|g||CATTLE|PASTURE|3|5||0||A2|
+29,22 0|co|||||5||0|||
+30,22 0|co||CRABS|||5||0|||
+31,22 0|oc|||||||0|||
+32,22 0|oc|||||||0|||
+33,22 0|oc|||||||0|||
+34,22 0|oc|||||||0|||
+35,22 0|oc|||||||0|||
+36,22 0|oc|||||||0|||
+37,22 0|oc|||||||0|||
+38,22 0|oc|||||||0|||
+39,22 0|oc|||||||0|||
+40,22 0|oc|||||||0|||
+41,22 0|oc|||||||0|||
+42,22 0|oc|||||||0|||
+43,22 0|oc|||||||0|||
+44,22 0|oc|||||||0|||
+45,22 0|oc|||||||0|||
 46,22 0|co|||||||0|||
 47,22 0|gh|for||||||0||A4|
 48,22 0|g|||||||0||A3|
 49,22 0|g|||||||0||A2|
-50,22 0|g|||||||0||R/A4/F|
-51,22 0|gh|||||||0||R/A3/F|
-52,22 0|ph|jun||||||0||A4|
-53,22 0|gh|for||||||0||A2/F|
+50,22 0|g|||||||0||R/A2/F|
+51,22 0|gh||COAL|MINE:P||3||0||R/A1/F|
+52,22 0|ph|jun|||3|||0||A1|
+53,22 0|gh|for|||3|||0||A2/F|
 54,22 1|g|||||||0||A3/F|
-55,22 1|g|||||||0||A1/F|
-56,22 1|g|||||||0|63:SCOUT:58|R/F|
-57,22 1|g||HORSES|PASTURE||8||0||R/A2/F|
-58,22 1|g|for||||||0||A1|
-59,22 0|g|||||||0||R/A4/F|
-60,22 0|gm|||||||0||A4|
-61,22 1|gh|||||||0|||
-62,22 1|ph|jun||||0||0||A2|
-63,22 1|g|||||0||0||A-1|
-64,22 1|g||||1|0|CITY_CENTER|1||R/F|Luxis
+55,22 1|g|||FARM||8||0||A1/F|
+56,22 1|g|||FARM||8||0||R/F|
+57,22 1|g||HORSES|PASTURE|3|8||0||R/A1/F|
+58,22 1|g|||ZIGGURAT||3||0||A1|
+59,22 1|g|||||3||0||R/A3/F|
+60,22 1|gm|||||||0||A4|
+61,22 1|gh||COAL|MINE||0||0||A1|
+62,22 1|ph||||3|0|NEIGHBORHOOD|0||A1|
+63,22 1|g||||3|0|CAMPUS|0|||
+64,22 1|g||||3|0|CITY_CENTER|1||R/F|Luxis
 65,22 1|gm|||||0||0||R/A4|
-66,22 1|g|for||||||0||A4|
-67,22 1|g||||1|||0||A3|
-68,22 1|g|||||||0||A3|
+66,22 1|g|for||LUMBER_MILL||0||0||A3|
+67,22 1|g||NITER|MINE|3|0||0||A3|
+68,22 1|g|||FARM||0||0||A2|
 69,22 1|co|||||||0|||
-70,22 0|co||FISH|||||0|||
+70,22 1|co||FISH|||||0|||
 71,22 0|co|||||||0|||
+72,22 0|oc|||||||0|||
+73,22 0|co||CRABS|||||0|||
+0,23 0|oc||SHIPWRECK|||||0|||
+1,23 0|oc|||||||0|||
+2,23 0|oc|||||||0|||
+3,23 0|oc|||||||0|||
+4,23 0|co|||||1|ROYAL_NAVY_DOCKYARD|0|||
+5,23 0|g||HORSES|PASTURE|3|1||0||R/A2/F|
+6,23 0|gh|||FARM||1||0||R/A-1/F|
+7,23 0|g|mar|||3|1||0||R/A-1/F|
+8,23 0|p|jun|||3|1|WONDER|0||R/A-2/F|
+9,23 0|g|for||||1||0||R/A-1/F|
+10,23 0|g||||3|1|INDUSTRIAL_ZONE|0||R/F|
+11,23 0|g||||3|1||0||R/A-1/F|
+12,23 0|gm|||||1||0||A4|
+13,23 0|gh|||||1||0||R/A1/F|
+14,23 0|g|||FARM||13||0||R/F|
+15,23 0|g||HORSES|PASTURE||13||0||R/F|
+16,23 0|p|||FARM|3|13||0||R/A-2/F|
+17,23 0|g||||3|||0||R/A-1/F|
+18,23 0|g||||3|||0||R/A-2/F|
+19,23 0|g||||3|5|SPACEPORT|0||R/A1/F|
+20,23 0|gm|||||2||0||A4|
+21,23 0|gm|||||2||0||A4|
+22,23 0|gh||IRON|MINE||5||0||R/A6/F|
+23,23 0|gm|||||5||0||R/A5|
+24,23 0|g|||FARM||5||0||R/A1/F|
+25,23 0|g|||FARM||5||0||A-2|
+26,23 0|g|||FARM||5||0||A-4|
+27,23 0|gh|||MINE||5||0||A-1|
+28,23 0|p||||3|5|CITY_CENTER|1||A1|Ixtapaluca
+29,23 0|co|||||5|HARBOR|0|||
+30,23 0|oc|||||5||0|||
+31,23 0|oc|||||||0|||
+32,23 0|oc|||||||0|||
+33,23 0|oc|||||||0|||
+34,23 0|oc|||||||0|||
+35,23 0|oc|||||||0|||
+36,23 0|oc|||||||0|||
+37,23 0|oc|||||||0|||
+38,23 0|oc|||||||0|||
+39,23 0|oc|||||||0|||
+40,23 0|oc|||||||0|||
+41,23 0|oc|||||||0|||
+42,23 0|oc|||||||0|||
+43,23 0|oc|||||||0|||
+44,23 0|oc|||||||0|||
+45,23 0|oc|||||||0|||
 46,23 0|co||CRABS|||||0|||
 47,23 0|co|||||||0|||
 48,23 0|g|for|IVORY|||||0||A4|
 49,23 0|co|||||||0|||
 50,23 0|co|||||||0|||
 51,23 0|co|||||||0|||
-52,23 0|co|||||||0|||
-53,23 1|g|||||||0||A2|
+52,23 1|co|||||||0|||
+53,23 1|g||||3|||0||A2|
 54,23 1|g|||FARM||8||0|||
-55,23 1|g|||FARM||8||0|8:WARRIOR:100|R/A1/F|
-56,23 1|g|||FARM||8||0||R/A2/F|
-57,23 1|gm|||||||0||A4|
-58,23 0|g||STONE|||||0||R/A2/F|
-59,23 0|g|||||||0||R/A1/F|
-60,23 0|p|jun||||||0||A3|
-61,23 1|gm|||||||0||A4|
-62,23 1|gm|||||||0||A4|
+55,23 1|g|||FARM||8||0||R/A1/F|
+56,23 1|g|||FARM|3|8||0||R/A2/F|
+57,23 1|gm|||||8||0||A4|
+58,23 1|g||STONE|||||0||R/A2/F|
+59,23 1|g|||||||0||R/F|
+60,23 1|p|jun||||0||0||A1|
+61,23 1|gm|||||0||0||A4|
+62,23 1|gm|||||0||0||A4|
 63,23 1|gh||IRON|MINE||0||0||A2|
-64,23 1|g|||FARM|1|0||0||R/A2/F|
-65,23 1|g|for||||0||0||R/A5/F|
+64,23 1|g|||FARM|3|0||0||R/A2/F|
+65,23 1|g|for||LUMBER_MILL||0||0||R/A4/F|
 66,23 1|gm|||||0||0||R/A4|
-67,23 1|g|||SPHINX|1|0||0||A3|
-68,23 1|co|||||||0|||
-69,23 0|co||FISH|||||0|||
-70,23 0|co|||||||0|||
+67,23 1|g|||SPHINX|3|0||0||A2|
+68,23 1|co|||||0||0|||
+69,23 1|co||FISH|||0||0|||
+70,23 1|co|||||||0|||
+71,23 0|oc|||||||0|||
+72,23 0|oc|||||||0|||
+73,23 0|oc|||||||0|||
+0,24 0|oc|||||||0|||
+1,24 0|oc|||||||0|||
+2,24 0|co|||||||0|||
+3,24 0|oc|||||1||0|||
+4,24 0|co||CRABS|||1||0|||
+5,24 0|p|||FARM||1||0||A2|
+6,24 0|g|||FARM|3|1||0||R/F|
+7,24 0|g|||FARM|3|1||0||R/A-1/F|
+8,24 0|g|mar||||1||0||R/A-1/F|
+9,24 0|ph|jun|COCOA|PLANTATION||1||0||A1|
+10,24 0|gh|for||||1||0|||
+11,24 0|g||STONE|QUARRY|3|1||0||A1|
+12,24 0|g|||||1||0|||
+13,24 0|gh||ANTIQUITY_SITE|||1||0||A1|
+14,24 0|g|||FARM||1||0||R/A2/F|
+15,24 0|g|||FARM||1||0||R/A2/F|
+16,24 0|g||||3|1|AERODROME|0|||
+17,24 0|p|jun|COCOA|PLANTATION||13||0||A-1|
+18,24 0|g||||3|1||0||A-2|
+19,24 0|g||NITER|MINE|3|9||0||R/A1/F|
+20,24 0|gm|||||2||0||R/A4|
+21,24 0|gh|for|SPICES|PLANTATION||9||0||R/A6/F|
+22,24 0|gm|||||2||0||R/A4|
+23,24 0|gh|||||2||0||R/A2/F|
+24,24 0|g||||3|5|SPACEPORT|0||R/A1/F|
+25,24 0|gh|||MINE||5||0||R/A-1/F|
+26,24 0|gh|||MINE||5||0||R/A1/F|
+27,24 0|p|jun|COFFEE|PLANTATION||5||0|||
+28,24 0|g|||FARM||5||0|||
+29,24 0|g|||FARM||5||0||A3|
+30,24 0|co||CRABS|FISHING_BOATS||5||0|||
+31,24 0|co|||||||0|||
+32,24 0|co||FISH|||||0|||
+33,24 0|oc|||||||0|||
+34,24 0|oc|||||||0|||
+35,24 0|oc|||||||0|||
+36,24 0|oc|||||||0|||
+37,24 0|oc|||||||0|||
+38,24 0|oc|||||||0|||
+39,24 0|oc|||||||0|||
+40,24 0|oc|||||||0|||
+41,24 0|oc|||||||0|||
+42,24 0|oc|||||||0|||
+43,24 0|oc|||||||0|||
+44,24 0|oc|||||||0|||
+45,24 0|oc|||||||0|||
+46,24 0|oc|||||||0|||
 47,24 0|oc|||||||0|||
 48,24 0|co|||||||0|||
 49,24 0|co|||||||0|||
 50,24 0|co||CRABS|||||0|||
 51,24 0|oc|||||||0|||
-52,24 0|co|||||||0|||
-53,24 0|g||STONE|||||0||A4|
-54,24 1|g|||||||0||A1|
-55,24 1|g|||FARM||8||0|||
-56,24 1|g||||1|8|CITY_CENTER|1|8:BUILDER:100|R/A1/F|Hattusa
-57,24 1|g||||1|8|CAMPUS|0||R/A1/F|
-58,24 1|p|jun||||||0||R/A3/F|
-59,24 0|g|||||||0||R/A1/F|
-60,24 1|g||MARBLE|||||0|||
-61,24 1|gm|||||||0||A4|
-62,24 1|gm|||||||0||A4|
-63,24 1|gh||||1|0|HOLY_SITE|0||A2|
-64,24 1|g|||||||0||A2|
-65,24 1|g||RICE|FARM|1|0||0||R/A3/F|
-66,24 1|g|||SPHINX||0||0||R/A2/F|
-67,24 1|g||||1|0|CAMPUS|0||R/A5/F|
-68,24 1|co|||||||0|||
-69,24 1|oc|||||||0|||
+52,24 1|co||SHIPWRECK|||||0|||
+53,24 1|g|||FARM||8||0||A4|
+54,24 1|g|||FARM|3|8||0|||
+55,24 1|g|||FARM|3|8||0||A-1|
+56,24 1|g||||3|8|CITY_CENTER|1|8:BUILDER:100|R/A1/F|Hattusa
+57,24 1|g||||3|8|CAMPUS|0|8:MODERN_AT:100|R/A1/F|
+58,24 1|p|||FARM||8||0||R/A2/F|
+59,24 1|g|||||||0||R/A1/F|
+60,24 1|g||MARBLE|QUARRY||0||0||A-1|
+61,24 1|gm|||||0||0||A4|
+62,24 1|gm|||||0||0||A4|
+63,24 1|gh||||3|0|HOLY_SITE|0||A2|
+64,24 1|g|||FARM|3|0||0||A2|
+65,24 1|g||RICE|FARM|3|0||0||R/A2/F|
+66,24 1|g||||3|0|AQUEDUCT|0||R/A2/F|
+67,24 1|g||||3|0|CAMPUS|0||R/A5/F|
+68,24 1|co|||||0||0|||
+69,24 1|oc|||||0||0|||
+70,24 1|oc|||||||0|||
+71,24 0|co|||||||0|||
+72,24 0|oc|||||||0|||
+73,24 0|oc|||||||0|||
+0,25 0|oc|||||||0|||
+1,25 0|oc|||||||0|||
+2,25 0|co||PEARLS|||1||0|||
+3,25 0|co|||||1||0|||
+4,25 0|g||||3|1|THEATER|0||A2|
+5,25 0|p|jun|BANANAS|PLANTATION||1||0||A2|
+6,25 0|p||||3|1|CITY_CENTER|1||R/A3/F|London
+7,25 0|g|||FARM||1||0||R/A2/F|
+8,25 0|g|||FARM||1||0||R/A-2/F|
+9,25 0|g|||FARM||1||0|||
+10,25 0|g|for||LUMBER_MILL|3|1||0||A1|
+11,25 0|gh||||3|1||0||A1|
+12,25 0|g||URANIUM|||1||0||R/A2/F|
+13,25 0|p|||FARM||1||0||R/A1/F|
+14,25 0|g||||3|1|ENTERTAINMENT_COMPLEX|0|||
+15,25 0|g||||3|1|THEATER|0|||
+16,25 0|g|||FARM||1||0||A-2|
+17,25 0|g|||||1||0||A-2|
+18,25 0|g|||FARM|3|9||0||R/F|
+19,25 0|g|||FARM|3|9||0||R/A1/F|
+20,25 0|gh|||FARM||9||0||R/A3/F|
+21,25 0|p|||FARM||9||0||R/A4/F|
+22,25 0|ph|for|SPICES|PLANTATION||2||0||R/A3/F|
+23,25 0|ph|||||2||0|||
+24,25 0|p||MERCURY|MINE||2||0||R/A-1/F|
+25,25 0|g|||FARM||5||0||R/A-1/F|
+26,25 0|gm|||||5||0||A4|
+27,25 0|gh||||3|5|THEATER|0||A1|
+28,25 0|g|for|DEER|CAMP||5||0||A3|
+29,25 0|g||||3|5|CAMPUS|0||A7|
+30,25 0|co|||||||0|||
+31,25 0|oc|||||||0|||
+32,25 0|oc|||||||0|||
+33,25 0|oc|||||||0|||
+34,25 0|oc|||||||0|||
+35,25 0|oc|||||||0|||
+36,25 0|oc|||||||0|||
+37,25 0|oc|||||||0|||
+38,25 0|oc|||||||0|||
+39,25 0|oc|||||||0|||
+40,25 0|oc|||||||0|||
+41,25 0|oc|||||||0|||
+42,25 0|oc|||||||0|||
+43,25 0|oc|||||||0|||
+44,25 0|oc|||||||0|||
+45,25 0|oc|||||||0|||
+46,25 0|oc|||||||0|||
 47,25 0|oc|||||||0|||
 48,25 0|oc|||||||0|||
 49,25 0|oc|||||||0|||
+50,25 0|oc|||||||0|||
 51,25 0|co||CRABS|||||0|||
-52,25 0|co|||||||0|||
-53,25 1|co|||||||0|||
-54,25 1|g||MARBLE|||||0||A2|
-55,25 1|p|||FARM||8||0||A1|
-56,25 1|g|||FARM||8||0||R/A3/F|
-57,25 1|g|||||||0||R/A3/F|
-58,25 0|g|for||||||0||R/A2/F|
-59,25 1|g|||||||0||A2|
-60,25 1|g|||||0||0||A1|
-61,25 1|g|||FARM||0||0||A2|
-62,25 1|g||CATTLE|PASTURE||0||0||R/A3/F|
-63,25 1|gm|||||||0||R/A4|
+52,25 1|co|||||||0|||
+53,25 1|co||SHIPWRECK|||||0|||
+54,25 1|g||MARBLE|QUARRY||8||0||A2|
+55,25 1|p|||FARM|3|8||0|||
+56,25 1|g|||FARM||8||0||R/A2/F|
+57,25 1|g||NITER|MINE|3|8||0||R/A4/F|
+58,25 1|g|for|||3|||0||R/A2/F|
+59,25 1|g|||FARM|3|0||0|||
+60,25 1|g||||3|0|INDUSTRIAL_ZONE|0|||
+61,25 1|g||||3|0|AQUEDUCT|0||A1|
+62,25 1|g||||3|0|CAMPUS|0||R/A3/F|
+63,25 1|gm|||||0||0||R/A4|
 64,25 1|gm|||||0||0||A4|
-65,25 1|g|mar|RICE|FARM|1|0||0|0:SPEARMAN:100|R/A1/F|
-66,25 1|p||||1|0|CITY_CENTER|1|0:WARRIOR:100|R/A-1/F|SHEDET
-67,25 1|g|||FARM||0||0|0:ARCHER:100|A2|
-68,25 1|co||FISH|||0||0|||
-69,25 1|co||FISH|||||0|||
-52,26 0|oc|||||||0|||
-53,26 0|co||FISH|||||0|||
-54,26 1|p|for||||||0||A3|
-55,26 1|p|||||||0|8:WARRIOR:100|A3|
-56,26 1|co||CRABS|FISHING_BOATS||8||0|||
-57,26 1|co|||||||0|||
-58,26 0|co|||||||0|||
+65,25 1|g|mar|RICE|FARM|3|0||0||R/F|
+66,25 1|p||||3|0|CITY_CENTER|1||R/A-1/F|SHEDET
+67,25 1|g||||3|0|THEATER|0|0:CROSSBOWMAN:100|A2|
+68,25 1|co||FISH|FISHING_BOATS||0||0|||
+69,25 1|co||FISH|FISHING_BOATS||0||0|||
+70,25 1|oc|||||||0|||
+71,25 0|oc|||||||0|||
+72,25 0|oc|||||||0|||
+73,25 0|oc|||||||0|||
+0,26 0|oc|||||||0|||
+1,26 0|co||CRABS|||||0|||
+2,26 0|oc|||||||0|||
+3,26 0|co|||||1||0|||
+4,26 0|p||NITER||3|1|WONDER|0||A5|
+5,26 0|p||||3|1|CAMPUS|0||A2|
+6,26 0|ph||||3|1|HOLY_SITE|0||A1|
+7,26 0|ph|for|||3|1|WONDER|0||R/A3/F|
+8,26 0|g|||FARM||1||0||R/A1/F|
+9,26 0|ph|jun|COCOA|PLANTATION||1||0||R/A2/F|
+10,26 0|gh||||3|1|CITY_CENTER|1||A2|Birmingham
+11,26 0|g||COFFEE|PLANTATION||1||0||A3|
+12,26 0|gm|||||1||0||R/A4|
+13,26 0|g|||FARM||1||0||R/A1/F|
+14,26 0|ph||COAL|MINE||1||0||R/A2/F|
+15,26 0|p|||FARM||1||0|||
+16,26 0|p||||3|1|CAMPUS|0|||
+17,26 0|g||||3|1|ENCAMPMENT|0||A1|
+18,26 0|g|||FARM||9||0||R/A-1/F|
+19,26 0|p|||FARM||9||0||R/F|
+20,26 0|gh||||3|9|CITY_CENTER|1||R/A1/F|Mogadishu
+21,26 0|ph|||FARM|3|9||0||R/F|
+22,26 0|p||||3|2||0||R/A1/F|
+23,26 0|p||||3|2|CAMPUS|0||A3|
+24,26 0|ph||||3|2|THEATER|0||A-1|
+25,26 0|gh||||3|5|ENCAMPMENT|0||A1|
+26,26 0|gh||||3|5|WONDER|0|||
+27,26 0|p||||3|5|CAMPUS|0||A3|
+28,26 0|g|||FARM||5||0||A3|
+29,26 0|g||||3|5|HOLY_SITE|0||A5|
+30,26 0|co|nw:BARRIER_REEF||||5||0||A5|
+31,26 0|co|||||||0|||
+32,26 0|oc|||||||0|||
+33,26 0|oc|||||||0|||
+34,26 0|oc|||||||0|||
+35,26 0|oc|||||||0|||
+36,26 0|oc|||||||0|||
+37,26 0|oc|||||||0|||
+38,26 0|oc|||||||0|||
+39,26 0|oc|||||||0|||
+40,26 0|oc|||||||0|||
+41,26 0|oc|||||||0|||
+42,26 0|co||PEARLS|||||0|||
+43,26 0|oc|||||||0|||
+44,26 0|oc|||||||0|||
+45,26 0|oc|||||||0|||
+46,26 0|oc|||||||0|||
+47,26 0|oc|||||||0|||
+48,26 0|oc|||||||0|||
+49,26 0|oc|||||||0|||
+50,26 0|oc|||||||0|||
+51,26 0|oc|||||||0|||
+52,26 1|oc||SHIPWRECK|||||0|||
+53,26 1|co||FISH|FISHING_BOATS||0||0|||
+54,26 1|p|for||LUMBER_MILL||0||0||A2|
+55,26 1|p||ANTIQUITY_SITE||3|8||0||A2|
+56,26 1|co|||||8|HARBOR|0|||
+57,26 1|co|||||8||0|||
+58,26 1|co|||||||0|||
 59,26 1|co|||||||0|||
-60,26 1|g|||||0||0||A3|
-61,26 1|g||CATTLE|PASTURE||0||0||A1|
-62,26 1|g||||1|0|CITY_CENTER|1|0:WARRIOR:100|R/F|Sais
+60,26 1|g|||||0|ENTERTAINMENT_COMPLEX|0|0:BUILDER:100|A2|
+61,26 1|g||CATTLE|PASTURE||0||0|||
+62,26 1|g||||3|0|CITY_CENTER|1|0:MUSKETMAN:100|R/F|Sais
 63,26 1|g|mar||||0||0||R/A1/F|
-64,26 1|ph|jun|BANANAS|PLANTATION||0||0|||
-65,26 1|gh||||1|0|ENCAMPMENT|0|0:ARCHER:100|A-1|
-66,26 1|g||STONE|QUARRY|1|0||0||R/F|
-67,26 1|gh||STONE|QUARRY||0||0||R/A2/F|
-68,26 1|co|||||||0|||
-69,26 1|oc|||||||0|||
-52,27 0|co|||||||0|||
-53,27 1|co|||||||0|||
-54,27 1|p||WHEAT|||||0||A4|
-55,27 1|co|||||||0|||
+64,26 1|ph|jun|BANANAS|PLANTATION||0||0||A-1|
+65,26 1|gh||||3|0|ENCAMPMENT|0||A-2|
+66,26 1|g||STONE|QUARRY|3|0||0||R/F|
+67,26 1|gh||STONE|QUARRY||0||0|0:CROSSBOWMAN:100|R/A3/F|
+68,26 1|co|||||0||0|||
+69,26 1|oc|||||0||0|||
+70,26 1|co|||||||0|||
+71,26 0|oc|||||||0|||
+72,26 0|oc|||||||0|||
+73,26 0|oc|||||||0|||
+0,27 0|co||CRABS|||||0|||
+1,27 0|co|||||||0|||
+2,27 0|co|||||||0|||
+3,27 0|co|||||1||0|||
+4,27 0|co|||||1||0|||
+5,27 0|d||||3|1|INDUSTRIAL_ZONE|0||A3|
+6,27 0|p|for||||1||0||A1|
+7,27 0|g||||3|1|AERODROME|0||A3|
+8,27 0|g|||FARM||1||0||R/F|
+9,27 0|ph||||3|1|THEATER|0||A1|
+10,27 0|gh||||3|1|HOLY_SITE|0||A3|
+11,27 0|g||||3|1|CAMPUS|0||A2|
+12,27 0|g|||FARM||1||0|||
+13,27 0|g||RICE|FARM|3|1||0||R/F|
+14,27 0|g||||3|1|CITY_CENTER|1||R/A-1/F|Newcastle upon Tyne
+15,27 0|p||MERCURY|MINE||1||0||A1|
+16,27 0|pm|||||1||0||A4|
+17,27 0|p|||||1||0|||
+18,27 0|p|jun||||1||0||R/A2/F|
+19,27 0|ph||||3|9|COMMERCIAL_HUB|0||R/F|
+20,27 0|ph|||FARM||9||0||R/F|
+21,27 0|p||||3|2|INDUSTRIAL_ZONE|0||R/A2/F|
+22,27 0|p|||STEPWELL||2||0||R/A2/F|
+23,27 0|p||||3|2|HOLY_SITE|0||A1|
+24,27 0|p||||3|2|WONDER|0|||
+25,27 0|p|||FARM||5||0||A-1|
+26,27 0|p||||3|5|CITY_CENTER|1||A1|Chapultepec
+27,27 0|p|||FARM||5||0|||
+28,27 0|g||COFFEE|PLANTATION||5||0||A3|
+29,27 0|g|for|ANTIQUITY_SITE|||5||0||A10|
+30,27 0|co|nw:BARRIER_REEF||||5||0||A5|
+31,27 0|co|||||5||0|||
+32,27 0|oc|||||||0|||
+33,27 0|oc|||||||0|||
+34,27 0|oc|||||||0|||
+35,27 0|oc|||||||0|||
+36,27 0|oc|||||||0|||
+37,27 0|oc|||||||0|||
+38,27 0|co|||||||0|||
+39,27 0|oc|||||||0|||
+40,27 0|oc|||||||0|||
+41,27 0|co|||||||0|||
+42,27 0|oc|||||||0|||
+43,27 0|oc|||||||0|||
+44,27 0|oc|||||||0|||
+45,27 0|oc|||||||0|||
+46,27 0|oc|||||||0|||
+47,27 0|oc|||||||0|||
+48,27 0|oc|||||||0|||
+49,27 0|oc|||||||0|||
+50,27 0|oc|||||||0|||
+51,27 1|co||CRABS|||||0|||
+52,27 1|co|||||0||0|||
+53,27 1|co|||||0|HARBOR|0|0:FRIGATE:100||
+54,27 1|p||WHEAT|FARM|3|0||0||A4|
+55,27 1|co|||||0||0|||
 56,27 1|co||CRABS|||||0|||
-57,27 0|oc|||||||0|||
-58,27 0|oc|||||||0|||
+57,27 1|oc|||||||0|||
+58,27 1|oc|||||||0|||
 59,27 1|co|||||||0|||
-60,27 1|co|||||||0|||
-61,27 1|g|||||0||0||A1|
-62,27 1|g||||1|0||0||R/A-1/F|
-63,27 1|g||||1|0||0||R/A-1/F|
-64,27 1|g|||||||0||A-2|
-65,27 1|ph|||SPHINX||0||0||A-2|
-66,27 1|p||||1|0|WONDER|0||R/A1/F|
-67,27 1|g|||FARM||0||0||R/A5/F|
-68,27 1|co|||||||0|||
-69,27 0|oc|||||||0|||
-52,28 0|co|||||||0|||
-53,28 0|co||CRABS|||||0|||
-54,28 1|p|||||||0||A5|
-55,28 1|co|||||||0|||
-56,28 1|co|||||||0|||
-57,28 0|oc|||||||0|||
-60,28 0|co|||||||0|||
-61,28 1|co|||||||0|||
-62,28 1|p|jun|BANANAS|||0||0||R/A4/F|
-63,28 1|p|||||0||0||R/A1/F|
-64,28 1|p||WHEAT||1|||0||A-1|
-65,28 1|ph|||MINE||0||0||A1|
-66,28 1|p|||FARM|1|0||0||R/A3/F|
-67,28 1|p|||SPHINX||0||0||R/A2/F|
-68,28 1|co|||||||0|||
+60,27 1|co|||||0||0|||
+61,27 1|g|||FARM||0||0||A1|
+62,27 1|g|||FARM|3|0||0||R/A-1/F|
+63,27 1|g|||FARM|3|0||0||R/A-2/F|
+64,27 1|g||||3|0|SPACEPORT|0||A-2|
+65,27 1|ph|||SPHINX||0||0||A-3|
+66,27 1|p||||3|0|WONDER|0||R/A-1/F|
+67,27 1|g|||FARM||0||0||R/A3/F|
+68,27 1|co|||||0||0|||
+69,27 1|oc|||||||0|||
+70,27 0|oc|||||||0|||
+71,27 0|oc|||||||0|||
+72,27 0|oc|||||||0|||
+73,27 0|oc|||||||0|||
+0,28 0|oc|||||||0|||
+1,28 0|oc|||||||0|||
+2,28 0|co||OIL|||||0|||
+3,28 0|co|||||||0|||
+4,28 0|oc|||||1||0|||
+5,28 0|co|||||1||0|||
+6,28 0|dh||IRON|MINE|3|1||0||A2|
+7,28 0|dh|||||1||0||F|
+8,28 0|dh|||||1||0||A1/F|
+9,28 0|d||||3|1||0||A2/F|
+10,28 0|g|for||||1||0||A2|
+11,28 0|gm|||||1||0||A4|
+12,28 0|p|jun||||1||0|||
+13,28 0|g||RICE|FARM|3|1||0||A-1|
+14,28 0|g|||FARM||1||0||R/A1/F|
+15,28 0|gh||||3|1|COMMERCIAL_HUB|0||R/F|
+16,28 0|p|||FARM||1||0||R/A1/F|
+17,28 0|ph||||3|1|CAMPUS|0||A2|
+18,28 0|pm|||||1||0||A4|
+19,28 0|p||WHEAT|FARM|3|9||0|||
+20,28 0|ph|||FARM||9||0|||
+21,28 0|p|||STEPWELL|3|2||0||R/A2/F|
+22,28 0|p|for|SPICES|PLANTATION|3|2||0||R/A1/F|
+23,28 0|p||||3|2|CITY_CENTER|1||R/A3/F|Agra
+24,28 0|p|||STEPWELL||2||0||A1|
+25,28 0|p||||3|2|ENCAMPMENT|0|||
+26,28 0|ph|||FARM||5||0||A-1|
+27,28 0|p|||FARM||5||0|||
+28,28 0|p|||FARM||5||0||A1|
+29,28 0|co|||||5||0|||
+30,28 0|co|||||5||0|||
+31,28 0|co|||||5||0|||
+32,28 0|co||PEARLS|||||0|||
+33,28 0|oc|||||||0|||
+34,28 0|oc|||||||0|||
+35,28 0|oc|||||||0|||
+36,28 0|oc|||||||0|||
+37,28 0|oc|||||||0|||
+38,28 0|co||FISH|||||0|||
+39,28 0|co|||||||0|||
+40,28 0|co|||||||0|||
+41,28 0|co|||||||0|||
+42,28 0|co|||||||0|||
+43,28 0|oc|||||||0|||
+44,28 0|oc|||||||0|||
+45,28 0|oc|||||||0|||
+46,28 0|oc|||||||0|||
+47,28 0|oc|||||||0|||
+48,28 0|oc|||||||0|||
+49,28 0|oc|||||||0|||
+50,28 0|oc|||||||0|||
+51,28 1|oc|||||||0|||
+52,28 1|co|||||0||0|||
+53,28 1|co||CRABS|FISHING_BOATS||0||0|||
+54,28 1|p||||3|0|CITY_CENTER|1|0:CAVALRY:100;0:BUILDER:100|A5|ANKH SPRINGS
+55,28 1|co|||||0||0|||
+56,28 1|co|||||0||0|||
+57,28 1|oc|||||||0|||
+58,28 1|oc|||||||0|8:BATTLESHIP:100||
+59,28 1|oc|||||||0|||
+60,28 1|co|||||||0|||
+61,28 1|co|||||0||0|||
+62,28 1|p|jun|BANANAS|PLANTATION||0||0||R/A4/F|
+63,28 1|p|||FARM||0||0||R/A1/F|
+64,28 1|p||WHEAT|FARM|3|0||0||A-2|
+65,28 1|ph|||MINE||0||0|||
+66,28 1|p|||FARM|3|0||0||R/A1/F|
+67,28 1|p||ALUMINUM|MINE||0||0||R/A2/F|
+68,28 1|co|||||0||0|||
 69,28 1|oc|||||||0|||
-52,29 0|oc|||||||0|||
-53,29 0|co|||||||0|||
-54,29 0|co|||||||0|||
-55,29 0|oc|||||||0|||
-60,29 0|oc|||||||0|||
+70,28 1|oc|||||||0|||
+71,28 0|oc|||||||0|||
+72,28 0|oc|||||||0|||
+73,28 0|oc|||||||0|||
+0,29 0|oc|||||||0|||
+1,29 0|oc|||||||0|||
+2,29 0|co|||||||0|||
+3,29 0|oc|||||||0|||
+4,29 0|oc|||||1||0|||
+5,29 0|co|||||1|ROYAL_NAVY_DOCKYARD|0|||
+6,29 0|d||||3|1||0||A2/F|
+7,29 0|co||CRABS|FISHING_BOATS||1||0||L|
+8,29 0|co|||||1||0||L|
+9,29 0|d||NITER|MINE|3|1||0||F|
+10,29 0|g|mar||||1||0||R/A1/F|
+11,29 0|p|jun||||1||0||R/F|
+12,29 0|g||||3|1|NEIGHBORHOOD|0||R/A-1/F|
+13,29 0|g|||FARM||1||0|||
+14,29 0|g||CATTLE|PASTURE||1||0||R/A1/F|
+15,29 0|g|||FARM||1||0||R/A1/F|
+16,29 0|g|||FARM||1||0||R/A1/F|
+17,29 0|p||WHEAT|FARM||1||0||R/A2/F|
+18,29 0|p|||FARM|3|1||0||R/A1/F|
+19,29 0|p|||FARM|3|1||0||A-1|
+20,29 0|p||WHEAT||3|2||0||A1|
+21,29 0|p|for||||2||0||R/A2/F|
+22,29 0|ph|||MINE||2||0||R/A4/F|
+23,29 0|p||||3|2|WONDER|0||R/F|
+24,29 0|p|||FARM||2||0||R/A1/F|
+25,29 0|p|||STEPWELL||2||0||R/F|
+26,29 0|p|||FARM||5||0||R/A1/F|
+27,29 0|p|||STEPWELL||2||0||R/A2/F|
+28,29 0|p|||BEACH_RESORT||5||0||A4|
+29,29 0|co||CRABS|||5||0|||
+30,29 0|co||CRABS|||5||0|||
+31,29 0|oc|||||||0|||
+32,29 0|co|||||||0|||
+33,29 0|oc|||||||0|||
+34,29 0|oc|||||||0|||
+35,29 0|oc|||||||0|||
+36,29 0|oc|||||||0|||
+37,29 0|oc|||||||0|||
+38,29 0|co|||||||0|||
+39,29 0|co||FISH|||||0|||
+40,29 0|co|||||||0|||
+41,29 0|p|||||||0||A5|
+42,29 0|co||FISH|||||0|||
+43,29 0|oc|||||||0|||
+44,29 0|oc|||||||0|||
+45,29 0|co||FISH|||||0|||
+46,29 0|oc|||||||0|||
+47,29 0|oc|||||||0|||
+48,29 0|oc|||||||0|||
+49,29 0|oc|||||||0|||
+50,29 0|oc|||||||0|||
+51,29 1|oc|||||||0|||
+52,29 1|oc|||||||0|||
+53,29 1|co|||||0||0|||
+54,29 1|co|||||0||0|||
+55,29 1|oc|||||||0|||
+56,29 1|oc|||||||0|||
+57,29 1|oc|||||||0|||
+58,29 1|oc|||||||0|||
+59,29 1|oc|||||||0|||
+60,29 1|oc|||||||0|||
 61,29 1|co|||||||0|||
 62,29 1|co|||||||0|||
-63,29 1|p||WHEAT|||||0||A3|
-64,29 1|p|||FARM|1|0||0|||
-65,29 1|p|||FARM|1|0||0||R/F|
-66,29 1|ph||||1|0|CITY_CENTER|1|0:GREAT_GENERAL:100;0:BUILDER:100|R/F|Râ-Kedet
-67,29 1|ph|||MINE||0||0||A3|
+63,29 1|p||WHEAT|FARM||0||0||A3|
+64,29 1|p|||FARM|3|0||0|||
+65,29 1|p|||FARM|3|0||0||R/A1/F|
+66,29 1|ph||||3|0|CITY_CENTER|1|0:MECHANIZED_INFANTRY:100|R/F|Râ-Kedet
+67,29 1|ph|||MINE||0||0||A2|
 68,29 1|co|||||0||0|||
-69,29 1|co||PEARLS|||||0|||
-53,30 0|co|||||||0|||
-54,30 0|oc|||||||0|||
-55,30 0|co||FISH|||||0|||
+69,29 1|co||PEARLS|FISHING_BOATS||0||0|||
+70,29 1|oc|||||||0|||
+71,29 0|oc|||||||0|||
+72,29 0|oc|||||||0|||
+73,29 0|oc|||||||0|||
+0,30 0|oc|||||||0|||
+1,30 0|oc|||||||0|||
+2,30 0|oc|||||||0|||
+3,30 0|oc|||||||0|||
+4,30 0|oc|||||||0|||
+5,30 0|co|||||1||0|||
+6,30 0|d|||BEACH_RESORT||1||0||A4/F|
+7,30 0|d|oas|||3|1||0||A2/F|
+8,30 0|d||||3|1|CITY_CENTER|1||A2/F|Liverpool
+9,30 0|d||||3|1|INDUSTRIAL_ZONE|0||A-1/F|
+10,30 0|g|||FARM|3|1||0||R/A-2/F|
+11,30 0|g|||FARM|3|6||0||R/A-1/F|
+12,30 0|g|||FARM|3|6||0||R/A1/F|
+13,30 0|gh|||FARM|3|1||0||A1|
+14,30 0|g|||FARM|3|1||0||A-1|
+15,30 0|g||||3|1|NEIGHBORHOOD|0||A-1|
+16,30 0|g||COFFEE|PLANTATION|3|1||0||R/A2/F|
+17,30 0|p||||3|1|CITY_CENTER|1||R/A2/F|Plymouth
+18,30 0|p|||FARM|3|1||0||R/F|
+19,30 0|p||MERCURY|MINE|3|1||0||R/A1/F|
+20,30 0|d|||||1||0|||
+21,30 0|dh||||3|2|NEIGHBORHOOD|0||A2|
+22,30 0|p|||STEPWELL||2||0|||
+23,30 0|p||||3|2||0||R/A1/F|
+24,30 0|p||ALUMINUM||3|2||0||R/A2/F|
+25,30 0|p|||||2||0||R/A1/F|
+26,30 0|p|||||2||0||R/A1/F|
+27,30 0|p||WHEAT|FARM||2||0||R/A3/F|
+28,30 0|co|||||2||0|||
+29,30 0|co|||||2||0|||
+30,30 0|co|||||2||0|||
+31,30 0|co|||||||0|||
+32,30 0|oc|||||||0|||
+33,30 0|oc|||||||0|||
+34,30 0|oc|||||||0|||
+35,30 0|oc|||||||0|||
+36,30 0|co||FISH|||||0|||
+37,30 0|co|||||||0|||
+38,30 0|co||PEARLS|||||0|||
+39,30 0|co|||||||0|||
+40,30 0|ph|||||||0||A5|
+41,30 0|g||COFFEE|||||0||A3|
+42,30 0|co|||||||0|||
+43,30 0|oc|||||||0|||
+44,30 0|co|||||||0|||
+45,30 0|co|||||||0|||
+46,30 0|co|||||||0|||
+47,30 0|oc|||||||0|||
+48,30 0|co||PEARLS|||||0|||
+49,30 0|co|||||||0|||
+50,30 0|oc|||||||0|||
+51,30 0|oc|||||||0|||
+52,30 0|oc|||||||0|||
+53,30 1|co|||||||0|||
+54,30 1|oc|||||||0|||
+55,30 1|co||FISH|FISHING_BOATS||0||0|||
+56,30 1|co|||||||0|||
+57,30 1|oc|||||||0|||
+58,30 1|oc|||||||0|||
+59,30 1|oc|||||||0|||
+60,30 0|oc|||||||0|||
 61,30 0|oc|||||||0|||
 62,30 0|oc|||||||0|||
-63,30 0|co|||||||0|||
-64,30 1|co|||||||0|||
-65,30 1|p||IVORY|CAMP||0||0||R/A4/F|
-66,30 1|p|||FARM||0||0||R/F|
-67,30 1|ph|||MINE||0||0||A-1|
-68,30 1|co|||||||0|||
+63,30 1|co|||||||0|||
+64,30 1|co|||||0||0|||
+65,30 1|p||IVORY|CAMP||0||0||R/A5/F|
+66,30 1|p||||3|0|WONDER|0||R/A1/F|
+67,30 1|ph||||3|0|CAMPUS|0||A-1|
+68,30 1|co|||||0||0|||
 69,30 1|co|||||||0|||
-70,30 0|co|||||||0|||
+70,30 1|co|||||||0|||
+71,30 0|oc|||||||0|||
+72,30 0|oc|||||||0|||
+73,30 0|oc|||||||0|||
+0,31 0|oc|||||||0|||
+1,31 0|oc|||||||0|||
+2,31 0|oc|||||||0|||
+3,31 0|oc|||||||0|||
+4,31 0|co||OIL|||1||0|||
+5,31 0|co||SHIPWRECK|||1||0|||
+6,31 0|d|||BEACH_RESORT||1||0||A4/F|
+7,31 0|dm|||||1||0||A4|
+8,31 0|d|fld||FARM|3|1||0||R/A1/F|
+9,31 0|g||COFFEE|PLANTATION||6||0||R/A-1/F|
+10,31 0|g|||FARM||6||0||R/A1/F|
+11,31 0|g|||FARM||6||0||R/A2/F|
+12,31 0|gm|||||6||0||R/A4|
+13,31 0|g||ANTIQUITY_SITE|||1||0|||
+14,31 0|g||||3|1|AERODROME|0|||
+15,31 0|g|||FARM|3|1||0|||
+16,31 0|p||||3|1|THEATER|0||A1|
+17,31 0|p|||FARM||1||0||A2|
+18,31 1|ph||||3|1|COMMERCIAL_HUB|0||R/F|
+19,31 1|p|||STEPWELL|3|2||0||R/A1/F|
+20,31 1|dh||||3|2|ENTERTAINMENT_COMPLEX|0||A1|
+21,31 0|dh||SHEEP|PASTURE||2||0||A2|
+22,31 0|p|||FARM|3|2||0|||
+23,31 0|p|||STEPWELL||2||0||A1|
+24,31 0|p||ALUMINUM||3|2|ENCAMPMENT|0||A1|
+25,31 0|p|||STEPWELL|3|2||0|||
+26,31 0|p||||3|2|CITY_CENTER|1||A1|Mumbai
+27,31 0|p||||3|2|THEATER|0||A3|
+28,31 0|co|||||2|HARBOR|0|||
+29,31 0|oc|||||2||0|||
+30,31 0|oc|||||2||0|||
+31,31 0|co|||||2||0|||
+32,31 0|oc|||||||0|||
+33,31 0|oc|||||||0|||
+34,31 0|oc|||||||0|||
+35,31 0|co||FISH|||||0|||
+36,31 0|co|||||||0|||
+37,31 0|co|||||||0|||
+38,31 0|co|||||||0|||
+39,31 0|co||CRABS|||||0|||
+40,31 0|ph|for||||||0||A1|
+41,31 0|gh|||||||0||A3|
+42,31 0|co|||||2||0|||
+43,31 0|co|||||2||0|||
+44,31 0|co|||||||0|||
+45,31 0|co||PEARLS|||||0|||
+46,31 1|co||SHIPWRECK|||||0|||
+47,31 1|oc|||||||0|||
+48,31 1|co|||||||0|||
+49,31 0|oc|||||||0|||
+50,31 0|oc|||||||0|||
+51,31 0|oc|||||||0|||
+52,31 0|oc|||||||0|||
+53,31 0|oc|||||||0|||
+54,31 1|oc|||||||0|||
+55,31 1|oc|||||||0|||
+56,31 0|oc|||||||0|||
+57,31 0|oc|||||||0|||
+58,31 0|oc|||||||0|||
+59,31 0|oc|||||||0|||
+60,31 0|oc|||||||0|||
 61,31 0|oc|||||||0|||
 62,31 0|co|||||||0|||
-63,31 0|oc|||||||0|||
-64,31 1|co|||||||0|||
+63,31 1|oc|||||||0|||
+64,31 1|co|||||0||0|||
 65,31 1|co|||||0||0|||
-66,31 1|p||||1|0|INDUSTRIAL_ZONE|0|0:ARCHER:100||
-67,31 1|p|||FARM||0||0|||
-68,31 1|p|||||||0||A5|
-69,31 0|co|||||||0|||
+66,31 1|p||||3|0|INDUSTRIAL_ZONE|0||A1|
+67,31 1|p||ALUMINUM|MINE||0||0|||
+68,31 1|p||ALUMINUM|MINE||0||0||A4|
+69,31 1|co|||||||0|||
 70,31 0|co||FISH|||||0|||
+71,31 0|oc|||||||0|||
+72,31 0|oc|||||||0|||
+73,31 0|oc|||||||0|||
+0,32 0|oc|||||||0|||
+1,32 0|oc|||||||0|||
+2,32 0|co||CRABS|||||0|||
+3,32 0|oc|||||||0|||
+4,32 0|co||SHIPWRECK|||||0|||
+5,32 0|co|||||1||0|||
+6,32 0|d||ANTIQUITY_SITE|||1||0||A3/F|
+7,32 0|co||OIL|||1||0||L|
+8,32 0|g|||FARM||1||0||A1/F|
+9,32 0|g|||FARM|3|1||0||R/A-2/F|
+10,32 0|gh|||FARM||6||0||R/A1/F|
+11,32 0|gh||||3|6|CITY_CENTER|1||R/A2/F|Mohenjo-Daro
+12,32 0|g|||FARM|3|6||0||R/A3/F|
+13,32 0|g|||FARM|3|6||0||R/A3/F|
+14,32 0|g||HORSES|PASTURE|3|2||0|||
+15,32 0|g|||STEPWELL|3|2||0||A1|
+16,32 0|p|||BEACH_RESORT||1||0||A4|
+17,32 0|co|||||1|ROYAL_NAVY_DOCKYARD|0|||
+18,32 1|p||WHEAT|FARM||1||0||R/A5/F|
+19,32 1|p||||3|2|COMMERCIAL_HUB|0||R/A2/F|
+20,32 1|d||URANIUM||3|2|CAMPUS|0||A2|
+21,32 1|dm|||||2||0||A4|
+22,32 1|d||||3|2|CAMPUS|0|2:CAVALRY:100|A3|
+23,32 0|p||||3|2|CITY_CENTER|1||A1|Patna
+24,32 0|d||||3|2|ENTERTAINMENT_COMPLEX|0||A-1|
+25,32 0|g|||||2||0||A1|
+26,32 0|p||WHEAT|FARM||2||0|||
+27,32 0|p|||STEPWELL||2||0||A2|
+28,32 0|p||||3|2|HOLY_SITE|0||A3|
+29,32 0|co||WHALES|FISHING_BOATS||2||0|||
+30,32 0|co|||||2||0|||
+31,32 0|oc|||||||0|||
+32,32 0|oc|||||||0|||
+33,32 0|oc|||||||0|||
+34,32 0|co||FISH|||||0|||
+35,32 0|co|||||||0|||
+36,32 0|co|||||||0|||
+37,32 0|co|||||||0|||
+38,32 0|co|||||||0|||
+39,32 0|ph|||||||0||A3|
+40,32 0|gh|||||||0||A2|
+41,32 0|gh|||||||0||A1|
+42,32 0|d|||||2||0||A2/F|
+43,32 0|d||||3|2|CITY_CENTER|1||A3/F|Ahmadabad
+44,32 0|d|||||2||0||A3|
+45,32 0|co|||||||0|||
+46,32 1|p|for||||||0||A5|
+47,32 1|co|||||||0|||
+48,32 1|co||CRABS|||||0|||
+49,32 1|co|||||||0|||
+50,32 0|oc|||||||0|||
+51,32 0|oc|||||||0|||
+52,32 0|oc|||||||0|||
+53,32 0|oc|||||||0|||
+54,32 0|oc|||||||0|||
+55,32 0|oc|||||||0|||
+56,32 0|oc|||||||0|||
+57,32 0|oc|||||||0|||
+58,32 0|oc|||||||0|||
+59,32 0|oc|||||||0|||
+60,32 0|oc|||||||0|||
+61,32 0|oc|||||||0|||
+62,32 0|oc|||||||0|||
 63,32 0|co||CRABS|||||0|||
-64,32 0|co|||||||0|||
-65,32 1|co|||||||0|||
-66,32 1|p||WHEAT|||||0||A1|
-67,32 1|p|||||||0|||
-68,32 1|co|||||||0|||
-69,32 0|co|||||||0|||
-70,32 0|oc|||||||0|||
-64,33 0|oc|||||||0|||
+64,32 1|co|||||||0|||
+65,32 1|co|||||0||0|||
+66,32 1|p||WHEAT|FARM||0||0||A1|
+67,32 1|p||||3|0|ENTERTAINMENT_COMPLEX|0||A-1|
+68,32 1|co|||||0||0|||
+69,32 1|co|||||||0|||
+70,32 1|oc|||||||0|||
+71,32 0|oc|||||||0|||
+72,32 0|oc|||||||0|||
+73,32 0|oc|||||||0|||
+0,33 1|oc|||||||0|||
+1,33 0|oc|||||||0|||
+2,33 0|co|||||||0|||
+3,33 0|oc|||||||0|||
+4,33 0|co|||||1||0|||
+5,33 0|p||||3|1|AERODROME|0||A3/F|
+6,33 0|co|||||1||0||L|
+7,33 0|co|||||1||0||L|
+8,33 0|dh|||MINE||1||0||F|
+9,33 0|g|mar|RICE|FARM|3|6||0||A1|
+10,33 0|gh||||3|6|THEATER|0||A-2|
+11,33 0|g|||FARM||6||0||R/A2/F|
+12,33 0|gh|for|SPICES|PLANTATION||6||0||R/A2/F|
+13,33 0|g|||||2|THEATER|0||R/A3/F|
+14,33 0|co|||||2||0|||
+15,33 0|co|||||1||0|||
+16,33 0|co||FISH|FISHING_BOATS||1||0|||
+17,33 1|co|||||2|WONDER|0|||
+18,33 1|co|||||2|HARBOR|0|||
+19,33 1|p|||STEPWELL||2||0||A2|
+20,33 1|p|||FARM|3|2||0||A3/F|
+21,33 1|d||||3|2|WONDER|0||A3/F|
+22,33 1|dm|||||2||0||A4|
+23,33 0|dh||COPPER|MINE||2||0|||
+24,33 0|d|||||2||0|||
+25,33 0|g|||STEPWELL||2||0||A1|
+26,33 0|g|||FARM||2||0|||
+27,33 0|ph||COPPER|||2||0||A1|
+28,33 0|ph|||||2|COMMERCIAL_HUB|0||A3|
+29,33 0|co|||||2||0|||
+30,33 0|co|||||2||0|||
+31,33 0|oc|||||||0|||
+32,33 0|oc|||||||0|||
+33,33 0|oc|||||||0|||
+34,33 0|oc|||||||0|||
+35,33 0|co|||||||0|||
+36,33 0|ph|for||GOODY_HUT||||0||A4|
+37,33 0|co||WHALES|||||0|||
+38,33 0|ph|||||||0||A2|
+39,33 0|gh||COAL|||||0||A1|
+40,33 0|g|||||||0||A1|
+41,33 0|g|||||||0||A1/F|
+42,33 0|d|oas||||2||0||F|
+43,33 0|d||||3|2||0||A1/F|
+44,33 0|d|||||||0||A2|
+45,33 1|p|for||||||0||A2|
+46,33 1|p||MERCURY|||||0||A3|
+47,33 1|p|||||||0|0:SCOUT:100|A4|
+48,33 1|co|||||||0|||
+49,33 1|oc|||||||0|||
+50,33 0|oc|||||||0|||
+51,33 0|oc|||||||0|||
+52,33 0|oc|||||||0|||
+53,33 0|oc|||||||0|||
+54,33 0|oc|||||||0|||
+55,33 0|oc|||||||0|||
+56,33 0|oc|||||||0|||
+57,33 0|oc|||||||0|||
+58,33 0|oc|||||||0|||
+59,33 0|oc|||||||0|||
+60,33 0|oc|||||||0|||
+61,33 0|oc|||||||0|||
+62,33 0|oc|||||||0|||
+63,33 0|oc|||||||0|||
+64,33 1|oc|||||||0|||
 65,33 1|co|||||||0|||
 66,33 1|g|mar||||||0||A1|
-67,33 1|g|for|DEER|||||0||A2|
-68,33 1|co|||||||0|||
-69,33 1|oc|||||||0|||
-70,33 0|oc|||||||0|||
+67,33 1|g|for|DEER|CAMP|3|0||0||A2|
+68,33 1|co|||||0||0|||
+69,33 1|oc|||||0||0|||
+70,33 1|oc|||||||0|||
+71,33 0|oc|||||||0|||
+72,33 1|oc|||||||0|||
+73,33 1|oc|||||||0|||
+0,34 1|oc|||||||0|||
+1,34 1|co|||||||0|||
+2,34 0|co|||||||0|||
+3,34 0|co|||||||0|||
+4,34 0|co|||||||0|||
+5,34 0|g||||3|1|THEATER|0||A2|
+6,34 0|dh|||MINE||1||0||A3/F|
+7,34 0|d||||3|1|CITY_CENTER|1||A2/F|Bradford
+8,34 0|gh||COPPER|MINE||1||0||A3/F|
+9,34 0|gh|for||||1||0||A-1|
+10,34 0|g|||FARM|3|1||0|||
+11,34 0|gh||COAL|MINE||1||0||A2|
+12,34 0|g|||FARM||6||0||A1|
+13,34 0|g||||3|2|COMMERCIAL_HUB|0||R/A3/F|
+14,34 0|g||||3|2|CITY_CENTER|1||R/A5/F|Mysore
+15,34 0|co||WHALES|FISHING_BOATS||2||0|||
+16,34 0|co|||||2||0|||
+17,34 1|co|||||2||0|||
+18,34 1|g|||FARM||2||0||A4|
+19,34 1|ph||||3|2|HOLY_SITE|0|2:GREAT_MUSICIAN:100||
+20,34 1|p||||3|2|CITY_CENTER|1||A1/F|Delhi
+21,34 1|d|oas|||3|2||0||A1/F|
+22,34 1|d|||STEPWELL||2||0||A1/F|
+23,34 1|d|fld||FARM||2||0||R/A-2/F|
+24,34 0|d|fld||FARM||2||0||R/A-1/F|
+25,34 0|d||||3|2|THEATER|0||A-1|
+26,34 0|dh||COPPER|||2||0||A1|
+27,34 0|g|||FARM||2||0||A1|
+28,34 0|p|||STEPWELL||2||0||A2|
+29,34 0|ph||||3|2|CITY_CENTER|1||A3|Srinagar
+30,34 0|co||WHALES|FISHING_BOATS||2||0|||
+31,34 0|oc|||||||0|||
+32,34 0|oc|||||||0|||
+33,34 0|oc|||||||0|||
+34,34 0|oc|||||||0|||
+35,34 0|co|||||||0|||
+36,34 0|ph||COPPER|||||0||A4|
+37,34 0|ph|||||||0||A2|
+38,34 0|ph|||||||0||A2|
+39,34 0|g|||||||0||A2|
+40,34 0|g|for||||||0|||
+41,34 0|g||CATTLE|||||0||A1|
+42,34 0|g|||||||0||A1/F|
+43,34 0|gh||COAL|||||0||A1/F|
+44,34 0|p||||3|||0||A1|
+45,34 0|d|||||||0||A2|
+46,34 1|d|||||||0||A1|
+47,34 1|d|||||||0||A1|
+48,34 1|p|for||||||0||A3|
+49,34 1|co||WHALES|||||0|||
+50,34 0|oc|||||||0|||
+51,34 0|oc|||||||0|||
+52,34 0|oc|||||||0|||
+53,34 0|oc|||||||0|||
+54,34 0|oc|||||||0|||
+55,34 0|oc|||||||0|||
+56,34 0|oc|||||||0|||
+57,34 0|oc|||||||0|||
+58,34 0|oc|||||||0|||
+59,34 0|oc|||||||0|||
+60,34 0|oc|||||||0|||
+61,34 0|oc|||||||0|||
+62,34 0|oc|||||||0|||
+63,34 0|oc|||||||0|||
 64,34 0|oc|||||||0|||
 65,34 0|co|||||||0|||
 66,34 1|g|mar|RICE|||||0||A2|
-67,34 1|g|||||||0||A1|
-68,34 1|co|||||0||0|||
+67,34 1|g|||FARM|3|0||0||A1|
+68,34 1|co|||||0|HARBOR|0|||
 69,34 1|co|||||0||0|||
 70,34 1|oc|||||||0|||
-71,34 0|oc|||||||0|||
-64,35 0|oc|||||||0|||
+71,34 1|oc|||||||0|||
+72,34 1|oc|||||||0|||
+73,34 1|oc|||||||0|||
+0,35 1|oc|||||||0|||
+1,35 1|oc|||||||0|||
+2,35 0|oc|||||||0|||
+3,35 0|oc|||||||0|||
+4,35 0|co|||||1||0|||
+5,35 0|co||FISH|FISHING_BOATS||1||0|||
+6,35 0|co|||||1|ROYAL_NAVY_DOCKYARD|0|||
+7,35 0|co|||||1||0|||
+8,35 0|co||SHIPWRECK|||1||0|||
+9,35 0|g|||FARM|3|1||0||A3|
+10,35 0|g|||FARM||1||0|||
+11,35 0|gh||||3|1|THEATER|0|||
+12,35 0|g|||STEPWELL||2||0||A4|
+13,35 0|co|||||2||0|||
+14,35 0|co|||||2||0|||
+15,35 0|co|||||2||0|||
+16,35 0|co||FISH|||2||0|||
+17,35 1|g||||3|2|ENCAMPMENT|0||A2|
+18,35 1|g|||STEPWELL||2||0||A-1|
+19,35 1|ph||||3|2|INDUSTRIAL_ZONE|0||A2|
+20,35 1|p|||STEPWELL|3|2||0||F|
+21,35 1|g|||FARM||2||0||F|
+22,35 1|d|fld|WHEAT|FARM||2||0||R/A-2/F|
+23,35 0|d|fld||FARM||2||0||R/A-3/F|
+24,35 0|d|||||2|INDUSTRIAL_ZONE|0||A-1|
+25,35 0|d||||3|2|CITY_CENTER|1||A2|Chennai
+26,35 0|g|||STEPWELL||2||0||A3|
+27,35 0|co|||||2||0|||
+28,35 0|co|||||2||0|||
+29,35 0|p|||STEPWELL||2||0||A5|
+30,35 0|co|||||2||0|||
+31,35 0|oc|||||||0|||
+32,35 0|oc|||||||0|||
+33,35 0|oc|||||||0|||
+34,35 0|oc|||||||0|||
+35,35 0|co|||||||0|||
+36,35 0|ph|||||||0||A1|
+37,35 0|ph|||||||0||R/A2/F|
+38,35 0|p|for||||||0||R/A1/F|
+39,35 0|p||WHEAT|||||0||R/A3/F|
+40,35 0|g|||||||0||R/A3/F|
+41,35 0|g|||||||0||R/A2/F|
+42,35 0|g|||||||0||R/A1/F|
+43,35 0|gh||||3|||0||A1|
+44,35 0|ph|for|SPICES|PLANTATION||14||0||A1|
+45,35 0|ph|||||||0||A2|
+46,35 1|p||HORSES|||||0||A1|
+47,35 1|p|||||||0||A2|
+48,35 0|co|||||||0|||
+49,35 0|co|||||||0|||
+50,35 0|co|||||||0|||
+51,35 0|co|||||||0|||
+52,35 0|oc|||||||0|||
+53,35 0|oc|||||||0|||
+54,35 0|oc|||||||0|||
+55,35 0|oc|||||||0|||
+56,35 0|oc|||||||0|||
+57,35 0|oc|||||||0|||
+58,35 0|oc|||||||0|||
+59,35 0|oc|||||||0|||
+60,35 0|oc|||||||0|||
+61,35 0|oc|||||||0|||
+62,35 0|oc|||||||0|||
+63,35 0|oc|||||||0|||
+64,35 1|oc|||||||0|||
 65,35 1|co|||||||0|||
-66,35 1|g|||||||0||A1|
-67,35 1|gh|for||||0||0|0:HORSEMAN:100|A2|
-68,35 1|gh||IRON||1|0|CITY_CENTER|1|0:MAN_AT_ARMS:100|A6|ASRUS
+66,35 1|g||ANTIQUITY_SITE|||0||0||A1|
+67,35 1|gh|for|||3|0||0|0:MUSKETMAN:100|A2|
+68,35 1|gh||IRON||3|0|CITY_CENTER|1|0:CROSSBOWMAN:100|A6|ASRUS
 69,35 1|co|||||0||0|||
-70,35 1|co|||||||0|||
-71,35 0|oc|||||||0|||
-64,36 0|oc|||||||0|||
-65,36 0|co||FISH|||||0|||
-66,36 1|g|||||||0||A3|
-67,36 1|gh||SHEEP|||||0||A2|
+70,35 1|co|||||0||0|||
+71,35 1|oc|||||||0|||
+72,35 1|oc|||||||0|||
+73,35 1|oc|||||||0|||
+0,36 1|oc|||||||0|||
+1,36 1|oc|||||||0|||
+2,36 0|oc|||||||0|||
+3,36 0|oc|||||||0|||
+4,36 0|co|||||||0|||
+5,36 0|co||FISH|FISHING_BOATS||1||0|||
+6,36 0|co|||||1||0|||
+7,36 0|oc|||||1||0|||
+8,36 0|oc|||||1||0|||
+9,36 0|co||CRABS|FISHING_BOATS||1||0|||
+10,36 1|g||||3|1|CITY_CENTER|1||A3|Bristol
+11,36 1|g||COFFEE|PLANTATION||1||0||A3|
+12,36 1|co|||||1||0|||
+13,36 0|co|||||2||0|||
+14,36 0|oc|||||||0|||
+15,36 0|oc|||||2||0|||
+16,36 0|co|||||2||0|||
+17,36 0|co|||||2||0|||
+18,36 1|p||MERCURY|MINE||2||0||A2|
+19,36 1|ph||||3|2|THEATER|0||A-2|
+20,36 1|p|||FARM|3|2||0||A-1|
+21,36 1|gh||||3|2|NEIGHBORHOOD|0||A-1|
+22,36 1|g|||STEPWELL||2||0||A-2|
+23,36 0|d|fld|WHEAT|||2||0||R/F|
+24,36 0|g|||STEPWELL||2||0||R/A1/F|
+25,36 0|g|||FARM||2||0||A3|
+26,36 0|co|||||2||0|||
+27,36 0|co|||||2||0|||
+28,36 0|oc|||||||0|||
+29,36 0|co||CRABS|FISHING_BOATS||2||0|||
+30,36 0|co|||||2||0|||
+31,36 0|co||FISH|||||0|||
+32,36 0|oc|||||||0|||
+33,36 0|oc|||||||0|||
+34,36 0|oc|||||||0|||
+35,36 0|co|||||||0|||
+36,36 0|ph||IRON|||||0||A4|
+37,36 0|p|||||||0||R/A3/F|
+38,36 0|p|||||||0||R/A3/F|
+39,36 0|p||WHEAT|||||0||R/A2/F|
+40,36 0|g|||||||0||R/A1/F|
+41,36 0|g|for|SPICES|||||0||R/F|
+42,36 0|g|||||||0||R/A2/F|
+43,36 0|g|||||||0||R/A1/F|
+44,36 0|p|||FARM|3|14||0||A1|
+45,36 0|p|||FARM||14||0||A2|
+46,36 0|p|for||||||0|||
+47,36 0|p|||||||0||A1|
+48,36 0|p|||||||0||A2|
+49,36 0|co|||||||0|||
+50,36 0|co|||||||0|||
+51,36 0|co|||||||0|||
+52,36 0|oc|||||||0|||
+53,36 0|oc|||||||0|||
+54,36 0|oc|||||||0|||
+55,36 0|oc|||||||0|||
+56,36 0|oc|||||||0|||
+57,36 0|oc|||||||0|||
+58,36 0|oc|||||||0|||
+59,36 0|oc|||||||0|||
+60,36 0|oc|||||||0|||
+61,36 0|oc|||||||0|||
+62,36 0|oc|||||||0|||
+63,36 0|oc|||||||0|||
+64,36 1|oc|||||||0|||
+65,36 1|co||FISH|||0||0|||
+66,36 1|g|||FARM||0||0||A3|
+67,36 1|gh||||3|0|CAMPUS|0||A2|
 68,36 1|gm|||||0||0||A4|
 69,36 1|co|||||0||0|||
-70,36 1|oc|||||||0|||
-71,36 0|oc|||||||0|||
-64,37 0|co|||||||0|||
-65,37 0|co|||||||0|||
-66,37 1|gh|||||||0||A1|
-67,37 1|gh||SHEEP|||||0|||
-68,37 1|g|||||||0||A3|
-69,37 1|co||FISH|||||0|||
-70,37 0|oc|||||||0|||
-64,38 0|oc|||||||0|||
-65,38 0|co|||||||0|||
-66,38 0|g||RICE|||||0||A4|
-67,38 0|g|||||||0|||
-68,38 0|g|mar||||||0||A1|
-69,38 0|co|||||||0|||
-70,38 0|co|||||||0|||
-64,39 0|oc|||||||0|||
-65,39 0|co|||||||0|||
-66,39 0|co|||||||0|||
-67,39 0|t|||||||0||A1|
-68,39 0|th|||||||0||A2|
-65,40 0|oc|||||||0|||
-66,40 0|co|||||||0|||
-67,40 0|co||CRABS|||||0|||
+70,36 1|oc|||||0||0|||
+71,36 1|oc|||||||0|||
+72,36 1|oc|||||||0|||
+73,36 1|oc|||||||0|||
+0,37 1|oc|||||||0|||
+1,37 0|oc|||||||0|||
+2,37 0|oc|||||||0|||
+3,37 0|oc|||||||0|||
+4,37 0|oc|||||||0|||
+5,37 0|oc|||||||0|||
+6,37 0|co||OIL|||||0|||
+7,37 0|oc|||||||0|||
+8,37 0|oc|||||1||0|||
+9,37 1|co|||||1|ROYAL_NAVY_DOCKYARD|0|||
+10,37 1|co|||||1||0|||
+11,37 1|t||ANTIQUITY_SITE|||1||0||A5|
+12,37 1|co|||||1||0|||
+13,37 0|co|||||||0|||
+14,37 0|oc|||||||0|||
+15,37 0|oc|||||||0|||
+16,37 0|oc|||||2||0|||
+17,37 0|co|||||2||0|||
+18,37 1|t|||STEPWELL||2||0||A2|
+19,37 1|th||SHEEP|PASTURE|3|2||0||A1|
+20,37 1|ph|||MINE||2||0|||
+21,37 1|p||ANTIQUITY_SITE|||2||0||A-1|
+22,37 0|g|||||2||0||A1|
+23,37 0|co|||||2||0|||
+24,37 0|co|||||2||0|||
+25,37 0|co||WHALES|FISHING_BOATS||2||0|||
+26,37 0|co|||||2||0|||
+27,37 0|co||WHALES|FISHING_BOATS||2||0|||
+28,37 0|co|||||||0|||
+29,37 0|co||CRABS|||2||0|||
+30,37 0|co|||||||0|||
+31,37 0|oc|||||||0|||
+32,37 0|oc|||||||0|||
+33,37 0|co|||||||0|||
+34,37 0|co||CRABS|||||0|||
+35,37 0|co|||||||0|||
+36,37 0|co|||||||0|||
+37,37 0|p|for||GOODY_HUT||||0||R/A2/F|
+38,37 0|p|||||||0||A2|
+39,37 0|p|||||||0|||
+40,37 0|g|mar||||||0||A1|
+41,37 0|g||ANTIQUITY_SITE|||||0|||
+42,37 0|g|||FARM||14||0||R/A1/F|
+43,37 0|g|||FARM||14||0||R/A1/F|
+44,37 0|ph||||3|14|CITY_CENTER|1||R/A2/F|Yerevan
+45,37 0|ph||||3|14|NEIGHBORHOOD|0||A2|
+46,37 0|g||HORSES|PASTURE||14||0||A1|
+47,37 0|g|||||||0||A1|
+48,37 0|g||CATTLE|||||0||A4|
+49,37 0|g|for||||||0||A5|
+50,37 0|co||WHALES|||||0|||
+51,37 0|co|||||||0|||
+52,37 0|oc|||||||0|||
+53,37 0|oc|||||||0|||
+54,37 0|oc|||||||0|||
+55,37 0|oc|||||||0|||
+56,37 0|oc|||||||0|||
+57,37 0|oc|||||||0|||
+58,37 0|oc|||||||0|||
+59,37 0|oc|||||||0|||
+60,37 0|oc|||||||0|||
+61,37 0|oc|||||||0|||
+62,37 0|oc|||||||0|||
+63,37 1|oc|||||||0|||
+64,37 1|co|||||0||0|||
+65,37 1|co|||||0|HARBOR|0|||
+66,37 1|gh||ANTIQUITY_SITE||3|0||0|0:MODERN_ARMOR:100|A1|
+67,37 1|gh||SHEEP|PASTURE||0||0|||
+68,37 1|g|||FARM||0||0||A3|
+69,37 1|co||FISH|FISHING_BOATS||0||0|||
+70,37 1|oc|||||||0|||
+71,37 0|oc|||||||0|||
+72,37 1|oc|||||||0|||
+73,37 1|oc|||||||0|||
+0,38 0|oc|||||||0|||
+1,38 0|oc|||||||0|||
+2,38 0|oc|||||||0|||
+3,38 0|oc|||||||0|||
+4,38 0|oc|||||||0|||
+5,38 0|oc|||||||0|||
+6,38 0|oc|||||||0|||
+7,38 0|oc|||||||0|||
+8,38 0|oc|||||||0|||
+9,38 1|co|||||1||0|||
+10,38 1|co||FISH|FISHING_BOATS||1||0|||
+11,38 1|co|||||1||0|||
+12,38 1|co|||||1||0|||
+13,38 1|co||WHALES|||||0|6:MAN_AT_ARMS:100||
+14,38 0|co|||||||0|||
+15,38 0|oc|||||||0|||
+16,38 0|co|||||||0|||
+17,38 0|co||FISH|||2||0|||
+18,38 0|th|||||2|NEIGHBORHOOD|0||A5|
+19,38 0|th|for||LUMBER_MILL||2||0||A3|
+20,38 0|t||||3|2|CITY_CENTER|1||A2|Madurai
+21,38 0|p||ALUMINUM|||2||0|||
+22,38 0|g|||FARM||2||0||A2|
+23,38 0|co|||||2||0|||
+24,38 0|oc|||||2||0|||
+25,38 0|oc|||||||0|||
+26,38 0|co|||||2||0|||
+27,38 0|oc|||||2||0|||
+28,38 0|oc|||||||0|||
+29,38 0|oc|||||||0|||
+30,38 0|oc|||||||0|||
+31,38 0|oc|||||||0|||
+32,38 0|oc|||||||0|||
+33,38 0|oc|||||||0|||
+34,38 0|oc|||||||0|||
+35,38 0|oc|||||||0|||
+36,38 0|co|||||||0|||
+37,38 0|p|||||||0||A5|
+38,38 0|p||WHEAT|||||0||A3|
+39,38 0|p|for||||||0||A1|
+40,38 0|t|||||||0||A1|
+41,38 0|t||OIL|||||0||A-1|
+42,38 0|p|||||||0|||
+43,38 0|p|||||||0||R/A1/F|
+44,38 0|p|||FARM||14||0||R/A2/F|
+45,38 0|p||||3|14|HOLY_SITE|0||A1|
+46,38 0|t|||||||0||A2|
+47,38 0|t||ANTIQUITY_SITE|||||0||A1|
+48,38 0|co|||||||0|||
+49,38 0|co|||||||0|||
+50,38 0|co|||||||0|||
+51,38 0|oc|||||||0|||
+52,38 0|co|||||||0|||
+53,38 0|oc|||||||0|||
+54,38 0|oc|||||||0|||
+55,38 0|oc|||||||0|||
+56,38 0|oc|||||||0|||
+57,38 0|oc|||||||0|||
+58,38 0|oc|||||||0|||
+59,38 0|oc|||||||0|||
+60,38 0|oc|||||||0|||
+61,38 0|oc|||||||0|||
+62,38 0|oc|||||||0|||
+63,38 0|oc|||||||0|||
+64,38 1|oc|||||||0|||
+65,38 1|co|||||0||0|||
+66,38 1|g||RICE||3|0|CITY_CENTER|1|0:HORSEMAN:100|A4|ISIDORA
+67,38 1|g|||FARM||0||0||A1|
+68,38 1|g|mar||||0||0||A2|
+69,38 1|co|||||||0|1:GREAT_ADMIRAL:100||
+70,38 1|co|||||||0|||
+71,38 0|oc|||||||0|||
+72,38 0|oc|||||||0|||
+73,38 0|oc|||||||0|||
+0,39 0|oc|||||||0|||
+1,39 0|oc|||||||0|||
+2,39 0|oc|||||||0|||
+3,39 0|oc|||||||0|||
+4,39 0|oc|||||||0|||
+5,39 0|oc|||||||0|||
+6,39 0|oc|||||||0|||
+7,39 0|oc|||||||0|||
+8,39 0|oc|||||||0|||
+9,39 1|oc|||||||0|||
+10,39 1|oc|||||||0|||
+11,39 1|co|||||||0|6:PIKEMAN:100||
+12,39 1|oc|||||||0|||
+13,39 0|co|||||||0|||
+14,39 0|oc|||||||0|||
+15,39 0|oc|||||||0|||
+16,39 0|co|||||||0|||
+17,39 0|co||FISH|||2||0|||
+18,39 0|co|||||2||0|||
+19,39 0|th|for||||2||0||A6|
+20,39 0|t||||3|2|THEATER|0||A3|
+21,39 0|t|||STEPWELL||2||0||A4|
+22,39 0|co|||||2||0|||
+23,39 0|co||CRABS|||||0|||
+24,39 0|co|||||||0|||
+25,39 0|oc|||||||0|||
+26,39 0|oc|||||||0|||
+27,39 0|oc|||||||0|||
+28,39 0|oc|||||||0|||
+29,39 0|oc|||||||0|||
+30,39 0|oc|||||||0|||
+31,39 0|oc|||||||0|||
+32,39 0|oc|||||||0|||
+33,39 0|oc|||||||0|||
+34,39 0|oc|||||||0|||
+35,39 0|co|||||||0|||
+36,39 0|co|||||||0|||
+37,39 0|co|||||||0|||
+38,39 0|t|||||||0||A4|
+39,39 0|t|for||||||0||A1|
+40,39 0|t|||||||0||A1|
+41,39 0|p|||GOODY_HUT||||0|||
+42,39 0|p||ANTIQUITY_SITE|||||0|||
+43,39 0|t|||||||0||A1|
+44,39 0|t|||||||0||A3|
+45,39 0|t|for||||||0||A1|
+46,39 0|th||DEER|||||0||A1|
+47,39 0|t|||||||0||A3|
+48,39 0|co|||||||0|||
+49,39 0|co|||||||0|||
+50,39 0|co|||||||0|||
+51,39 0|co||WHALES|||||0|||
+52,39 0|oc|||||||0|||
+53,39 0|oc|||||||0|||
+54,39 0|oc|||||||0|||
+55,39 0|oc|||||||0|||
+56,39 0|oc|||||||0|||
+57,39 0|oc|||||||0|||
+58,39 0|oc|||||||0|||
+59,39 0|oc|||||||0|||
+60,39 0|oc|||||||0|||
+61,39 0|oc|||||||0|||
+62,39 0|oc|||||||0|||
+63,39 1|oc|||||||0|||
+64,39 1|oc|||||0||0|||
+65,39 1|co|||||0||0|||
+66,39 1|co|||||0||0|||
+67,39 1|t|||SPHINX||0||0||A1|
+68,39 1|th|||||||0||A3|
+69,39 0|co|||||||0|||
+70,39 0|co|||||||0|||
+71,39 0|oc|||||||0|||
+72,39 0|oc|||||||0|||
+73,39 0|oc|||||||0|||
+0,40 0|oc|||||||0|||
+1,40 0|oc|||||||0|||
+2,40 0|oc|||||||0|||
+3,40 0|oc|||||||0|||
+4,40 0|oc|||||||0|||
+5,40 0|oc|||||||0|||
+6,40 0|oc|||||||0|||
+7,40 0|oc|||||||0|||
+8,40 0|oc|||||||0|||
+9,40 0|oc|||||||0|||
+10,40 1|oc|||||||0|||
+11,40 1|oc|||||||0|||
+12,40 1|co||FISH|||||0|||
+13,40 0|oc|||||||0|||
+14,40 0|oc|||||||0|||
+15,40 0|oc|||||||0|||
+16,40 0|oc|||||||0|||
+17,40 0|oc|||||||0|||
+18,40 0|co|||||2||0|||
+19,40 0|co||CRABS|FISHING_BOATS||2||0|||
+20,40 0|co||CRABS|||2||0|||
+21,40 0|co|||||2|HARBOR|0|||
+22,40 0|co||FISH|||2||0|||
+23,40 0|co|||||||0|||
+24,40 0|co|||||||0|||
+25,40 0|co||FISH|||||0|||
+26,40 0|oc|||||||0|||
+27,40 0|oc|||||||0|||
+28,40 0|oc|||||||0|||
+29,40 0|oc|||||||0|||
+30,40 0|oc|||||||0|||
+31,40 0|oc|||||||0|||
+32,40 0|oc|||||||0|||
+33,40 0|oc|||||||0|||
+34,40 0|oc|||||||0|||
+35,40 0|oc|||||||0|||
+36,40 0|co||CRABS|||||0|||
+37,40 0|co||CRABS|||||0|||
+38,40 0|t|for||||||0||A3|
+39,40 0|t|||||||0||A3|
+40,40 0|t||DEER|||||0||A1|
+41,40 0|t|||||||0||A1|
+42,40 0|t|||||||0||A1|
+43,40 0|t||NITER|||||0||A1|
+44,40 0|th|for||||||0||A1|
+45,40 0|th||SHEEP|||||0||A4|
+46,40 0|t|||||||0||A3|
+47,40 0|t|||||||0||A2|
+48,40 0|co|||||||0|||
+49,40 0|co||FISH|||||0|||
+50,40 0|oc|||||||0|||
+51,40 0|oc|||||||0|||
+52,40 0|oc|||||||0|||
+53,40 0|oc|||||||0|||
+54,40 0|oc|||||||0|||
+55,40 0|oc|||||||0|||
+56,40 0|oc|||||||0|||
+57,40 0|oc|||||||0|||
+58,40 0|oc|||||||0|||
+59,40 0|oc|||||||0|||
+60,40 0|oc|||||||0|||
+61,40 0|oc|||||||0|||
+62,40 0|co|||||||0|||
+63,40 0|oc|||||||0|||
+64,40 1|co||FISH|||||0|||
+65,40 1|oc|||||0||0|||
+66,40 1|co|||||0||0|||
+67,40 1|co||CRABS|FISHING_BOATS||0||0|||
+68,40 1|t|||||||0||A3|
+69,40 0|co|||||||0|||
+70,40 0|co|||||||0|||
+71,40 0|co|||||||0|||
+72,40 0|co|||||||0|||
+73,40 0|oc|||||||0|||
+0,41 0|oc|||||||0|||
+1,41 0|oc|ice||||||0|||
+2,41 0|oc|ice||||||0|||
+3,41 0|oc|ice||||||0|||
+4,41 0|oc|||||||0|||
+5,41 0|oc|||||||0|||
+6,41 0|oc|ice||||||0|||
+7,41 0|oc|ice||||||0|||
+8,41 0|oc|||||||0|||
+9,41 0|oc|ice||||||0|||
+10,41 0|oc|||||||0|||
+11,41 0|oc|||||||0|||
+12,41 0|oc|ice||||||0|||
+13,41 0|oc|ice||||||0|||
+14,41 0|oc|ice||||||0|||
+15,41 0|oc|||||||0|||
+16,41 0|oc|||||||0|||
+17,41 0|co||CRABS|||||0|||
+18,41 0|oc|ice||||||0|||
+19,41 0|oc|||||||0|||
+20,41 0|co|||||||0|||
+21,41 0|co|||||||0|||
+22,41 0|co|||||||0|||
+23,41 0|co|ice||||||0|||
+24,41 0|oc|ice||||||0|||
+25,41 0|oc|ice||||||0|||
+26,41 0|oc|||||||0|||
+27,41 0|oc|ice||||||0|||
+28,41 0|oc|||||||0|||
+29,41 0|oc|ice||||||0|||
+30,41 0|oc|||||||0|||
+31,41 0|oc|ice||||||0|||
+32,41 0|oc|ice||||||0|||
+33,41 0|oc|ice||||||0|||
+34,41 0|oc|ice||||||0|||
+35,41 0|oc|||||||0|||
+36,41 0|co|||||||0|||
+37,41 0|th|||||||0||A4|
+38,41 0|t|for||||||0||A1|
+39,41 0|t|||||||0||A1|
+40,41 0|t|||||||0||A2|
+41,41 0|tm|||||||0||A4|
+42,41 0|t|||||||0||R/A3/F|
+43,41 0|th|||||||0||R/A5/F|
+44,41 0|t|for||||||0||A4|
+45,41 0|co|||||||0|||
+46,41 0|co||WHALES|||||0|||
+47,41 0|t|||||||0||A5|
+48,41 0|co||FISH|||||0|||
+49,41 0|oc|ice||||||0|||
+50,41 0|oc|||||||0|||
+51,41 0|oc|||||||0|||
+52,41 0|oc|||||||0|||
+53,41 0|oc|||||||0|||
+54,41 0|oc|||||||0|||
+55,41 0|oc|||||||0|||
+56,41 0|oc|ice||||||0|||
+57,41 0|oc|ice||||||0|||
+58,41 0|oc|||||||0|||
+59,41 0|oc|||||||0|||
+60,41 0|oc|ice||||||0|||
+61,41 0|oc|||||||0|||
+62,41 0|co||WHALES|||||0|||
+63,41 0|co|||||||0|||
+64,41 1|co|||||||0|||
+65,41 1|co||FISH|||||0|||
+66,41 1|t|||||||0||A4|
+67,41 1|t|||||||0||A1|
+68,41 0|s|||||||0||A3|
+69,41 0|co||CRABS|||||0|||
+70,41 0|co|ice||||||0|||
+71,41 0|co|ice||||||0|||
+72,41 0|oc|||||||0|||
+73,41 0|oc|ice||||||0|||
+0,42 0|oc|ice||||||0|||
+1,42 0|oc|ice||||||0|||
+2,42 0|oc|ice||||||0|||
+3,42 0|oc|ice||||||0|||
+4,42 0|oc|ice||||||0|||
+5,42 0|oc|ice||||||0|||
+6,42 0|oc|ice||||||0|||
+7,42 0|oc|ice||||||0|||
+8,42 0|oc|ice||||||0|||
+9,42 0|oc|ice||||||0|||
+10,42 0|oc|ice||||||0|||
+11,42 0|oc|ice||||||0|||
+12,42 0|oc|ice||||||0|||
+13,42 0|oc|ice||||||0|||
+14,42 0|oc|ice||||||0|||
+15,42 0|oc|||||||0|||
+16,42 0|oc|ice||||||0|||
+17,42 0|oc|||||||0|||
+18,42 0|oc|ice||||||0|||
+19,42 0|oc|||||||0|||
+20,42 0|oc|ice||||||0|||
+21,42 0|oc|||||||0|||
+22,42 0|oc|ice||||||0|||
+23,42 0|oc|ice||||||0|||
+24,42 0|oc|ice||||||0|||
+25,42 0|oc|ice||||||0|||
+26,42 0|oc|ice||||||0|||
+27,42 0|oc|ice||||||0|||
+28,42 0|oc|ice||||||0|||
+29,42 0|oc|ice||||||0|||
+30,42 0|oc|ice||||||0|||
+31,42 0|oc|ice||||||0|||
+32,42 0|oc|ice||||||0|||
+33,42 0|oc|ice||||||0|||
+34,42 0|oc|||||||0|||
+35,42 0|co|ice||||||0|||
+36,42 0|co|||||||0|||
+37,42 0|s|||GOODY_HUT||||0||A4|
+38,42 0|s|||||||0||A3|
+39,42 0|s|||||||0||A3|
+40,42 0|s|||||||0||A2|
+41,42 0|t|for|DEER|||||0||A1|
+42,42 0|t|||||||0||R/A5/F|
+43,42 0|t|for||||||0||R/A4/F|
+44,42 0|co|||||||0|||
+45,42 0|co||FISH|||||0|||
+46,42 0|co|||||||0|||
+47,42 0|co||SHIPWRECK|||||0|||
+48,42 0|co|||||||0|||
+49,42 0|co|ice||||||0|||
+50,42 0|oc|ice||||||0|||
+51,42 0|oc|||||||0|||
+52,42 0|oc|||||||0|||
+53,42 0|oc|ice||||||0|||
+54,42 0|oc|ice||||||0|||
+55,42 0|oc|ice||||||0|||
+56,42 0|oc|||||||0|||
+57,42 0|oc|ice||||||0|||
+58,42 0|oc|ice||||||0|||
+59,42 0|oc|||||||0|||
+60,42 0|oc|ice||||||0|||
+61,42 0|oc|ice||||||0|||
+62,42 0|co|||||||0|||
+63,42 0|t|||||||0||A5|
+64,42 0|s|||||||0||A4|
+65,42 0|s|||||||0||A5|
+66,42 0|co|||||||0|||
+67,42 0|s|||||||0||A3|
+68,42 0|s|||||||0||A3|
+69,42 0|co|||||||0|||
+70,42 0|oc|ice||||||0|||
+71,42 0|co||CRABS|||||0|||
+72,42 0|oc|||||||0|||
+73,42 0|oc|ice||||||0|||
+0,43 0|oc|||||||0|||
+1,43 0|oc|||||||0|||
+2,43 0|oc|||||||0|||
+3,43 0|oc|ice||||||0|||
+4,43 0|oc|ice||||||0|||
+5,43 0|oc|ice||||||0|||
+6,43 0|oc|ice||||||0|||
+7,43 0|oc|||||||0|||
+8,43 0|oc|ice||||||0|||
+9,43 0|oc|ice||||||0|||
+10,43 0|oc|||||||0|||
+11,43 0|oc|ice||||||0|||
+12,43 0|oc|ice||||||0|||
+13,43 0|oc|ice||||||0|||
+14,43 0|oc|||||||0|||
+15,43 0|oc|ice||||||0|||
+16,43 0|oc|ice||||||0|||
+17,43 0|oc|||||||0|||
+18,43 0|oc|ice||||||0|||
+19,43 0|oc|ice||||||0|||
+20,43 0|oc|||||||0|||
+21,43 0|oc|ice||||||0|||
+22,43 0|oc|ice||||||0|||
+23,43 0|oc|ice||||||0|||
+24,43 0|oc|ice||||||0|||
+25,43 0|oc|ice||||||0|||
+26,43 0|oc|ice||||||0|||
+27,43 0|oc|ice||||||0|||
+28,43 0|oc|||||||0|||
+29,43 0|oc|||||||0|||
+30,43 0|oc|||||||0|||
+31,43 0|oc|ice||||||0|||
+32,43 0|oc|ice||||||0|||
+33,43 0|oc|ice||||||0|||
+34,43 0|oc|ice||||||0|||
+35,43 0|co|ice||||||0|||
+36,43 0|co|||||||0|||
+37,43 0|co|||||||0|||
+38,43 0|co||FISH|||||0|||
+39,43 0|co|||||||0|||
+40,43 0|s|||||||0||A4|
+41,43 0|s|||||||0||A4|
+42,43 0|co||FISH|||||0|||
+43,43 0|co|||||||0|||
+44,43 0|oc|||||||0|||
+45,43 0|co|||||||0|||
+46,43 0|co|||||||0|||
+47,43 0|oc|||||||0|||
+48,43 0|oc|ice||||||0|||
+49,43 0|oc|||||||0|||
+50,43 0|oc|ice||||||0|||
+51,43 0|oc|ice||||||0|||
+52,43 0|oc|ice||||||0|||
+53,43 0|oc|ice||||||0|||
+54,43 0|oc|ice||||||0|||
+55,43 0|oc|||||||0|||
+56,43 0|oc|||||||0|||
+57,43 0|oc|||||||0|||
+58,43 0|oc|||||||0|||
+59,43 0|oc|||||||0|||
+60,43 0|oc|ice||||||0|||
+61,43 0|co|||||||0|||
+62,43 0|co|||||||0|||
+63,43 0|co||FISH|||||0|||
+64,43 0|co|||||||0|||
+65,43 0|co|||||||0|||
+66,43 0|co||FISH|||||0|||
+67,43 0|co|||||||0|||
+68,43 0|co|||||||0|||
+69,43 0|co|ice||||||0|||
+70,43 0|oc|ice||||||0|||
+71,43 0|oc|||||||0|||
+72,43 0|oc|ice||||||0|||
+73,43 0|oc|ice||||||0|||
+0,44 0|oc|ice||||||0|||
+1,44 0|oc|||||||0|||
+2,44 0|oc|||||||0|||
+3,44 0|oc|ice||||||0|||
+4,44 0|oc|ice||||||0|||
+5,44 0|oc|ice||||||0|||
+6,44 0|oc|ice||||||0|||
+7,44 0|oc|ice||||||0|||
+8,44 0|oc|ice||||||0|||
+9,44 0|oc|ice||||||0|||
+10,44 0|oc|ice||||||0|||
+11,44 0|oc|ice||||||0|||
+12,44 0|oc|ice||||||0|||
+13,44 0|oc|ice||||||0|||
+14,44 0|oc|ice||||||0|||
+15,44 0|oc|ice||||||0|||
+16,44 0|oc|ice||||||0|||
+17,44 0|oc|ice||||||0|||
+18,44 0|oc|ice||||||0|||
+19,44 0|oc|ice||||||0|||
+20,44 0|oc|||||||0|||
+21,44 0|oc|ice||||||0|||
+22,44 0|oc|ice||||||0|||
+23,44 0|oc|ice||||||0|||
+24,44 0|oc|ice||||||0|||
+25,44 0|oc|ice||||||0|||
+26,44 0|oc|ice||||||0|||
+27,44 0|oc|ice||||||0|||
+28,44 0|oc|ice||||||0|||
+29,44 0|oc|ice||||||0|||
+30,44 0|oc|||||||0|||
+31,44 0|oc|||||||0|||
+32,44 0|oc|ice||||||0|||
+33,44 0|oc|ice||||||0|||
+34,44 0|oc|ice||||||0|||
+35,44 0|oc|ice||||||0|||
+36,44 0|oc|ice||||||0|||
+37,44 0|co|ice||||||0|||
+38,44 0|oc|||||||0|||
+39,44 0|oc|||||||0|||
+40,44 0|co||FISH|||||0|||
+41,44 0|co|||||||0|||
+42,44 0|co||FISH|||||0|||
+43,44 0|oc|||||||0|||
+44,44 0|co|ice||||||0|||
+45,44 0|oc|||||||0|||
+46,44 0|co|ice||||||0|||
+47,44 0|oc|ice||||||0|||
+48,44 0|oc|ice||||||0|||
+49,44 0|oc|ice||||||0|||
+50,44 0|oc|ice||||||0|||
+51,44 0|oc|ice||||||0|||
+52,44 0|oc|ice||||||0|||
+53,44 0|oc|ice||||||0|||
+54,44 0|oc|ice||||||0|||
+55,44 0|oc|ice||||||0|||
+56,44 0|oc|ice||||||0|||
+57,44 0|oc|ice||||||0|||
+58,44 0|oc|ice||||||0|||
+59,44 0|oc|ice||||||0|||
+60,44 0|oc|ice||||||0|||
+61,44 0|oc|ice||||||0|||
+62,44 0|oc|ice||||||0|||
+63,44 0|co|||||||0|||
+64,44 0|oc|ice||||||0|||
+65,44 0|co|ice||||||0|||
+66,44 0|oc|ice||||||0|||
+67,44 0|co|ice||||||0|||
+68,44 0|co|||||||0|||
+69,44 0|co|||||||0|||
+70,44 0|oc|ice||||||0|||
+71,44 0|oc|ice||||||0|||
+72,44 0|oc|ice||||||0|||
+73,44 0|oc|ice||||||0|||
+0,45 0|oc|ice||||||0|||
+1,45 0|oc|ice||||||0|||
+2,45 0|oc|ice||||||0|||
+3,45 0|oc|ice||||||0|||
+4,45 0|oc|ice||||||0|||
+5,45 0|oc|ice||||||0|||
+6,45 0|oc|ice||||||0|||
+7,45 0|oc|ice||||||0|||
+8,45 0|oc|ice||||||0|||
+9,45 0|oc|ice||||||0|||
+10,45 0|oc|ice||||||0|||
+11,45 0|oc|ice||||||0|||
+12,45 0|oc|ice||||||0|||
+13,45 0|oc|ice||||||0|||
+14,45 0|oc|||||||0|||
+15,45 0|oc|ice||||||0|||
+16,45 0|oc|ice||||||0|||
+17,45 0|oc|ice||||||0|||
+18,45 0|oc|ice||||||0|||
+19,45 0|oc|ice||||||0|||
+20,45 0|oc|ice||||||0|||
+21,45 0|oc|||||||0|||
+22,45 0|oc|ice||||||0|||
+23,45 0|oc|ice||||||0|||
+24,45 0|oc|ice||||||0|||
+25,45 0|oc|ice||||||0|||
+26,45 0|oc|ice||||||0|||
+27,45 0|oc|ice||||||0|||
+28,45 0|oc|ice||||||0|||
+29,45 0|oc|ice||||||0|||
+30,45 0|oc|ice||||||0|||
+31,45 0|oc|ice||||||0|||
+32,45 0|oc|ice||||||0|||
+33,45 0|oc|ice||||||0|||
+34,45 0|oc|ice||||||0|||
+35,45 0|oc|ice||||||0|||
+36,45 0|co|ice||||||0|||
+37,45 0|oc|ice||||||0|||
+38,45 0|oc|||||||0|||
+39,45 0|oc|ice||||||0|||
+40,45 0|co|ice||||||0|||
+41,45 0|co|ice||||||0|||
+42,45 0|oc|ice||||||0|||
+43,45 0|oc|ice||||||0|||
+44,45 0|oc|ice||||||0|||
+45,45 0|oc|ice||||||0|||
+46,45 0|oc|ice||||||0|||
+47,45 0|oc|ice||||||0|||
+48,45 0|oc|ice||||||0|||
+49,45 0|oc|ice||||||0|||
+50,45 0|oc|ice||||||0|||
+51,45 0|oc|ice||||||0|||
+52,45 0|oc|ice||||||0|||
+53,45 0|oc|ice||||||0|||
+54,45 0|oc|ice||||||0|||
+55,45 0|oc|ice||||||0|||
+56,45 0|oc|ice||||||0|||
+57,45 0|oc|ice||||||0|||
+58,45 0|oc|ice||||||0|||
+59,45 0|oc|ice||||||0|||
+60,45 0|oc|ice||||||0|||
+61,45 0|oc|ice||||||0|||
+62,45 0|oc|ice||||||0|||
+63,45 0|co|ice||||||0|||
+64,45 0|co|ice||||||0|||
+65,45 0|co|ice||||||0|||
+66,45 0|oc|ice||||||0|||
+67,45 0|co|ice||||||0|||
+68,45 0|oc|ice||||||0|||
+69,45 0|co||FISH|||||0|||
+70,45 0|oc|ice||||||0|||
+71,45 0|oc|ice||||||0|||
+72,45 0|oc|ice||||||0|||
+73,45 0|oc|ice||||||0|||
 ```
 
 ## NATURAL WONDERS SEEN
 - Crater Lake @(73,8)
+- Yosemite @(12,14)
+- Yosemite @(13,14)
 - Tsingy de Bemaraha @(49,16)
+- Great Barrier Reef @(30,26)
+- Great Barrier Reef @(30,27)
 
 ## DIAGNOSTICS
-- section status: cities=ok, city_states_met=ok, civic_tree=ok, civics_available=ok, current_civic=ok, current_research=ok, empire=ok, envoys=ok, government=ok, great_people=ok, header=ok, majors_met=ok, map=ok, notifications=ok, policy_available=ok, policy_slots=ok, religion=ok, resources=ok, tech_tree=ok, techs_available=ok, units=ok, victories=ok
-- generation time: 2.89s
-- per-query timing (s): meta=0.393, choices=0.358, cities=0.39, units=0.342, map=0.359, diplo=0.357, religion=0.344, notif=0.344
+- section status: cities=ok, city_states_met=ok, civic_tree=ok, civics_available=ok, current_civic=ok, current_research=ok, empire=ok, envoys=ok, government=ok, great_people=ok, header=ok, majors_met=ok, map=ok, notifications=ok, policy_available=ok, policy_slots=ok, religion=ok, resources=ok, tech_tree=ok, techs_available=missing, units=ok, victories=ok
+- generation time: 3.00s
+- per-query timing (s): meta=0.391, choices=0.36, cities=0.427, units=0.341, map=0.427, diplo=0.369, religion=0.343, notif=0.344
 - **failures at runtime:**
     - `diplo.DIPLO.gossip_probe.api`: methods: GetRecentVisibleGossipStrings
 - compatibility notes (fallback paths, not failures):
@@ -1026,12 +4320,12 @@ _679 revealed, 214 currently visible, 2 natural wonders_
     - `MAP.yield_probe`: plot:GetYield available — per-tile yields exportable
     - `DIPLO.gossip_probe`: GameInfo.Gossips present (58 gossip types)
     - `DIPLO.gossip_probe`: gossip manager found via Game.GetGossipManager()
-    - `DIPLO.gossip`: gossip fetched via call arity 3 (22 entries)
-    - `DIPLO.cs_bonus`: influence-bonus Loc key unresolved (LOC_MINOR_CIV_KABUL_TRAIT_SMALL_INFLUENCE_BONUS)
+    - `DIPLO.gossip`: gossip fetched via call arity 3 (344 entries)
+    - `DIPLO.cs_bonus`: influence-bonus Loc key unresolved (LOC_MINOR_CIV_MOHENJO_DARO_TRAIT_SMALL_INFLUENCE_BONUS)
 - last trace per query (for post-mortem):
     - `meta`: TRACE|META|great_people
     - `choices`: TRACE|CHOICES|civics_available
-    - `cities`: TRACE|CITY|327684|end
+    - `cities`: TRACE|CITY|589832|end
     - `units`: TRACE|UNITS|barbarian_camps
     - `map`: (no traces)
     - `diplo`: TRACE|DIPLO|gossip
@@ -1047,4 +4341,4 @@ _679 revealed, 214 currently visible, 2 natural wonders_
     - power, resource consumption, canals, dams (Gathering Storm)
     - railroads (Gathering Storm)
 
-<!-- coach snapshot: schema=coach-snapshot/1.4 turn=145 generated_at=1785400545.141477 failed_sections=none counts: cities=5 units=13 tiles=679 majors=1 city_states=4 gossip=22 rival_cities=10 tech_tree=68 civic_tree=51 md_chars=43714 -->
+<!-- coach snapshot: schema=coach-snapshot/1.4 turn=396 generated_at=1785705986.5804005 failed_sections=none counts: cities=9 units=23 tiles=3404 majors=4 city_states=9 gossip=344 rival_cities=49 tech_tree=68 civic_tree=51 md_chars=162992 -->

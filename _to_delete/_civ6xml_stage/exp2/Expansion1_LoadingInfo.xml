@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<LoadingInfo>
+		<Row LeaderType="LEADER_CHANDRAGUPTA" ForegroundImage="LEADER_CHANDRAGUPTA_NEUTRAL"	BackgroundImage="LEADER_CHANDRAGUPTA_BACKGROUND"/>
+		<Row LeaderType="LEADER_GENGHIS_KHAN" ForegroundImage="LEADER_GENGHIS_KHAN_NEUTRAL"	BackgroundImage="LEADER_GENGHIS_KHAN_BACKGROUND"/>
+		<Row LeaderType="LEADER_LAUTARO" ForegroundImage="LEADER_LAUTARO_NEUTRAL"	BackgroundImage="LEADER_LAUTARO_BACKGROUND"/>
+		<Row LeaderType="LEADER_POUNDMAKER" ForegroundImage="LEADER_POUNDMAKER_NEUTRAL"	BackgroundImage="LEADER_POUNDMAKER_BACKGROUND"/>
+		<Row LeaderType="LEADER_ROBERT_THE_BRUCE" ForegroundImage="LEADER_ROBERT_THE_BRUCE_NEUTRAL"	BackgroundImage="LEADER_ROBERT_THE_BRUCE_BACKGROUND"/>
+		<Row LeaderType="LEADER_SEONDEOK" ForegroundImage="LEADER_SEONDEOK_NEUTRAL"	BackgroundImage="LEADER_SEONDEOK_BACKGROUND"/>
+		<Row LeaderType="LEADER_SHAKA" ForegroundImage="LEADER_SHAKA_NEUTRAL"	BackgroundImage="LEADER_SHAKA_BACKGROUND"/>
+		<Row LeaderType="LEADER_TAMAR" ForegroundImage="LEADER_TAMAR_NEUTRAL"	BackgroundImage="LEADER_TAMAR_BACKGROUND"/>
+		<Row LeaderType="LEADER_WILHELMINA" ForegroundImage="LEADER_WILHELMINA_NEUTRAL"	BackgroundImage="LEADER_WILHELMINA_BACKGROUND"/>
+	</LoadingInfo>
+</GameInfo>

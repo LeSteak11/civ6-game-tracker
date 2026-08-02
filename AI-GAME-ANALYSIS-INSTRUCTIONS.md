@@ -56,6 +56,36 @@ From one game folder (`output/games/game-NNN_<civ>/`):
 | `snapshots/turn-XXXX_rNN.md/.json` | Full state at each captured turn (`_r02` = second capture on the same turn — use the highest revision) |
 | `latest.md` / `latest.json` | The final captured state |
 
+### If you were given a `GAME-PACK.md`
+
+A **game pack** is one file that substitutes for the whole table above. It
+is built offline from the archive by `Make Game Pack.bat`, and it contains,
+in order: a coverage header, the player's own per-turn timeline, every
+rival's timeline, the merged gossip+events chronology, the turn-by-turn
+CHANGES/WORLD NEWS narrative, and the final state verbatim.
+
+When a pack arrives, treat it as the complete upload — do not ask for the
+individual files unless something you need is explicitly marked as trimmed.
+The same rules apply, with three additions:
+
+- **Read the coverage header first and quote its limits back in your
+  coverage note.** It states the real turn span, every gap, and how far
+  back gossip back-fills world events beyond the first capture. A game
+  whose captures start at T87 tells you *nothing* about that player's
+  first 86 turns, no matter how rich the rest looks.
+- **A `SCHEMA DRIFT WARNING` means the archive spans coach versions.**
+  Field availability and derivation changed between them, so a metric that
+  jumps at a version boundary may be a tooling change, not a game event.
+  When a curve and the chronology disagree, the chronology wins — it is
+  version-stable.
+- **`?` means "not readable at capture time".** It never means zero, and a
+  run of `?` is not evidence of decline. Anything the budget dropped is
+  named in the header as "showing X of Y"; nothing is trimmed silently.
+
+`GAME-PACK-LEAN.md` is the same file with the revealed-map tile dump and
+some of the final state removed, for smaller context windows. Its timelines
+and chronology are identical and complete.
+
 Work with **whatever subset arrives**. A typical upload is `game.json` +
 the three history files + `latest.md` + a handful of checkpoint
 snapshots. Before analyzing, state your coverage plainly: which turn

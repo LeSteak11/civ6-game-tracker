@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION1_STATS" IconSize="16" IconsPerRow="8" IconsPerColumn="2" Filename="XP1_Stats16"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_STATS" IconSize="22" IconsPerRow="8" IconsPerColumn="2" Filename="XP1_Stats22"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_STATS" IconSize="26" IconsPerRow="8" IconsPerColumn="2" Filename="XP1_Stats26"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_STATS" IconSize="32" IconsPerRow="8" IconsPerColumn="2" Filename="XP1_Stats32"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_STATS" IconSize="45" IconsPerRow="8" IconsPerColumn="2" Filename="XP1_Stats45"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_STATS" IconSize="55" IconsPerRow="8" IconsPerColumn="2" Filename="XP1_Stats55"/>
+		
+  </IconTextureAtlases>
+	<IconDefinitions>
+		<Row Name="ICON_STAT_GOVERNOR"            Atlas="ICON_ATLAS_EXPANSION1_STATS" Index="0"/>
+
+		<Row Name="ICON_STAT_GOVERNORS"						Atlas="ICON_ATLAS_EXPANSION1_STATS" Index="0"/>
+    <Row Name="ICON_STAT_CULTURAL_FLAG"				Atlas="ICON_ATLAS_EXPANSION1_STATS" Index="1"/>
+		<Row Name="ICON_STAT_MY_CITIES"						Atlas="ICON_ATLAS_EXPANSION1_STATS" Index="2"/>
+		<Row Name="ICON_STAT_THEIR_CITIES"				Atlas="ICON_ATLAS_EXPANSION1_STATS" Index="3"/>
+		<Row Name="ICON_STAT_INDEPENCE"						Atlas="ICON_ATLAS_EXPANSION1_STATS" Index="4"/>
+		<Row Name="ICON_STAT_OTHERS"							Atlas="ICON_ATLAS_EXPANSION1_STATS" Index="5"/>
+    <Row Name="ICON_EMERGENCY"								Atlas="ICON_ATLAS_EXPANSION1_STATS" Index="6"/>
+		<Row Name="ICON_STAT_CULTURAL_PRESSSURE"	Atlas="ICON_ATLAS_EXPANSION1_STATS" Index="7"/>
+		<Row Name="ICON_STAT_ALLIANCES"						Atlas="ICON_ATLAS_EXPANSION1_STATS" Index="8"/>
+	</IconDefinitions>
+</GameInfo>

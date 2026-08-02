@@ -1,0 +1,445 @@
+<!-- Expansion 2 specific data -->
+<GameInfo>
+	<NamedRiverCivilizations>
+		<Row NamedRiverType="NAMED_RIVER_AMISKWASIPI" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedRiverType="NAMED_RIVER_AMNOK_RIVER" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedRiverType="NAMED_RIVER_ALAZANI_RIVER" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedRiverType="NAMED_RIVER_BIO_BIO" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedRiverType="NAMED_RIVER_BUKHAN_RIVER" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedRiverType="NAMED_RIVER_ENGURI_RIVER" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedRiverType="NAMED_RIVER_FORTH" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedRiverType="NAMED_RIVER_GEUM_RIVER" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedRiverType="NAMED_RIVER_HAN_RIVER" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedRiverType="NAMED_RIVER_IJSSEL_RIVER" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedRiverType="NAMED_RIVER_IMJIN_RIVER" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedRiverType="NAMED_RIVER_ITATA_RIVER" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedRiverType="NAMED_RIVER_KATEPWEWI_SIPI" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedRiverType="NAMED_RIVER_KERULEN_RIVER" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedRiverType="NAMED_RIVER_KISISKACIWANI_SIPIY" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedRiverType="NAMED_RIVER_KURA" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedRiverType="NAMED_RIVER_LEK_RIVER" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedRiverType="NAMED_RIVER_LIMPOPO" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedRiverType="NAMED_RIVER_MAIPO_RIVER" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedRiverType="NAMED_RIVER_MANTO_SIPIY" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedRiverType="NAMED_RIVER_MAPOCHO_RIVER" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedRiverType="NAMED_RIVER_MAULE_RIVER" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedRiverType="NAMED_RIVER_MEUSE" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedRiverType="NAMED_RIVER_MTKVARI_RIVER" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedRiverType="NAMED_RIVER_NAKDONG" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedRiverType="NAMED_RIVER_OCHEKWI_SIPI" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedRiverType="NAMED_RIVER_ORKHON" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedRiverType="NAMED_RIVER_POWINIGOW" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedRiverType="NAMED_RIVER_RHINE" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedRiverType="NAMED_RIVER_RIONI_RIVER" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedRiverType="NAMED_RIVER_RIVER_CLYDE" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedRiverType="NAMED_RIVER_RIVER_DEE" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedRiverType="NAMED_RIVER_RIVER_SPEY" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedRiverType="NAMED_RIVER_RIVER_TAY" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedRiverType="NAMED_RIVER_SCHELDT_RIVER" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedRiverType="NAMED_RIVER_SEOMJIN_RIVER" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedRiverType="NAMED_RIVER_TAPISKWAN_SIPI" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedRiverType="NAMED_RIVER_TOLTEN_RIVER" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedRiverType="NAMED_RIVER_TRUFUL_TRUFUL_RIVER" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedRiverType="NAMED_RIVER_TUGELA_RIVER" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedRiverType="NAMED_RIVER_TUUL_RIVER" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedRiverType="NAMED_RIVER_UMFOLOZI_RIVER" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedRiverType="NAMED_RIVER_UMZIMKULU_RIVER" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedRiverType="NAMED_RIVER_UMZINYATHI_RIVER" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedRiverType="NAMED_RIVER_WAAL_RIVER" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedRiverType="NAMED_RIVER_WAZALAFKEN_RIVER" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedRiverType="NAMED_RIVER_WUSKWI_SIPI" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedRiverType="NAMED_RIVER_YENISEI" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedRiverType="NAMED_RIVER_ZAVKHAN_RIVER" CivilizationType="CIVILIZATION_MONGOLIA"/>
+	</NamedRiverCivilizations>
+	<NamedVolcanoCivilizations>
+		<Row NamedVolcanoType="NAMED_VOLCANO_ARTHURS_SEAT" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_HALLASAN" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_KAZBEK" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_KHORGO" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_LAUTARO_VOLCANO" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_LLAIMA_VOLCANO" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_LONQUIMAY_VOLCANO" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_OJOS_DEL_SALADO" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_PAEKTU" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_PILLANZEGUN" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_RUCAPILLAN" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_SCENERY" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_SOLLIPULLI" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedVolcanoType="NAMED_VOLCANO_ZUIDWAL_VOLCANO" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+	</NamedVolcanoCivilizations>
+	<NamedMountainCivilizations>
+		<Row NamedMountainType="NAMED_MOUNTAIN_ALTAI" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_ANDES" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_ARROCHAR_ALPS" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_BAEKDUDAEGAN" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_BALELES_MOUNTAINS" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_CAIRNGORMS" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_CAUCASUS" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_CORDILLERA_DE_QUEULE" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_CORDILLERA_DEL_MAHUIDANCHE" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_CUILLIN" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_DONGDAE_MOUNTAINS" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_DRAKENSBERG" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_GAGRA_RANGE" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_GRAMPIANS" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_HONDSRUG" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_KANANASKIS_RANGE" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_KHANGAI_MOUNTAINS" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_KHENTII_MOUNTAINS" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_LEBOMBO_MOUNTAINS" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_LIKHI_RANGE" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_LOWER_RHINE_HEIGHTS" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_MESKHETI_RANGE" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_MONADH_LIATH" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_NAHUELBUTA_RANGE" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_NIKANASSIN_RANGE" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_ROCKIES" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_SALLANDSE_HILL_RIDGE" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_SAYAN_MOUNTAINS" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_SOBAEK_MOUNTAINS" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_TAEBAEK_MOUNTAINS" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_TRIALETI_RANGE" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_UTRECHT_HILL_RIDGE" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_VELUWE" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_VERMILION_RANGE" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedMountainType="NAMED_MOUNTAIN_YEONGNAM_ALPS" CivilizationType="CIVILIZATION_KOREA"/>
+	</NamedMountainCivilizations>
+	<NamedDesertCivilizations>
+		<Row NamedDesertType="NAMED_DESERT_ATACAMA" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedDesertType="NAMED_DESERT_GOBI" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedDesertType="NAMED_DESERT_PATAGONIAN" CivilizationType="CIVILIZATION_MAPUCHE"/>
+	</NamedDesertCivilizations>
+	<NamedLakeCivilizations>
+		<Row NamedLakeType="NAMED_LAKE_AMANZAMNYAMA" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedLakeType="NAMED_LAKE_BAENGNOKDAM" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedLakeType="NAMED_LAKE_BUDI_LAKE" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedLakeType="NAMED_LAKE_CABURGUA_LAKE" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedLakeType="NAMED_LAKE_GALLETU_LAKE" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedLakeType="NAMED_LAKE_HEAVEN_LAKE" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedLakeType="NAMED_LAKE_HULUN_LAKE" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedLakeType="NAMED_LAKE_KARTSAKHI_LAKE" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedLakeType="NAMED_LAKE_KHAR_US_LAKE" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedLakeType="NAMED_LAKE_KHOVSGOL_LAKE" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedLakeType="NAMED_LAKE_KHYARGAS_LAKE" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedLakeType="NAMED_LAKE_KOSI_LAKE" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_ADAPASKAW" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_BUJO" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_CHON" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_GREVELINGEN" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_KHASAN" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_MARKEN" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_NHLABANE" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_OF_NAARDEN" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_PALIASTOMI" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_SAINT_LUCIA" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_SIBHAYI" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_WINNIPEG" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_WINNIPEGOSIS" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedLakeType="NAMED_LAKE_LAKE_IJSSEL" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedLakeType="NAMED_LAKE_LAUWERS_LAKE" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedLakeType="NAMED_LAKE_LOCH_AWE" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedLakeType="NAMED_LAKE_LOCH_CORUISK" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedLakeType="NAMED_LAKE_LOCH_FINLAGGAN" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedLakeType="NAMED_LAKE_LOCH_LOMOND" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedLakeType="NAMED_LAKE_LOCH_MAREE" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedLakeType="NAMED_LAKE_LOCH_MORAR" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedLakeType="NAMED_LAKE_LOCH_NESS" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedLakeType="NAMED_LAKE_LOCH_TAY" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedLakeType="NAMED_LAKE_MALLALAFQUEN" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedLakeType="NAMED_LAKE_ORETI_LAKE" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedLakeType="NAMED_LAKE_PARAVANI_LAKE" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedLakeType="NAMED_LAKE_REINDEER_LAKE" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedLakeType="NAMED_LAKE_RINIHUE_LAKE" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedLakeType="NAMED_LAKE_SAMJI_LAKE" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedLakeType="NAMED_LAKE_TABATSKURI_LAKE" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedLakeType="NAMED_LAKE_UTIKUMA_LAKE" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedLakeType="NAMED_LAKE_UVS_LAKE" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedLakeType="NAMED_LAKE_WABAMUN_LAKE" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedLakeType="NAMED_LAKE_WAKAW_LAKE" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedLakeType="NAMED_LAKE_WASKESIU_LAKE" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedLakeType="NAMED_LAKE_WOLLASTON_LAKE" CivilizationType="CIVILIZATION_CREE"/>
+	</NamedLakeCivilizations>
+	<NamedSeaCivilizations>
+		<Row NamedSeaType="NAMED_SEA_ALAUQUEN" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedSeaType="NAMED_SEA_BAY_OF_ARAUCO" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedSeaType="NAMED_SEA_BAY_OF_CONCEPCION" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedSeaType="NAMED_SEA_BLACK_SEA" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedSeaType="NAMED_SEA_BO_HAI" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedSeaType="NAMED_SEA_BUSAN_BAY" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedSeaType="NAMED_SEA_CASPIAN_SEA" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedSeaType="NAMED_SEA_CAULIN_BAY" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedSeaType="NAMED_SEA_DOLLART" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedSeaType="NAMED_SEA_EAST_CHINA_SEA" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedSeaType="NAMED_SEA_FIRTH_OF_CLYDE" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedSeaType="NAMED_SEA_FIRTH_OF_FORTH" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedSeaType="NAMED_SEA_GERMAN_BIGHT" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedSeaType="NAMED_SEA_GWANGPO_BAY" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedSeaType="NAMED_SEA_HUDSON_BAY" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedSeaType="NAMED_SEA_IRISH_SEA" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedSeaType="NAMED_SEA_KOREA_BAY" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedSeaType="NAMED_SEA_KOSI_BAY" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedSeaType="NAMED_SEA_MORAY_FIRTH" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedSeaType="NAMED_SEA_NORTH_SEA" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedSeaType="NAMED_SEA_NORTH_SEA" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedSeaType="NAMED_SEA_PITSUNDA_BAY" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedSeaType="NAMED_SEA_PUNIHUIL" CivilizationType="CIVILIZATION_MAPUCHE"/>
+		<Row NamedSeaType="NAMED_SEA_SEA_OF_JAPAN" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedSeaType="NAMED_SEA_SEA_OF_THE_HEBRIDES" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedSeaType="NAMED_SEA_SODWANA_BAY" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedSeaType="NAMED_SEA_SOLWAY_FIRTH" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedSeaType="NAMED_SEA_SUKHUMI_BAY" CivilizationType="CIVILIZATION_GEORGIA"/>
+		<Row NamedSeaType="NAMED_SEA_THE_MINCH" CivilizationType="CIVILIZATION_SCOTLAND"/>
+		<Row NamedSeaType="NAMED_SEA_UMZINTO_BAY" CivilizationType="CIVILIZATION_ZULU"/>
+		<Row NamedSeaType="NAMED_SEA_WADDEN_SEA" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+		<Row NamedSeaType="NAMED_SEA_WINIPEKW" CivilizationType="CIVILIZATION_CREE"/>
+		<Row NamedSeaType="NAMED_SEA_YELLOW_SEA" CivilizationType="CIVILIZATION_MONGOLIA"/>
+		<Row NamedSeaType="NAMED_SEA_YELLOW_SEA" CivilizationType="CIVILIZATION_KOREA"/>
+		<Row NamedSeaType="NAMED_SEA_ZUIDERZEE" CivilizationType="CIVILIZATION_NETHERLANDS"/>
+	</NamedSeaCivilizations>
+	<ExclusiveAgendas>
+		<Row AgendaOne="AGENDA_CHEOMSEONGDAE" AgendaTwo="AGENDA_FLAT_EARTHER"/>
+	</ExclusiveAgendas>
+	<Districts_XP2>
+		<Row DistrictType="DISTRICT_IKANDA" AttackRange="2"/>
+	</Districts_XP2>
+	<RandomEvent_PillagedImprovements>
+		<Row RandomEventType="RANDOM_EVENT_DROUGHT_MAJOR" ImprovementType="IMPROVEMENT_MEKEWAP"/>
+		<Row RandomEventType="RANDOM_EVENT_DROUGHT_EXTREME" ImprovementType="IMPROVEMENT_MEKEWAP"/>
+	</RandomEvent_PillagedImprovements>
+	<Units>
+		<Update>
+			<Where UnitType="UNIT_PIKE_AND_SHOT"/>
+			<Set>
+				<Maintenance>3</Maintenance>
+			</Set>
+		</Update>
+		<Update>
+			<Where UnitType="UNIT_GEORGIAN_KHEVSURETI"/>
+			<Set>
+				<StrategicResource>RESOURCE_IRON</StrategicResource>
+			</Set>
+		</Update>
+		<Update>
+			<Where UnitType="UNIT_MONGOLIAN_KESHIG"/>
+			<Set>
+				<StrategicResource>RESOURCE_HORSES</StrategicResource>
+			</Set>
+		</Update>
+		<Update>
+			<Where UnitType="UNIT_DE_ZEVEN_PROVINCIEN"/>
+			<Set>
+				<StrategicResource>RESOURCE_NITER</StrategicResource>
+			</Set>
+		</Update>
+	</Units>
+	<UnitUpgrades>
+		<Update>
+			<Where Unit="UNIT_CREE_OKIHTCITAW"/>
+			<Set>
+				<UpgradeUnit>UNIT_SKIRMISHER</UpgradeUnit>
+			</Set>
+		</Update>
+	</UnitUpgrades>
+	<Units_XP2>
+		<Row UnitType="UNIT_GEORGIAN_KHEVSURETI" ResourceCost="10"/>
+		<Row UnitType="UNIT_MONGOLIAN_KESHIG" ResourceCost="10"/>
+		<Row UnitType="UNIT_DE_ZEVEN_PROVINCIEN" ResourceCost="10"/>
+	</Units_XP2>
+	<AiListTypes>
+		<Row ListType="ScottishEnlightenmentResolutions"/>
+		<Row ListType="OrtooResolutions"/>
+		<Row ListType="ReligionCityStatesDiscussions"/>
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="ScottishEnlightenmentResolutions" LeaderType="TRAIT_CIVILIZATION_SCOTTISH_ENLIGHTENMENT" System="Resolutions"/>
+		<Row ListType="OrtooResolutions" LeaderType="TRAIT_CIVILIZATION_MONGOLIAN_ORTOO" System="Resolutions"/>
+		<Row ListType="ReligionCityStatesDiscussions" LeaderType="TRAIT_LEADER_RELIGION_CITY_STATES" System="Discussions"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="ScottishEnlightenmentResolutions" Item="WC_RES_PATRONAGE" Favored="true"/>
+		<Row ListType="OrtooResolutions" Item="WC_RES_TRADE_TREATY" Favored="true"/>
+		<Row ListType="ReligionCityStatesDiscussions" Item="WC_EMERGENCY_CITY_STATE" Favored="true"/>
+		<Row ListType="EleanorWonders" Item="BUILDING_TAJ_MAHAL" Favored="true"/>
+		<Row ListType="KristinaWonders" Item="BUILDING_ST_BASILS_CATHEDRAL" Favored="true"/>
+		<Row ListType="LaurierWonders" Item="BUILDING_ST_BASILS_CATHEDRAL" Favored="true"/>
+		<Row ListType="LaurierWonders" Item="BUILDING_AMUNDSEN_SCOTT_RESEARCH_STATION" Favored="true"/>
+	</AiFavoredItems>
+	<Buildings>
+		<Update>
+			<Where BuildingType="BUILDING_ORDU"/>
+			<Set>
+				<Description>LOC_BUILDING_ORDU_EXPANSION2_DESCRIPTION</Description>
+			</Set>
+		</Update>
+	</Buildings>
+	<Traits>
+		<Update>
+			<Set Description="LOC_TRAIT_CIVILIZATION_GROTE_RIVIEREN_EXPANSION2_DESCRIPTION"/>
+			<Where TraitType="TRAIT_CIVILIZATION_GROTE_RIVIEREN"/>
+		</Update>
+	</Traits>
+	<TraitModifiers>
+		<Row>
+			<TraitType>TRAIT_CIVILIZATION_GROTE_RIVIEREN</TraitType>
+			<ModifierId>TRAIT_FLOOD_BARRIER_PRODUCTION</ModifierId>
+		</Row>
+		<Row>
+			<TraitType>TRAIT_CIVILIZATION_GROTE_RIVIEREN</TraitType>
+			<ModifierId>TRAIT_DAM_PRODUCTION_PRODUCTION</ModifierId>
+		</Row>
+	</TraitModifiers>
+	<Buildings>
+		<Update>
+			<Where BuildingType="BUILDING_STATUE_LIBERTY"/>
+			<Set>
+				<Description>LOC_BUILDING_STATUE_LIBERTY_EXPANSION2_DESCRIPTION</Description>
+			</Set>
+		</Update>
+	</Buildings>
+	<BuildingModifiers>
+		<Delete>
+			<BuildingType>BUILDING_STATUE_LIBERTY</BuildingType>
+			<ModifierId>STATUELIBERTY_GRANTSETTLERS</ModifierId>
+		</Delete>
+		<Row BuildingType="BUILDING_STATUE_LIBERTY" ModifierId="STATUELIBERTY_DIPLOVP"/>
+		<Row BuildingType="BUILDING_ORDU" ModifierId="ORDU_ADJUST_RESOURCE_STOCKPILE_CAP"/>
+	</BuildingModifiers>
+	<UnitPromotionModifiers>
+		<Row>
+			<UnitPromotionType>PROMOTION_SPACE_ROCK</UnitPromotionType>
+			<ModifierId>ROCKBAND_SPACE_ROCK_SEOWON</ModifierId>
+		</Row>
+		<Row>
+			<UnitPromotionType>PROMOTION_SPACE_ROCK</UnitPromotionType>
+			<ModifierId>ROCKBAND_SPACE_ROCK_SEOWON_MODIFIER</ModifierId>
+		</Row>
+	</UnitPromotionModifiers>
+	<Modifiers>
+		<Row>
+			<ModifierId>STATUELIBERTY_DIPLOVP</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_ADJUST_DIPLOMATIC_VICTORY_POINTS</ModifierType>
+			<RunOnce>true</RunOnce>
+			<Permanent>true</Permanent>
+		</Row>
+		<Row>
+			<ModifierId>ORDU_ADJUST_RESOURCE_STOCKPILE_CAP</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_ADJUST_RESOURCE_STOCKPILE_CAP</ModifierType>
+		</Row>
+		<Row>
+			<ModifierId>TRAIT_FLOOD_BARRIER_PRODUCTION</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_CITIES_ADJUST_BUILDING_PRODUCTION</ModifierType>
+		</Row>
+		<Row>
+			<ModifierId>TRAIT_DAM_PRODUCTION_PRODUCTION</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_CITIES_ADJUST_DISTRICT_PRODUCTION</ModifierType>
+		</Row>
+		<Row>
+			<ModifierId>ROCKBAND_SPACE_ROCK_SEOWON</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_UNIT_ADJUST_ROCK_BAND_LEVEL_DISTRICT</ModifierType>
+		</Row>
+		<Row>
+			<ModifierId>ROCKBAND_SPACE_ROCK_SEOWON_MODIFIER</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_UNIT_ADJUST_TOURISM_BOMB_DISTRICT</ModifierType>
+		</Row>
+		<Row>
+			<ModifierId>GOLFCOURSE_AMENITIES</ModifierId>
+			<ModifierType>MODIFIER_SINGLE_CITY_ADJUST_IMPROVEMENT_AMENITY</ModifierType>
+		</Row>
+	</Modifiers>
+	<ModifierArguments>
+		<Row>
+			<ModifierId>STATUELIBERTY_DIPLOVP</ModifierId>
+			<Name>Amount</Name>
+			<Value>4</Value>
+		</Row>
+		<Row>
+			<ModifierId>STATUELIBERTY_DIPLOVP</ModifierId>
+			<Name>Tooltip</Name>
+			<Value>LOC_DVP_TOOLTIP_OTHER_SOURCES</Value>
+		</Row>
+		<Row>
+			<ModifierId>ORDU_ADJUST_RESOURCE_STOCKPILE_CAP</ModifierId>
+			<Name>Amount</Name>
+			<Value>10</Value>
+		</Row>
+		<Row>
+			<ModifierId>TRAIT_FLOOD_BARRIER_PRODUCTION</ModifierId>
+			<Name>BuildingType</Name>
+			<Value>BUILDING_FLOOD_BARRIER</Value>
+		</Row>
+		<Row>
+			<ModifierId>TRAIT_FLOOD_BARRIER_PRODUCTION</ModifierId>
+			<Name>Amount</Name>
+			<Value>50</Value>
+		</Row>
+		<Row>
+			<ModifierId>TRAIT_DAM_PRODUCTION_PRODUCTION</ModifierId>
+			<Name>DistrictType</Name>
+			<Value>DISTRICT_DAM</Value>
+		</Row>
+		<Row>
+			<ModifierId>TRAIT_DAM_PRODUCTION_PRODUCTION</ModifierId>
+			<Name>Amount</Name>
+			<Value>50</Value>
+		</Row>
+		<Row>
+			<ModifierId>ROCKBAND_SPACE_ROCK_SEOWON</ModifierId>
+			<Name>DistrictType</Name>
+			<Value>DISTRICT_SEOWON</Value>
+		</Row>
+		<Row>
+			<ModifierId>ROCKBAND_SPACE_ROCK_SEOWON</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+		<Row>
+			<ModifierId>ROCKBAND_SPACE_ROCK_SEOWON_MODIFIER</ModifierId>
+			<Name>DistrictType</Name>
+			<Value>DISTRICT_SEOWON</Value>
+		</Row>
+		<Row>
+			<ModifierId>ROCKBAND_SPACE_ROCK_SEOWON_MODIFIER</ModifierId>
+			<Name>Amount</Name>
+			<Value>500</Value>
+		</Row>
+		<Row>
+			<ModifierId>GOLFCOURSE_AMENITIES</ModifierId>
+			<Name>Amount</Name>
+			<Value>1</Value>
+		</Row>
+	</ModifierArguments>
+	<LeaderTraits>
+		<Row LeaderType="LEADER_TAMAR" TraitType="TRAIT_LEADER_PURSUE_DIPLOMATIC_VICTORY"/>
+	</LeaderTraits>
+	<Features>
+		<Update>
+			<Where FeatureType="FEATURE_EYE_OF_THE_SAHARA"/>
+			<Set>
+				<Description>LOC_FEATURE_EYE_OF_THE_SAHARA_XP2_DESCRIPTION</Description>
+			</Set>
+		</Update>
+	</Features>
+	<Feature_YieldChanges>
+		<Update>
+			<Where FeatureType="FEATURE_EYE_OF_THE_SAHARA" YieldType="YIELD_PRODUCTION"/>
+			<Set>
+				<YieldChange>2</YieldChange>
+			</Set>
+		</Update>
+		<Row FeatureType="FEATURE_EYE_OF_THE_SAHARA" YieldType="YIELD_SCIENCE" YieldChange="1"/>
+	</Feature_YieldChanges>
+	<ImprovementModifiers>
+		<Row>
+			<ImprovementType>IMPROVEMENT_GOLF_COURSE</ImprovementType>
+			<ModifierId>GOLFCOURSE_AMENITIES</ModifierId>
+		</Row>
+	</ImprovementModifiers>
+	<Improvements>
+		<Update>
+			<Where ImprovementType="IMPROVEMENT_GOLF_COURSE"/>
+			<Set>
+				<Description>LOC_IMPROVEMENT_GOLF_COURSE_XP2_DESCRIPTION</Description>
+			</Set>
+		</Update>
+	</Improvements>
+</GameInfo>

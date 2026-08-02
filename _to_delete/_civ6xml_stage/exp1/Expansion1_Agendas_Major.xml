@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Ed Beach (Firaxis Games) -->
+<GameInfo>
+	<Types>
+		<Row Type="TRAIT_AGENDA_BILLIONAIRE" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_AGENDA_CHEOMSEONGDAE" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_AGENDA_FLOWER_OF_SCOTLAND" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_AGENDA_HORN_CHEST_LOINS" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_AGENDA_HORSE_LORD" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_AGENDA_IRON_CONFEDERACY" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_AGENDA_MAURYA_EMPIRE" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_AGENDA_NARIKALA_FORTRESS" Kind="KIND_TRAIT"/>
+		<Row Type="TRAIT_AGENDA_SPIRIT_OF_TUCAPEL" Kind="KIND_TRAIT"/>
+	</Types>
+	<Traits>
+		<Row TraitType="TRAIT_AGENDA_BILLIONAIRE"/>
+		<Row TraitType="TRAIT_AGENDA_CHEOMSEONGDAE"/>
+		<Row TraitType="TRAIT_AGENDA_FLOWER_OF_SCOTLAND"/>
+		<Row TraitType="TRAIT_AGENDA_HORN_CHEST_LOINS"/>
+		<Row TraitType="TRAIT_AGENDA_HORSE_LORD"/>
+		<Row TraitType="TRAIT_AGENDA_IRON_CONFEDERACY"/>
+		<Row TraitType="TRAIT_AGENDA_MAURYA_EMPIRE"/>
+		<Row TraitType="TRAIT_AGENDA_NARIKALA_FORTRESS"/>
+		<Row TraitType="TRAIT_AGENDA_SPIRIT_OF_TUCAPEL"/>
+	</Traits>
+	<AgendaPreferredLeaders>
+		<Row AgendaType="AGENDA_SYMPATHIZER" LeaderType="LEADER_LAUTARO" PercentageChance="10"/>
+		<Row AgendaType="AGENDA_SYMPATHIZER" LeaderType="LEADER_GENGHIS_KHAN" PercentageChance="10"/>
+	</AgendaPreferredLeaders>
+	<ExclusiveAgendas>
+		<Row AgendaOne="AGENDA_CHEOMSEONGDAE" AgendaTwo="AGENDA_TECHNOPHILE"/>
+		<Row AgendaOne="AGENDA_HORN_CHEST_LOINS" AgendaTwo="AGENDA_PARANOID"/>
+		<Row AgendaOne="AGENDA_HORSE_LORD" AgendaTwo="AGENDA_PARANOID"/>
+		<Row AgendaOne="AGENDA_BLACK_QUEEN" AgendaTwo="AGENDA_GOSSIP"/>
+	</ExclusiveAgendas>
+	<AgendaTraits>
+		<Row AgendaType="AGENDA_BILLIONAIRE" TraitType="TRAIT_AGENDA_BILLIONAIRE"/>
+		<Row AgendaType="AGENDA_CHEOMSEONGDAE" TraitType="TRAIT_AGENDA_CHEOMSEONGDAE"/>
+		<Row AgendaType="AGENDA_FLOWER_OF_SCOTLAND" TraitType="TRAIT_AGENDA_FLOWER_OF_SCOTLAND"/>
+		<Row AgendaType="AGENDA_HORN_CHEST_LOINS" TraitType="TRAIT_AGENDA_HORN_CHEST_LOINS"/>
+		<Row AgendaType="AGENDA_HORSE_LORD" TraitType="TRAIT_AGENDA_HORSE_LORD"/>
+		<Row AgendaType="AGENDA_IRON_CONFEDERACY" TraitType="TRAIT_AGENDA_IRON_CONFEDERACY"/>
+		<Row AgendaType="AGENDA_MAURYA_EMPIRE" TraitType="TRAIT_AGENDA_MAURYA_EMPIRE"/>
+		<Row AgendaType="AGENDA_NARIKALA_FORTRESS" TraitType="TRAIT_AGENDA_NARIKALA_FORTRESS"/>
+		<Row AgendaType="AGENDA_SPIRIT_OF_TUCAPEL" TraitType="TRAIT_AGENDA_SPIRIT_OF_TUCAPEL"/>
+	</AgendaTraits>
+	<AiListTypes>
+		<Row ListType="IronConfederacyDiplomacy"/>
+		<Row ListType="MauryaEmpireDiplomacy"/>
+		<Row ListType="TamarFavorWalls"/>
+		<Row ListType="TamarYields"/>
+		<Row ListType="TucapelSettlingChanges"/>
+		<Row ListType="TucapelPseudoYields"/>
+		<Row ListType="WilhelminaPseudoYields"/>
+		<Row ListType="WilhelminaYields"/>
+	</AiListTypes>
+	<AiLists>
+		<Row ListType="IronConfederacyDiplomacy" AgendaType="TRAIT_AGENDA_IRON_CONFEDERACY" System="DiplomaticActions"/>
+		<Row ListType="MauryaEmpireDiplomacy" AgendaType="TRAIT_AGENDA_MAURYA_EMPIRE" System="DiplomaticActions"/>
+		<Row ListType="TamarFavorWalls" AgendaType="TRAIT_AGENDA_NARIKALA_FORTRESS" System="Buildings"/>
+		<Row ListType="TamarYields" AgendaType="TRAIT_AGENDA_NARIKALA_FORTRESS" System="Yields"/>
+		<Row ListType="TucapelSettlingChanges" AgendaType="TRAIT_AGENDA_SPIRIT_OF_TUCAPEL" System="PlotEvaluations"/>
+		<Row ListType="TucapelPseudoYields" AgendaType="TRAIT_AGENDA_SPIRIT_OF_TUCAPEL" System="PseudoYields"/>
+		<Row ListType="WilhelminaPseudoYields" AgendaType="TRAIT_AGENDA_BILLIONAIRE" System="PseudoYields"/>
+		<Row ListType="WilhelminaYields" AgendaType="TRAIT_AGENDA_BILLIONAIRE" System="Yields"/>
+	</AiLists>
+	<AiFavoredItems>
+		<Row ListType="IronConfederacyDiplomacy" Item="DIPLOACTION_ALLIANCE_RESEARCH" Favored="true"/>
+		<Row ListType="IronConfederacyDiplomacy" Item="DIPLOACTION_ALLIANCE_MILITARY" Favored="true"/>
+		<Row ListType="IronConfederacyDiplomacy" Item="DIPLOACTION_ALLIANCE_ECONOMIC" Favored="true"/>
+		<Row ListType="IronConfederacyDiplomacy" Item="DIPLOACTION_ALLIANCE_CULTURAL" Favored="true"/>
+		<Row ListType="IronConfederacyDiplomacy" Item="DIPLOACTION_ALLIANCE_RELIGIOUS" Favored="true"/>
+		<Row ListType="IronConfederacyDiplomacy" Item="DIPLOACTION_ALLIANCE_TEAMUP" Favored="true"/>
+		<Row ListType="IronConfederacyDiplomacy" Item="DIPLOACTION_DECLARE_SURPRISE_WAR" Favored="false"/>
+		<Row ListType="MauryaEmpireDiplomacy" Item="DIPLOACTION_DECLARE_TERRITORIAL_WAR" Favored="true"/>
+		<Row ListType="TamarFavorWalls" Item="BUILDING_WALLS" Favored="true"/>
+		<Row ListType="TamarFavorWalls" Item="BUILDING_CASTLE" Favored="true"/>
+		<Row ListType="TamarFavorWalls" Item="BUILDING_TSIKHE" Favored="true"/>
+		<Row ListType="TamarYields" Item="YIELD_FAITH" Value="20"/>
+		<Row ListType="TucapelSettlingChanges" Item="Nearest Friendly City" Favored="false" Value="-5"/>
+		<Row ListType="WilhelminaPseudoYields" Item="PSEUDOYIELD_UNIT_TRADE" Value="50"/>
+		<Row ListType="WilhelminaYields" Item="YIELD_GOLD" Value="25"/>
+	</AiFavoredItems>
+	<TraitModifiers>
+		<Row TraitType="TRAIT_AGENDA_BILLIONAIRE" ModifierId="AGENDA_BILLIONAIRE_TRADE"/>
+		<Row TraitType="TRAIT_AGENDA_CHEOMSEONGDAE" ModifierId="AGENDA_CHEOMSEONGDAE_HIGH_SCIENCE"/>
+		<Row TraitType="TRAIT_AGENDA_CHEOMSEONGDAE" ModifierId="AGENDA_CHEOMSEONGDAE_LOW_SCIENCE"/>
+		<Row TraitType="TRAIT_AGENDA_FLOWER_OF_SCOTLAND" ModifierId="AGENDA_FLOWER_OF_SCOTLAND_BAN_WARS"/>
+		<!-- Note: Behavior modifier, not a diplomatic one-->
+		<Row TraitType="TRAIT_AGENDA_FLOWER_OF_SCOTLAND" ModifierId="AGENDA_FLOWER_OF_SCOTLAND_WAR_NEIGHBORS"/>
+		<Row TraitType="TRAIT_AGENDA_FLOWER_OF_SCOTLAND" ModifierId="AGENDA_FLOWER_OF_SCOTLAND_PEACE_NEIGHBORS"/>
+		<Row TraitType="TRAIT_AGENDA_HORN_CHEST_LOINS" ModifierId="AGENDA_HORN_CHEST_LOINS"/>
+		<Row TraitType="TRAIT_AGENDA_HORSE_LORD" ModifierId="AGENDA_HORSE_LORD"/>
+		<Row TraitType="TRAIT_AGENDA_IRON_CONFEDERACY" ModifierId="AGENDA_IRON_CONFEDERACY_MANY_ALLIANCES"/>
+		<Row TraitType="TRAIT_AGENDA_IRON_CONFEDERACY" ModifierId="AGENDA_IRON_CONFEDERACY_FEW_ALLIANCES"/>
+		<Row TraitType="TRAIT_AGENDA_MAURYA_EMPIRE" ModifierId="AGENDA_MAURYA_EMPIRE_NEIGHBORS"/>
+		<Row TraitType="TRAIT_AGENDA_MAURYA_EMPIRE" ModifierId="AGENDA_MAURYA_EMPIRE_NOT_NEIGHBORS"/>
+		<Row TraitType="TRAIT_AGENDA_NARIKALA_FORTRESS" ModifierId="AGENDA_NARIKALA_FORTRESS_HIGH_WALLS"/>
+		<Row TraitType="TRAIT_AGENDA_NARIKALA_FORTRESS" ModifierId="AGENDA_NARIKALA_FORTRESS_LOW_WALLS"/>
+		<Row TraitType="TRAIT_AGENDA_SPIRIT_OF_TUCAPEL" ModifierId="AGENDA_SPIRIT_OF_TUCAPEL_GAINING_CITIES"/>
+		<Row TraitType="TRAIT_AGENDA_SPIRIT_OF_TUCAPEL" ModifierId="AGENDA_SPIRIT_OF_TUCAPEL_LOSING_CITIES"/>
+	</TraitModifiers>
+	<Modifiers>
+		<Row>
+			<ModifierId>AGENDA_BILLIONAIRE_TRADE</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_TRADE_RELATIONS</ModifierType>
+			<OwnerRequirementSetId>ON_TURN_STARTED</OwnerRequirementSetId>
+			<SubjectRequirementSetId>PLAYER_IS_MAJOR_CIV_KNOWN_30_TURNS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_CHEOMSEONGDAE_HIGH_SCIENCE</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_SIMPLE_MODIFIER</ModifierType>
+			<SubjectRequirementSetId>PLAYER_HAS_HIGH_SCIENCE</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_CHEOMSEONGDAE_LOW_SCIENCE</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_SIMPLE_MODIFIER</ModifierType>
+			<SubjectRequirementSetId>PLAYER_HAS_LOW_SCIENCE</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_BAN_WARS</ModifierId>
+			<ModifierType>MODIFIER_ADJUST_DIPLOMATIC_ACTION_PREFERENCE</ModifierType>
+			<SubjectRequirementSetId>PLAYERS_ARE_NEIGHBORS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_WAR_NEIGHBORS</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_SIMPLE_MODIFIER</ModifierType>
+			<SubjectRequirementSetId>PLAYER_AT_WAR_WITH_NEIGHBORS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_PEACE_NEIGHBORS</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_SIMPLE_MODIFIER</ModifierType>
+			<SubjectRequirementSetId>PLAYER_NOT_AT_WAR_WITH_NEIGHBORS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORN_CHEST_LOINS</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_AGENDA_HORN_CHEST_LOINS</ModifierType>
+			<OwnerRequirementSetId>ON_TURN_STARTED</OwnerRequirementSetId>
+			<SubjectRequirementSetId>PLAYER_IS_MAJOR_CIV_KNOWN_10_TURNS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORSE_LORD</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_AGENDA_HORSE_LORD</ModifierType>
+			<OwnerRequirementSetId>ON_TURN_STARTED</OwnerRequirementSetId>
+			<SubjectRequirementSetId>PLAYER_IS_MAJOR_CIV_KNOWN_10_TURNS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_MANY_ALLIANCES</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_SIMPLE_MODIFIER</ModifierType>
+			<SubjectRequirementSetId>PLAYER_HAS_MANY_ALLIANCES</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_FEW_ALLIANCES</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_SIMPLE_MODIFIER</ModifierType>
+			<SubjectRequirementSetId>PLAYER_HAS_FEW_ALLIANCES</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NEIGHBORS</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_SIMPLE_MODIFIER</ModifierType>
+			<SubjectRequirementSetId>PLAYERS_ARE_NEIGHBORS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NOT_NEIGHBORS</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_SIMPLE_MODIFIER</ModifierType>
+			<SubjectRequirementSetId>PLAYERS_ARE_NOT_NEIGHBORS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_NARIKALA_FORTRESS_HIGH_WALLS</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_SIMPLE_MODIFIER</ModifierType>
+			<SubjectRequirementSetId>PLAYER_HAS_HIGH_WALLS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_NARIKALA_FORTRESS_LOW_WALLS</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_SIMPLE_MODIFIER</ModifierType>
+			<SubjectRequirementSetId>PLAYER_HAS_LOW_WALLS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_GAINING_CITIES</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_AGENDA_SPIRIT_OF_TUCAPEL</ModifierType>
+			<OwnerRequirementSetId>ON_TURN_STARTED</OwnerRequirementSetId>
+			<SubjectRequirementSetId>PLAYER_IS_MAJOR_CIV_KNOWN_10_TURNS</SubjectRequirementSetId>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_LOSING_CITIES</ModifierId>
+			<ModifierType>MODIFIER_PLAYER_DIPLOMACY_AGENDA_SPIRIT_OF_TUCAPEL</ModifierType>
+			<OwnerRequirementSetId>ON_TURN_STARTED</OwnerRequirementSetId>
+			<SubjectRequirementSetId>PLAYER_IS_MAJOR_CIV_KNOWN_10_TURNS</SubjectRequirementSetId>
+		</Row>
+	</Modifiers>
+	<ModifierArguments>
+		<Row>
+			<ModifierId>AGENDA_BILLIONAIRE_TRADE</ModifierId>
+			<Name>TradeBonus</Name>
+			<Value>3</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_BILLIONAIRE_TRADE</ModifierId>
+			<Name>NoTradePenalty</Name>
+			<Value>12</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_BILLIONAIRE_TRADE</ModifierId>
+			<Name>BonusPerRoute</Name>
+			<Value>true</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_BILLIONAIRE_TRADE</ModifierId>
+			<Name>OnlyInboundTrade</Name>
+			<Value>true</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_BILLIONAIRE_TRADE</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_KUDO_LEADER_WILHELMINA_REASON_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_BILLIONAIRE_TRADE</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_WILHELMINA_BILLIONAIRE_TRADE</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_CHEOMSEONGDAE_HIGH_SCIENCE</ModifierId>
+			<Name>InitialValue</Name>
+			<Value>8</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_CHEOMSEONGDAE_HIGH_SCIENCE</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_KUDO_LEADER_SEONDEOK_REASON_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_CHEOMSEONGDAE_HIGH_SCIENCE</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_CHEOMSEONGDAE_HIGH_SCIENCE</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_CHEOMSEONGDAE_LOW_SCIENCE</ModifierId>
+			<Name>InitialValue</Name>
+			<Value>-8</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_CHEOMSEONGDAE_LOW_SCIENCE</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_WARNING_LEADER_SEONDEOK_REASON_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_CHEOMSEONGDAE_LOW_SCIENCE</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_CHEOMSEONGDAE_LOW_SCIENCE</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_PEACE_NEIGHBORS</ModifierId>
+			<Name>InitialValue</Name>
+			<Value>2</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_PEACE_NEIGHBORS</ModifierId>
+			<Name>MaxValue</Name>
+			<Value>10</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_PEACE_NEIGHBORS</ModifierId>
+			<Name>IncrementTurns</Name>
+			<Value>10</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_PEACE_NEIGHBORS</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_KUDO_LEADER_ROBERT_THE_BRUCE_REASON_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_PEACE_NEIGHBORS</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_FLOWER_SCOTLAND_PEACEFUL</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_WAR_NEIGHBORS</ModifierId>
+			<Name>InitialValue</Name>
+			<Value>-2</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_WAR_NEIGHBORS</ModifierId>
+			<Name>MaxValue</Name>
+			<Value>-10</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_WAR_NEIGHBORS</ModifierId>
+			<Name>IncrementTurns</Name>
+			<Value>3</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_WAR_NEIGHBORS</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_WARNING_LEADER_ROBERT_THE_BRUCE_REASON_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_WAR_NEIGHBORS</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_FLOWER_SCOTLAND_WARLIKE</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_BAN_WARS</ModifierId>
+			<Name>Action</Name>
+			<Value>DIPLOACTION_DECLARE_SURPRISE_WAR, DIPLOACTION_DECLARE_FORMAL_WAR, DIPLOACTION_DECLARE_HOLY_WAR, DIPLOACTION_DECLARE_LIBERATION_WAR, DIPLOACTION_DECLARE_RECONQUEST_WAR, DIPLOACTION_DECLARE_PROTECTORATE_WAR, DIPLOACTION_DECLARE_COLONIAL_WAR, DIPLOACTION_DECLARE_TERRITORIAL_WAR</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_FLOWER_OF_SCOTLAND_BAN_WARS</ModifierId>
+			<Name>Favored</Name>
+			<Value>false</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORN_CHEST_LOINS</ModifierId>
+			<Name>StatementKey</Name>
+			<!-- Note: Value not actually used, just has to have something so we know this is a kudo/warning -->
+			<Value>AGENDA_HORN_CHEST_LOINS_WARNING</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORN_CHEST_LOINS</ModifierId>
+			<Name>TopPercentage</Name>
+			<Value>70</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORN_CHEST_LOINS</ModifierId>
+			<Name>BottomPercentage</Name>
+			<Value>30</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORN_CHEST_LOINS</ModifierId>
+			<Name>TopRankingDiploMod</Name>
+			<Value>6</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORN_CHEST_LOINS</ModifierId>
+			<Name>BottomRankingDiploMod</Name>
+			<Value>-7</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORN_CHEST_LOINS</ModifierId>
+			<Name>CantBuildDiploMod</Name>
+			<Value>-3</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORN_CHEST_LOINS</ModifierId>
+			<Name>CorpsPrereqCivic</Name>
+			<Value>CIVIC_NATIONALISM</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORSE_LORD</ModifierId>
+			<Name>StatementKey</Name>
+			<!-- Note: Value not actually used, just has to have something so we know this is a kudo/warning -->
+			<Value>AGENDA_HORSE_LORD_WARNING</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORSE_LORD</ModifierId>
+			<Name>TopPercentage</Name>
+			<Value>70</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORSE_LORD</ModifierId>
+			<Name>BottomPercentage</Name>
+			<Value>30</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORSE_LORD</ModifierId>
+			<Name>TopRankingDiploMod</Name>
+			<Value>-6</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORSE_LORD</ModifierId>
+			<Name>BottomRankingDiploMod</Name>
+			<Value>7</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORSE_LORD</ModifierId>
+			<Name>PromotionClass1</Name>
+			<Value>PROMOTION_CLASS_HEAVY_CAVALRY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_HORSE_LORD</ModifierId>
+			<Name>PromotionClass2</Name>
+			<Value>PROMOTION_CLASS_LIGHT_CAVALRY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_FEW_ALLIANCES</ModifierId>
+			<Name>InitialValue</Name>
+			<Value>-8</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_FEW_ALLIANCES</ModifierId>
+			<Name>MaxValue</Name>
+			<Value>-8</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_FEW_ALLIANCES</ModifierId>
+			<Name>IncrementTurns</Name>
+			<Value>4</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_FEW_ALLIANCES</ModifierId>
+			<Name>IncrementValue</Name>
+			<Value>-8</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_FEW_ALLIANCES</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_WARNING_LEADER_ROBERT_THE_BRUCE_REASON_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_FEW_ALLIANCES</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_IRON_CONFEDERACY_FEW_ALLIANCES</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_MANY_ALLIANCES</ModifierId>
+			<Name>InitialValue</Name>
+			<Value>8</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_MANY_ALLIANCES</ModifierId>
+			<Name>MaxValue</Name>
+			<Value>8</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_MANY_ALLIANCES</ModifierId>
+			<Name>ReductionTurns</Name>
+			<Value>4</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_MANY_ALLIANCES</ModifierId>
+			<Name>ReductionValue</Name>
+			<Value>-8</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_MANY_ALLIANCES</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_WARNING_LEADER_ROBERT_THE_BRUCE_REASON_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_IRON_CONFEDERACY_MANY_ALLIANCES</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_IRON_CONFEDERACY_MANY_ALLIANCES</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NEIGHBORS</ModifierId>
+			<Name>InitialValue</Name>
+			<Value>-5</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NEIGHBORS</ModifierId>
+			<Name>MaxValue</Name>
+			<Value>-25</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NEIGHBORS</ModifierId>
+			<Name>IncrementValue</Name>
+			<Value>-1</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NEIGHBORS</ModifierId>
+			<Name>IncrementTurns</Name>
+			<Value>10</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NEIGHBORS</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_WARNING_EXIT_LEADER_CHANDRAGUPTA_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NEIGHBORS</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_CHANDRAGUPTA_NEIGHBOR</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NOT_NEIGHBORS</ModifierId>
+			<Name>InitialValue</Name>
+			<Value>5</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NOT_NEIGHBORS</ModifierId>
+			<Name>MaxValue</Name>
+			<Value>15</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NOT_NEIGHBORS</ModifierId>
+			<Name>IncrementValue</Name>
+			<Value>1</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NOT_NEIGHBORS</ModifierId>
+			<Name>IncrementTurns</Name>
+			<Value>5</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NOT_NEIGHBORS</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_KUDO_EXIT_LEADER_CHANDRAGUPTA_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_MAURYA_EMPIRE_NOT_NEIGHBORS</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_CHANDRAGUPTA_NOT_NEIGHBOR</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_NARIKALA_FORTRESS_HIGH_WALLS</ModifierId>
+			<Name>InitialValue</Name>
+			<Value>8</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_NARIKALA_FORTRESS_HIGH_WALLS</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_KUDO_LEADER_TAMAR_REASON_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_NARIKALA_FORTRESS_HIGH_WALLS</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_NARIKALA_FORTRESS_HIGH_WALLS</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_NARIKALA_FORTRESS_LOW_WALLS</ModifierId>
+			<Name>InitialValue</Name>
+			<Value>-8</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_NARIKALA_FORTRESS_LOW_WALLS</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_WARNING_LEADER_TAMAR_REASON_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_NARIKALA_FORTRESS_LOW_WALLS</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_NARIKALA_FORTRESS_LOW_WALLS</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_GAINING_CITIES</ModifierId>
+			<Name>CityGainUpperBound</Name>
+			<Value>3</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_GAINING_CITIES</ModifierId>
+			<Name>CityGainLowerBound</Name>
+			<Value>0</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_GAINING_CITIES</ModifierId>
+			<Name>ScorePerCity</Name>
+			<Value>3</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_GAINING_CITIES</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_KUDO_LEADER_LAUTARO_REASON_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_GAINING_CITIES</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_SPIRIT_OF_TUCAPEL_GAINING_CITIES</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_LOSING_CITIES</ModifierId>
+			<Name>CityGainUpperBound</Name>
+			<Value>0</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_LOSING_CITIES</ModifierId>
+			<Name>CityGainLowerBound</Name>
+			<Value>-3</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_LOSING_CITIES</ModifierId>
+			<Name>ScorePerCity</Name>
+			<Value>3</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_LOSING_CITIES</ModifierId>
+			<Name>StatementKey</Name>
+			<Value>LOC_DIPLO_WARNING_LEADER_LAUTARO_REASON_ANY</Value>
+		</Row>
+		<Row>
+			<ModifierId>AGENDA_SPIRIT_OF_TUCAPEL_LOSING_CITIES</ModifierId>
+			<Name>SimpleModifierDescription</Name>
+			<Value>LOC_DIPLO_MODIFIER_SPIRIT_OF_TUCAPEL_LOSING_CITIES</Value>
+		</Row>
+	</ModifierArguments>
+	<ModifierStrings>
+		<Row ModifierId="AGENDA_BILLIONAIRE_TRADE" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_CHEOMSEONGDAE_HIGH_SCIENCE" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_CHEOMSEONGDAE_LOW_SCIENCE" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_FLOWER_OF_SCOTLAND_PEACE_NEIGHBORS" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_FLOWER_OF_SCOTLAND_WAR_NEIGHBORS" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_HORN_CHEST_LOINS" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_HORSE_LORD" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_IRON_CONFEDERACY_FEW_ALLIANCES" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_IRON_CONFEDERACY_MANY_ALLIANCES" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_MAURYA_EMPIRE_NEIGHBORS" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_MAURYA_EMPIRE_NOT_NEIGHBORS" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_NARIKALA_FORTRESS_HIGH_WALLS" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_NARIKALA_FORTRESS_LOW_WALLS" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_SPIRIT_OF_TUCAPEL_GAINING_CITIES" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+		<Row ModifierId="AGENDA_SPIRIT_OF_TUCAPEL_LOSING_CITIES" Context="Sample" Text="LOC_TOOLTIP_SAMPLE_DIPLOMACY_ALL"/>
+	</ModifierStrings>
+</GameInfo>

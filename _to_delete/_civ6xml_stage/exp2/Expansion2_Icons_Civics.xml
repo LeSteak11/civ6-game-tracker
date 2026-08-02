@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION_2_CIVICS"			IconSize="38"		IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Civics38.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_CIVICS"			IconSize="42"		IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Civics42.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_CIVICS"			IconSize="128"	IconsPerRow="8"		IconsPerColumn="4"	Filename="XP2_Civics128.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_CIVICS"			IconSize="160"	IconsPerRow="8"		IconsPerColumn="4"	Filename="XP2_Civics160.dds" />	
+		<Row Name="ICON_ATLAS_EXPANSION_2_CIVICS_FOW" IconSize="38"		IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Civics38_FOW.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_CIVICS_FOW" IconSize="42"		IconsPerRow="8"		IconsPerColumn="4"  Filename="XP2_Civics42_FOW.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_CIVICS_FOW" IconSize="128"	IconsPerRow="8"		IconsPerColumn="4"	Filename="XP2_Civics128_FOW.dds" />
+		<Row Name="ICON_ATLAS_EXPANSION_2_CIVICS_FOW" IconSize="160"	IconsPerRow="8"		IconsPerColumn="4"	Filename="XP2_Civics160_FOW.dds" />
+	</IconTextureAtlases>	
+	<IconDefinitions>
+		<Row Name="ICON_CIVIC_FUTURE_UNKNOWN"							Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="0" />
+		<Row Name="ICON_CIVIC_WAGE_REFORM"								Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="1" />
+		<Row Name="ICON_CIVIC_HIGHER_LEARNING"						Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="2" />
+		<Row Name="ICON_CIVIC_LABOR_ECONOMY"							Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="3" />
+		<Row Name="ICON_CIVIC_MIDDLE_CLASS"								Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="4" />
+		<Row Name="ICON_CIVIC_CORPORATE_LIBERTARIANISM"		Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="5" />
+		<Row Name="ICON_CIVIC_DIGITAL_DEMOCRACY"					Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="6" />
+		<Row Name="ICON_CIVIC_SYNTHETIC_TECHNOCRACY"			Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="7" />
+		<Row Name="ICON_CIVIC_NEAR_FUTURE_GOVERNANCE"			Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="8" />
+		<Row Name="ICON_CIVIC_EXODUS_IMPERATIVE"					Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="9" />
+		<Row Name="ICON_CIVIC_CULTURAL_HEGEMONY"					Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="10" />
+		<Row Name="ICON_CIVIC_GLOBAL_WARMING_MITIGATION"	Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="11" />
+		<Row Name="ICON_CIVIC_INFORMATION_WARFARE"				Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="12" />
+		<Row Name="ICON_CIVIC_SMART_POWER_DOCTRINE"				Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="13" />
+		<Row Name="ICON_CIVIC_ENVIRONMENTALISM"						Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="14" />
+		<Row Name="ICON_CIVIC_GLOBALIZATION"							Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="15" />
+		<Row Name="ICON_CIVIC_SOCIAL_MEDIA"								Atlas="ICON_ATLAS_EXPANSION_2_CIVICS"				Index="16" />
+
+		<Row Name="ICON_CIVIC_FUTURE_UNKNOWN_FOW"							Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="0" />
+		<Row Name="ICON_CIVIC_WAGE_REFORM_FOW"								Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="1" />
+		<Row Name="ICON_CIVIC_HIGHER_LEARNING_FOW"						Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="2" />
+		<Row Name="ICON_CIVIC_LABOR_ECONOMY_FOW"							Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="3" />
+		<Row Name="ICON_CIVIC_MIDDLE_CLASS_FOW"								Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="4" />
+		<Row Name="ICON_CIVIC_CORPORATE_LIBERTARIANISM_FOW"		Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="5" />
+		<Row Name="ICON_CIVIC_DIGITAL_DEMOCRACY_FOW"					Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="6" />
+		<Row Name="ICON_CIVIC_SYNTHETIC_TECHNOCRACY_FOW"			Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="7" />
+		<Row Name="ICON_CIVIC_NEAR_FUTURE_GOVERNANCE_FOW"			Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="8" />
+		<Row Name="ICON_CIVIC_EXODUS_IMPERATIVE_FOW"					Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="9" />
+		<Row Name="ICON_CIVIC_CULTURAL_HEGEMONY_FOW"					Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="10" />
+		<Row Name="ICON_CIVIC_GLOBAL_WARMING_MITIGATION_FOW"	Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="11" />
+		<Row Name="ICON_CIVIC_INFORMATION_WARFARE_FOW"				Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="12" />
+		<Row Name="ICON_CIVIC_SMART_POWER_DOCTRINE_FOW"				Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="13" />
+		<Row Name="ICON_CIVIC_ENVIRONMENTALISM_FOW"						Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="14" />
+		<Row Name="ICON_CIVIC_GLOBALIZATION_FOW"							Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="15" />
+		<Row Name="ICON_CIVIC_SOCIAL_MEDIA_FOW"								Atlas="ICON_ATLAS_EXPANSION_2_CIVICS_FOW"				Index="16" />
+  </IconDefinitions>
+</GameInfo>

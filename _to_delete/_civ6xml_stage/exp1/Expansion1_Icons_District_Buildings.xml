@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" IconSize="32" IconsPerRow="4" IconsPerColumn="4"  Filename="XP1_DistrictBuildings32.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" IconSize="38" IconsPerRow="4" IconsPerColumn="4"  Filename="XP1_DistrictBuildings38.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" IconSize="50" IconsPerRow="4" IconsPerColumn="4"  Filename="XP1_DistrictBuildings50.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" IconSize="80" IconsPerRow="4" IconsPerColumn="4"  Filename="XP1_DistrictBuildings80.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" IconSize="128" IconsPerRow="4" IconsPerColumn="4" Filename="XP1_DistrictBuildings128.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" IconSize="256" IconsPerRow="4" IconsPerColumn="4" Filename="XP1_DistrictBuildings256.dds"/>
+
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" IconSize="32"  IconsPerRow="4" IconsPerColumn="4" Filename="XP1_DistrictBuildings32_FOW.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" IconSize="38"  IconsPerRow="4" IconsPerColumn="4" Filename="XP1_DistrictBuildings38_FOW.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" IconSize="50"  IconsPerRow="4" IconsPerColumn="4" Filename="XP1_DistrictBuildings50_FOW.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" IconSize="80"  IconsPerRow="4" IconsPerColumn="4" Filename="XP1_DistrictBuildings80_FOW.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" IconSize="128" IconsPerRow="4" IconsPerColumn="4" Filename="XP1_DistrictBuildings128_FOW.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" IconSize="256" IconsPerRow="4" IconsPerColumn="4" Filename="XP1_DistrictBuildings256_FOW.dds"/>
+	</IconTextureAtlases>
+	
+	<IconDefinitions>
+		<!-- BUILDINGS -->
+		<Row Name="ICON_BUILDING_GOV_TALL"          Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="0"/>
+		<Row Name="ICON_BUILDING_GOV_WIDE"          Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="1"/>
+    <Row Name="ICON_BUILDING_GOV_CONQUEST"      Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="2"/>
+    <Row Name="ICON_BUILDING_GOV_CITYSTATES"    Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="3"/>
+    <Row Name="ICON_BUILDING_GOV_SPIES"         Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="4"/>
+    <Row Name="ICON_BUILDING_GOV_FAITH"         Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="5"/>
+    <Row Name="ICON_BUILDING_GOV_MILITARY"      Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="6"/>
+    <Row Name="ICON_BUILDING_GOV_CULTURE"       Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="7"/>
+    <Row Name="ICON_BUILDING_GOV_SCIENCE"       Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="8"/>
+    <Row Name="ICON_BUILDING_AQUARIUM"          Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="9"/>
+    <Row Name="ICON_BUILDING_AQUATICS_CENTER"   Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="10"/>
+    <Row Name="ICON_BUILDING_FERRIS_WHEEL"      Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="11"/>
+    <Row Name="ICON_BUILDING_SHOPPING_MALL"     Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="12"/>
+    <Row Name="ICON_BUILDING_FOOD_MARKET"       Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS" Index="13"/>
+
+    <!-- BUILDINGS FOW -->
+    <Row Name="ICON_BUILDING_GOV_TALL_FOW"          Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="0"/>
+    <Row Name="ICON_BUILDING_GOV_WIDE_FOW"          Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="1"/>
+    <Row Name="ICON_BUILDING_GOV_CONQUEST_FOW"      Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="2"/>
+    <Row Name="ICON_BUILDING_GOV_CITYSTATES_FOW"    Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="3"/>
+    <Row Name="ICON_BUILDING_GOV_SPIES_FOW"         Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="4"/>
+    <Row Name="ICON_BUILDING_GOV_FAITH_FOW"         Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="5"/>
+    <Row Name="ICON_BUILDING_GOV_MILITARY_FOW"      Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="6"/>
+    <Row Name="ICON_BUILDING_GOV_CULTURE_FOW"       Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="7"/>
+    <Row Name="ICON_BUILDING_GOV_SCIENCE_FOW"       Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="8"/>
+    <Row Name="ICON_BUILDING_AQUARIUM_FOW"          Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="9"/>
+    <Row Name="ICON_BUILDING_AQUATICS_CENTER_FOW"   Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="10"/>
+    <Row Name="ICON_BUILDING_FERRIS_WHEEL_FOW"      Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="11"/>
+    <Row Name="ICON_BUILDING_SHOPPING_MALL_FOW"     Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="12"/>
+    <Row Name="ICON_BUILDING_FOOD_MARKET_FOW"       Atlas="ICON_ATLAS_EXPANSION_1_DISTRICT_BUILDINGS_FOW" Index="13"/>
+	</IconDefinitions>
+	
+</GameInfo>

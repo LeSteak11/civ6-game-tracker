@@ -1,0 +1,26 @@
+<GameInfo>
+	<IconTextureAtlases>
+    <Row Name="ICON_ATLAS_XP1_DISTRICTS" IconSize="22" IconsPerRow="8" IconsPerColumn="8"       Filename="XP1_Districts22.dds"/>
+    <Row Name="ICON_ATLAS_XP1_DISTRICTS" IconSize="32" IconsPerRow="8" IconsPerColumn="8"       Filename="XP1_Districts32.dds"/>
+    <Row Name="ICON_ATLAS_XP1_DISTRICTS" IconSize="38" IconsPerRow="8" IconsPerColumn="8"       Filename="XP1_Districts38.dds"/>
+    <Row Name="ICON_ATLAS_XP1_DISTRICTS" IconSize="50" IconsPerRow="8" IconsPerColumn="8"       Filename="XP1_Districts50.dds"/>
+    <Row Name="ICON_ATLAS_XP1_DISTRICTS" IconSize="80" IconsPerRow="8" IconsPerColumn="8"       Filename="XP1_Districts80.dds"/>
+    <Row Name="ICON_ATLAS_XP1_DISTRICTS" IconSize="128" IconsPerRow="8" IconsPerColumn="8"      Filename="XP1_Districts128.dds"/>
+    <Row Name="ICON_ATLAS_XP1_DISTRICTS" IconSize="256" IconsPerRow="8" IconsPerColumn="8"      Filename="XP1_Districts256.dds"/>
+    <Row Name="ICON_ATLAS_XP1_DISTRICTS_FOW" IconSize="256" IconsPerRow="8" IconsPerColumn="8"  Filename="XP1_Districts256.dds"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+    <Row Name="ICON_DISTRICT_GOVERNMENT"                                  Atlas="ICON_ATLAS_XP1_DISTRICTS" Index="0"/>
+    <Row Name="ICON_DISTRICT_WATER_ENTERTAINMENT_COMPLEX"                 Atlas="ICON_ATLAS_XP1_DISTRICTS" Index="1"/>
+    <Row Name="ICON_DISTRICT_SEOWON"                                      Atlas="ICON_ATLAS_XP1_DISTRICTS" Index="2"/>
+    <Row Name="ICON_DISTRICT_IKANDA"                                      Atlas="ICON_ATLAS_XP1_DISTRICTS" Index="3"/>
+
+    <Row Name="ICON_DISTRICT_GOVERNMENT_FOW"                              Atlas="ICON_ATLAS_XP1_DISTRICTS_FOW" Index="0"/>
+    <Row Name="ICON_DISTRICT_WATER_ENTERTAINMENT_COMPLEX_FOW"             Atlas="ICON_ATLAS_XP1_DISTRICTS_FOW" Index="1"/>
+    <Row Name="ICON_DISTRICT_SEOWON_FOW"                                  Atlas="ICON_ATLAS_XP1_DISTRICTS_FOW" Index="2"/>
+    <Row Name="ICON_DISTRICT_IKANDA_FOW"                                  Atlas="ICON_ATLAS_XP1_DISTRICTS_FOW" Index="3"/>
+  </IconDefinitions>
+  <IconAliases>
+	<Row Name="ICON_DISTRICT_WATER_STREET_CARNIVAL" OtherName="ICON_DISTRICT_WATER_ENTERTAINMENT_COMPLEX" />
+  </IconAliases>
+</GameInfo>

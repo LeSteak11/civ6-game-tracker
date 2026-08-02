@@ -190,7 +190,7 @@ check("real delta lists grown city", "Sais" in txt2)
 
 print("\n=== schema/version bump ===")
 check("schema bumped to 1.4", SCHEMA_VERSION == "coach-snapshot/1.4", SCHEMA_VERSION)
-check("coach version 1.7.1 (semver)", COACH_VERSION == "1.7.1", COACH_VERSION)
+check("coach version 1.8.0 (semver)", COACH_VERSION == "1.8.0", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -1276,6 +1276,152 @@ check("rollup line names the recruit/faith mechanism",
 check("trainable blocked list count excludes rolled-up units",
       "unavailable units (all 9 trainables):" in _md_a5)
 
+
+
+# ---------------------------------------------------------------------------
+# GAME PACK builder (scripts/make_game_pack.py)
+#
+# The pack is what an AI chat actually reads, so its failure modes are the
+# expensive kind: a silently-dropped turn or a fake 0 becomes a confident
+# wrong conclusion.  These cases pin the honesty rules.
+# ---------------------------------------------------------------------------
+
+import tempfile as _tempfile
+import shutil as _shutil
+
+sys.path.insert(0, str(REPO / "scripts"))
+import make_game_pack as GP  # noqa: E402
+
+
+def _pack_fixture(root, *, turns=((10, "1.2.1"), (11, "1.7.1"), (14, "1.7.1"))):
+    """Synthetic archive: a version seam, a gap, a failed section, a rev02."""
+    d = Path(root) / "output" / "games" / "game-001_test"
+    (d / "snapshots").mkdir(parents=True, exist_ok=True)
+    (d / "game.json").write_text(json.dumps({
+        "civ_name": "Egypt", "leader_name": "Cleopatra", "difficulty": "Chieftain",
+        "map_type": "Continents", "map_size": "Small", "speed": "Standard",
+        "last_capture_at_epoch": 100,
+    }), encoding="utf-8")
+    for turn, ver in turns:
+        snap = {
+            "coach_version": ver,
+            "meta": {"turn": turn, "era": "Ancient Era"},
+            "empire": {"score": turn * 2, "science": 1.5, "culture": 2.0, "gold": 100,
+                       "gold_net": 3.0, "faith": 0, "military": 50, "num_cities": 2,
+                       "total_pop": 5, "techs_done": 4, "civics_done": 3,
+                       "trade_used": 1, "num_units": 6},
+            # turn 11 stands in for a section the collector could not read
+            "section_status": {"empire": "failed" if turn == 11 else "ok"},
+        }
+        (d / "snapshots" / f"turn-{turn:04d}_r01.json").write_text(
+            json.dumps(snap), encoding="utf-8")
+        (d / "snapshots" / f"turn-{turn:04d}_r01.md").write_text(
+            f"# SNAP {turn}\n\n## CHANGES SINCE LAST SNAPSHOT\n- grew\n\n"
+            f"## WORLD NEWS\n- news\n\n## REVEALED MAP\n" + "tile\n" * 50,
+            encoding="utf-8")
+    # same-turn recapture: the higher revision must win
+    snap["meta"]["turn"] = 14
+    snap["empire"]["score"] = 999
+    snap["section_status"] = {"empire": "ok"}
+    (d / "snapshots" / "turn-0014_r02.json").write_text(json.dumps(snap), encoding="utf-8")
+    (d / "snapshots" / "turn-0014_r02.md").write_text(
+        "## CHANGES SINCE LAST SNAPSHOT\n- rev2 wins\n", encoding="utf-8")
+
+    (d / "gossip.json").write_text(json.dumps([
+        {"turn": 5, "text": "Rumor: dup"},
+        {"turn": 5, "text": "Rumor: dup"},
+        {"turn": 9, "text": "Sumeria expanded"},
+    ]), encoding="utf-8")
+    (d / "events.json").write_text(json.dumps([
+        {"turn": 12, "event": "military_swing", "civ": "Sumeria", "from": 100, "to": 10},
+    ]), encoding="utf-8")
+    (d / "rivals.json").write_text(json.dumps({
+        "majors": {
+            "3": {"civ_name": "Sumeria", "leader_name": "Gilgamesh", "timeline": [
+                {"turn": 10, "alive": True, "score": 30, "military": 100, "techs": 5,
+                 "civics": 4, "tourism": 0, "cities_known": 3, "wars_with": [],
+                 "government": "GOVERNMENT_AUTOCRACY"}]},
+            # dead before the archive begins — must not render an empty table
+            "4": {"civ_name": "Brazil", "timeline": [
+                {"turn": 10, "alive": False, "score": None}]},
+        },
+        "city_states": {"7": {"name": "Hattusa", "timeline": [
+            {"turn": 10, "suzerain": "ME"}, {"turn": 12, "suzerain": None}]}},
+    }), encoding="utf-8")
+    (d / "latest.md").write_text(
+        "# FINAL\n\n## EMPIRE\n- score 999\n\n## REVEALED MAP\n" + "tile\n" * 200,
+        encoding="utf-8")
+    return d
+
+
+_pk_root = _tempfile.mkdtemp(prefix="civ6-pack-regress-")
+try:
+    _pk_dir = _pack_fixture(_pk_root)
+    _pk_games = Path(_pk_root) / "output" / "games"
+    _pk_game = GP.find_games(_pk_games)[0]
+    _pk = GP.build_pack(_pk_game)
+
+    check("game pack: discovers the game folder and every captured turn",
+          len(_pk_game.turns) == 3 and _pk_game.turns == [10, 11, 14])
+
+    check("game pack: highest revision per turn wins",
+          "| 14 | Ancient Era | 999 |" in _pk and "| 14 | Ancient Era | 28 |" not in _pk)
+
+    check("game pack: failed section renders ?, never a fake 0",
+          "| 11 | Ancient Era | ? | ? |" in _pk)
+
+    check("game pack: uncaptured early turns are declared, not glossed over",
+          "Turns 1-9 were never captured" in _pk.replace("\u2013", "-")
+          or "Turns 1\u20139 were never captured" in _pk)
+
+    check("game pack: back-fill horizon is stated when gossip predates capture",
+          "back-filled to T5" in _pk)
+
+    check("game pack: gaps inside the captured span are listed",
+          "Gaps inside the captured span" in _pk and "12-13" in _pk)
+
+    check("game pack: schema drift across coach versions is warned about loudly",
+          "SCHEMA DRIFT WARNING" in _pk and "1.2.1" in _pk and "1.7.1" in _pk)
+
+    check("game pack: chronology dedups repeated gossip",
+          _pk.count("Rumor: dup") == 1 and "1 duplicate removed" in _pk)
+
+    check("game pack: gossip and events merge into one turn-sorted record",
+          _pk.index("**T5**") < _pk.index("**T9**") < _pk.index("**T12**"))
+
+    check("game pack: a civ dead before the archive gets a sentence, not an empty table",
+          "No observations while alive" in _pk)
+
+    check("game pack: city-state suzerain flips are compressed into a history",
+          "T10:ME" in _pk and "T12:none" in _pk)
+
+    check("game pack: narrative carries the per-turn CHANGES/WORLD NEWS blocks",
+          "#### Turn 10" in _pk and "rev2 wins" in _pk)
+
+    check("game pack: final state is embedded verbatim by default",
+          "score 999" in _pk and "## REVEALED MAP" in _pk)
+
+    # --- budget: trims are real, labelled, and never touch the spine --------
+    _pk_lean = GP.build_pack(_pk_game, lean=True)
+    check("game pack: lean variant drops the map dump and says so",
+          "[omitted from lean pack]" in _pk_lean and len(_pk_lean) < len(_pk))
+
+    _pk_tight = GP.build_pack(_pk_game, budget=2500)
+    check("game pack: an exceeded budget is stated in the coverage header",
+          "Budget 2,500 chars exceeded" in _pk_tight)
+    check("game pack: budget trims never remove the timelines or chronology",
+          "## 1. YOUR TIMELINE" in _pk_tight
+          and "## 3. MASTER CHRONOLOGY" in _pk_tight
+          and "**T9**" in _pk_tight)
+
+    check("game pack: --newest and --game select the same single-game archive",
+          GP.main(["--game", "game-001_test", "--games-root", str(_pk_games)]) == 0
+          and (_pk_dir / "GAME-PACK.md").exists())
+
+    check("game pack: an unknown game name exits non-zero instead of guessing",
+          GP.main(["--game", "nope", "--games-root", str(_pk_games)]) == 1)
+finally:
+    _shutil.rmtree(_pk_root, ignore_errors=True)
 
 print()
 if failures:

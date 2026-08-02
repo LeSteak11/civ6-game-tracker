@@ -1,0 +1,25 @@
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION_2_FEATURES" IconSize="50" IconsPerRow="8" IconsPerColumn="1"  Filename="XP2_Features50.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_FEATURES" IconSize="64" IconsPerRow="8" IconsPerColumn="1"  Filename="XP2_Features64.dds"/>
+		<Row Name="ICON_ATLAS_EXPANSION_2_FEATURES" IconSize="256" IconsPerRow="8" IconsPerColumn="1" Filename="XP2_Features256.dds"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+		<!-- Wonders -->
+		<Row Name="ICON_FEATURE_CHOCOLATEHILLS"						Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="0"/>
+		<Row Name="ICON_FEATURE_DEVILSTOWER"							Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="1"/>
+		<Row Name="ICON_FEATURE_GOBUSTAN"									Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="2"/>
+		<Row Name="ICON_FEATURE_IKKIL"										Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="3"/>
+		<Row Name="ICON_FEATURE_PAMUKKALE"								Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="4"/>
+		<Row Name="ICON_FEATURE_VESUVIUS"									Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="5"/>
+		<Row Name="ICON_FEATURE_WHITEDESERT"							Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="6"/>
+		<!-- Terrain -->
+		<Row Name="ICON_FEATURE_FLOODPLAINS_DESERT"				Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="7"/>
+		<Row Name="ICON_FEATURE_FLOODPLAINS_GRASSLAND"		Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="8"/>
+		<Row Name="ICON_FEATURE_FLOODPLAINS_PLAINS"				Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="9"/>
+		<Row Name="ICON_FEATURE_FLOOD_RIVER"							Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="10"/>
+		<Row Name="ICON_FEATURE_GEOTHERMAL_FISSURE"				Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="11"/>
+		<Row Name="ICON_FEATURE_VOLCANIC_SOIL"						Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="12"/>
+		<Row Name="ICON_FEATURE_VOLCANO"									Atlas="ICON_ATLAS_EXPANSION_2_FEATURES" Index="13"/>
+	</IconDefinitions>
+</GameInfo>

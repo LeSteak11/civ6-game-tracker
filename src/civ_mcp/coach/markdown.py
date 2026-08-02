@@ -165,10 +165,16 @@ def _fmt_world_event(e: dict[str, Any]) -> str:
     return str(e)
 
 
+# Keys any real empire payload always carries.  A nonempty dict missing any
+# of these is a wrong/partial object (see the T313 world-event shadowing bug)
+# and must render as a failure, never as plausible zeros.
+_EMPIRE_REQUIRED_KEYS = ("score", "gold", "science", "military", "num_cities")
+
+
 def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
     st = snap.get("section_status") or {}
     m = snap.get("meta") or {}
-    e = snap.get("empire") or {}
+    empire = snap.get("empire") or {}
     lines: list[str] = []
 
     # ---- Header ------------------------------------------------------------
@@ -219,8 +225,8 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
     events = (delta or {}).get("world_events") or []
     if events:
         lines.append("## WORLD NEWS")
-        for e in events:
-            lines.append("- " + _fmt_world_event(e))
+        for event in events:
+            lines.append("- " + _fmt_world_event(event))
         lines.append("")
 
     # ---- Turn blockers ----------------------------------------------------
@@ -235,31 +241,39 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
 
     # ---- Empire ------------------------------------------------------------
     lines.append("## EMPIRE")
-    if st.get("empire") == "failed" or not e:
+    missing_keys = [k for k in _EMPIRE_REQUIRED_KEYS if k not in empire]
+    if st.get("empire") == "failed" or not empire:
         lines.append("- " + _fail_marker("empire", snap))
+    elif missing_keys:
+        # A nonempty dict that isn't shaped like empire data (wrong object,
+        # partial payload) must never render as plausible zeros.
+        lines.append(
+            f"- **QUERY FAILED — empire (malformed payload: missing "
+            f"{', '.join(missing_keys)})**"
+        )
     else:
-        lines.append(_kv("score", e.get("score")))
+        lines.append(_kv("score", empire.get("score")))
         lines.append(
             _kv(
                 "gold",
-                f"{e.get('gold', 0):.0f} (net {e.get('gold_net', 0):+.1f} = "
-                f"yield {e.get('gold_yield', 0):.1f} − maint {e.get('gold_maint', 0):.1f})",
+                f"{empire.get('gold', 0):.0f} (net {empire.get('gold_net', 0):+.1f} = "
+                f"yield {empire.get('gold_yield', 0):.1f} − maint {empire.get('gold_maint', 0):.1f})",
             )
         )
-        lines.append(_kv("science", f"{e.get('science', 0):.1f}/turn"))
-        lines.append(_kv("culture", f"{e.get('culture', 0):.1f}/turn"))
-        lines.append(_kv("faith", f"{e.get('faith', 0):.0f} (+{e.get('faith_yield', 0):.1f}/turn)"))
-        lines.append(_kv("tourism", f"{e.get('tourism', 0):.1f}/turn"))
-        lines.append(_kv("military", e.get("military")))
-        lines.append(_kv("techs / civics done", f"{e.get('techs_done')} / {e.get('civics_done')}"))
+        lines.append(_kv("science", f"{empire.get('science', 0):.1f}/turn"))
+        lines.append(_kv("culture", f"{empire.get('culture', 0):.1f}/turn"))
+        lines.append(_kv("faith", f"{empire.get('faith', 0):.0f} (+{empire.get('faith_yield', 0):.1f}/turn)"))
+        lines.append(_kv("tourism", f"{empire.get('tourism', 0):.1f}/turn"))
+        lines.append(_kv("military", empire.get("military")))
+        lines.append(_kv("techs / civics done", f"{empire.get('techs_done')} / {empire.get('civics_done')}"))
         lines.append(
             _kv(
                 "cities / units / pop",
-                f"{e.get('num_cities')} / {e.get('num_units')} / {e.get('total_pop')}",
+                f"{empire.get('num_cities')} / {empire.get('num_units')} / {empire.get('total_pop')}",
             )
         )
-        lines.append(_kv("trade routes", f"{e.get('trade_used')}/{e.get('trade_cap')}"))
-        lines.append(_kv("explored land", f"{e.get('explored_land')}/{e.get('total_land')} tiles"))
+        lines.append(_kv("trade routes", f"{empire.get('trade_used')}/{empire.get('trade_cap')}"))
+        lines.append(_kv("explored land", f"{empire.get('explored_land')}/{empire.get('total_land')} tiles"))
     if st.get("victories") == "failed":
         lines.append("- **enabled victories:** " + _fail_marker("victories", snap))
     else:

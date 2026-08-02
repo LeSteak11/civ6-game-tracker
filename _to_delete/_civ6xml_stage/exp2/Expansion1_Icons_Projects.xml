@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+  <IconTextureAtlases>
+    <Row Name="ICON_ATLAS_XP1_PROJECTS" IconSize="30"   IconsPerRow="8" IconsPerColumn="8" Filename="XP1_Projects30"/>
+    <Row Name="ICON_ATLAS_XP1_PROJECTS" IconSize="32"   IconsPerRow="8" IconsPerColumn="8" Filename="XP1_Projects32"/>
+    <Row Name="ICON_ATLAS_XP1_PROJECTS" IconSize="38"   IconsPerRow="8" IconsPerColumn="8" Filename="XP1_Projects38"/>
+    <Row Name="ICON_ATLAS_XP1_PROJECTS" IconSize="50"   IconsPerRow="8" IconsPerColumn="8" Filename="XP1_Projects50"/>
+    <Row Name="ICON_ATLAS_XP1_PROJECTS" IconSize="70"   IconsPerRow="8" IconsPerColumn="8" Filename="XP1_Projects70"/>
+    <Row Name="ICON_ATLAS_XP1_PROJECTS" IconSize="80"   IconsPerRow="8" IconsPerColumn="8" Filename="XP1_Projects80"/>
+    <Row Name="ICON_ATLAS_XP1_PROJECTS" IconSize="256"  IconsPerRow="8" IconsPerColumn="8" Filename="XP1_Projects256"/>
+  </IconTextureAtlases>
+  <IconDefinitions>
+    <Row Name="ICON_PROPOGANDA" Atlas="ICON_ATLAS_XP1_PROJECTS" Index="0"/>
+    <Row Name="ICON_PROJECT_WATER_CARNIVAL" Atlas="ICON_ATLAS_PROJECTS" Index="10"/>
+    <Row Name="ICON_PROJECT_BREAD_AND_CIRCUSES" Atlas="ICON_ATLAS_XP1_PROJECTS" Index="1"/>
+    <Row Name="ICON_PROJECT_WATER_BREAD_AND_CIRCUSES" Atlas="ICON_ATLAS_XP1_PROJECTS" Index="1"/>
+  </IconDefinitions>
+</GameInfo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- edited with XMLSPY v2004 rel. 2 U (http://www.xmlspy.com) by Anton Strenger (Firaxis Games) -->
+<GameInfo>
+	<IconTextureAtlases>
+		<Row Name="ICON_ATLAS_EXPANSION1_PRIDE_MOMENTS" IconSize="256" IconsPerRow="1" IconsPerColumn="1" Filename="XP1_PrideMoments256" />
+		<Row Name="ICON_ATLAS_EXPANSION1_PRIDE_MOMENT_TYPES" IconSize="64" IconsPerRow="4" IconsPerColumn="4" Filename="MomentType64"/>
+
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_AERONAUTICAL" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_Aeronautical"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_CULTURAL" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_Cultural"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_ECONOMIC" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_Econcomic"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_ESPIONAGE" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_Espionage"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_EXPLORATION" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_Exploration"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_GREAT_PERSON" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_GreatPerson"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_INDUSTRIAL" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_Industrial"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_INFRASTRUCTURE" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_Infrastructure"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_MILITARY" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_Military"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_RELIGIOUS" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_Religious"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_SCIENTIFIC" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_Scientific"/>
+		<Row Name="ICON_ATLAS_EXPANSION1_DEDICATION_TOURISM" IconSize="86" IconsPerRow="1" IconsPerColumn="1" Filename="MomentSmall_Dedication_Tourism"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+		<Row Name="ICON_HISTORIC_MOMENT" Atlas="ICON_ATLAS_EXPANSION1_PRIDE_MOMENTS" Index="0"/>
+		<Row Name="ICON_COMMEMORATION_SCIENTIFIC" Atlas="ICON_ATLAS_EXPANSION1_DEDICATION_SCIENTIFIC" Index="0"/>
+		<Row Name="ICON_COMMEMORATION_CULTURAL" Atlas="ICON_ATLAS_EXPANSION1_DEDICATION_CULTURAL" Index="0"/>
+		<Row Name="ICON_COMMEMORATION_INFRASTRUCTURE" Atlas="ICON_ATLAS_EXPANSION1_DEDICATION_INFRASTRUCTURE" Index="0"/>
+		<Row Name="ICON_COMMEMORATION_RELIGIOUS" Atlas="ICON_ATLAS_EXPANSION1_DEDICATION_RELIGIOUS" Index="0"/>
+		<Row Name="ICON_COMMEMORATION_EXPLORATION" Atlas="ICON_ATLAS_EXPANSION1_DEDICATION_EXPLORATION" Index="0"/>
+		<Row Name="ICON_COMMEMORATION_ECONOMIC" Atlas="ICON_ATLAS_EXPANSION1_DEDICATION_ECONOMIC" Index="0"/>
+		<Row Name="ICON_COMMEMORATION_INDUSTRIAL" Atlas="ICON_ATLAS_EXPANSION1_DEDICATION_INDUSTRIAL" Index="0"/>
+		<Row Name="ICON_COMMEMORATION_MILITARY" Atlas="ICON_ATLAS_EXPANSION1_DEDICATION_MILITARY" Index="0"/>
+		<Row Name="ICON_COMMEMORATION_TOURISM" Atlas="ICON_ATLAS_EXPANSION1_DEDICATION_TOURISM" Index="0"/>
+		<Row Name="ICON_COMMEMORATION_AERONAUTICAL" Atlas="ICON_ATLAS_EXPANSION1_DEDICATION_AERONAUTICAL" Index="0"/>
+		<Row Name="ICON_COMMEMORATION_ESPIONAGE" Atlas="ICON_ATLAS_EXPANSION1_DEDICATION_ESPIONAGE" Index="0"/>
+	</IconDefinitions>
+</GameInfo>

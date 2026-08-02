@@ -152,5 +152,2259 @@
     "text": "Your delegate, Ahmes, learned that Sumeria has switched governments to Classical Republic.",
     "source": "direct",
     "first_seen": 136
+  },
+  {
+    "about": 3,
+    "turn": 151,
+    "text": "Your delegate, Ahmes, learned that Sumeria is trading with Egypt.",
+    "source": "direct",
+    "first_seen": 152
+  },
+  {
+    "about": 3,
+    "turn": 151,
+    "text": "Your delegate, Ahmes, learned that Sumeria has just formed an alliance with Egypt.",
+    "source": "direct",
+    "first_seen": 152
+  },
+  {
+    "about": 3,
+    "turn": 152,
+    "text": "An allied friend reports that Sumeria has built an Encampment in Adab.",
+    "source": "direct",
+    "first_seen": 153
+  },
+  {
+    "about": 3,
+    "turn": 156,
+    "text": "An allied friend reports that Sumeria has used a Great Scientist to clear a Barbarian Outpost.",
+    "source": "direct",
+    "first_seen": 157
+  },
+  {
+    "about": 3,
+    "turn": 157,
+    "text": "An allied friend reports that Sumeria has built a University in Lagash.",
+    "source": "direct",
+    "first_seen": 158
+  },
+  {
+    "about": 3,
+    "turn": 157,
+    "text": "An allied friend reports that Sumeria has built a University in Uruk.",
+    "source": "direct",
+    "first_seen": 158
+  },
+  {
+    "about": 3,
+    "turn": 161,
+    "text": "An allied friend reports that Sumeria has denounced the evil deeds of the Aztec.",
+    "source": "direct",
+    "first_seen": 162
+  },
+  {
+    "about": 3,
+    "turn": 163,
+    "text": "An allied friend reports that Sumeria has earned the Great Scientist Galileo Galilei.",
+    "source": "direct",
+    "first_seen": 164
+  },
+  {
+    "about": 5,
+    "turn": 163,
+    "text": "Rumor has it that the Aztec have progressed from the Medieval Era to the Renaissance Era.",
+    "source": "direct",
+    "first_seen": 164
+  },
+  {
+    "about": 3,
+    "turn": 165,
+    "text": "An allied friend reports that Sumeria has built a Campus in Kish.",
+    "source": "direct",
+    "first_seen": 166
+  },
+  {
+    "about": 3,
+    "turn": 167,
+    "text": "An allied friend reports that Sumeria has progressed from the Renaissance Era to the Industrial Era.",
+    "source": "direct",
+    "first_seen": 168
+  },
+  {
+    "about": 5,
+    "turn": 171,
+    "text": "Your delegate, Bahiti, learned that the Aztec have just received a foreign delegation. It appears they came from Egypt.",
+    "source": "direct",
+    "first_seen": 172
+  },
+  {
+    "about": 3,
+    "turn": 172,
+    "text": "An allied friend reports that Sumeria has earned the Great General Jeanne d'Arc.",
+    "source": "direct",
+    "first_seen": 173
+  },
+  {
+    "about": 5,
+    "turn": 172,
+    "text": "Your delegate, Kanebti, learned that the Aztec have switched governments to Classical Republic.",
+    "source": "direct",
+    "first_seen": 173
+  },
+  {
+    "about": 3,
+    "turn": 174,
+    "text": "An allied friend reports that Sumeria completed development of Diplomatic Service.",
+    "source": "direct",
+    "first_seen": 175
+  },
+  {
+    "about": 3,
+    "turn": 174,
+    "text": "An allied friend reports that Sumeria completed research on Astronomy.",
+    "source": "direct",
+    "first_seen": 175
+  },
+  {
+    "about": 3,
+    "turn": 175,
+    "text": "An allied friend reports that Sumeria has built an Aqueduct in Lagash.",
+    "source": "direct",
+    "first_seen": 176
+  },
+  {
+    "about": 5,
+    "turn": 177,
+    "text": "Your delegate, Kanebti, learned that the Aztec have built a Campus in Chapultepec.",
+    "source": "direct",
+    "first_seen": 178
+  },
+  {
+    "about": 5,
+    "turn": 177,
+    "text": "Your delegate, Kanebti, learned that the Aztec have built a University in Atzcapotzalco.",
+    "source": "direct",
+    "first_seen": 178
+  },
+  {
+    "about": 3,
+    "turn": 178,
+    "text": "An allied friend reports that Sumeria is expanding, adding the new settlement: Bad-Tibira.",
+    "source": "direct",
+    "first_seen": 179
+  },
+  {
+    "about": 5,
+    "turn": 181,
+    "text": "Your delegate, Kanebti, learned that the Aztec have launched an inquisition rooting out heretics opposed to Eastern Orthodoxy.",
+    "source": "direct",
+    "first_seen": 182
+  },
+  {
+    "about": 3,
+    "turn": 183,
+    "text": "Your delegate, Pasupti, learned that A new building has appeared in the capital of Sumeria: a permanent embassy from Egypt.",
+    "source": "direct",
+    "first_seen": 184
+  },
+  {
+    "about": 3,
+    "turn": 182,
+    "text": "A recent news article revealed that Sumeria has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 184
+  },
+  {
+    "about": 3,
+    "turn": 184,
+    "text": "Your delegate, Pasupti, learned that Sumeria has built a Campus in Adab.",
+    "source": "direct",
+    "first_seen": 186
+  },
+  {
+    "about": 5,
+    "turn": 185,
+    "text": "A recent news article revealed that the Aztec are trading with England.",
+    "source": "direct",
+    "first_seen": 186
+  },
+  {
+    "about": 5,
+    "turn": 189,
+    "text": "A recent news article revealed that the Aztec have progressed from the Renaissance Era to the Industrial Era.",
+    "source": "direct",
+    "first_seen": 190
+  },
+  {
+    "about": 5,
+    "turn": 190,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of Egypt.",
+    "source": "direct",
+    "first_seen": 191
+  },
+  {
+    "about": 3,
+    "turn": 191,
+    "text": "Your delegate, Pasupti, learned that Gilgamesh has warned Montezuma about interfering with the agenda: Ally of Enkidu.",
+    "source": "direct",
+    "first_seen": 192
+  },
+  {
+    "about": 3,
+    "turn": 192,
+    "text": "Your delegate, Pasupti, learned that Sumeria has denounced the evil deeds of the Aztec.",
+    "source": "direct",
+    "first_seen": 193
+  },
+  {
+    "about": 3,
+    "turn": 194,
+    "text": "An allied friend reports that Sumeria has used a War-Cart to clear a Barbarian Outpost.",
+    "source": "direct",
+    "first_seen": 195
+  },
+  {
+    "about": 3,
+    "turn": 194,
+    "text": "An allied friend reports that Sumeria has earned the Great Scientist James Young.",
+    "source": "direct",
+    "first_seen": 195
+  },
+  {
+    "about": 3,
+    "turn": 194,
+    "text": "An allied friend reports that Sumeria is trading with Egypt.",
+    "source": "direct",
+    "first_seen": 195
+  },
+  {
+    "about": 3,
+    "turn": 194,
+    "text": "An allied friend reports that Sumeria has just formed an alliance with Egypt.",
+    "source": "direct",
+    "first_seen": 195
+  },
+  {
+    "about": 5,
+    "turn": 197,
+    "text": "A recent news article revealed that the Aztec are expanding, adding the new settlement: Texcoco.",
+    "source": "direct",
+    "first_seen": 198
+  },
+  {
+    "about": 5,
+    "turn": 197,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of India.",
+    "source": "direct",
+    "first_seen": 198
+  },
+  {
+    "about": 3,
+    "turn": 198,
+    "text": "An allied friend reports that Sumeria has cleared land in Lagash for the Potala Palace.",
+    "source": "direct",
+    "first_seen": 199
+  },
+  {
+    "about": 3,
+    "turn": 198,
+    "text": "An allied friend reports that Sumeria has built an Industrial Zone in Kish.",
+    "source": "direct",
+    "first_seen": 199
+  },
+  {
+    "about": 3,
+    "turn": 198,
+    "text": "An allied friend reports that Sumeria is looking to found a city with their newly trained Settler.",
+    "source": "direct",
+    "first_seen": 199
+  },
+  {
+    "about": 3,
+    "turn": 198,
+    "text": "An allied friend reports that Gilgamesh has warned Montezuma about interfering with the agenda: Explorer.",
+    "source": "direct",
+    "first_seen": 199
+  },
+  {
+    "about": 3,
+    "turn": 199,
+    "text": "An allied friend reports that Sumeria has progressed from the Industrial Era to the Modern Era.",
+    "source": "direct",
+    "first_seen": 201
+  },
+  {
+    "about": 3,
+    "turn": 199,
+    "text": "An allied friend reports that Sumeria completed research on Steel.",
+    "source": "direct",
+    "first_seen": 201
+  },
+  {
+    "about": 5,
+    "turn": 202,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of England.",
+    "source": "direct",
+    "first_seen": 203
+  },
+  {
+    "about": 3,
+    "turn": 211,
+    "text": "An allied friend reports that Sumeria has built a Theater Square in Bad-Tibira.",
+    "source": "direct",
+    "first_seen": 212
+  },
+  {
+    "about": 3,
+    "turn": 214,
+    "text": "An allied friend reports that Sumeria is expanding, adding the new settlement: Shuruppak.",
+    "source": "direct",
+    "first_seen": 215
+  },
+  {
+    "about": 3,
+    "turn": 215,
+    "text": "An allied friend reports that Pilgrims from Sumeria are now flocking to see the holy relic: Book of Thoth.",
+    "source": "direct",
+    "first_seen": 216
+  },
+  {
+    "about": 3,
+    "turn": 215,
+    "text": "An allied friend reports that Sumeria completed research on Combustion.",
+    "source": "direct",
+    "first_seen": 216
+  },
+  {
+    "about": 3,
+    "turn": 218,
+    "text": "An allied friend reports that Sumeria has built a Theater Square in Rio de Janeiro.",
+    "source": "direct",
+    "first_seen": 220
+  },
+  {
+    "about": 3,
+    "turn": 217,
+    "text": "An allied friend reports that Sumeria completed research on Scientific Theory.",
+    "source": "direct",
+    "first_seen": 220
+  },
+  {
+    "about": 3,
+    "turn": 220,
+    "text": "An allied friend reports that Sumeria completed research on Industrialization.",
+    "source": "direct",
+    "first_seen": 221
+  },
+  {
+    "about": 3,
+    "turn": 225,
+    "text": "Your delegate, Titi, learned that Sumeria has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 226
+  },
+  {
+    "about": 3,
+    "turn": 223,
+    "text": "An allied friend reports that Sumeria has denounced the evil deeds of the Aztec.",
+    "source": "direct",
+    "first_seen": 226
+  },
+  {
+    "about": 3,
+    "turn": 223,
+    "text": "An allied friend reports that Sumeria completed research on Sanitation.",
+    "source": "direct",
+    "first_seen": 226
+  },
+  {
+    "about": 3,
+    "turn": 226,
+    "text": "Your delegate, Titi, learned that Gilgamesh has thanked Cleopatra for cooperating with the agenda: Ally of Enkidu.",
+    "source": "direct",
+    "first_seen": 229
+  },
+  {
+    "about": 5,
+    "turn": 226,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of Egypt.",
+    "source": "direct",
+    "first_seen": 229
+  },
+  {
+    "about": 3,
+    "turn": 232,
+    "text": "Your delegate, Titi, learned that Gilgamesh has warned Montezuma about interfering with the agenda: Ally of Enkidu.",
+    "source": "direct",
+    "first_seen": 233
+  },
+  {
+    "about": 3,
+    "turn": 233,
+    "text": "Your delegate, Titi, learned that Sumeria has earned the Great Scientist Alan Turing.",
+    "source": "direct",
+    "first_seen": 236
+  },
+  {
+    "about": 5,
+    "turn": 234,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of India.",
+    "source": "direct",
+    "first_seen": 236
+  },
+  {
+    "about": 5,
+    "turn": 233,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of England.",
+    "source": "direct",
+    "first_seen": 236
+  },
+  {
+    "about": 3,
+    "turn": 236,
+    "text": "Your delegate, Titi, learned that Sumeria is trading with Egypt.",
+    "source": "direct",
+    "first_seen": 237
+  },
+  {
+    "about": 3,
+    "turn": 236,
+    "text": "Your delegate, Titi, learned that Sumeria has just formed an alliance with Egypt.",
+    "source": "direct",
+    "first_seen": 237
+  },
+  {
+    "about": 3,
+    "turn": 241,
+    "text": "An allied friend reports that Sumeria completed research on Radio.",
+    "source": "direct",
+    "first_seen": 242
+  },
+  {
+    "about": 5,
+    "turn": 241,
+    "text": "A recent news article revealed that the Aztec have progressed from the Industrial Era to the Modern Era.",
+    "source": "direct",
+    "first_seen": 242
+  },
+  {
+    "about": 1,
+    "turn": 243,
+    "text": "A recent news article revealed that England is trading with Egypt.",
+    "source": "direct",
+    "first_seen": 244
+  },
+  {
+    "about": 1,
+    "turn": 243,
+    "text": "A recent news article revealed that England has just formed an alliance with Egypt.",
+    "source": "direct",
+    "first_seen": 244
+  },
+  {
+    "about": 1,
+    "turn": 243,
+    "text": "A recent news article revealed that England has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 244
+  },
+  {
+    "about": 3,
+    "turn": 244,
+    "text": "An allied friend reports that Sumeria is considering a war on India.",
+    "source": "direct",
+    "first_seen": 246
+  },
+  {
+    "about": 3,
+    "turn": 244,
+    "text": "An allied friend reports that Sumeria completed research on Electricity.",
+    "source": "direct",
+    "first_seen": 246
+  },
+  {
+    "about": 1,
+    "turn": 246,
+    "text": "An allied friend reports that England has declared their friendship with Sumeria.",
+    "source": "direct",
+    "first_seen": 248
+  },
+  {
+    "about": 1,
+    "turn": 246,
+    "text": "An allied friend reports that England is trading with Sumeria.",
+    "source": "direct",
+    "first_seen": 248
+  },
+  {
+    "about": 3,
+    "turn": 247,
+    "text": "An allied friend reports that Sumeria is expanding, adding the new settlement: Ur.",
+    "source": "direct",
+    "first_seen": 248
+  },
+  {
+    "about": 3,
+    "turn": 247,
+    "text": "An allied friend reports that Sumeria completed development of Nationalism.",
+    "source": "direct",
+    "first_seen": 248
+  },
+  {
+    "about": 3,
+    "turn": 246,
+    "text": "An allied friend reports that Gilgamesh has thanked Victoria for cooperating with the agenda: Ally of Enkidu.",
+    "source": "direct",
+    "first_seen": 248
+  },
+  {
+    "about": 3,
+    "turn": 246,
+    "text": "An allied friend reports that Sumeria has declared their friendship with England.",
+    "source": "direct",
+    "first_seen": 248
+  },
+  {
+    "about": 2,
+    "turn": 249,
+    "text": "A recent news article revealed that India has progressed from the Renaissance Era to the Industrial Era.",
+    "source": "direct",
+    "first_seen": 250
+  },
+  {
+    "about": 3,
+    "turn": 249,
+    "text": "An allied friend reports that Sumeria has progressed from the Modern Era to the Atomic Era.",
+    "source": "direct",
+    "first_seen": 250
+  },
+  {
+    "about": 3,
+    "turn": 249,
+    "text": "An allied friend reports that Sumeria completed research on Computers.",
+    "source": "direct",
+    "first_seen": 250
+  },
+  {
+    "about": 1,
+    "turn": 250,
+    "text": "An allied friend reports that A new building has appeared in the capital of England: a permanent embassy from Sumeria.",
+    "source": "direct",
+    "first_seen": 253
+  },
+  {
+    "about": 1,
+    "turn": 250,
+    "text": "An allied friend reports that England is expanding, adding the new settlement: Bradford.",
+    "source": "direct",
+    "first_seen": 253
+  },
+  {
+    "about": 1,
+    "turn": 250,
+    "text": "An allied friend reports that Victoria has warned Gilgamesh about interfering with the agenda: Sun Never Sets.",
+    "source": "direct",
+    "first_seen": 253
+  },
+  {
+    "about": 3,
+    "turn": 250,
+    "text": "An allied friend reports that A new building has appeared in the capital of Sumeria: a permanent embassy from England.",
+    "source": "direct",
+    "first_seen": 253
+  },
+  {
+    "about": 1,
+    "turn": 255,
+    "text": "An allied friend reports that England is trading with India.",
+    "source": "direct",
+    "first_seen": 256
+  },
+  {
+    "about": 1,
+    "turn": 255,
+    "text": "An allied friend reports that England has progressed from the Modern Era to the Atomic Era.",
+    "source": "direct",
+    "first_seen": 256
+  },
+  {
+    "about": 1,
+    "turn": 255,
+    "text": "An allied friend reports that England adopted the Economic policy Heritage Tourism.",
+    "source": "direct",
+    "first_seen": 256
+  },
+  {
+    "about": 1,
+    "turn": 254,
+    "text": "An allied friend reports that England has built a Commercial Hub in Plymouth.",
+    "source": "direct",
+    "first_seen": 256
+  },
+  {
+    "about": 3,
+    "turn": 254,
+    "text": "An allied friend reports that Sumeria has denounced the evil deeds of the Aztec.",
+    "source": "direct",
+    "first_seen": 256
+  },
+  {
+    "about": 5,
+    "turn": 256,
+    "text": "A recent news article revealed that the Aztec are expanding, adding the new settlement: Teotihuac\u00e1n.",
+    "source": "direct",
+    "first_seen": 257
+  },
+  {
+    "about": 1,
+    "turn": 257,
+    "text": "An allied friend reports that England has built an Industrial Zone in London.",
+    "source": "direct",
+    "first_seen": 259
+  },
+  {
+    "about": 3,
+    "turn": 258,
+    "text": "An allied friend reports that Sumeria completed research on Plastics.",
+    "source": "direct",
+    "first_seen": 259
+  },
+  {
+    "about": 5,
+    "turn": 259,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of Egypt.",
+    "source": "direct",
+    "first_seen": 260
+  },
+  {
+    "about": 1,
+    "turn": 261,
+    "text": "An allied friend reports that England has cleared land in Birmingham for the Potala Palace.",
+    "source": "direct",
+    "first_seen": 262
+  },
+  {
+    "about": 1,
+    "turn": 261,
+    "text": "An allied friend reports that England is trading with Sumeria.",
+    "source": "direct",
+    "first_seen": 262
+  },
+  {
+    "about": 1,
+    "turn": 261,
+    "text": "An allied friend reports that England has just formed an alliance with Sumeria.",
+    "source": "direct",
+    "first_seen": 262
+  },
+  {
+    "about": 3,
+    "turn": 261,
+    "text": "An allied friend reports that Gilgamesh has thanked Montezuma for cooperating with the agenda: Explorer.",
+    "source": "direct",
+    "first_seen": 262
+  },
+  {
+    "about": 3,
+    "turn": 261,
+    "text": "An allied friend reports that Sumeria has just stumbled on the Great Barrier Reef natural wonder.",
+    "source": "direct",
+    "first_seen": 262
+  },
+  {
+    "about": 3,
+    "turn": 261,
+    "text": "An allied friend reports that Sumeria has just stumbled on the Yosemite natural wonder.",
+    "source": "direct",
+    "first_seen": 262
+  },
+  {
+    "about": 3,
+    "turn": 262,
+    "text": "An allied friend reports that Sumeria has built an Aerodrome in Adab.",
+    "source": "direct",
+    "first_seen": 263
+  },
+  {
+    "about": 1,
+    "turn": 263,
+    "text": "An allied friend reports that England has built an Entertainment Complex in Newcastle upon Tyne.",
+    "source": "direct",
+    "first_seen": 265
+  },
+  {
+    "about": 5,
+    "turn": 264,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of England.",
+    "source": "direct",
+    "first_seen": 265
+  },
+  {
+    "about": 1,
+    "turn": 265,
+    "text": "An allied friend reports that England has built a Royal Navy Dockyard in Liverpool.",
+    "source": "direct",
+    "first_seen": 268
+  },
+  {
+    "about": 2,
+    "turn": 266,
+    "text": "A recent news article revealed that India is trading with the Aztec.",
+    "source": "direct",
+    "first_seen": 268
+  },
+  {
+    "about": 3,
+    "turn": 267,
+    "text": "Your delegate, Hasina, learned that Sumeria has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 268
+  },
+  {
+    "about": 3,
+    "turn": 266,
+    "text": "An allied friend reports that Sumeria completed research on Chemistry.",
+    "source": "direct",
+    "first_seen": 268
+  },
+  {
+    "about": 1,
+    "turn": 270,
+    "text": "An allied friend reports that England has built a Theater Square in Manchester.",
+    "source": "direct",
+    "first_seen": 271
+  },
+  {
+    "about": 1,
+    "turn": 270,
+    "text": "An allied friend reports that England is looking to found a city with their newly trained Settler.",
+    "source": "direct",
+    "first_seen": 271
+  },
+  {
+    "about": 1,
+    "turn": 272,
+    "text": "An allied friend reports that A new building has appeared in the capital of England: a permanent embassy from Egypt.",
+    "source": "direct",
+    "first_seen": 273
+  },
+  {
+    "about": 1,
+    "turn": 274,
+    "text": "Your delegate, Berenice, learned that England has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 276
+  },
+  {
+    "about": 2,
+    "turn": 275,
+    "text": "A recent news article revealed that India is trading with Sumeria.",
+    "source": "direct",
+    "first_seen": 276
+  },
+  {
+    "about": 3,
+    "turn": 275,
+    "text": "Your delegate, Hasina, learned that Sumeria has sent an Envoy to Stockholm.",
+    "source": "direct",
+    "first_seen": 276
+  },
+  {
+    "about": 3,
+    "turn": 275,
+    "text": "Your delegate, Hasina, learned that Sumeria completed research on Rocketry.",
+    "source": "direct",
+    "first_seen": 276
+  },
+  {
+    "about": 3,
+    "turn": 273,
+    "text": "Your delegate, Hasina, learned that Gilgamesh has thanked Gandhi for cooperating with the agenda: Explorer.",
+    "source": "direct",
+    "first_seen": 276
+  },
+  {
+    "about": 5,
+    "turn": 273,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of India.",
+    "source": "direct",
+    "first_seen": 276
+  },
+  {
+    "about": 5,
+    "turn": 273,
+    "text": "A recent news article revealed that the Aztec have progressed from the Modern Era to the Atomic Era.",
+    "source": "direct",
+    "first_seen": 276
+  },
+  {
+    "about": 1,
+    "turn": 278,
+    "text": "Your delegate, Berenice, learned that England has built a Royal Navy Dockyard in Bristol.",
+    "source": "direct",
+    "first_seen": 279
+  },
+  {
+    "about": 3,
+    "turn": 278,
+    "text": "Your delegate, Hasina, learned that Sumeria is looking to found a city with their newly trained Settler.",
+    "source": "direct",
+    "first_seen": 279
+  },
+  {
+    "about": 3,
+    "turn": 279,
+    "text": "Your delegate, Hasina, learned that Sumeria has built a Campus in Bad-Tibira.",
+    "source": "direct",
+    "first_seen": 280
+  },
+  {
+    "about": 1,
+    "turn": 282,
+    "text": "Your delegate, Berenice, learned that England is expanding, adding the new settlement: Sheffield.",
+    "source": "direct",
+    "first_seen": 284
+  },
+  {
+    "about": 2,
+    "turn": 283,
+    "text": "Your delegate, Zuberi, learned that A new building has appeared in the capital of India: a permanent embassy from Egypt.",
+    "source": "direct",
+    "first_seen": 284
+  },
+  {
+    "about": 3,
+    "turn": 285,
+    "text": "Your delegate, Merit, learned that Sumeria has denounced the evil deeds of the Aztec.",
+    "source": "direct",
+    "first_seen": 286
+  },
+  {
+    "about": 1,
+    "turn": 286,
+    "text": "Your delegate, Berenice, learned that England has cleared land in London for the Oxford University.",
+    "source": "direct",
+    "first_seen": 288
+  },
+  {
+    "about": 1,
+    "turn": 291,
+    "text": "Your delegate, Berenice, learned that England completed development of Mass Media.",
+    "source": "direct",
+    "first_seen": 292
+  },
+  {
+    "about": 2,
+    "turn": 288,
+    "text": "Your delegate, Zuberi, learned that India has progressed from the Industrial Era to the Modern Era.",
+    "source": "direct",
+    "first_seen": 292
+  },
+  {
+    "about": 2,
+    "turn": 288,
+    "text": "Your delegate, Zuberi, learned that India adopted the Military policy Logistics.",
+    "source": "direct",
+    "first_seen": 292
+  },
+  {
+    "about": 2,
+    "turn": 288,
+    "text": "Your delegate, Zuberi, learned that India adopted the Economic policy Resource Management.",
+    "source": "direct",
+    "first_seen": 292
+  },
+  {
+    "about": 3,
+    "turn": 288,
+    "text": "Your Spy, Layla, uncovered news that Gilgamesh has thanked Cleopatra for cooperating with the agenda: Explorer.",
+    "source": "direct",
+    "first_seen": 292
+  },
+  {
+    "about": 1,
+    "turn": 292,
+    "text": "Your delegate, Berenice, learned that England has declared their friendship with Sumeria.",
+    "source": "direct",
+    "first_seen": 293
+  },
+  {
+    "about": 3,
+    "turn": 292,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has declared their friendship with England.",
+    "source": "direct",
+    "first_seen": 293
+  },
+  {
+    "about": 3,
+    "turn": 292,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has earned the Great Scientist Carl Sagan.",
+    "source": "direct",
+    "first_seen": 293
+  },
+  {
+    "about": 3,
+    "turn": 293,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has progressed from the Atomic Era to the Information Era.",
+    "source": "direct",
+    "first_seen": 294
+  },
+  {
+    "about": 3,
+    "turn": 293,
+    "text": "Your Spy, Layla, uncovered news that Sumeria completed research on Composites.",
+    "source": "direct",
+    "first_seen": 294
+  },
+  {
+    "about": 5,
+    "turn": 293,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of Egypt.",
+    "source": "direct",
+    "first_seen": 294
+  },
+  {
+    "about": 1,
+    "turn": 296,
+    "text": "Your delegate, Berenice, learned that England has built a Royal Navy Dockyard in Bradford.",
+    "source": "direct",
+    "first_seen": 298
+  },
+  {
+    "about": 1,
+    "turn": 295,
+    "text": "Your delegate, Berenice, learned that England has launched an inquisition rooting out heretics opposed to Protestantism.",
+    "source": "direct",
+    "first_seen": 298
+  },
+  {
+    "about": 2,
+    "turn": 294,
+    "text": "Your delegate, Zuberi, learned that India has built a Harbor in Mumbai.",
+    "source": "direct",
+    "first_seen": 298
+  },
+  {
+    "about": 3,
+    "turn": 294,
+    "text": "Your Spy, Layla, uncovered news that Sumeria is expanding, adding the new settlement: Sippar.",
+    "source": "direct",
+    "first_seen": 298
+  },
+  {
+    "about": 5,
+    "turn": 295,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of England.",
+    "source": "direct",
+    "first_seen": 298
+  },
+  {
+    "about": 3,
+    "turn": 298,
+    "text": "Your delegate, Benipe, learned that Sumeria has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 299
+  },
+  {
+    "about": 3,
+    "turn": 299,
+    "text": "Your delegate, Benipe, learned that Gilgamesh has thanked Cleopatra for cooperating with the agenda: Ally of Enkidu.",
+    "source": "direct",
+    "first_seen": 300
+  },
+  {
+    "about": 1,
+    "turn": 300,
+    "text": "Your delegate, Berenice, learned that England has built an Industrial Zone in Birmingham.",
+    "source": "direct",
+    "first_seen": 301
+  },
+  {
+    "about": 2,
+    "turn": 300,
+    "text": "Your delegate, Zuberi, learned that India is trading with Egypt.",
+    "source": "direct",
+    "first_seen": 301
+  },
+  {
+    "about": 2,
+    "turn": 300,
+    "text": "Your delegate, Zuberi, learned that India is expanding, adding the new settlement: Srinagar.",
+    "source": "direct",
+    "first_seen": 301
+  },
+  {
+    "about": 3,
+    "turn": 300,
+    "text": "Your delegate, Benipe, learned that Gilgamesh has warned Cleopatra about interfering with the agenda: Explorer.",
+    "source": "direct",
+    "first_seen": 301
+  },
+  {
+    "about": 1,
+    "turn": 302,
+    "text": "Your delegate, Berenice, learned that England has built a Commercial Hub in Newcastle upon Tyne.",
+    "source": "direct",
+    "first_seen": 303
+  },
+  {
+    "about": 1,
+    "turn": 302,
+    "text": "Your delegate, Berenice, learned that England has earned the Great Artist Vincent van Gogh.",
+    "source": "direct",
+    "first_seen": 303
+  },
+  {
+    "about": 1,
+    "turn": 302,
+    "text": "Your delegate, Berenice, learned that England completed development of Mobilization.",
+    "source": "direct",
+    "first_seen": 303
+  },
+  {
+    "about": 2,
+    "turn": 302,
+    "text": "Your delegate, Zuberi, learned that Gandhi has thanked Gilgamesh for cooperating with the agenda: Paranoid.",
+    "source": "direct",
+    "first_seen": 303
+  },
+  {
+    "about": 5,
+    "turn": 303,
+    "text": "A recent news article revealed that the Aztec are expanding, adding the new settlement: Chalco.",
+    "source": "direct",
+    "first_seen": 304
+  },
+  {
+    "about": 2,
+    "turn": 304,
+    "text": "Your delegate, Zuberi, learned that India has progressed from the Modern Era to the Atomic Era.",
+    "source": "direct",
+    "first_seen": 305
+  },
+  {
+    "about": 5,
+    "turn": 304,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of India.",
+    "source": "direct",
+    "first_seen": 305
+  },
+  {
+    "about": 1,
+    "turn": 306,
+    "text": "Your delegate, Berenice, learned that Victoria has warned Cleopatra about interfering with the agenda: Money Grubber.",
+    "source": "direct",
+    "first_seen": 307
+  },
+  {
+    "about": 1,
+    "turn": 305,
+    "text": "Your delegate, Berenice, learned that England has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 307
+  },
+  {
+    "about": 1,
+    "turn": 305,
+    "text": "Your delegate, Berenice, learned that England is looking to found a city with their newly trained Settler.",
+    "source": "direct",
+    "first_seen": 307
+  },
+  {
+    "about": 3,
+    "turn": 306,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has built an Aerodrome in Ur.",
+    "source": "direct",
+    "first_seen": 307
+  },
+  {
+    "about": 1,
+    "turn": 307,
+    "text": "Your delegate, Berenice, learned that England completed development of Ideology.",
+    "source": "direct",
+    "first_seen": 308
+  },
+  {
+    "about": 1,
+    "turn": 307,
+    "text": "Your delegate, Berenice, learned that England completed research on Flight.",
+    "source": "direct",
+    "first_seen": 308
+  },
+  {
+    "about": 2,
+    "turn": 307,
+    "text": "Your delegate, Zuberi, learned that India adopted the Economic policy Heritage Tourism.",
+    "source": "direct",
+    "first_seen": 308
+  },
+  {
+    "about": 3,
+    "turn": 307,
+    "text": "Your Spy, Layla, uncovered news that Gilgamesh has warned Victoria about interfering with the agenda: Explorer.",
+    "source": "direct",
+    "first_seen": 308
+  },
+  {
+    "about": 3,
+    "turn": 310,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has sent an Envoy to Kabul.",
+    "source": "direct",
+    "first_seen": 311
+  },
+  {
+    "about": 1,
+    "turn": 312,
+    "text": "Your delegate, Berenice, learned that England has denounced the evil deeds of India.",
+    "source": "direct",
+    "first_seen": 313
+  },
+  {
+    "about": 3,
+    "turn": 312,
+    "text": "Your Spy, Layla, uncovered news that Sumeria completed research on Stealth Technology.",
+    "source": "direct",
+    "first_seen": 313
+  },
+  {
+    "about": 2,
+    "turn": 313,
+    "text": "Your delegate, Zuberi, learned that India has declared their friendship with Sumeria.",
+    "source": "direct",
+    "first_seen": 314
+  },
+  {
+    "about": 3,
+    "turn": 313,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has declared their friendship with India.",
+    "source": "direct",
+    "first_seen": 314
+  },
+  {
+    "about": 3,
+    "turn": 313,
+    "text": "Your Spy, Layla, uncovered news that Gilgamesh has thanked Gandhi for cooperating with the agenda: Ally of Enkidu.",
+    "source": "direct",
+    "first_seen": 314
+  },
+  {
+    "about": 1,
+    "turn": 314,
+    "text": "Your delegate, Berenice, learned that England has earned the Great Admiral Togo Heihachiro.",
+    "source": "direct",
+    "first_seen": 316
+  },
+  {
+    "about": 2,
+    "turn": 315,
+    "text": "Your delegate, Zuberi, learned that India has built a Commercial Hub in Mysore.",
+    "source": "direct",
+    "first_seen": 316
+  },
+  {
+    "about": 2,
+    "turn": 314,
+    "text": "Your delegate, Zuberi, learned that India has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 316
+  },
+  {
+    "about": 2,
+    "turn": 314,
+    "text": "Your delegate, Zuberi, learned that India has cleared land in Agra for the Oxford University.",
+    "source": "direct",
+    "first_seen": 316
+  },
+  {
+    "about": 3,
+    "turn": 314,
+    "text": "Your Spy, Layla, uncovered news that Gilgamesh has warned Victoria about interfering with the agenda: Ally of Enkidu.",
+    "source": "direct",
+    "first_seen": 316
+  },
+  {
+    "about": 1,
+    "turn": 316,
+    "text": "Your delegate, Berenice, learned that England is trading with Egypt.",
+    "source": "direct",
+    "first_seen": 317
+  },
+  {
+    "about": 1,
+    "turn": 316,
+    "text": "Your delegate, Berenice, learned that England has just formed an alliance with Egypt.",
+    "source": "direct",
+    "first_seen": 317
+  },
+  {
+    "about": 2,
+    "turn": 316,
+    "text": "Your delegate, Zuberi, learned that Gandhi has thanked Montezuma for cooperating with the agenda: Paranoid.",
+    "source": "direct",
+    "first_seen": 317
+  },
+  {
+    "about": 3,
+    "turn": 316,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has denounced the evil deeds of the Aztec.",
+    "source": "direct",
+    "first_seen": 317
+  },
+  {
+    "about": 3,
+    "turn": 316,
+    "text": "Your Spy, Layla, uncovered news that Sumeria is looking to found a city with their newly trained Settler.",
+    "source": "direct",
+    "first_seen": 317
+  },
+  {
+    "about": 3,
+    "turn": 317,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has cleared land in Lagash for the Oxford University.",
+    "source": "direct",
+    "first_seen": 318
+  },
+  {
+    "about": 3,
+    "turn": 317,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has built an Entertainment Complex in Lagash.",
+    "source": "direct",
+    "first_seen": 318
+  },
+  {
+    "about": 2,
+    "turn": 318,
+    "text": "Your delegate, Zuberi, learned that Gandhi has thanked Victoria for cooperating with the agenda: Paranoid.",
+    "source": "direct",
+    "first_seen": 319
+  },
+  {
+    "about": 3,
+    "turn": 318,
+    "text": "Your Spy, Layla, uncovered news that Sumeria completed research on Advanced Flight.",
+    "source": "direct",
+    "first_seen": 319
+  },
+  {
+    "about": 1,
+    "turn": 320,
+    "text": "An allied friend reports that England has built a Neighborhood in Plymouth.",
+    "source": "direct",
+    "first_seen": 322
+  },
+  {
+    "about": 1,
+    "turn": 319,
+    "text": "An allied friend reports that England completed development of Suffrage.",
+    "source": "direct",
+    "first_seen": 322
+  },
+  {
+    "about": 1,
+    "turn": 319,
+    "text": "An allied friend reports that England has switched governments to Democracy.",
+    "source": "direct",
+    "first_seen": 322
+  },
+  {
+    "about": 2,
+    "turn": 319,
+    "text": "Your delegate, Zuberi, learned that India has just stumbled on the Tsingy de Bemaraha natural wonder.",
+    "source": "direct",
+    "first_seen": 322
+  },
+  {
+    "about": 2,
+    "turn": 319,
+    "text": "Your delegate, Zuberi, learned that India has just stumbled on the Crater Lake natural wonder.",
+    "source": "direct",
+    "first_seen": 322
+  },
+  {
+    "about": 2,
+    "turn": 319,
+    "text": "Your delegate, Zuberi, learned that India has built an Entertainment Complex in Delhi.",
+    "source": "direct",
+    "first_seen": 322
+  },
+  {
+    "about": 3,
+    "turn": 319,
+    "text": "Your Spy, Layla, uncovered news that Sumeria is trading with India.",
+    "source": "direct",
+    "first_seen": 322
+  },
+  {
+    "about": 3,
+    "turn": 319,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has just formed an alliance with India.",
+    "source": "direct",
+    "first_seen": 322
+  },
+  {
+    "about": 1,
+    "turn": 322,
+    "text": "An allied friend reports that England has built a Neighborhood in Newcastle upon Tyne.",
+    "source": "direct",
+    "first_seen": 323
+  },
+  {
+    "about": 3,
+    "turn": 322,
+    "text": "Your Spy, Layla, uncovered news that A new building has appeared in the capital of Sumeria: a permanent embassy from India.",
+    "source": "direct",
+    "first_seen": 323
+  },
+  {
+    "about": 5,
+    "turn": 322,
+    "text": "A recent news article revealed that the Aztec have switched governments to Monarchy.",
+    "source": "direct",
+    "first_seen": 323
+  },
+  {
+    "about": 1,
+    "turn": 323,
+    "text": "An allied friend reports that England is considering a war on Sumeria.",
+    "source": "direct",
+    "first_seen": 324
+  },
+  {
+    "about": 3,
+    "turn": 323,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has built a Harbor in Recife.",
+    "source": "direct",
+    "first_seen": 324
+  },
+  {
+    "about": 3,
+    "turn": 323,
+    "text": "Your Spy, Layla, uncovered news that Sumeria is expanding, adding the new settlement: Larak.",
+    "source": "direct",
+    "first_seen": 324
+  },
+  {
+    "about": 5,
+    "turn": 323,
+    "text": "A recent news article revealed that the Aztec have progressed from the Atomic Era to the Information Era.",
+    "source": "direct",
+    "first_seen": 324
+  },
+  {
+    "about": 5,
+    "turn": 324,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of Egypt.",
+    "source": "direct",
+    "first_seen": 325
+  },
+  {
+    "about": 1,
+    "turn": 325,
+    "text": "An allied friend reports that England has earned the Great Writer Karel Capek.",
+    "source": "direct",
+    "first_seen": 326
+  },
+  {
+    "about": 1,
+    "turn": 326,
+    "text": "An allied friend reports that England has built a Theater Square in Bristol.",
+    "source": "direct",
+    "first_seen": 327
+  },
+  {
+    "about": 3,
+    "turn": 326,
+    "text": "Your Spy, Layla, uncovered news that Sumeria completed research on Satellites.",
+    "source": "direct",
+    "first_seen": 327
+  },
+  {
+    "about": 5,
+    "turn": 326,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of England.",
+    "source": "direct",
+    "first_seen": 327
+  },
+  {
+    "about": 1,
+    "turn": 327,
+    "text": "An allied friend reports that Victoria has thanked Cleopatra for cooperating with the agenda: Money Grubber.",
+    "source": "direct",
+    "first_seen": 328
+  },
+  {
+    "about": 3,
+    "turn": 327,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has built a Campus in Shuruppak.",
+    "source": "direct",
+    "first_seen": 328
+  },
+  {
+    "about": 1,
+    "turn": 328,
+    "text": "An allied friend reports that England completed research on Electricity.",
+    "source": "direct",
+    "first_seen": 329
+  },
+  {
+    "about": 1,
+    "turn": 331,
+    "text": "An allied friend reports that England completed development of Totalitarianism.",
+    "source": "direct",
+    "first_seen": 335
+  },
+  {
+    "about": 1,
+    "turn": 331,
+    "text": "An allied friend reports that England adopted the Economic policy Third Alternative.",
+    "source": "direct",
+    "first_seen": 335
+  },
+  {
+    "about": 3,
+    "turn": 334,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has built an Aerodrome in Kish.",
+    "source": "direct",
+    "first_seen": 335
+  },
+  {
+    "about": 3,
+    "turn": 329,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 335
+  },
+  {
+    "about": 3,
+    "turn": 329,
+    "text": "Your Spy, Layla, uncovered news that Sumeria completed research on Robotics.",
+    "source": "direct",
+    "first_seen": 335
+  },
+  {
+    "about": 1,
+    "turn": 335,
+    "text": "An allied friend reports that England has built a Theater Square in Bradford.",
+    "source": "direct",
+    "first_seen": 338
+  },
+  {
+    "about": 1,
+    "turn": 335,
+    "text": "An allied friend reports that England completed research on Chemistry.",
+    "source": "direct",
+    "first_seen": 338
+  },
+  {
+    "about": 2,
+    "turn": 337,
+    "text": "Your delegate, Zuberi, learned that India has built a Neighborhood in Agra.",
+    "source": "direct",
+    "first_seen": 338
+  },
+  {
+    "about": 3,
+    "turn": 337,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has heard that the sunbathing is great at the new seaside resort outside Recife.",
+    "source": "direct",
+    "first_seen": 338
+  },
+  {
+    "about": 3,
+    "turn": 336,
+    "text": "Your Spy, Layla, uncovered news that Sumeria completed research on Telecommunications.",
+    "source": "direct",
+    "first_seen": 338
+  },
+  {
+    "about": 3,
+    "turn": 335,
+    "text": "Your Spy, Layla, uncovered news that Sumeria completed development of Cultural Heritage.",
+    "source": "direct",
+    "first_seen": 338
+  },
+  {
+    "about": 5,
+    "turn": 335,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of India.",
+    "source": "direct",
+    "first_seen": 338
+  },
+  {
+    "about": 3,
+    "turn": 338,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has built an Encampment in Ur.",
+    "source": "direct",
+    "first_seen": 339
+  },
+  {
+    "about": 1,
+    "turn": 341,
+    "text": "An allied friend reports that England has heard that the sunbathing is great at the new seaside resort outside Liverpool.",
+    "source": "direct",
+    "first_seen": 342
+  },
+  {
+    "about": 1,
+    "turn": 341,
+    "text": "An allied friend reports that England has used a Redcoat to clear a Barbarian Outpost.",
+    "source": "direct",
+    "first_seen": 342
+  },
+  {
+    "about": 1,
+    "turn": 340,
+    "text": "An allied friend reports that England has heard that the sunbathing is great at the new seaside resort outside Liverpool.",
+    "source": "direct",
+    "first_seen": 342
+  },
+  {
+    "about": 1,
+    "turn": 340,
+    "text": "An allied friend reports that England has earned the Great Musician Clara Schumann.",
+    "source": "direct",
+    "first_seen": 342
+  },
+  {
+    "about": 1,
+    "turn": 339,
+    "text": "An allied friend reports that England completed research on Radio.",
+    "source": "direct",
+    "first_seen": 342
+  },
+  {
+    "about": 2,
+    "turn": 341,
+    "text": "Your delegate, Zuberi, learned that India has built a Harbor in Madurai.",
+    "source": "direct",
+    "first_seen": 342
+  },
+  {
+    "about": 2,
+    "turn": 340,
+    "text": "Your delegate, Zuberi, learned that India has built a Campus in Patna.",
+    "source": "direct",
+    "first_seen": 342
+  },
+  {
+    "about": 2,
+    "turn": 340,
+    "text": "Your delegate, Zuberi, learned that Gandhi has thanked Montezuma for cooperating with the agenda: Paranoid.",
+    "source": "direct",
+    "first_seen": 342
+  },
+  {
+    "about": 2,
+    "turn": 340,
+    "text": "Your delegate, Zuberi, learned that Gandhi has warned Victoria about interfering with the agenda: Paranoid.",
+    "source": "direct",
+    "first_seen": 342
+  },
+  {
+    "about": 1,
+    "turn": 344,
+    "text": "An allied friend reports that England completed development of Cold War.",
+    "source": "direct",
+    "first_seen": 345
+  },
+  {
+    "about": 1,
+    "turn": 343,
+    "text": "An allied friend reports that England has built a Royal Navy Dockyard in Sheffield.",
+    "source": "direct",
+    "first_seen": 345
+  },
+  {
+    "about": 1,
+    "turn": 342,
+    "text": "An allied friend reports that England has sent an Envoy to Yerevan.",
+    "source": "direct",
+    "first_seen": 345
+  },
+  {
+    "about": 3,
+    "turn": 344,
+    "text": "Your Spy, Layla, uncovered news that Sumeria completed research on Combined Arms.",
+    "source": "direct",
+    "first_seen": 345
+  },
+  {
+    "about": 1,
+    "turn": 348,
+    "text": "Your delegate, Hotep, learned that England has built an Industrial Zone in Liverpool.",
+    "source": "direct",
+    "first_seen": 349
+  },
+  {
+    "about": 1,
+    "turn": 345,
+    "text": "An allied friend reports that England has built an Aerodrome in London.",
+    "source": "direct",
+    "first_seen": 349
+  },
+  {
+    "about": 1,
+    "turn": 345,
+    "text": "An allied friend reports that England completed research on Computers.",
+    "source": "direct",
+    "first_seen": 349
+  },
+  {
+    "about": 2,
+    "turn": 346,
+    "text": "Your delegate, Zuberi, learned that India has cleared land in Agra for the Broadway.",
+    "source": "direct",
+    "first_seen": 349
+  },
+  {
+    "about": 3,
+    "turn": 347,
+    "text": "An allied friend reports that Sumeria has denounced the evil deeds of the Aztec.",
+    "source": "direct",
+    "first_seen": 349
+  },
+  {
+    "about": 3,
+    "turn": 346,
+    "text": "An allied friend reports that Sumeria is looking to found a city with their newly trained Settler.",
+    "source": "direct",
+    "first_seen": 349
+  },
+  {
+    "about": 3,
+    "turn": 346,
+    "text": "An allied friend reports that Gilgamesh has thanked Gandhi for cooperating with the agenda: Explorer.",
+    "source": "direct",
+    "first_seen": 349
+  },
+  {
+    "about": 3,
+    "turn": 345,
+    "text": "Your Spy, Layla, uncovered news that Sumeria has just formed an alliance with Egypt.",
+    "source": "direct",
+    "first_seen": 349
+  },
+  {
+    "about": 1,
+    "turn": 350,
+    "text": "Your delegate, Hotep, learned that England has heard that the sunbathing is great at the new seaside resort outside Manchester.",
+    "source": "direct",
+    "first_seen": 351
+  },
+  {
+    "about": 2,
+    "turn": 350,
+    "text": "Your delegate, Zuberi, learned that India has declared their friendship with Sumeria.",
+    "source": "direct",
+    "first_seen": 351
+  },
+  {
+    "about": 3,
+    "turn": 350,
+    "text": "An allied friend reports that Sumeria has declared their friendship with India.",
+    "source": "direct",
+    "first_seen": 351
+  },
+  {
+    "about": 1,
+    "turn": 351,
+    "text": "Your delegate, Hotep, learned that England has built an Aerodrome in Newcastle upon Tyne.",
+    "source": "direct",
+    "first_seen": 352
+  },
+  {
+    "about": 2,
+    "turn": 351,
+    "text": "Your Spy, Layla, uncovered news that India completed development of Suffrage.",
+    "source": "direct",
+    "first_seen": 352
+  },
+  {
+    "about": 2,
+    "turn": 351,
+    "text": "Your Spy, Layla, uncovered news that India adopted the Economic policy New Deal.",
+    "source": "direct",
+    "first_seen": 352
+  },
+  {
+    "about": 2,
+    "turn": 351,
+    "text": "Your Spy, Layla, uncovered news that India adopted the Economic policy Heritage Tourism.",
+    "source": "direct",
+    "first_seen": 352
+  },
+  {
+    "about": 2,
+    "turn": 351,
+    "text": "Your Spy, Layla, uncovered news that India has switched governments to Democracy.",
+    "source": "direct",
+    "first_seen": 352
+  },
+  {
+    "about": 1,
+    "turn": 356,
+    "text": "Your delegate, Hotep, learned that England has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 1,
+    "turn": 355,
+    "text": "Your delegate, Hotep, learned that Victoria has warned Montezuma about interfering with the agenda: Sun Never Sets.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 1,
+    "turn": 354,
+    "text": "Your delegate, Hotep, learned that England has built a Power Plant in Birmingham.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 1,
+    "turn": 353,
+    "text": "Your delegate, Hotep, learned that England has declared their friendship with Sumeria.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 1,
+    "turn": 352,
+    "text": "Your delegate, Hotep, learned that England has built an Aerodrome in Plymouth.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 2,
+    "turn": 353,
+    "text": "Your Spy, Layla, uncovered news that Gandhi has thanked Gilgamesh for cooperating with the agenda: Paranoid.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 3,
+    "turn": 354,
+    "text": "An allied friend reports that Sumeria is expanding, adding the new settlement: Isin.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 3,
+    "turn": 353,
+    "text": "An allied friend reports that Sumeria completed research on Advanced Ballistics.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 3,
+    "turn": 353,
+    "text": "An allied friend reports that Sumeria has declared their friendship with England.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 3,
+    "turn": 353,
+    "text": "An allied friend reports that Gilgamesh has thanked Victoria for cooperating with the agenda: Ally of Enkidu.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 5,
+    "turn": 356,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of Egypt.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 5,
+    "turn": 355,
+    "text": "A recent news article revealed that the Aztec are expanding, adding the new settlement: Malinalco.",
+    "source": "direct",
+    "first_seen": 357
+  },
+  {
+    "about": 1,
+    "turn": 358,
+    "text": "Your delegate, Hotep, learned that England adopted the Economic policy Third Alternative.",
+    "source": "direct",
+    "first_seen": 360
+  },
+  {
+    "about": 1,
+    "turn": 358,
+    "text": "Your delegate, Hotep, learned that England adopted the Economic policy Satellite Broadcasts.",
+    "source": "direct",
+    "first_seen": 360
+  },
+  {
+    "about": 2,
+    "turn": 359,
+    "text": "Your Spy, Layla, uncovered news that India has earned the Great Artist Boris Orlovsky.",
+    "source": "direct",
+    "first_seen": 360
+  },
+  {
+    "about": 2,
+    "turn": 357,
+    "text": "Your Spy, Layla, uncovered news that India has cleared land in Delhi for the Great Lighthouse.",
+    "source": "direct",
+    "first_seen": 360
+  },
+  {
+    "about": 2,
+    "turn": 357,
+    "text": "Your Spy, Layla, uncovered news that India has built a Neighborhood in Delhi.",
+    "source": "direct",
+    "first_seen": 360
+  },
+  {
+    "about": 3,
+    "turn": 359,
+    "text": "An allied friend reports that Sumeria has earned the Great General Douglas MacArthur.",
+    "source": "direct",
+    "first_seen": 360
+  },
+  {
+    "about": 3,
+    "turn": 359,
+    "text": "An allied friend reports that Sumeria has started Manhattan Project.",
+    "source": "direct",
+    "first_seen": 360
+  },
+  {
+    "about": 3,
+    "turn": 358,
+    "text": "An allied friend reports that Sumeria is trading with England.",
+    "source": "direct",
+    "first_seen": 360
+  },
+  {
+    "about": 3,
+    "turn": 358,
+    "text": "An allied friend reports that Sumeria has just formed an alliance with England.",
+    "source": "direct",
+    "first_seen": 360
+  },
+  {
+    "about": 3,
+    "turn": 358,
+    "text": "An allied friend reports that Sumeria completed research on Nuclear Fission.",
+    "source": "direct",
+    "first_seen": 360
+  },
+  {
+    "about": 5,
+    "turn": 357,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of England.",
+    "source": "direct",
+    "first_seen": 360
+  },
+  {
+    "about": 1,
+    "turn": 365,
+    "text": "Your delegate, Hotep, learned that England has declared their friendship with India.",
+    "source": "direct",
+    "first_seen": 367
+  },
+  {
+    "about": 1,
+    "turn": 361,
+    "text": "Your delegate, Hotep, learned that England has progressed from the Atomic Era to the Information Era.",
+    "source": "direct",
+    "first_seen": 367
+  },
+  {
+    "about": 1,
+    "turn": 360,
+    "text": "Your delegate, Hotep, learned that A new building has appeared in the capital of England: a permanent embassy from India.",
+    "source": "direct",
+    "first_seen": 367
+  },
+  {
+    "about": 2,
+    "turn": 365,
+    "text": "Your Spy, Layla, uncovered news that India has declared their friendship with England.",
+    "source": "direct",
+    "first_seen": 367
+  },
+  {
+    "about": 2,
+    "turn": 363,
+    "text": "Your Spy, Layla, uncovered news that India completed development of Totalitarianism.",
+    "source": "direct",
+    "first_seen": 367
+  },
+  {
+    "about": 2,
+    "turn": 363,
+    "text": "Your Spy, Layla, uncovered news that India adopted the Economic policy Third Alternative.",
+    "source": "direct",
+    "first_seen": 367
+  },
+  {
+    "about": 2,
+    "turn": 362,
+    "text": "Your Spy, Layla, uncovered news that Gandhi has warned Montezuma about interfering with the agenda: Paranoid.",
+    "source": "direct",
+    "first_seen": 367
+  },
+  {
+    "about": 2,
+    "turn": 362,
+    "text": "Your Spy, Layla, uncovered news that Gandhi has warned Victoria about interfering with the agenda: Paranoid.",
+    "source": "direct",
+    "first_seen": 367
+  },
+  {
+    "about": 3,
+    "turn": 366,
+    "text": "An allied friend reports that Sumeria has built a Theater Square in Recife.",
+    "source": "direct",
+    "first_seen": 367
+  },
+  {
+    "about": 3,
+    "turn": 364,
+    "text": "An allied friend reports that Sumeria completed research on Lasers.",
+    "source": "direct",
+    "first_seen": 367
+  },
+  {
+    "about": 5,
+    "turn": 366,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of India.",
+    "source": "direct",
+    "first_seen": 367
+  },
+  {
+    "about": 1,
+    "turn": 368,
+    "text": "Your delegate, Hotep, learned that England has heard that the sunbathing is great at the new seaside resort outside Plymouth.",
+    "source": "direct",
+    "first_seen": 370
+  },
+  {
+    "about": 1,
+    "turn": 372,
+    "text": "Your delegate, Hotep, learned that England has built an Encampment in Newcastle upon Tyne.",
+    "source": "direct",
+    "first_seen": 374
+  },
+  {
+    "about": 1,
+    "turn": 370,
+    "text": "Your delegate, Hotep, learned that England has built a Campus in Manchester.",
+    "source": "direct",
+    "first_seen": 374
+  },
+  {
+    "about": 1,
+    "turn": 370,
+    "text": "Your delegate, Hotep, learned that England adopted the Economic policy Sports Media.",
+    "source": "direct",
+    "first_seen": 374
+  },
+  {
+    "about": 2,
+    "turn": 372,
+    "text": "Your delegate, Urbi, learned that India completed research on Steel.",
+    "source": "direct",
+    "first_seen": 374
+  },
+  {
+    "about": 2,
+    "turn": 372,
+    "text": "Your delegate, Urbi, learned that A new building has appeared in the capital of India: a permanent embassy from England.",
+    "source": "direct",
+    "first_seen": 374
+  },
+  {
+    "about": 3,
+    "turn": 371,
+    "text": "An allied friend reports that Sumeria completed research on Nuclear Fusion.",
+    "source": "direct",
+    "first_seen": 374
+  },
+  {
+    "about": 1,
+    "turn": 375,
+    "text": "Your delegate, Hotep, learned that England has built a Theater Square in Sheffield.",
+    "source": "direct",
+    "first_seen": 378
+  },
+  {
+    "about": 2,
+    "turn": 377,
+    "text": "Your Spy, Layla, uncovered news that India completed development of Cold War.",
+    "source": "direct",
+    "first_seen": 378
+  },
+  {
+    "about": 2,
+    "turn": 376,
+    "text": "Your Spy, Layla, uncovered news that India has sent an Envoy to Yerevan.",
+    "source": "direct",
+    "first_seen": 378
+  },
+  {
+    "about": 2,
+    "turn": 375,
+    "text": "Your Spy, Layla, uncovered news that India has extracted a new archaeological work: Earring.",
+    "source": "direct",
+    "first_seen": 378
+  },
+  {
+    "about": 2,
+    "turn": 374,
+    "text": "Your delegate, Urbi, learned that Gandhi has thanked Gilgamesh for cooperating with the agenda: Paranoid.",
+    "source": "direct",
+    "first_seen": 378
+  },
+  {
+    "about": 3,
+    "turn": 377,
+    "text": "Your delegate, Abubakar, learned that Gilgamesh has thanked Cleopatra for cooperating with the agenda: Ally of Enkidu.",
+    "source": "direct",
+    "first_seen": 378
+  },
+  {
+    "about": 3,
+    "turn": 376,
+    "text": "Your delegate, Abubakar, learned that Sumeria has declared their friendship with Egypt.",
+    "source": "direct",
+    "first_seen": 378
+  },
+  {
+    "about": 3,
+    "turn": 376,
+    "text": "Your delegate, Abubakar, learned that Sumeria has built an Aerodrome in Shuruppak.",
+    "source": "direct",
+    "first_seen": 378
+  },
+  {
+    "about": 2,
+    "turn": 378,
+    "text": "Your Spy, Layla, uncovered news that India has built a Commercial Hub in Delhi.",
+    "source": "direct",
+    "first_seen": 379
+  },
+  {
+    "about": 3,
+    "turn": 378,
+    "text": "Your delegate, Abubakar, learned that Sumeria has denounced the evil deeds of the Aztec.",
+    "source": "direct",
+    "first_seen": 379
+  },
+  {
+    "about": 3,
+    "turn": 378,
+    "text": "Your delegate, Abubakar, learned that Sumeria is looking to found a city with their newly trained Settler.",
+    "source": "direct",
+    "first_seen": 379
+  },
+  {
+    "about": 1,
+    "turn": 379,
+    "text": "Your delegate, Hotep, learned that Victoria has thanked Cleopatra for cooperating with the agenda: Money Grubber.",
+    "source": "direct",
+    "first_seen": 380
+  },
+  {
+    "about": 2,
+    "turn": 379,
+    "text": "Your Spy, Layla, uncovered news that India has extracted a new archaeological work: Scroll.",
+    "source": "direct",
+    "first_seen": 380
+  },
+  {
+    "about": 2,
+    "turn": 379,
+    "text": "Your Spy, Layla, uncovered news that India is looking to found a city with their newly trained Settler.",
+    "source": "direct",
+    "first_seen": 380
+  },
+  {
+    "about": 3,
+    "turn": 379,
+    "text": "Your delegate, Abubakar, learned that Sumeria completed research on Future Tech.",
+    "source": "direct",
+    "first_seen": 380
+  },
+  {
+    "about": 1,
+    "turn": 389,
+    "text": "Your delegate, Hotep, learned that England has declared their friendship with Sumeria.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 1,
+    "turn": 388,
+    "text": "Your delegate, Hotep, learned that England is trading with India.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 1,
+    "turn": 384,
+    "text": "Your delegate, Hotep, learned that England has earned the Great Artist Amrita Sher-Gil.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 1,
+    "turn": 381,
+    "text": "Your delegate, Hotep, learned that England has built an Aerodrome in Bradford.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 2,
+    "turn": 394,
+    "text": "Your Spy, Layla, uncovered news that Gandhi has warned Montezuma about interfering with the agenda: Paranoid.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 2,
+    "turn": 393,
+    "text": "Your Spy, Layla, uncovered news that India completed research on Combustion.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 2,
+    "turn": 390,
+    "text": "Your Spy, Layla, uncovered news that India completed development of Professional Sports.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 2,
+    "turn": 390,
+    "text": "Your Spy, Layla, uncovered news that India adopted the Economic policy Sports Media.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 2,
+    "turn": 388,
+    "text": "Your Spy, Layla, uncovered news that India is expanding, adding the new settlement: Ahmadabad.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 2,
+    "turn": 388,
+    "text": "Your Spy, Layla, uncovered news that India has just formed an alliance with England.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 2,
+    "turn": 386,
+    "text": "Your Spy, Layla, uncovered news that India is no longer seeking a Domination Victory.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 2,
+    "turn": 386,
+    "text": "Your Spy, Layla, uncovered news that India completed research on Replaceable Parts.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 2,
+    "turn": 382,
+    "text": "Your Spy, Layla, uncovered news that India has launched an inquisition rooting out heretics opposed to Hinduism.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 2,
+    "turn": 381,
+    "text": "Your Spy, Layla, uncovered news that India has declared their friendship with Sumeria.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 2,
+    "turn": 380,
+    "text": "Your Spy, Layla, uncovered news that India has extracted a new archaeological work: Astrolabe.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 3,
+    "turn": 395,
+    "text": "Your delegate, Hamadi, learned that Sumeria has built a Commercial Hub in Recife.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 3,
+    "turn": 389,
+    "text": "Your delegate, Hamadi, learned that Sumeria has declared their friendship with England.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 3,
+    "turn": 387,
+    "text": "Your delegate, Hamadi, learned that Sumeria has built a Harbor in Isin.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 3,
+    "turn": 381,
+    "text": "Your delegate, Abubakar, learned that Sumeria has declared their friendship with India.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 3,
+    "turn": 381,
+    "text": "Your delegate, Abubakar, learned that Gilgamesh has thanked Gandhi for cooperating with the agenda: Ally of Enkidu.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 5,
+    "turn": 394,
+    "text": "A recent news article revealed that the Aztec have completed the Space Race project Launch Earth Satellite.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 5,
+    "turn": 392,
+    "text": "A recent news article revealed that the Aztec have switched governments to Democracy.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 5,
+    "turn": 388,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of England.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 5,
+    "turn": 387,
+    "text": "A recent news article revealed that the Aztec have used a Modern AT to clear a Barbarian Outpost.",
+    "source": "direct",
+    "first_seen": 396
+  },
+  {
+    "about": 5,
+    "turn": 387,
+    "text": "A recent news article revealed that the Aztec have denounced the evil deeds of Egypt.",
+    "source": "direct",
+    "first_seen": 396
   }
 ]

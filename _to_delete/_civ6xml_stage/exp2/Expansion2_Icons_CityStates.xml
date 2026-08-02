@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameInfo>
+	<IconTextureAtlases>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="22" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates22.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="30" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates30.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="32" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates32.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="36" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates36.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="44" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates44.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="45" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates45.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="48" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates48.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="50" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates50.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="64" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates64.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="80" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates80.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="128" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates128.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="200" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates200.dds"/>
+    <Row Name="ICON_ATLAS_EXPANSION_2_CITY_STATES" IconSize="256" IconsPerRow="4" IconsPerColumn="1"  Filename="XP2_CityStates256.dds"/>
+	</IconTextureAtlases>
+	<IconDefinitions>
+		<Row Name="ICON_CIVILIZATION_AKKAD"       Atlas="ICON_ATLAS_EXPANSION_2_CITY_STATES" Index="0"/>
+    <Row Name="ICON_CIVILIZATION_BOLOGNA"     Atlas="ICON_ATLAS_EXPANSION_2_CITY_STATES" Index="1"/>
+    <Row Name="ICON_CIVILIZATION_CAHOKIA"     Atlas="ICON_ATLAS_EXPANSION_2_CITY_STATES" Index="2"/>
+    <Row Name="ICON_CIVILIZATION_CARDIFF"     Atlas="ICON_ATLAS_EXPANSION_2_CITY_STATES" Index="3"/>
+    <Row Name="ICON_CIVILIZATION_FEZ"         Atlas="ICON_ATLAS_EXPANSION_2_CITY_STATES" Index="4"/>
+    <Row Name="ICON_CIVILIZATION_MEXICO_CITY" Atlas="ICON_ATLAS_EXPANSION_2_CITY_STATES" Index="5"/>
+    <Row Name="ICON_CIVILIZATION_NAZCA"       Atlas="ICON_ATLAS_EXPANSION_2_CITY_STATES" Index="6"/>
+    <Row Name="ICON_CIVILIZATION_NGAZARGAMU"  Atlas="ICON_ATLAS_EXPANSION_2_CITY_STATES" Index="7"/>
+    <Row Name="ICON_CIVILIZATION_RAPA_NUI"    Atlas="ICON_ATLAS_EXPANSION_2_CITY_STATES" Index="8"/>
+    <!-- TODO: The gameplay data corresponding to the following icon has not be hooked up, need to make sure their Name / Type matches up -->
+    <Row Name="ICON_CIVILIZATION_BANGDAR"			Atlas="ICON_ATLAS_EXPANSION_2_CITY_STATES" Index="9"/>		
+		
+	</IconDefinitions>
+</GameInfo>
