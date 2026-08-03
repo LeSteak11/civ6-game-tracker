@@ -2381,7 +2381,200 @@ end)
 
 
 # ---------------------------------------------------------------------------
-# Q9 — declared ruleset (first-class section)
+# Q9 — expansion mechanics, batch 1: Rise & Fall
+# ---------------------------------------------------------------------------
+#
+# Era score / Golden+Dark Ages, governors, my alliances, emergencies.
+# Built ONLY on accessors the Q11 probe confirmed live (2026-08-03 capture):
+#   Eras.GetCurrentEra/GetPlayerCurrentScore/HasGoldenAge/HasDarkAge/
+#   GetNextEraCountdown; Player.GetGovernors -> GetGovernorPoints/
+#   GetGovernorPointsSpent/GetGovernorList/HasGovernor;
+#   Diplomacy.GetAllianceLevel/GetAllianceType/GetAllianceTurnsUntilExpiration;
+#   EmergencyManager.GetEmergencyInfoTable.
+# Everything the probe could NOT confirm (per-governor entry methods, call
+# signatures, emergency table shape) goes through safeCall / type-gated
+# pcall and renders "?" on failure — never 0, never a guess.
+
+
+def build_xpac_query() -> str:
+    return _prelude("XPAC") + r"""
+
+-- ---- Era score / Golden+Dark Ages (R&F) ---------------------------------
+safe("era", function()
+  if type(Game.GetEras) ~= "function" then
+    print("DIAG|XPAC.era|Game.GetEras not a function (base-game ruleset?)"); return
+  end
+  local e = sf(function() return Game.GetEras() end)
+  if not e then print("DIAG|XPAC.era|GetEras() returned nil"); return end
+  local score = safeCall("era.score", e, "GetPlayerCurrentScore", me)
+  local golden = safeCall("era.golden", e, "HasGoldenAge", me)
+  local dark = safeCall("era.dark", e, "HasDarkAge", me)
+  local countdown = safeCall("era.countdown", e, "GetNextEraCountdown")
+  -- Thresholds were NOT probe-confirmed under these names — type-gate and
+  -- emit "?" when absent rather than guessing.
+  local gThresh, dThresh = "?", "?"
+  if type(e.GetPlayerGoldenAgeThreshold) == "function" then
+    local v = sf(function() return e:GetPlayerGoldenAgeThreshold(me) end)
+    if v ~= nil then gThresh = tostring(v) end
+  end
+  if type(e.GetPlayerDarkAgeThreshold) == "function" then
+    local v = sf(function() return e:GetPlayerDarkAgeThreshold(me) end)
+    if v ~= nil then dThresh = tostring(v) end
+  end
+  print("ERAS|" .. (score ~= nil and tostring(score) or "?")
+    .. "|" .. (golden ~= nil and tostring(golden) or "?")
+    .. "|" .. (dark ~= nil and tostring(dark) or "?")
+    .. "|" .. (countdown ~= nil and tostring(countdown) or "?")
+    .. "|" .. gThresh .. "|" .. dThresh)
+end)
+
+-- ---- Governors (R&F) ----------------------------------------------------
+safe("governors", function()
+  if type(p.GetGovernors) ~= "function" then
+    print("DIAG|XPAC.governors|Player.GetGovernors not a function"); return
+  end
+  local g = sf(function() return p:GetGovernors() end)
+  if not g then print("DIAG|XPAC.governors|GetGovernors() returned nil"); return end
+  local pts = safeCall("governors.points", g, "GetGovernorPoints")
+  local spent = safeCall("governors.spent", g, "GetGovernorPointsSpent")
+  print("GOVPTS|" .. (pts ~= nil and tostring(pts) or "?")
+    .. "|" .. (spent ~= nil and tostring(spent) or "?"))
+  local list = safeCall("governors.list", g, "GetGovernorList")
+  if type(list) ~= "table" then
+    if list ~= nil then print("DIAG|XPAC.governors|GetGovernorList returned " .. type(list)) end
+    return
+  end
+  for _, gov in ipairs(list) do
+    pcall(function()
+      -- Per-entry methods were not probe-confirmed: safeCall everything,
+      -- "?" on failure.
+      local gtype = "?"
+      local def = safeCall("gov.def", gov, "GetDefinition")
+      if def ~= nil then
+        pcall(function() gtype = tostring(def.GovernorType or "?") end)
+      end
+      if gtype == "?" then
+        local t = safeCall("gov.type", gov, "GetType")
+        if t ~= nil then
+          pcall(function()
+            local row = GameInfo.Governors[t]
+            if row then gtype = tostring(row.GovernorType) end
+          end)
+          if gtype == "?" then gtype = tostring(t) end
+        end
+      end
+      local name = "?"
+      pcall(function()
+        if def ~= nil and def.Name then name = L(def.Name) end
+      end)
+      local cityId, cityName = "?", "?"
+      local c = safeCall("gov.city", gov, "GetAssignedCity")
+      if c ~= nil then
+        local cid = safeCall("gov.cityid", c, "GetID")
+        if cid ~= nil then cityId = tostring(cid) end
+        local cn = safeCall("gov.cityname", c, "GetName")
+        if cn ~= nil then cityName = L(cn) end
+      elseif c == nil then
+        cityId, cityName = "-1", "unassigned"
+      end
+      local est = safeCall("gov.established", gov, "IsEstablished")
+      print("GOV|" .. esc(gtype) .. "|" .. esc(name) .. "|" .. cityId .. "|"
+        .. esc(cityName) .. "|" .. (est ~= nil and tostring(est) or "?"))
+    end)
+  end
+end)
+
+-- ---- Loyalty of MY cities (R&F) -----------------------------------------
+-- Fog-legitimate: my own cities' loyalty is always visible to me.
+safe("loyalty", function()
+  local cities = sf(function() return p:GetCities() end)
+  if not cities then print("DIAG|XPAC.loyalty|no cities object"); return end
+  for _, c in cities:Members() do
+    pcall(function()
+      local ci = safeCall("loyalty.identity", c, "GetCulturalIdentity")
+      if ci == nil then return end
+      local loy = safeCall("loyalty.value", ci, "GetLoyalty")
+      local lpt = safeCall("loyalty.perturn", ci, "GetLoyaltyPerTurn")
+      local mx = safeCall("loyalty.max", ci, "GetMaxLoyalty")
+      local cid = safeCall("loyalty.cityid", c, "GetID")
+      print("LOYAL|" .. (cid ~= nil and tostring(cid) or "?")
+        .. "|" .. (loy ~= nil and string.format("%.1f", loy) or "?")
+        .. "|" .. (lpt ~= nil and string.format("%.1f", lpt) or "?")
+        .. "|" .. (mx ~= nil and tostring(mx) or "?"))
+    end)
+  end
+end)
+
+-- ---- My alliances with met majors (R&F) ---------------------------------
+-- Fog-legitimate: only MY alliance state with each major I've met.
+safe("alliances", function()
+  local d = sf(function() return p:GetDiplomacy() end)
+  if not d then print("DIAG|XPAC.alliances|no diplomacy object"); return end
+  if type(d.GetAllianceType) ~= "function" then
+    print("DIAG|XPAC.alliances|GetAllianceType not a function"); return
+  end
+  -- Confirmed met accessor (same one the diplo query uses).
+  local metIDs = sf(function() return d:GetPlayersMetIDs() end) or {}
+  local majorSet = {}
+  pcall(function()
+    local ids = PlayerManager and PlayerManager.GetAliveMajorIDs and PlayerManager.GetAliveMajorIDs() or {}
+    for _, pid in ipairs(ids) do majorSet[pid] = true end
+  end)
+  for _, pid in ipairs(metIDs) do
+    if pid ~= me and majorSet[pid] then
+      pcall(function()
+        local atype = sf(function() return d:GetAllianceType(pid) end)
+        -- -1 / nil = no alliance; only emit real alliances.
+        if atype ~= nil and atype ~= -1 then
+          local aname = "?"
+          pcall(function()
+            local row = GameInfo.Alliances and GameInfo.Alliances[atype]
+            if row then aname = L(row.Name) end
+          end)
+          local lvl = sf(function() return d:GetAllianceLevel(pid) end)
+          local exp = sf(function() return d:GetAllianceTurnsUntilExpiration(pid) end)
+          print("ALLY|" .. pid .. "|" .. esc(aname)
+            .. "|" .. (lvl ~= nil and tostring(lvl) or "?")
+            .. "|" .. (exp ~= nil and tostring(exp) or "?"))
+        end
+      end)
+    end
+  end
+end)
+
+-- ---- Emergencies (R&F) --------------------------------------------------
+safe("emergencies", function()
+  if type(Game.GetEmergencyManager) ~= "function" then
+    print("DIAG|XPAC.emergencies|Game.GetEmergencyManager not a function"); return
+  end
+  local em = sf(function() return Game.GetEmergencyManager() end)
+  if not em then print("DIAG|XPAC.emergencies|GetEmergencyManager() returned nil"); return end
+  local infos = safeCall("emergencies.table", em, "GetEmergencyInfoTable", me)
+  if type(infos) ~= "table" then
+    if infos ~= nil then print("DIAG|XPAC.emergencies|GetEmergencyInfoTable returned " .. type(infos)) end
+    print("EMRGCOUNT|0|shape-unknown")
+    return
+  end
+  local n = 0
+  for _, info in ipairs(infos) do
+    n = n + 1
+    pcall(function()
+      -- Table shape not probe-confirmed: read common fields defensively.
+      local etype, target, turns = "?", "?", "?"
+      pcall(function() if info.EmergencyType ~= nil then etype = tostring(info.EmergencyType) end end)
+      pcall(function() if info.TargetID ~= nil then target = tostring(info.TargetID) end end)
+      pcall(function() if info.TurnsLeft ~= nil then turns = tostring(info.TurnsLeft) end end)
+      print("EMRG|" .. esc(etype) .. "|" .. esc(target) .. "|" .. esc(turns))
+    end)
+  end
+  print("EMRGCOUNT|" .. n .. "|ok")
+end)
+
+""" + _sentinel_line()
+
+
+# ---------------------------------------------------------------------------
+# Q10 — declared ruleset (first-class section)
 # ---------------------------------------------------------------------------
 #
 # The tables the coach used to hardcode, read from the live database at
@@ -2467,7 +2660,7 @@ end)
 
 
 # ---------------------------------------------------------------------------
-# Q10 — capability probe (diagnostics only)
+# Q11 — capability probe (diagnostics only)
 # ---------------------------------------------------------------------------
 #
 # Discovery pass for the declared-ruleset migration: which expansion Lua
@@ -2733,6 +2926,7 @@ ALL_QUERIES = {
     "diplo": build_diplo_query,
     "religion": build_religion_query,
     "notif": build_notifications_query,
+    "xpac": build_xpac_query,
     "ruleset": build_ruleset_query,
     "probe": build_probe_query,
 }

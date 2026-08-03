@@ -56,6 +56,14 @@ def _world_events(prev: dict[str, Any], curr: dict[str, Any]) -> list[dict[str, 
         for src in (cr or {}), (pr or {}):
             if pid in src and src[pid].get("civ_name"):
                 return src[pid]["civ_name"]
+        # City-states and Free Cities aren't rivals but have known names —
+        # "Rome vs Free Cities" beats "Rome vs player 62".
+        for snap_side in (curr, prev):
+            cs = snap_side.get("city_states_met")
+            if isinstance(cs, list):
+                for c in cs:
+                    if c.get("player_id") == pid and c.get("civ_name"):
+                        return c["civ_name"]
         return "me" if pid == 0 else f"player {pid}"
 
     if pr is not None and cr is not None:
@@ -337,6 +345,22 @@ def compute_delta(prev: dict[str, Any] | None, curr: dict[str, Any]) -> dict[str
         gaps.append("city_states_met")
     if dd:
         d["diplo_delta"] = dd
+
+    # Era score / age transitions (R&F, Phase D1) — only when both sides
+    # carry a readable numeric score; '?' values suppress the class.
+    p_era, c_era = prev.get("era"), curr.get("era")
+    if isinstance(p_era, dict) and isinstance(c_era, dict) and p_era and c_era:
+        ps, cs2 = p_era.get("score"), c_era.get("score")
+        ed: dict[str, Any] = {}
+        if isinstance(ps, (int, float)) and isinstance(cs2, (int, float)):
+            if cs2 != ps:
+                ed["score"] = cs2 - ps
+        for flag, label in (("golden_age", "GOLDEN AGE"), ("dark_age", "DARK AGE")):
+            pv, cv = p_era.get(flag), c_era.get(flag)
+            if isinstance(pv, bool) and isinstance(cv, bool) and pv != cv:
+                ed["age_change"] = f"{'entered' if cv else 'left'} {label}"
+        if ed:
+            d["era_delta"] = ed
 
     if gaps:
         d["delta_gaps"] = gaps

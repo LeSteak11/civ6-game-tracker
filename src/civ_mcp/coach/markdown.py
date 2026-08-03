@@ -77,6 +77,8 @@ def _delta_is_empty(d: dict[str, Any]) -> bool:
     dd = d.get("diplo_delta") or {}
     if any(dd.get(k) for k in ("newly_met_majors", "newly_met_city_states", "new_wars")):
         return False
+    if any((d.get("era_delta") or {}).values()):
+        return False
     return True
 
 
@@ -118,6 +120,11 @@ def _fmt_delta(d: dict[str, Any]) -> str:
     lines.append(f"- turns elapsed: {turns}")
     if gap_line:
         lines.append(gap_line)
+    ed2 = d.get("era_delta") or {}
+    if ed2.get("score"):
+        lines.append(f"- era score: {ed2['score']:+}")
+    if ed2.get("age_change"):
+        lines.append(f"- **{ed2['age_change']}**")
     ed = d.get("empire_delta", {}) or {}
     if ed:
         parts = [f"{k}: {v:+}" for k, v in ed.items() if v]
@@ -317,6 +324,25 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
     else:
         vict = snap.get("victories_enabled") or []
         lines.append(_kv("enabled victories", ", ".join(vict) or "(none)"))
+    # Era score / ages (R&F, Phase D1).  Only rendered when the game has
+    # the mechanic; a failed read renders QUERY FAILED, never a zero.
+    if st.get("era") == "failed":
+        lines.append("- **era score:** " + _fail_marker("era", snap))
+    else:
+        era = snap.get("era") or {}
+        if era:
+            age = "GOLDEN AGE" if era.get("golden_age") is True else (
+                "DARK AGE" if era.get("dark_age") is True else "normal age")
+            thr = ""
+            gt, dt = era.get("golden_threshold"), era.get("dark_threshold")
+            if gt != "?" or dt != "?":
+                thr = f" | thresholds: dark <{_unk(dt)}, golden ≥{_unk(gt)}"
+            cd = era.get("next_era_countdown")
+            cd_str = f" | next era in {cd}t" if isinstance(cd, int) and cd >= 0 else ""
+            lines.append(_kv(
+                "era score",
+                f"{_unk(era.get('score'))} — {age}{thr}{cd_str}",
+            ))
     lines.append("")
 
     # ---- Research / Civic --------------------------------------------------
@@ -534,6 +560,30 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                 lines.append(f"    - ...and {len(avail) - 20} more (see JSON)")
     lines.append("")
 
+    # ---- Governors (R&F, Phase D1) ----------------------------------------
+    if st.get("governors") == "failed":
+        lines.append("## GOVERNORS (R&F)")
+        lines.append("- " + _fail_marker("governors", snap))
+        lines.append("")
+    else:
+        gov = snap.get("governors") or {}
+        if gov:
+            lines.append("## GOVERNORS (R&F)")
+            pts = _unk(gov.get("points_available"))
+            spent = _unk(gov.get("points_spent"))
+            lines.append(_kv("governor points", f"{pts} available, {spent} spent"))
+            appointed = gov.get("appointed") or []
+            if appointed:
+                for a in appointed:
+                    est = a.get("established")
+                    est_str = ("established" if est is True
+                               else "establishing" if est is False else "status ?")
+                    where = a.get("city_name") or "?"
+                    lines.append(f"    - **{a.get('name') or a.get('type')}** — {where} ({est_str})")
+            else:
+                lines.append("- no governors appointed")
+            lines.append("")
+
     # ---- Great people -----------------------------------------------------
     if st.get("great_people") == "failed":
         lines.append("## GREAT PEOPLE")
@@ -621,6 +671,17 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                 f"happ {happ_disp} | border+{c.get('border_expansion_turns')}t"
                 + status_extras
             )
+            # Loyalty (R&F, Phase D1) — absent key = unknown, no line.
+            loy = c.get("loyalty")
+            if loy:
+                lv, lpt = loy.get("loyalty"), loy.get("per_turn")
+                warn = ""
+                if isinstance(lpt, (int, float)) and lpt < 0:
+                    warn = " ⚠ LOSING LOYALTY"
+                lines.append(
+                    f"- loyalty {_unk(lv)}/{_unk(loy.get('max'))} "
+                    f"({'+' if isinstance(lpt, (int, float)) and lpt >= 0 else ''}{_unk(lpt)}/turn){warn}"
+                )
             # District capacity (v1.7.0) — the anti-"build a Harbor with no
             # slot free" line.  Reconstructed (pop/3+1); absent when inputs
             # were unreadable, never guessed.
@@ -895,6 +956,14 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                     f"met T{majg.get('met_turn')}{ob_str}"
                     + (f" | agendas: {agendas}" if agendas else "")
                 )
+                # My alliance with them (R&F) — key absent = unknown/none.
+                ally = majg.get("alliance")
+                if ally:
+                    lines.append(
+                        f"    - 🤝 alliance: {ally.get('name') or '?'} "
+                        f"(level {_unk(ally.get('level'))}, "
+                        f"expires in {_unk(ally.get('turns_until_expiration'))}t)"
+                    )
                 # Rival detail sub-lines (schema 1.3) — sourced from the
                 # merged rivals list so known cities / public stats /
                 # wars / government ride along when available.
@@ -969,10 +1038,14 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
                     ebc_str = " | envoys: " + ", ".join(
                         f"{owners.get(k, 'me' if k == '0' else 'p' + k)} {v}" for k, v in top
                     )
+                # R&F Free Cities pose as a city-state in the met list —
+                # label them so nobody sends envoys to a loyalty revolt.
+                fc = " — ⚠ not a real city-state: loyalty-revolt Free Cities (R&F)" \
+                    if (c.get("cs_type") or "") == "LEADER_FREE_CITIES" else ""
                 lines.append(
                     f"- **{c.get('civ_name')}** ({c.get('cs_type')}) — "
                     f"envoys sent {c.get('envoys_sent')} | suz: {c.get('suzerain')} | "
-                    f"@({c.get('x')},{c.get('y')}) | met T{c.get('met_turn')}{war}"
+                    f"@({c.get('x')},{c.get('y')}) | met T{c.get('met_turn')}{war}{fc}"
                     + (f" | quest: {quests}" if quests else "")
                     + ebc_str
                 )
@@ -1000,6 +1073,24 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
     # already applied at export time — these are on-screen units only).
     ubc = snap.get("units_by_civ") or {}
     owners = snap.get("map_owners") or {}
+    # ---- Emergencies (R&F, Phase D1) ---------------------------------------
+    if st.get("emergencies") == "failed":
+        lines.append("### EMERGENCIES (R&F)")
+        lines.append("- " + _fail_marker("emergencies", snap))
+    else:
+        emrg = snap.get("emergencies") or {}
+        active = emrg.get("active") or []
+        if active:
+            lines.append("### EMERGENCIES (R&F)")
+            for e in active:
+                lines.append(
+                    f"- 🚨 {e.get('type') or '?'} — target {e.get('target') or '?'} "
+                    f"— turns left {e.get('turns_left') or '?'}"
+                )
+        elif emrg.get("shape") == "shape-unknown":
+            lines.append("### EMERGENCIES (R&F)")
+            lines.append("- emergency data shape not readable this capture (see DIAG)")
+
     # "me" is identified via the owner legend (the local player is not
     # always id 0); barbarians (63) have their own section below.
     foreign = {

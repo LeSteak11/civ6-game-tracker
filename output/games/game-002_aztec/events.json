@@ -97,5 +97,29 @@
     ],
     "to": null,
     "to_civ": "unknown"
+  },
+  {
+    "turn": 8,
+    "event": "war_declared",
+    "between": [
+      3,
+      62
+    ],
+    "civs": [
+      "Rome",
+      "player 62"
+    ]
+  },
+  {
+    "turn": 23,
+    "event": "war_declared",
+    "between": [
+      1,
+      62
+    ],
+    "civs": [
+      "Ottomans",
+      "Free Cities"
+    ]
   }
 ]

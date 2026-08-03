@@ -15,8 +15,8 @@ derived from the capture's own probe, never asserted.
 
 from __future__ import annotations
 
-SCHEMA_VERSION = "coach-snapshot/1.5"  # 1.4 + top-level ruleset stamp (additive)
-COACH_VERSION = "1.9.0"  # declared-ruleset flip: live DB tables, derived unsupported, cross-game delta guard, arity guard
+SCHEMA_VERSION = "coach-snapshot/1.6"  # 1.5 + R&F sections: era, governors, emergencies, city loyalty, major alliances (additive)
+COACH_VERSION = "1.10.0"  # Phase D1: Rise & Fall extraction (era score/ages, governors, loyalty, alliances, emergencies)
 
 # Terminator every coach Lua chunk prints as its last line.
 #

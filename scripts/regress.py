@@ -189,8 +189,8 @@ check("real delta lists grown city", "Sais" in txt2)
 
 
 print("\n=== schema/version bump ===")
-check("schema bumped to 1.5", SCHEMA_VERSION == "coach-snapshot/1.5", SCHEMA_VERSION)
-check("coach version 1.9.0 (semver)", COACH_VERSION == "1.9.0", COACH_VERSION)
+check("schema bumped to 1.6", SCHEMA_VERSION == "coach-snapshot/1.6", SCHEMA_VERSION)
+check("coach version 1.10.0 (semver)", COACH_VERSION == "1.10.0", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -1681,11 +1681,11 @@ _spec_c = _ilu.spec_from_file_location("_coach_collector_shim", REPO / "src/civ_
 try:
     _cm = _ilu.module_from_spec(_spec_c); _spec_c.loader.exec_module(_cm)
     _du = _cm._derive_unsupported({"api": {
-        "Player.GetGovernors": "function",
+        "Player.GetFavor": "function",
         "GameClimate.GetTotalCO2Footprint": "nil",
     }})
     check("probe=function => present, not yet extracted",
-          any("governors" in s and "PRESENT" in s for s in _du))
+          any("diplomatic favor" in s and "not yet extracted" in s for s in _du))
     check("probe=nil => unavailable in this game",
           any("climate" in s and "unavailable" in s for s in _du))
     check("probe missing key => undetermined, never asserted",
@@ -1726,6 +1726,174 @@ check("markdown header carries the ruleset stamp",
 _snap_rs_failed = dict(_snap_rs); _snap_rs_failed["ruleset"] = None
 check("failed ruleset query renders QUERY FAILED, not silence",
       "ruleset: QUERY FAILED" in M.render_markdown(_snap_rs_failed, {"first_snapshot": True}))
+
+print("\n=== v1.10.0 Phase D1: Rise & Fall extraction ===")
+# --- xpac query hygiene ----------------------------------------------------
+_xpac_src = Q.build_xpac_query()
+_xpac_code = strip_lua_comments(_xpac_src)
+check("xpac registered between notif and ruleset",
+      list(Q.ALL_QUERIES.keys())[-3:] == ["xpac", "ruleset", "probe"],
+      list(Q.ALL_QUERIES.keys()))
+check("xpac contains no mutating APIs",
+      not any(bad in _xpac_code for bad in (
+          "RequestPlayerOperation", "UI.RequestAction", "EndTurn(",
+          "RequestCommand", "RequestOperation", "SetProperty", "Appoint", "Promote",
+      )))
+check("xpac uses only the confirmed met accessor (GetPlayersMetIDs, not HasMet)",
+      "GetPlayersMetIDs" in _xpac_code and "HasMet" not in _xpac_code)
+check("xpac gates unconfirmed thresholds on type checks",
+      'type(e.GetPlayerGoldenAgeThreshold) == "function"' in _xpac_code)
+check("xpac uses safeCall for unprobed per-object methods",
+      _xpac_code.count("safeCall(") >= 12)
+
+# --- parse_xpac ------------------------------------------------------------
+_xp_lines = [
+    "ERAS|14|false|true|22|24|12",
+    "GOVPTS|1|2",
+    "GOV|GOVERNOR_THE_EDUCATOR|Pingala|65536|Tenochtitlan|true",
+    "GOV|GOVERNOR_THE_CASTELLAN|Victor|-1|unassigned|?",
+    "LOYAL|65536|98.5|-1.2|100",
+    "ALLY|3|Military Alliance|2|14",
+    "EMRG|EMERGENCY_WAR|3|8",
+    "EMRGCOUNT|1|ok",
+    "DIAG|XPAC.era|something",
+]
+_xp = P.parse_xpac(_xp_lines)
+check("xpac: era parses with dark age flag",
+      _xp["era"]["score"] == 14 and _xp["era"]["dark_age"] is True
+      and _xp["era"]["golden_age"] is False and _xp["era"]["next_era_countdown"] == 22)
+check("xpac: governor points parse",
+      _xp["governors"]["points_available"] == 1 and _xp["governors"]["points_spent"] == 2)
+check("xpac: appointed governors keep city + established state",
+      _xp["governors"]["appointed"][0]["city_name"] == "Tenochtitlan"
+      and _xp["governors"]["appointed"][0]["established"] is True)
+check("xpac: unknown established stays '?', never False",
+      _xp["governors"]["appointed"][1]["established"] == "?")
+check("xpac: loyalty parses floats and negative per-turn",
+      _xp["loyalty"][0]["loyalty"] == 98.5 and _xp["loyalty"][0]["per_turn"] == -1.2)
+check("xpac: alliance parses level + expiration",
+      _xp["alliances"][0]["level"] == 2 and _xp["alliances"][0]["turns_until_expiration"] == 14)
+check("xpac: emergencies parse",
+      _xp["emergencies"]["count"] == 1 and _xp["emergencies"]["active"][0]["type"] == "EMERGENCY_WAR")
+check("xpac: '?' era score survives as '?', never 0",
+      P.parse_xpac(["ERAS|?|?|?|?|?|?"])["era"]["score"] == "?")
+
+# --- collector wiring ------------------------------------------------------
+_coll_src3 = (REPO / "src/civ_mcp/coach/collector.py").read_text(encoding="utf-8")
+check("collector: xpac wired (timeout, parser, sections)",
+      '"xpac": P.parse_xpac' in _coll_src3
+      and '"era":               ("xpac",     "era")' in _coll_src3)
+check("collector: alliances attach to majors, absence = unknown",
+      "_ally_by_pid" in _coll_src3)
+check("collector: loyalty attaches to cities by id", "_loy_by_cid" in _coll_src3)
+check("collector: R&F mechanics flagged extracted in capability list",
+      '("governors (Rise & Fall)", "Player.GetGovernors", True)' in _coll_src3)
+try:
+    _du2 = _cm2 if False else None
+except NameError:
+    pass
+import importlib.util as _ilu2
+_spec_c2 = _ilu2.spec_from_file_location("_coach_collector_shim2", REPO / "src/civ_mcp/coach/collector.py")
+try:
+    _cmod = _ilu2.module_from_spec(_spec_c2); _spec_c2.loader.exec_module(_cmod)
+    _du2 = _cmod._derive_unsupported({"api": {"Player.GetGovernors": "function",
+                                              "Player.GetFavor": "function"}})
+    check("capability: extracted mechanic reports 'extracted', not 'not yet extracted'",
+          any("governors" in s and "extracted (see snapshot" in s for s in _du2))
+    check("capability: unextracted GS mechanic still says not yet extracted",
+          any("diplomatic favor" in s and "not yet extracted" in s for s in _du2))
+except Exception as _e2:
+    print(f"  SKIP  capability extracted-state checks ({type(_e2).__name__})")
+
+# --- markdown rendering ----------------------------------------------------
+_snap_d1 = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 2.0,
+    "meta": {"turn": 40}, "empire": {},
+    "section_status": {"header": "ok", "era": "ok", "governors": "ok", "emergencies": "ok"},
+    "diagnostics": {}, "turn_blockers_summary": [],
+    "era": {"score": 14, "golden_age": False, "dark_age": True,
+            "next_era_countdown": 22, "golden_threshold": 24, "dark_threshold": 12},
+    "governors": {"points_available": 1, "points_spent": 2,
+                  "appointed": [{"type": "GOVERNOR_THE_EDUCATOR", "name": "Pingala",
+                                 "city_id": 65536, "city_name": "Tenochtitlan",
+                                 "established": True}]},
+    "emergencies": {"count": 1, "shape": "ok",
+                    "active": [{"type": "EMERGENCY_WAR", "target": "3", "turns_left": "8"}]},
+    "majors_met": [{"player_id": 3, "civ_name": "Rome", "leader_name": "Julius Caesar",
+                    "score": 8, "military": 45, "met_turn": 5,
+                    "alliance": {"name": "Military Alliance", "level": 2,
+                                 "turns_until_expiration": 14}}],
+    "city_states_met": [{"player_id": 62, "civ_name": "Free Cities",
+                         "cs_type": "LEADER_FREE_CITIES", "envoys_sent": 0,
+                         "suzerain": "none", "x": -1, "y": -1, "met_turn": 1}],
+}
+_md_d1 = M.render_markdown(_snap_d1, {"first_snapshot": True})
+check("md: era score line with DARK AGE + thresholds",
+      "era score" in _md_d1 and "DARK AGE" in _md_d1 and "dark <12" in _md_d1)
+check("md: governors section renders points + appointment",
+      "GOVERNORS (R&F)" in _md_d1 and "Pingala" in _md_d1 and "Tenochtitlan" in _md_d1)
+check("md: alliance sub-line on the major",
+      "alliance: Military Alliance" in _md_d1 and "level 2" in _md_d1)
+check("md: emergencies render",
+      "EMERGENCIES (R&F)" in _md_d1 and "EMERGENCY_WAR" in _md_d1)
+check("md: Free Cities labeled as not a real city-state",
+      "not a real city-state" in _md_d1)
+_snap_d1_failed = dict(_snap_d1)
+_snap_d1_failed["section_status"] = {"header": "ok", "era": "failed",
+                                     "governors": "failed", "emergencies": "failed"}
+_snap_d1_failed["era"] = None; _snap_d1_failed["governors"] = None
+_snap_d1_failed["emergencies"] = None
+_md_d1f = M.render_markdown(_snap_d1_failed, {"first_snapshot": True})
+check("md: failed xpac sections render QUERY FAILED, never zeros",
+      _md_d1f.count("QUERY FAILED") >= 3)
+
+# --- loyalty on cities (rendering) ----------------------------------------
+_city_loy = {
+    "id": 65536, "name": "Tenochtitlan", "x": 78, "y": 46, "capital": True,
+    "population": 3, "growth_turns": 5, "food_surplus": 2.0, "housing": 6,
+    "amenities": 2, "amenities_needed": 1, "happiness_label": "Content",
+    "border_expansion_turns": 2, "defense_strength": 13,
+    "garrison_hp": 200, "garrison_max_hp": 200, "wall_hp": 0, "wall_max_hp": 0,
+    "districts": [], "buildings": [], "production": {"type": "nothing", "name": "nothing"},
+    "yields": {}, "worked_tiles": 2, "owned_tiles": 7,
+    "loyalty": {"loyalty": 98.5, "per_turn": -1.2, "max": 100},
+}
+_snap_loy = dict(_snap_d1)
+_snap_loy["section_status"] = {"header": "ok", "cities": "ok"}
+_snap_loy["cities"] = [_city_loy]
+_md_loy = M.render_markdown(_snap_loy, {"first_snapshot": True})
+check("md: city loyalty line renders with LOSING warning on negative drift",
+      "loyalty 98.5/100" in _md_loy and "LOSING LOYALTY" in _md_loy)
+
+# --- delta: era score + name resolution ------------------------------------
+_p_snap = {"meta": {"turn": 40, "game_seed": 1, "map_seed": 2},
+           "era": {"score": 10, "golden_age": False, "dark_age": False}}
+_c_snap = {"meta": {"turn": 41, "game_seed": 1, "map_seed": 2},
+           "era": {"score": 14, "golden_age": False, "dark_age": True}}
+_d_era = DL.compute_delta(_p_snap, _c_snap)
+check("delta: era score change + dark-age entry",
+      _d_era.get("era_delta", {}).get("score") == 4
+      and _d_era.get("era_delta", {}).get("age_change") == "entered DARK AGE")
+check("delta: unreadable era score ('?') produces no era delta",
+      "era_delta" not in DL.compute_delta(
+          {"meta": {"turn": 1}, "era": {"score": "?"}},
+          {"meta": {"turn": 2}, "era": {"score": 5}}))
+_wars_prev = {"meta": {"turn": 5}, "rivals": [
+    {"player_id": 3, "civ_name": "Rome", "alive": True, "wars_with": []}],
+    "city_states_met": [{"player_id": 62, "civ_name": "Free Cities"}]}
+_wars_curr = {"meta": {"turn": 6}, "rivals": [
+    {"player_id": 3, "civ_name": "Rome", "alive": True, "wars_with": [62]}],
+    "city_states_met": [{"player_id": 62, "civ_name": "Free Cities"}]}
+_ev = DL._world_events(_wars_prev, _wars_curr)
+check("delta: war vs pid-62 names Free Cities, not 'player 62'",
+      any(e.get("event") == "war_declared" and "Free Cities" in e.get("civs", [])
+          for e in _ev), _ev)
+
+# --- arity contract for new tags -------------------------------------------
+check("arity: xpac tags under contract",
+      all(t in P.EXPECTED_ARITY for t in ("ERAS", "GOVPTS", "GOV", "ALLY", "EMRG", "EMRGCOUNT", "LOYAL")))
+check("arity: short GOV line flagged",
+      any("GOV" in w for w in P.arity_warnings(["GOV|X|Y"])))
 
 print()
 if failures:

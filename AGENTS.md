@@ -55,8 +55,9 @@ If you are an AI tool working in this repo, these rules override defaults.
 ```
 Civ 6  →  FireTuner TCP (civ_mcp/tuner_client.py)
        →  GameConnection (civ_mcp/connection.py) — discovers Lua states BY NAME
-       →  10 read-only Lua queries (coach/queries.py) — 8 data sections
-          + Q9 declared-ruleset + Q10 capability probe (diagnostics-only)
+       →  11 read-only Lua queries (coach/queries.py) — 8 data sections
+          + Q9 expansion mechanics (R&F) + Q10 declared-ruleset
+          + Q11 capability probe (diagnostics-only)
        →  parsers (coach/parser.py) → collector merge (coach/collector.py)
        →  delta (coach/delta.py) + Markdown (coach/markdown.py)
        →  JSON + Markdown files, and the Windows clipboard

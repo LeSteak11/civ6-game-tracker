@@ -1562,6 +1562,14 @@ EXPECTED_ARITY: dict[str, int] = {
     "SPECIALTY": 2,
     "RESCLASS": 3,
     "HOUSING": 3,
+    # Q9 xpac (Rise & Fall batch)
+    "ERAS": 7,
+    "GOVPTS": 3,
+    "GOV": 6,
+    "ALLY": 5,
+    "EMRG": 4,
+    "EMRGCOUNT": 3,
+    "LOYAL": 5,
 }
 
 
@@ -1585,3 +1593,102 @@ def arity_warnings(lines: list[str]) -> list[str]:
         "— indexed reads may be silently wrong; update the parser and EXPECTED_ARITY together"
         for tag, got in sorted(seen.items())
     ]
+
+
+def _opt_int(s_: str):
+    """'?' stays '?' (unknown, rule 5); numeric strings become ints."""
+    try:
+        return int(float(s_))
+    except ValueError:
+        return s_ or "?"
+
+
+def _opt_float(s_: str):
+    """'?' stays '?'; numeric strings become floats."""
+    try:
+        return float(s_)
+    except ValueError:
+        return s_ or "?"
+
+
+def _opt_bool(s_: str):
+    v = (s_ or "").strip().lower()
+    if v in ("true", "1"):
+        return True
+    if v in ("false", "0"):
+        return False
+    return "?"
+
+
+def parse_xpac(lines: list[str]) -> dict[str, Any]:
+    """Q9 expansion mechanics, R&F batch: era/ages, governors, my
+    alliances, emergencies.  '?' survives parsing as '?' — an unreadable
+    value is never coerced to 0/False."""
+    era: dict[str, Any] = {}
+    governors: dict[str, Any] = {}
+    gov_list: list[dict[str, Any]] = []
+    alliances: list[dict[str, Any]] = []
+    loyalty: list[dict[str, Any]] = []
+    emergencies: dict[str, Any] = {}
+    emrg_list: list[dict[str, Any]] = []
+    diagnostics: list[dict[str, Any]] = []
+    for line in lines:
+        p = line.split("|")
+        tag = p[0] if p else ""
+        if tag == "ERAS":
+            era = {
+                "score": _opt_int(_s(p, 1)),
+                "golden_age": _opt_bool(_s(p, 2)),
+                "dark_age": _opt_bool(_s(p, 3)),
+                "next_era_countdown": _opt_int(_s(p, 4)),
+                "golden_threshold": _opt_int(_s(p, 5)),
+                "dark_threshold": _opt_int(_s(p, 6)),
+                "source": "direct:GameEras",
+            }
+        elif tag == "GOVPTS":
+            governors["points_available"] = _opt_int(_s(p, 1))
+            governors["points_spent"] = _opt_int(_s(p, 2))
+        elif tag == "GOV":
+            gov_list.append({
+                "type": _s(p, 1),
+                "name": _s(p, 2),
+                "city_id": _opt_int(_s(p, 3)),
+                "city_name": _s(p, 4),
+                "established": _opt_bool(_s(p, 5)),
+            })
+        elif tag == "LOYAL":
+            loyalty.append({
+                "city_id": _opt_int(_s(p, 1)),
+                "loyalty": _opt_float(_s(p, 2)),
+                "per_turn": _opt_float(_s(p, 3)),
+                "max": _opt_int(_s(p, 4)),
+            })
+        elif tag == "ALLY":
+            alliances.append({
+                "player_id": _i(p, 1, -1),
+                "alliance_name": _s(p, 2),
+                "level": _opt_int(_s(p, 3)),
+                "turns_until_expiration": _opt_int(_s(p, 4)),
+            })
+        elif tag == "EMRG":
+            emrg_list.append({
+                "type": _s(p, 1),
+                "target": _s(p, 2),
+                "turns_left": _s(p, 3),
+            })
+        elif tag == "EMRGCOUNT":
+            emergencies = {"count": _i(p, 1, 0), "shape": _s(p, 2)}
+        elif tag == "DIAG":
+            diagnostics.append({"section": _s(p, 1), "message": _s(p, 2)})
+    if governors or gov_list:
+        governors["appointed"] = gov_list
+    if emergencies or emrg_list:
+        emergencies["active"] = emrg_list
+    return {
+        "era": era,
+        "governors": governors,
+        "alliances": alliances,
+        "loyalty": loyalty,
+        "emergencies": emergencies,
+        "diagnostics": diagnostics,
+    }

@@ -1,10 +1,10 @@
 {
   "schema": "coach-snapshot/1.6",
   "coach_version": "1.10.0",
-  "generated_at_epoch": 1785732815.9133193,
+  "generated_at_epoch": 1785730308.6909993,
   "meta": {
-    "turn": 23,
-    "year": "3120 BC",
+    "turn": 10,
+    "year": "3640 BC",
     "era": "Ancient Era",
     "civ_type": "CIVILIZATION_AZTEC",
     "civ_name": "Aztec",
@@ -29,44 +29,44 @@
     "VICTORY_DIPLOMATIC"
   ],
   "empire": {
-    "score": 28,
-    "gold": 55.0,
-    "gold_yield": 11.0,
+    "score": 18,
+    "gold": 83.0,
+    "gold_yield": 6.0,
     "gold_maint": 0.0,
-    "gold_net": 11.0,
+    "gold_net": 6.0,
     "science": 3.0,
     "culture": 1.6,
     "faith": 0.0,
     "faith_yield": 0.0,
     "tourism": 0.0,
-    "military": 42,
-    "techs_done": 2,
-    "civics_done": 1,
+    "military": 44,
+    "techs_done": 0,
+    "civics_done": 0,
     "num_cities": 1,
-    "num_units": 3,
+    "num_units": 2,
     "total_pop": 2,
     "trade_used": 0,
     "trade_cap": 0,
-    "explored_land": 148,
+    "explored_land": 84,
     "total_land": 1634
   },
   "current_research": {
-    "type": "TECH_WRITING",
-    "name": "Writing",
-    "progress": 28.0,
-    "cost": 50.0,
-    "turns": 8,
-    "boosted": true,
-    "boost_desc": "Meet another civilization."
+    "type": "TECH_ANIMAL_HUSBANDRY",
+    "name": "Animal Husbandry",
+    "progress": 20.0,
+    "cost": 25.0,
+    "turns": 2,
+    "boosted": false,
+    "boost_desc": ""
   },
   "current_civic": {
-    "type": "CIVIC_FOREIGN_TRADE",
-    "name": "Foreign Trade",
-    "progress": 26.0,
-    "cost": 40.0,
-    "turns": 9,
-    "boosted": true,
-    "boost_desc": "Discover a second continent."
+    "type": "CIVIC_CODE_OF_LAWS",
+    "name": "Code of Laws",
+    "progress": 10.0,
+    "cost": 20.0,
+    "turns": 7,
+    "boosted": false,
+    "boost_desc": ""
   },
   "resources": [
     {
@@ -80,7 +80,7 @@
   "government": {
     "type": "GOVERNMENT_CHIEFDOM",
     "name": "Chiefdom",
-    "slots_open": 0,
+    "slots_open": 2,
     "free_change_available": true
   },
   "policy_slots": [
@@ -88,33 +88,20 @@
       "index": 0,
       "slot_type": "SLOT_MILITARY",
       "slot_name": "MILITARY",
-      "policy_type": "POLICY_DISCIPLINE",
-      "policy_name": "Discipline",
-      "effect": "+5 [ICON_Strength] Unit Combat Strength when fighting Barbarians."
+      "policy_type": "",
+      "policy_name": "empty",
+      "effect": ""
     },
     {
       "index": 1,
       "slot_type": "SLOT_ECONOMIC",
       "slot_name": "ECONOMIC",
-      "policy_type": "POLICY_URBAN_PLANNING",
-      "policy_name": "Urban Planning",
-      "effect": "+1 [ICON_Production] Production in all cities."
+      "policy_type": "",
+      "policy_name": "empty",
+      "effect": ""
     }
   ],
-  "policy_available": [
-    {
-      "type": "POLICY_SURVEY",
-      "slot": "MILITARY",
-      "name": "Survey",
-      "effect": "Double experience for recon units."
-    },
-    {
-      "type": "POLICY_GOD_KING",
-      "slot": "ECONOMIC",
-      "name": "God King",
-      "effect": "+1 [ICON_Faith] Faith and +1 [ICON_Gold] Gold in the [ICON_Capital] Capital."
-    }
-  ],
+  "policy_available": [],
   "great_people": [
     {
       "class_type": "GREAT_PERSON_CLASS_GENERAL",
@@ -200,6 +187,26 @@
   ],
   "techs_available": [
     {
+      "type": "TECH_POTTERY",
+      "name": "Pottery",
+      "progress": 0.0,
+      "cost": 25.0,
+      "turns": 9,
+      "boosted": false,
+      "boost_desc": "",
+      "unlocks": "Granary, Great Bath, Mekewap"
+    },
+    {
+      "type": "TECH_ANIMAL_HUSBANDRY",
+      "name": "Animal Husbandry",
+      "progress": 20.0,
+      "cost": 25.0,
+      "turns": 2,
+      "boosted": false,
+      "boost_desc": "",
+      "unlocks": "Pasture, Camp, Kurgan, Reveals Horses"
+    },
+    {
       "type": "TECH_MINING",
       "name": "Mining",
       "progress": 0.0,
@@ -228,58 +235,18 @@
       "boosted": true,
       "boost_desc": "Find a natural wonder.",
       "unlocks": "Shrine, Stonehenge, Holy Site, Lavra"
-    },
-    {
-      "type": "TECH_IRRIGATION",
-      "name": "Irrigation",
-      "progress": 0.0,
-      "cost": 50.0,
-      "turns": 17,
-      "boosted": false,
-      "boost_desc": "Farm a resource.",
-      "unlocks": "Hanging Gardens, Palgum, Plantation, Stepwell"
-    },
-    {
-      "type": "TECH_ARCHERY",
-      "name": "Archery",
-      "progress": 0.0,
-      "cost": 50.0,
-      "turns": 17,
-      "boosted": false,
-      "boost_desc": "Kill a unit with a Slinger.",
-      "unlocks": "Archer, P\u00edtati Archer, Hul'che, Temple of Artemis"
-    },
-    {
-      "type": "TECH_WRITING",
-      "name": "Writing",
-      "progress": 28.0,
-      "cost": 50.0,
-      "turns": 8,
-      "boosted": true,
-      "boost_desc": "Meet another civilization.",
-      "unlocks": "Library, Etemenanki, Campus, Seowon, Observatory"
     }
   ],
   "civics_available": [
     {
-      "type": "CIVIC_CRAFTSMANSHIP",
-      "name": "Craftsmanship",
-      "progress": 0.0,
-      "cost": 40.0,
-      "turns": 26,
+      "type": "CIVIC_CODE_OF_LAWS",
+      "name": "Code of Laws",
+      "progress": 10.0,
+      "cost": 20.0,
+      "turns": 7,
       "boosted": false,
-      "boost_desc": "Improve 3 tiles.",
-      "unlocks": "Ilkum, Agoge"
-    },
-    {
-      "type": "CIVIC_FOREIGN_TRADE",
-      "name": "Foreign Trade",
-      "progress": 26.0,
-      "cost": 40.0,
-      "turns": 9,
-      "boosted": true,
-      "boost_desc": "Discover a second continent.",
-      "unlocks": "Caravansaries, Maritime Industries"
+      "boost_desc": "",
+      "unlocks": "Discipline, Survey, God King, Urban Planning"
     }
   ],
   "tech_tree": [
@@ -287,10 +254,10 @@
       "type": "TECH_POTTERY",
       "name": "Pottery",
       "era": "ANCIENT",
-      "status": "done",
+      "status": "available",
       "progress": 0.0,
-      "cost": 0.0,
-      "turns": -1,
+      "cost": 25.0,
+      "turns": 9,
       "partial": false,
       "prereqs": []
     },
@@ -298,11 +265,11 @@
       "type": "TECH_ANIMAL_HUSBANDRY",
       "name": "Animal Husbandry",
       "era": "ANCIENT",
-      "status": "done",
-      "progress": 0.0,
-      "cost": 0.0,
-      "turns": -1,
-      "partial": false,
+      "status": "current",
+      "progress": 20.0,
+      "cost": 25.0,
+      "turns": 2,
+      "partial": true,
       "prereqs": []
     },
     {
@@ -342,10 +309,10 @@
       "type": "TECH_IRRIGATION",
       "name": "Irrigation",
       "era": "ANCIENT",
-      "status": "available",
+      "status": "blocked",
       "progress": 0.0,
       "cost": 50.0,
-      "turns": 17,
+      "turns": -1,
       "partial": false,
       "prereqs": [
         "POTTERY"
@@ -355,10 +322,10 @@
       "type": "TECH_ARCHERY",
       "name": "Archery",
       "era": "ANCIENT",
-      "status": "available",
+      "status": "blocked",
       "progress": 0.0,
       "cost": 50.0,
-      "turns": 17,
+      "turns": -1,
       "partial": false,
       "prereqs": [
         "ANIMAL_HUSBANDRY"
@@ -368,10 +335,10 @@
       "type": "TECH_WRITING",
       "name": "Writing",
       "era": "ANCIENT",
-      "status": "current",
-      "progress": 28.0,
+      "status": "blocked",
+      "progress": 19.0,
       "cost": 50.0,
-      "turns": 8,
+      "turns": -1,
       "partial": true,
       "prereqs": [
         "POTTERY"
@@ -1295,21 +1262,21 @@
       "type": "CIVIC_CODE_OF_LAWS",
       "name": "Code of Laws",
       "era": "ANCIENT",
-      "status": "done",
-      "progress": 0.0,
-      "cost": 0.0,
-      "turns": -1,
-      "partial": false,
+      "status": "current",
+      "progress": 10.0,
+      "cost": 20.0,
+      "turns": 7,
+      "partial": true,
       "prereqs": []
     },
     {
       "type": "CIVIC_CRAFTSMANSHIP",
       "name": "Craftsmanship",
       "era": "ANCIENT",
-      "status": "available",
+      "status": "blocked",
       "progress": 0.0,
       "cost": 40.0,
-      "turns": 26,
+      "turns": -1,
       "partial": false,
       "prereqs": [
         "CODE_OF_LAWS"
@@ -1319,11 +1286,11 @@
       "type": "CIVIC_FOREIGN_TRADE",
       "name": "Foreign Trade",
       "era": "ANCIENT",
-      "status": "current",
-      "progress": 26.0,
+      "status": "blocked",
+      "progress": 0.0,
       "cost": 40.0,
-      "turns": 9,
-      "partial": true,
+      "turns": -1,
+      "partial": false,
       "prereqs": [
         "CODE_OF_LAWS"
       ]
@@ -2106,16 +2073,16 @@
       "x": 78,
       "y": 46,
       "population": 2,
-      "food_surplus": 2.0,
-      "turns_to_growth": 7,
+      "food_surplus": 1.0,
+      "turns_to_growth": 23,
       "turns_to_starvation": -1,
       "housing": 6,
       "amenities": 2,
       "amenities_needed": 1,
       "happiness": 4,
       "yields": {
-        "food": 6.0,
-        "production": 8.0,
+        "food": 5.0,
+        "production": 5.0,
         "gold": 6.0,
         "science": 3.0,
         "culture": 1.6,
@@ -2126,7 +2093,7 @@
         "name": "Builder",
         "progress": 32.0,
         "cost": 50.0,
-        "turns": 2
+        "turns": 4
       },
       "defense": {
         "strength": 13,
@@ -2135,7 +2102,7 @@
         "wall_hp": 0,
         "wall_max": 0
       },
-      "border_expansion_turns": 22,
+      "border_expansion_turns": 13,
       "majority_religion": "NONE",
       "districts": [
         {
@@ -2157,11 +2124,11 @@
         }
       ],
       "tiles_rollup": {
-        "owned": 10,
+        "owned": 8,
         "worked": 3,
         "terrain": {
-          "plains": 4,
           "tundra": 3,
+          "plains": 2,
           "tundra_mountain": 1,
           "coast": 1,
           "tundra_hills": 1
@@ -2177,8 +2144,8 @@
           "type": "UNIT_SETTLER",
           "name": "Settler",
           "progress": 0.0,
-          "cost": 110.0,
-          "turns": 14
+          "cost": 80.0,
+          "turns": 16
         },
         {
           "kind": "UNIT",
@@ -2186,7 +2153,7 @@
           "name": "Builder",
           "progress": 32.0,
           "cost": 50.0,
-          "turns": 2
+          "turns": 4
         },
         {
           "kind": "UNIT",
@@ -2194,7 +2161,7 @@
           "name": "Scout",
           "progress": 0.0,
           "cost": 30.0,
-          "turns": 4
+          "turns": 6
         },
         {
           "kind": "UNIT",
@@ -2202,7 +2169,7 @@
           "name": "Slinger",
           "progress": 0.0,
           "cost": 35.0,
-          "turns": 4
+          "turns": 7
         },
         {
           "kind": "UNIT",
@@ -2210,7 +2177,7 @@
           "name": "Eagle Warrior",
           "progress": 0.0,
           "cost": 65.0,
-          "turns": 8
+          "turns": 13
         },
         {
           "kind": "BLDG",
@@ -2218,23 +2185,7 @@
           "name": "Monument",
           "progress": 0.0,
           "cost": 60.0,
-          "turns": 8
-        },
-        {
-          "kind": "BLDG",
-          "type": "BUILDING_GRANARY",
-          "name": "Granary",
-          "progress": 0.0,
-          "cost": 65.0,
-          "turns": 9
-        },
-        {
-          "kind": "WONDER",
-          "type": "BUILDING_GREAT_BATH",
-          "name": "Great Bath",
-          "progress": 0.0,
-          "cost": 180.0,
-          "turns": 26
+          "turns": 12
         }
       ],
       "trade_routes": [],
@@ -2251,14 +2202,6 @@
           "type": "RESOURCE_DEER",
           "class": "BONUS",
           "name": "Deer",
-          "improved": false,
-          "worked": true,
-          "source": "direct"
-        },
-        {
-          "type": "RESOURCE_HORSES",
-          "class": "STRATEGIC",
-          "name": "Horses",
           "improved": false,
           "worked": true,
           "source": "direct"
@@ -2668,8 +2611,8 @@
           "faith": 0.0
         },
         "worked_tiles": {
-          "food": 6.0,
-          "production": 4.0,
+          "food": 5.0,
+          "production": 3.0,
           "gold": 1.0,
           "science": 0.0,
           "culture": 0.0,
@@ -2679,7 +2622,7 @@
       "yield_breakdown": {
         "food": {
           "worked_tiles": {
-            "value": 6.0,
+            "value": 5.0,
             "source": "direct"
           },
           "buildings_db": {
@@ -2701,7 +2644,7 @@
         },
         "production": {
           "worked_tiles": {
-            "value": 4.0,
+            "value": 3.0,
             "source": "direct"
           },
           "buildings_db": {
@@ -2717,7 +2660,7 @@
             "source": "direct"
           },
           "unattributed": {
-            "value": 2.0,
+            "value": 0.0,
             "source": "reconstructed"
           }
         },
@@ -2859,8 +2802,8 @@
       "type": "UNIT_SCOUT",
       "name": "Scout",
       "class": "FORMATION_CLASS_LAND_COMBAT",
-      "x": 68,
-      "y": 39,
+      "x": 75,
+      "y": 41,
       "hp": 100,
       "hp_max": 100,
       "moves": 3.0,
@@ -2885,8 +2828,8 @@
       "type": "UNIT_AZTEC_EAGLE_WARRIOR",
       "name": "Eagle Warrior",
       "class": "FORMATION_CLASS_LAND_COMBAT",
-      "x": 66,
-      "y": 43,
+      "x": 72,
+      "y": 46,
       "hp": 100,
       "hp_max": 100,
       "moves": 2.0,
@@ -2905,49 +2848,11 @@
       "can_upgrade": false,
       "upgrade_to": "",
       "upgrade_cost": 0
-    },
-    {
-      "id": 262146,
-      "type": "UNIT_SETTLER",
-      "name": "Settler",
-      "class": "FORMATION_CLASS_CIVILIAN",
-      "x": 78,
-      "y": 46,
-      "hp": 100,
-      "hp_max": 100,
-      "moves": 2.0,
-      "moves_max": 2.0,
-      "combat": 0,
-      "ranged": 0,
-      "bombard": 0,
-      "range": 0,
-      "xp": 0,
-      "xp_needed": 15,
-      "promotions_held": 0,
-      "promotions_available": 0,
-      "idle": true,
-      "fortify_turns": 0,
-      "charges": 0,
-      "can_upgrade": false,
-      "upgrade_to": "",
-      "upgrade_cost": 0
     }
   ],
-  "barbarians_visible": [
-    {
-      "name": "Scout",
-      "x": 66,
-      "y": 42,
-      "hp": 50,
-      "hp_max": 100
-    }
-  ],
+  "barbarians_visible": [],
   "camps_visible": [],
   "camps_revealed_only": [
-    {
-      "x": 77,
-      "y": 39
-    },
     {
       "x": 73,
       "y": 50
@@ -2958,8 +2863,8 @@
     "grid": "84"
   },
   "map_totals": {
-    "revealed": 190,
-    "visible": 67,
+    "revealed": 121,
+    "visible": 54,
     "natural_wonders": 2
   },
   "tiles": [
@@ -3024,7 +2929,7 @@
       "district": "CITY_CENTER",
       "is_city": true,
       "units": "",
-      "extra": "",
+      "extra": "A1",
       "city_name": "Rome"
     },
     {
@@ -3034,13 +2939,13 @@
       "terrain": "g",
       "feature": "",
       "resource": "CATTLE",
-      "improvement": "PASTURE:P",
+      "improvement": "",
       "road": "",
       "owner": "3",
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "A1",
+      "extra": "A2",
       "city_name": ""
     },
     {
@@ -3072,189 +2977,13 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "A-2",
-      "city_name": ""
-    },
-    {
-      "x": 68,
-      "y": 37,
-      "visible": true,
-      "terrain": "ph",
-      "feature": "for",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 37,
-      "visible": true,
-      "terrain": "ph",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A2",
-      "city_name": ""
-    },
-    {
-      "x": 67,
-      "y": 38,
-      "visible": true,
-      "terrain": "p",
-      "feature": "for",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 68,
-      "y": 38,
-      "visible": true,
-      "terrain": "dh",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A2",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 38,
-      "visible": true,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 70,
-      "y": 38,
-      "visible": true,
-      "terrain": "p",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A2",
-      "city_name": ""
-    },
-    {
-      "x": 66,
-      "y": 39,
-      "visible": true,
-      "terrain": "dh",
-      "feature": "",
-      "resource": "COPPER",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A2",
-      "city_name": ""
-    },
-    {
-      "x": 67,
-      "y": 39,
-      "visible": true,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 68,
-      "y": 39,
-      "visible": true,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "0:SCOUT:100",
-      "extra": "",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 39,
-      "visible": true,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A2",
-      "city_name": ""
-    },
-    {
-      "x": 70,
-      "y": 39,
-      "visible": true,
-      "terrain": "p",
-      "feature": "for",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A4",
+      "extra": "A-1",
       "city_name": ""
     },
     {
       "x": 74,
       "y": 39,
-      "visible": false,
+      "visible": true,
       "terrain": "p",
       "feature": "floo",
       "resource": "",
@@ -3270,7 +2999,7 @@
     {
       "x": 75,
       "y": 39,
-      "visible": false,
+      "visible": true,
       "terrain": "p",
       "feature": "floo",
       "resource": "",
@@ -3286,7 +3015,7 @@
     {
       "x": 76,
       "y": 39,
-      "visible": false,
+      "visible": true,
       "terrain": "ph",
       "feature": "",
       "resource": "",
@@ -3297,22 +3026,6 @@
       "is_city": false,
       "units": "",
       "extra": "R/A-2/F",
-      "city_name": ""
-    },
-    {
-      "x": 77,
-      "y": 39,
-      "visible": false,
-      "terrain": "g",
-      "feature": "",
-      "resource": "",
-      "improvement": "BARBARIAN_CAMP",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A2",
       "city_name": ""
     },
     {
@@ -3364,121 +3077,9 @@
       "city_name": ""
     },
     {
-      "x": 67,
-      "y": 40,
-      "visible": true,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A2",
-      "city_name": ""
-    },
-    {
-      "x": 68,
-      "y": 40,
-      "visible": true,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 40,
-      "visible": true,
-      "terrain": "dh",
-      "feature": "",
-      "resource": "COPPER",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 70,
-      "y": 40,
-      "visible": true,
-      "terrain": "dm",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A4",
-      "city_name": ""
-    },
-    {
-      "x": 71,
-      "y": 40,
-      "visible": false,
-      "terrain": "p",
-      "feature": "for",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "14",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4/F",
-      "city_name": ""
-    },
-    {
-      "x": 72,
-      "y": 40,
-      "visible": false,
-      "terrain": "p",
-      "feature": "",
-      "resource": "",
-      "improvement": "FARM",
-      "road": "",
-      "owner": "14",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A2",
-      "city_name": ""
-    },
-    {
-      "x": 73,
-      "y": 40,
-      "visible": false,
-      "terrain": "ph",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
       "x": 74,
       "y": 40,
-      "visible": false,
+      "visible": true,
       "terrain": "p",
       "feature": "",
       "resource": "MAIZE",
@@ -3494,7 +3095,7 @@
     {
       "x": 75,
       "y": 40,
-      "visible": false,
+      "visible": true,
       "terrain": "p",
       "feature": "floo",
       "resource": "",
@@ -3510,7 +3111,7 @@
     {
       "x": 76,
       "y": 40,
-      "visible": false,
+      "visible": true,
       "terrain": "p",
       "feature": "floo",
       "resource": "COTTON",
@@ -3519,14 +3120,14 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "",
+      "units": "3:WARRIOR:100",
       "extra": "R/A-1/F",
       "city_name": ""
     },
     {
       "x": 77,
       "y": 40,
-      "visible": false,
+      "visible": true,
       "terrain": "p",
       "feature": "",
       "resource": "COTTON",
@@ -3604,118 +3205,6 @@
       "city_name": ""
     },
     {
-      "x": 66,
-      "y": 41,
-      "visible": true,
-      "terrain": "dm",
-      "feature": "volc",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4",
-      "city_name": ""
-    },
-    {
-      "x": 67,
-      "y": 41,
-      "visible": true,
-      "terrain": "dm",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4",
-      "city_name": ""
-    },
-    {
-      "x": 68,
-      "y": 41,
-      "visible": true,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 41,
-      "visible": false,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 70,
-      "y": 41,
-      "visible": false,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "14",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4/F",
-      "city_name": ""
-    },
-    {
-      "x": 71,
-      "y": 41,
-      "visible": false,
-      "terrain": "ph",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "0",
-      "owner": "14",
-      "district": "CITY_CENTER",
-      "is_city": true,
-      "units": "",
-      "extra": "R/A3/F",
-      "city_name": "Kabul"
-    },
-    {
-      "x": 72,
-      "y": 41,
-      "visible": false,
-      "terrain": "ph",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "14",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
       "x": 73,
       "y": 41,
       "visible": false,
@@ -3734,7 +3223,7 @@
     {
       "x": 74,
       "y": 41,
-      "visible": false,
+      "visible": true,
       "terrain": "ph",
       "feature": "for",
       "resource": "",
@@ -3750,7 +3239,7 @@
     {
       "x": 75,
       "y": 41,
-      "visible": false,
+      "visible": true,
       "terrain": "p",
       "feature": "",
       "resource": "",
@@ -3759,14 +3248,14 @@
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "",
+      "units": "0:SCOUT:100",
       "extra": "A1",
       "city_name": ""
     },
     {
       "x": 76,
       "y": 41,
-      "visible": false,
+      "visible": true,
       "terrain": "p",
       "feature": "",
       "resource": "",
@@ -3782,7 +3271,7 @@
     {
       "x": 77,
       "y": 41,
-      "visible": false,
+      "visible": true,
       "terrain": "p",
       "feature": "",
       "resource": "",
@@ -3801,7 +3290,7 @@
       "visible": false,
       "terrain": "p",
       "feature": "",
-      "resource": "HORSES",
+      "resource": "",
       "improvement": "",
       "road": "",
       "owner": "",
@@ -3860,134 +3349,6 @@
       "city_name": ""
     },
     {
-      "x": 66,
-      "y": 42,
-      "visible": true,
-      "terrain": "p",
-      "feature": "for",
-      "resource": "TRUFFLES",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "63:SCOUT:50",
-      "extra": "R/A3/F",
-      "city_name": ""
-    },
-    {
-      "x": 67,
-      "y": 42,
-      "visible": true,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4/F",
-      "city_name": ""
-    },
-    {
-      "x": 68,
-      "y": 42,
-      "visible": true,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "14:WARRIOR:100",
-      "extra": "R/A2/F",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 42,
-      "visible": false,
-      "terrain": "d",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 70,
-      "y": 42,
-      "visible": false,
-      "terrain": "p",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A3/F",
-      "city_name": ""
-    },
-    {
-      "x": 71,
-      "y": 42,
-      "visible": false,
-      "terrain": "p",
-      "feature": "for",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "14",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A1/F",
-      "city_name": ""
-    },
-    {
-      "x": 72,
-      "y": 42,
-      "visible": false,
-      "terrain": "ph",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "14",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A2",
-      "city_name": ""
-    },
-    {
-      "x": 73,
-      "y": 42,
-      "visible": false,
-      "terrain": "ph",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A3",
-      "city_name": ""
-    },
-    {
       "x": 74,
       "y": 42,
       "visible": false,
@@ -4006,7 +3367,7 @@
     {
       "x": 75,
       "y": 42,
-      "visible": false,
+      "visible": true,
       "terrain": "p",
       "feature": "for",
       "resource": "",
@@ -4022,7 +3383,7 @@
     {
       "x": 76,
       "y": 42,
-      "visible": false,
+      "visible": true,
       "terrain": "pm",
       "feature": "volc",
       "resource": "",
@@ -4038,7 +3399,7 @@
     {
       "x": 77,
       "y": 42,
-      "visible": false,
+      "visible": true,
       "terrain": "ph",
       "feature": "",
       "resource": "SHEEP",
@@ -4116,134 +3477,6 @@
       "city_name": ""
     },
     {
-      "x": 65,
-      "y": 43,
-      "visible": true,
-      "terrain": "ph",
-      "feature": "for",
-      "resource": "DEER",
-      "improvement": "",
-      "road": "",
-      "owner": "1",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A2/F",
-      "city_name": ""
-    },
-    {
-      "x": 66,
-      "y": 43,
-      "visible": true,
-      "terrain": "p",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "0:AZTEC_EAGLE_WARRIOR:100",
-      "extra": "R/A3/F",
-      "city_name": ""
-    },
-    {
-      "x": 67,
-      "y": 43,
-      "visible": true,
-      "terrain": "dh",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A2/F",
-      "city_name": ""
-    },
-    {
-      "x": 68,
-      "y": 43,
-      "visible": false,
-      "terrain": "p",
-      "feature": "",
-      "resource": "WHEAT",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4/F",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 43,
-      "visible": false,
-      "terrain": "p",
-      "feature": "for",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 70,
-      "y": 43,
-      "visible": false,
-      "terrain": "p",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A3/F",
-      "city_name": ""
-    },
-    {
-      "x": 71,
-      "y": 43,
-      "visible": false,
-      "terrain": "ph",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A3/F",
-      "city_name": ""
-    },
-    {
-      "x": 72,
-      "y": 43,
-      "visible": false,
-      "terrain": "pm",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4",
-      "city_name": ""
-    },
-    {
       "x": 73,
       "y": 43,
       "visible": false,
@@ -4262,7 +3495,7 @@
     {
       "x": 74,
       "y": 43,
-      "visible": false,
+      "visible": true,
       "terrain": "pm",
       "feature": "",
       "resource": "",
@@ -4294,7 +3527,7 @@
     {
       "x": 76,
       "y": 43,
-      "visible": true,
+      "visible": false,
       "terrain": "p",
       "feature": "",
       "resource": "",
@@ -4342,7 +3575,7 @@
     {
       "x": 79,
       "y": 43,
-      "visible": true,
+      "visible": false,
       "terrain": "p",
       "feature": "for",
       "resource": "DEER",
@@ -4388,121 +3621,9 @@
       "city_name": ""
     },
     {
-      "x": 64,
-      "y": 44,
-      "visible": false,
-      "terrain": "p",
-      "feature": "",
-      "resource": "HORSES",
-      "improvement": "FARM",
-      "road": "",
-      "owner": "1",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A2/F",
-      "city_name": ""
-    },
-    {
-      "x": 65,
-      "y": 44,
-      "visible": true,
-      "terrain": "p",
-      "feature": "geo",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "1",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A3/F",
-      "city_name": ""
-    },
-    {
-      "x": 66,
-      "y": 44,
-      "visible": true,
-      "terrain": "g",
-      "feature": "",
-      "resource": "STONE",
-      "improvement": "",
-      "road": "",
-      "owner": "1",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4/F",
-      "city_name": ""
-    },
-    {
-      "x": 67,
-      "y": 44,
-      "visible": true,
-      "terrain": "ph",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A3/F",
-      "city_name": ""
-    },
-    {
-      "x": 68,
-      "y": 44,
-      "visible": true,
-      "terrain": "ph",
-      "feature": "for",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A3/F",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 44,
-      "visible": false,
-      "terrain": "pm",
-      "feature": "volc",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4",
-      "city_name": ""
-    },
-    {
-      "x": 70,
-      "y": 44,
-      "visible": false,
-      "terrain": "ph",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A2",
-      "city_name": ""
-    },
-    {
       "x": 71,
       "y": 44,
-      "visible": false,
+      "visible": true,
       "terrain": "p",
       "feature": "",
       "resource": "",
@@ -4518,7 +3639,7 @@
     {
       "x": 72,
       "y": 44,
-      "visible": false,
+      "visible": true,
       "terrain": "t",
       "feature": "",
       "resource": "",
@@ -4534,7 +3655,7 @@
     {
       "x": 73,
       "y": 44,
-      "visible": false,
+      "visible": true,
       "terrain": "th",
       "feature": "for",
       "resource": "",
@@ -4582,10 +3703,10 @@
     {
       "x": 76,
       "y": 44,
-      "visible": true,
+      "visible": false,
       "terrain": "p",
       "feature": "",
-      "resource": "HORSES",
+      "resource": "",
       "improvement": "",
       "road": "",
       "owner": "",
@@ -4601,10 +3722,10 @@
       "visible": true,
       "terrain": "p",
       "feature": "",
-      "resource": "HORSES",
+      "resource": "",
       "improvement": "",
       "road": "",
-      "owner": "0",
+      "owner": "",
       "district": "",
       "is_city": false,
       "units": "",
@@ -4636,7 +3757,7 @@
       "resource": "",
       "improvement": "",
       "road": "",
-      "owner": "0",
+      "owner": "",
       "district": "",
       "is_city": false,
       "units": "",
@@ -4646,7 +3767,7 @@
     {
       "x": 80,
       "y": 44,
-      "visible": true,
+      "visible": false,
       "terrain": "co",
       "feature": "",
       "resource": "",
@@ -4676,105 +3797,9 @@
       "city_name": ""
     },
     {
-      "x": 63,
-      "y": 45,
-      "visible": false,
-      "terrain": "p",
-      "feature": "",
-      "resource": "MAIZE",
-      "improvement": "FARM",
-      "road": "",
-      "owner": "1",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A3",
-      "city_name": ""
-    },
-    {
-      "x": 64,
-      "y": 45,
-      "visible": false,
-      "terrain": "p",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "0",
-      "owner": "1",
-      "district": "CITY_CENTER",
-      "is_city": true,
-      "units": "",
-      "extra": "R/A3/F",
-      "city_name": "Istanbul"
-    },
-    {
-      "x": 65,
-      "y": 45,
-      "visible": true,
-      "terrain": "pm",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "1",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4",
-      "city_name": ""
-    },
-    {
-      "x": 66,
-      "y": 45,
-      "visible": true,
-      "terrain": "gm",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A4",
-      "city_name": ""
-    },
-    {
-      "x": 68,
-      "y": 45,
-      "visible": false,
-      "terrain": "gm",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 45,
-      "visible": false,
-      "terrain": "gh",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A3/F",
-      "city_name": ""
-    },
-    {
       "x": 70,
       "y": 45,
-      "visible": false,
+      "visible": true,
       "terrain": "t",
       "feature": "geo",
       "resource": "",
@@ -4790,7 +3815,7 @@
     {
       "x": 71,
       "y": 45,
-      "visible": false,
+      "visible": true,
       "terrain": "t",
       "feature": "for",
       "resource": "",
@@ -4800,13 +3825,13 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "R/A1/F",
+      "extra": "R/A2/F",
       "city_name": ""
     },
     {
       "x": 72,
       "y": 45,
-      "visible": false,
+      "visible": true,
       "terrain": "t",
       "feature": "",
       "resource": "",
@@ -4816,13 +3841,13 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "R/A3/F",
+      "extra": "R/A4/F",
       "city_name": ""
     },
     {
       "x": 73,
       "y": 45,
-      "visible": false,
+      "visible": true,
       "terrain": "th",
       "feature": "",
       "resource": "",
@@ -4854,7 +3879,7 @@
     {
       "x": 75,
       "y": 45,
-      "visible": true,
+      "visible": false,
       "terrain": "tm",
       "feature": "",
       "resource": "",
@@ -4934,7 +3959,7 @@
     {
       "x": 80,
       "y": 45,
-      "visible": true,
+      "visible": false,
       "terrain": "oc",
       "feature": "",
       "resource": "",
@@ -4964,73 +3989,9 @@
       "city_name": ""
     },
     {
-      "x": 64,
-      "y": 46,
-      "visible": false,
-      "terrain": "p",
-      "feature": "for",
-      "resource": "DEER",
-      "improvement": "",
-      "road": "",
-      "owner": "1",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 65,
-      "y": 46,
-      "visible": false,
-      "terrain": "p",
-      "feature": "",
-      "resource": "INCENSE",
-      "improvement": "",
-      "road": "",
-      "owner": "1",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A1",
-      "city_name": ""
-    },
-    {
-      "x": 68,
-      "y": 46,
-      "visible": false,
-      "terrain": "tm",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A4",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 46,
-      "visible": false,
-      "terrain": "t",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "R/A4/F",
-      "city_name": ""
-    },
-    {
       "x": 70,
       "y": 46,
-      "visible": false,
+      "visible": true,
       "terrain": "t",
       "feature": "geo",
       "resource": "",
@@ -5046,7 +4007,7 @@
     {
       "x": 71,
       "y": 46,
-      "visible": false,
+      "visible": true,
       "terrain": "t",
       "feature": "geo",
       "resource": "",
@@ -5056,29 +4017,29 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "R/A3/F",
+      "extra": "R/A4/F",
       "city_name": ""
     },
     {
       "x": 72,
       "y": 46,
-      "visible": false,
+      "visible": true,
       "terrain": "th",
-      "feature": "volc",
+      "feature": "for",
       "resource": "",
       "improvement": "",
       "road": "",
       "owner": "",
       "district": "",
       "is_city": false,
-      "units": "",
+      "units": "0:AZTEC_EAGLE_WARRIOR:100",
       "extra": "A2",
       "city_name": ""
     },
     {
       "x": 73,
       "y": 46,
-      "visible": false,
+      "visible": true,
       "terrain": "t",
       "feature": "",
       "resource": "",
@@ -5088,13 +4049,13 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "",
+      "extra": "A1",
       "city_name": ""
     },
     {
       "x": 74,
       "y": 46,
-      "visible": false,
+      "visible": true,
       "terrain": "t",
       "feature": "",
       "resource": "",
@@ -5110,7 +4071,7 @@
     {
       "x": 75,
       "y": 46,
-      "visible": true,
+      "visible": false,
       "terrain": "tm",
       "feature": "",
       "resource": "",
@@ -5167,7 +4128,7 @@
       "owner": "0",
       "district": "CITY_CENTER",
       "is_city": true,
-      "units": "0:SETTLER:100",
+      "units": "",
       "extra": "R/A4/F",
       "city_name": "Tenochtitlan"
     },
@@ -5206,7 +4167,7 @@
     {
       "x": 81,
       "y": 46,
-      "visible": true,
+      "visible": false,
       "terrain": "oc",
       "feature": "",
       "resource": "",
@@ -5220,41 +4181,9 @@
       "city_name": ""
     },
     {
-      "x": 68,
-      "y": 47,
-      "visible": false,
-      "terrain": "tm",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A4",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 47,
-      "visible": false,
-      "terrain": "t",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A2",
-      "city_name": ""
-    },
-    {
       "x": 70,
       "y": 47,
-      "visible": false,
+      "visible": true,
       "terrain": "th",
       "feature": "",
       "resource": "",
@@ -5270,7 +4199,7 @@
     {
       "x": 71,
       "y": 47,
-      "visible": false,
+      "visible": true,
       "terrain": "tm",
       "feature": "volc",
       "resource": "",
@@ -5286,7 +4215,7 @@
     {
       "x": 72,
       "y": 47,
-      "visible": false,
+      "visible": true,
       "terrain": "t",
       "feature": "",
       "resource": "",
@@ -5296,13 +4225,13 @@
       "district": "",
       "is_city": false,
       "units": "",
-      "extra": "A1",
+      "extra": "A2",
       "city_name": ""
     },
     {
       "x": 73,
       "y": 47,
-      "visible": false,
+      "visible": true,
       "terrain": "s",
       "feature": "",
       "resource": "",
@@ -5334,7 +4263,7 @@
     {
       "x": 75,
       "y": 47,
-      "visible": true,
+      "visible": false,
       "terrain": "th",
       "feature": "for",
       "resource": "",
@@ -5414,7 +4343,7 @@
     {
       "x": 80,
       "y": 47,
-      "visible": true,
+      "visible": false,
       "terrain": "co",
       "feature": "",
       "resource": "FISH",
@@ -5425,38 +4354,6 @@
       "is_city": false,
       "units": "",
       "extra": "",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 48,
-      "visible": false,
-      "terrain": "tm",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A4",
-      "city_name": ""
-    },
-    {
-      "x": 70,
-      "y": 48,
-      "visible": false,
-      "terrain": "th",
-      "feature": "",
-      "resource": "SHEEP",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A3",
       "city_name": ""
     },
     {
@@ -5478,7 +4375,7 @@
     {
       "x": 72,
       "y": 48,
-      "visible": false,
+      "visible": true,
       "terrain": "s",
       "feature": "geo",
       "resource": "",
@@ -5494,7 +4391,7 @@
     {
       "x": 73,
       "y": 48,
-      "visible": false,
+      "visible": true,
       "terrain": "s",
       "feature": "",
       "resource": "",
@@ -5542,7 +4439,7 @@
     {
       "x": 76,
       "y": 48,
-      "visible": true,
+      "visible": false,
       "terrain": "sh",
       "feature": "",
       "resource": "",
@@ -5606,40 +4503,8 @@
     {
       "x": 80,
       "y": 48,
-      "visible": true,
+      "visible": false,
       "terrain": "oc",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "",
-      "city_name": ""
-    },
-    {
-      "x": 69,
-      "y": 49,
-      "visible": false,
-      "terrain": "sm",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "A4",
-      "city_name": ""
-    },
-    {
-      "x": 70,
-      "y": 49,
-      "visible": false,
-      "terrain": "co",
       "feature": "",
       "resource": "",
       "improvement": "",
@@ -5734,73 +4599,9 @@
     {
       "x": 76,
       "y": 49,
-      "visible": true,
-      "terrain": "co",
-      "feature": "",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "",
-      "city_name": ""
-    },
-    {
-      "x": 77,
-      "y": 49,
-      "visible": true,
-      "terrain": "co",
-      "feature": "ice",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "",
-      "city_name": ""
-    },
-    {
-      "x": 78,
-      "y": 49,
-      "visible": true,
-      "terrain": "co",
-      "feature": "ice",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "",
-      "city_name": ""
-    },
-    {
-      "x": 79,
-      "y": 49,
-      "visible": true,
-      "terrain": "oc",
-      "feature": "ice",
-      "resource": "",
-      "improvement": "",
-      "road": "",
-      "owner": "",
-      "district": "",
-      "is_city": false,
-      "units": "",
-      "extra": "",
-      "city_name": ""
-    },
-    {
-      "x": 70,
-      "y": 50,
       "visible": false,
       "terrain": "co",
-      "feature": "ice",
+      "feature": "",
       "resource": "",
       "improvement": "",
       "road": "",
@@ -6005,9 +4806,7 @@
     }
   ],
   "map_owners": {
-    "1": "Ottomans",
     "0": "me (Aztec)",
-    "14": "Kabul (city-state)",
     "3": "Rome"
   },
   "natural_wonders": [
@@ -6026,23 +4825,23 @@
   ],
   "envoys": {
     "in_hand": 0,
-    "points": 21,
+    "points": 8,
     "threshold": 100,
     "per_turn": 1.0,
     "envoys_per_threshold": 1
   },
   "majors_met": [
     {
-      "player_id": 1,
-      "civ_type": "CIVILIZATION_OTTOMAN",
-      "civ_name": "Ottomans",
-      "leader_type": "LEADER_SULEIMAN_ALT",
-      "leader_name": "Suleiman (Muhte\u015fem)",
+      "player_id": 3,
+      "civ_type": "CIVILIZATION_ROME",
+      "civ_name": "Rome",
+      "leader_type": "LEADER_JULIUS_CAESAR",
+      "leader_name": "Julius Caesar",
       "at_war": false,
-      "met_turn": 21,
+      "met_turn": 5,
       "diplo_visibility": 0,
-      "score": 21,
-      "military": 65,
+      "score": 9,
+      "military": 57,
       "open_borders_from_them": false,
       "open_borders_from_us": false,
       "delegation_sent": false,
@@ -6054,37 +4853,8 @@
         62
       ],
       "public_stats": {
-        "techs": 2,
-        "civics": 2,
-        "tourism": 0
-      },
-      "relations": [],
-      "government": null
-    },
-    {
-      "player_id": 3,
-      "civ_type": "CIVILIZATION_ROME",
-      "civ_name": "Rome",
-      "leader_type": "LEADER_JULIUS_CAESAR",
-      "leader_name": "Julius Caesar",
-      "at_war": false,
-      "met_turn": 5,
-      "diplo_visibility": 0,
-      "score": 18,
-      "military": 65,
-      "open_borders_from_them": false,
-      "open_borders_from_us": false,
-      "delegation_sent": false,
-      "embassy_sent": false,
-      "relation_state_idx": 1,
-      "relation_state_name": "DIPLO_STATE_DECLARED_FRIEND",
-      "known_agendas": [],
-      "wars_with": [
-        62
-      ],
-      "public_stats": {
-        "techs": 2,
-        "civics": 1,
+        "techs": 0,
+        "civics": 0,
         "tourism": 0
       },
       "relations": [],
@@ -6092,39 +4862,6 @@
     }
   ],
   "city_states_met": [
-    {
-      "player_id": 14,
-      "civ_type": "CIVILIZATION_KABUL",
-      "civ_name": "Kabul",
-      "cs_type": "KABUL",
-      "envoys_sent": 1,
-      "suzerain": "none",
-      "x": 71,
-      "y": 41,
-      "at_war": false,
-      "met_turn": 13,
-      "active_quests": [],
-      "envoys_by_civ": {
-        "0": 1,
-        "3": 1
-      },
-      "wars_with": null,
-      "bonuses": {
-        "traits": [
-          "Your units receive double experience from battles they initiate."
-        ]
-      },
-      "envoy_status": {
-        "thresholds_met": [
-          1
-        ],
-        "source": "reconstructed:threshold",
-        "leader_envoys": 1,
-        "leader_id": null,
-        "tied_for_lead": true,
-        "needed_to_lead": 1
-      }
-    },
     {
       "player_id": 62,
       "civ_type": "CIVILIZATION_FREE_CITIES",
@@ -6178,33 +4915,20 @@
         "Tenochtitlan"
       ],
       "source": "direct"
-    },
-    {
-      "type": "RESOURCE_HORSES",
-      "class": "STRATEGIC",
-      "name": "Horses",
-      "count": 1,
-      "improved": 0,
-      "unimproved": 1,
-      "worked": 1,
-      "cities": [
-        "Tenochtitlan"
-      ],
-      "source": "direct"
     }
   ],
   "rivals": [
     {
-      "player_id": 1,
-      "civ_type": "CIVILIZATION_OTTOMAN",
-      "civ_name": "Ottomans",
-      "leader_type": "LEADER_SULEIMAN_ALT",
-      "leader_name": "Suleiman (Muhte\u015fem)",
+      "player_id": 3,
+      "civ_type": "CIVILIZATION_ROME",
+      "civ_name": "Rome",
+      "leader_type": "LEADER_JULIUS_CAESAR",
+      "leader_name": "Julius Caesar",
       "at_war": false,
-      "met_turn": 21,
+      "met_turn": 5,
       "diplo_visibility": 0,
-      "score": 21,
-      "military": 65,
+      "score": 9,
+      "military": 57,
       "open_borders_from_them": false,
       "open_borders_from_us": false,
       "delegation_sent": false,
@@ -6216,54 +4940,8 @@
         62
       ],
       "public_stats": {
-        "techs": 2,
-        "civics": 2,
-        "tourism": 0
-      },
-      "relations": [],
-      "government": null,
-      "alive": true,
-      "known_cities": [
-        {
-          "owner": 1,
-          "name": "Istanbul",
-          "x": 64,
-          "y": 45,
-          "capital": true,
-          "visibility": "revealed",
-          "population": -1,
-          "defense": -1,
-          "wall_hp": -1,
-          "wall_max": -1,
-          "original_owner": 1
-        }
-      ],
-      "religion_founded": null
-    },
-    {
-      "player_id": 3,
-      "civ_type": "CIVILIZATION_ROME",
-      "civ_name": "Rome",
-      "leader_type": "LEADER_JULIUS_CAESAR",
-      "leader_name": "Julius Caesar",
-      "at_war": false,
-      "met_turn": 5,
-      "diplo_visibility": 0,
-      "score": 18,
-      "military": 65,
-      "open_borders_from_them": false,
-      "open_borders_from_us": false,
-      "delegation_sent": false,
-      "embassy_sent": false,
-      "relation_state_idx": 1,
-      "relation_state_name": "DIPLO_STATE_DECLARED_FRIEND",
-      "known_agendas": [],
-      "wars_with": [
-        62
-      ],
-      "public_stats": {
-        "techs": 2,
-        "civics": 1,
+        "techs": 0,
+        "civics": 0,
         "tourism": 0
       },
       "relations": [],
@@ -6289,19 +4967,6 @@
   ],
   "rival_cities": [
     {
-      "owner": 1,
-      "name": "Istanbul",
-      "x": 64,
-      "y": 45,
-      "capital": true,
-      "visibility": "revealed",
-      "population": -1,
-      "defense": -1,
-      "wall_hp": -1,
-      "wall_max": -1,
-      "original_owner": 1
-    },
-    {
       "owner": 3,
       "name": "Rome",
       "x": 75,
@@ -6313,44 +4978,23 @@
       "wall_hp": -1,
       "wall_max": -1,
       "original_owner": 3
-    },
-    {
-      "owner": 14,
-      "name": "Kabul",
-      "x": 71,
-      "y": 41,
-      "capital": true,
-      "visibility": "revealed",
-      "population": -1,
-      "defense": -1,
-      "wall_hp": -1,
-      "wall_max": -1,
-      "original_owner": 14
     }
   ],
   "units_by_civ": {
-    "0": {
-      "count": 3,
-      "types": {
-        "SCOUT": 1,
-        "AZTEC_EAGLE_WARRIOR": 1,
-        "SETTLER": 1
-      },
-      "total_hp": 300
-    },
-    "63": {
-      "count": 1,
-      "types": {
-        "SCOUT": 1
-      },
-      "total_hp": 50
-    },
-    "14": {
+    "3": {
       "count": 1,
       "types": {
         "WARRIOR": 1
       },
       "total_hp": 100
+    },
+    "0": {
+      "count": 2,
+      "types": {
+        "SCOUT": 1,
+        "AZTEC_EAGLE_WARRIOR": 1
+      },
+      "total_hp": 200
     }
   },
   "world_religions": [],
@@ -6368,257 +5012,10 @@
     }
   },
   "luxury_duplicates": [],
-  "settler_advisor": {
-    "settlers": [
-      {
-        "id": 262146,
-        "x": 78,
-        "y": 46
-      }
-    ],
-    "candidates": [
-      {
-        "x": 77,
-        "y": 42,
-        "score": 22.7,
-        "fresh_water": true,
-        "coastal": false,
-        "ring1_food": 5,
-        "ring1_production": 5,
-        "resources_within_2": [
-          {
-            "name": "SHEEP",
-            "class": "bonus",
-            "dist": 0,
-            "new_luxury": false
-          },
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 2,
-            "new_luxury": true
-          },
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 2,
-            "new_luxury": true
-          },
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 2,
-            "new_luxury": true
-          },
-          {
-            "name": "HORSES",
-            "class": "strategic",
-            "dist": 2,
-            "new_luxury": false
-          },
-          {
-            "name": "HORSES",
-            "class": "strategic",
-            "dist": 2,
-            "new_luxury": false
-          },
-          {
-            "name": "HORSES",
-            "class": "strategic",
-            "dist": 2,
-            "new_luxury": false
-          }
-        ],
-        "nearest_own_city": {
-          "name": "Tenochtitlan",
-          "dist": 4
-        },
-        "dist_from_settler": 4,
-        "direction_from_settler": "southwest",
-        "overlap_owned_tiles_r2": 2
-      },
-      {
-        "x": 76,
-        "y": 41,
-        "score": 19.2,
-        "fresh_water": true,
-        "coastal": false,
-        "ring1_food": 5,
-        "ring1_production": 6,
-        "resources_within_2": [
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 1,
-            "new_luxury": true
-          },
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 1,
-            "new_luxury": true
-          },
-          {
-            "name": "SHEEP",
-            "class": "bonus",
-            "dist": 1,
-            "new_luxury": false
-          },
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 2,
-            "new_luxury": true
-          },
-          {
-            "name": "HORSES",
-            "class": "strategic",
-            "dist": 2,
-            "new_luxury": false
-          }
-        ],
-        "nearest_own_city": {
-          "name": "Tenochtitlan",
-          "dist": 5
-        },
-        "dist_from_settler": 5,
-        "direction_from_settler": "southwest",
-        "overlap_owned_tiles_r2": 0
-      },
-      {
-        "x": 77,
-        "y": 41,
-        "score": 18.2,
-        "fresh_water": true,
-        "coastal": false,
-        "ring1_food": 6,
-        "ring1_production": 9,
-        "resources_within_2": [
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 1,
-            "new_luxury": true
-          },
-          {
-            "name": "HORSES",
-            "class": "strategic",
-            "dist": 1,
-            "new_luxury": false
-          },
-          {
-            "name": "SHEEP",
-            "class": "bonus",
-            "dist": 1,
-            "new_luxury": false
-          },
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 2,
-            "new_luxury": true
-          }
-        ],
-        "nearest_own_city": {
-          "name": "Tenochtitlan",
-          "dist": 5
-        },
-        "dist_from_settler": 5,
-        "direction_from_settler": "southwest",
-        "overlap_owned_tiles_r2": 0
-      },
-      {
-        "x": 77,
-        "y": 40,
-        "score": 18.1,
-        "fresh_water": true,
-        "coastal": false,
-        "ring1_food": 7,
-        "ring1_production": 8,
-        "resources_within_2": [
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 0,
-            "new_luxury": true
-          },
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 1,
-            "new_luxury": true
-          },
-          {
-            "name": "HORSES",
-            "class": "strategic",
-            "dist": 2,
-            "new_luxury": false
-          },
-          {
-            "name": "SHEEP",
-            "class": "bonus",
-            "dist": 2,
-            "new_luxury": false
-          }
-        ],
-        "nearest_own_city": {
-          "name": "Tenochtitlan",
-          "dist": 6
-        },
-        "dist_from_settler": 6,
-        "direction_from_settler": "southwest",
-        "overlap_owned_tiles_r2": 0
-      },
-      {
-        "x": 78,
-        "y": 40,
-        "score": 17.1,
-        "fresh_water": true,
-        "coastal": false,
-        "ring1_food": 8,
-        "ring1_production": 5,
-        "resources_within_2": [
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 1,
-            "new_luxury": true
-          },
-          {
-            "name": "HORSES",
-            "class": "strategic",
-            "dist": 1,
-            "new_luxury": false
-          },
-          {
-            "name": "COTTON",
-            "class": "luxury",
-            "dist": 2,
-            "new_luxury": true
-          },
-          {
-            "name": "SHEEP",
-            "class": "bonus",
-            "dist": 2,
-            "new_luxury": false
-          }
-        ],
-        "nearest_own_city": {
-          "name": "Tenochtitlan",
-          "dist": 6
-        },
-        "dist_from_settler": 6,
-        "direction_from_settler": "south",
-        "overlap_owned_tiles_r2": 0
-      }
-    ],
-    "note": "reconstructed from the REVEALED map only \u2014 legality is the min-distance (3) rule vs KNOWN cities; an unrevealed city can invalidate a spot; ring-1 yields are base terrain+feature approximations; directions use map coordinates (+y = north, +x = east)",
-    "source": "reconstructed"
-  },
+  "settler_advisor": null,
   "civ_accounting": {
-    "met_alive": 2,
+    "met_alive": 1,
     "met_alive_names": [
-      "Ottomans",
       "Rome"
     ],
     "eliminated": 0,
@@ -6630,19 +5027,14 @@
   },
   "notifications": [
     {
-      "type": "NOTIFICATION_COMMAND_UNITS",
-      "blocker_type": "ENDTURN_BLOCKING_UNITS",
-      "message": "Command Units"
+      "type": "NOTIFICATION_NEW_BARBARIAN_CAMP",
+      "blocker_type": "",
+      "message": "New Barbarian Outpost"
     }
   ],
-  "end_turn_blockers": [
-    {
-      "blocker_type": "ENDTURN_BLOCKING_UNITS",
-      "message": "Command Units"
-    }
-  ],
+  "end_turn_blockers": [],
   "era": {
-    "score": 13,
+    "score": 11,
     "golden_age": false,
     "dark_age": false,
     "next_era_countdown": -1,
@@ -6952,7 +5344,7 @@
     "resources": "ok",
     "government": "ok",
     "policy_slots": "ok",
-    "policy_available": "ok",
+    "policy_available": "missing",
     "great_people": "ok",
     "techs_available": "ok",
     "civics_available": "ok",
@@ -6974,17 +5366,17 @@
   },
   "diagnostics": {
     "per_query_seconds": {
-      "meta": 0.386,
-      "choices": 0.36,
-      "cities": 0.39,
-      "units": 0.343,
-      "map": 0.36,
-      "diplo": 0.358,
-      "religion": 0.344,
-      "notif": 0.328,
-      "xpac": 0.357,
-      "ruleset": 0.346,
-      "probe": 0.363
+      "meta": 0.367,
+      "choices": 0.375,
+      "cities": 0.389,
+      "units": 0.341,
+      "map": 0.358,
+      "diplo": 0.361,
+      "religion": 0.345,
+      "notif": 0.326,
+      "xpac": 0.358,
+      "ruleset": 0.343,
+      "probe": 0.359
     },
     "failures": [
       {
@@ -7023,7 +5415,7 @@
       },
       {
         "section": "DIPLO.cs_bonus",
-        "message": "influence-bonus Loc key unresolved (LOC_MINOR_CIV_KABUL_TRAIT_SMALL_INFLUENCE_BONUS)"
+        "message": "influence-bonus Loc key unresolved (LOC_MINOR_CIV_LEADER_FREE_CITIES_TRAIT_SMALL_INFLUENCE_BONUS)"
       }
     ],
     "unsupported": [
@@ -7417,10 +5809,9 @@
         "TRACE|PROBE|api_city"
       ]
     },
-    "total_seconds": 3.945
+    "total_seconds": 3.922
   },
   "turn_blockers_summary": [
-    "blocker:ENDTURN_BLOCKING_UNITS (Command Units)",
-    "1 idle unit(s)"
+    "2 open policy slot(s)"
   ]
 }

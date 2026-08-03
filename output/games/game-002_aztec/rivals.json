@@ -1,5 +1,95 @@
 {
-  "majors": {},
+  "majors": {
+    "3": {
+      "civ_type": "CIVILIZATION_ROME",
+      "civ_name": "Rome",
+      "leader_name": "Julius Caesar",
+      "timeline": [
+        {
+          "turn": 8,
+          "alive": true,
+          "score": 8,
+          "military": 45,
+          "techs": 0,
+          "civics": 0,
+          "tourism": 0,
+          "cities_known": 1,
+          "wars_with": [
+            62
+          ],
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 10,
+          "alive": true,
+          "score": 9,
+          "military": 57,
+          "techs": 0,
+          "civics": 0,
+          "tourism": 0,
+          "cities_known": 1,
+          "wars_with": [
+            62
+          ],
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 12,
+          "alive": true,
+          "score": 12,
+          "military": 49,
+          "techs": 1,
+          "civics": 0,
+          "tourism": 0,
+          "cities_known": 1,
+          "wars_with": [
+            62
+          ],
+          "government": null,
+          "suzerain_of": null
+        },
+        {
+          "turn": 23,
+          "alive": true,
+          "score": 18,
+          "military": 65,
+          "techs": 2,
+          "civics": 1,
+          "tourism": 0,
+          "cities_known": 1,
+          "wars_with": [
+            62
+          ],
+          "government": null,
+          "suzerain_of": null
+        }
+      ]
+    },
+    "1": {
+      "civ_type": "CIVILIZATION_OTTOMAN",
+      "civ_name": "Ottomans",
+      "leader_name": "Suleiman (Muhte\u015fem)",
+      "timeline": [
+        {
+          "turn": 23,
+          "alive": true,
+          "score": 21,
+          "military": 65,
+          "techs": 2,
+          "civics": 2,
+          "tourism": 0,
+          "cities_known": 1,
+          "wars_with": [
+            62
+          ],
+          "government": null,
+          "suzerain_of": null
+        }
+      ]
+    }
+  },
   "city_states": {
     "62": {
       "civ_name": "Free Cities",
@@ -10,6 +100,45 @@
           "suzerain": "none",
           "envoys_by_civ": {},
           "at_war_with_me": true
+        },
+        {
+          "turn": 8,
+          "suzerain": "none",
+          "envoys_by_civ": {},
+          "at_war_with_me": true
+        },
+        {
+          "turn": 10,
+          "suzerain": "none",
+          "envoys_by_civ": {},
+          "at_war_with_me": true
+        },
+        {
+          "turn": 12,
+          "suzerain": "none",
+          "envoys_by_civ": {},
+          "at_war_with_me": true
+        },
+        {
+          "turn": 23,
+          "suzerain": "none",
+          "envoys_by_civ": {},
+          "at_war_with_me": true
+        }
+      ]
+    },
+    "14": {
+      "civ_name": "Kabul",
+      "cs_type": "KABUL",
+      "timeline": [
+        {
+          "turn": 23,
+          "suzerain": "none",
+          "envoys_by_civ": {
+            "0": 1,
+            "3": 1
+          },
+          "at_war_with_me": false
         }
       ]
     }
