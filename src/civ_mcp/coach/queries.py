@@ -2380,7 +2380,261 @@ end)
 
 
 # ---------------------------------------------------------------------------
-# Query registry — the collector runs these in order.
+# Q9 — capability probe (diagnostics only)
+# ---------------------------------------------------------------------------
+#
+# Discovery pass for the declared-ruleset migration: which expansion Lua
+# accessors exist, what the live GameInfo database actually contains, and
+# which ruleset/mods this game is running.  Rules:
+#
+#   - DIAG-ONLY OUTPUT.  Nothing here feeds coaching sections; results land
+#     under ``diagnostics.probe`` in the snapshot.  No schema promises.
+#   - NEVER CALL AN UNCONFIRMED NAME.  Every method is looked up with a
+#     pcall-guarded index and reported via ``type()``.  The only calls made
+#     are zero-argument getters that the probe itself has just confirmed
+#     are functions — and even those run inside ``sf``.
+#   - A missing table/method is a RESULT ("absent"), not an error.
+
+
+def build_probe_query() -> str:
+    return _prelude("PROBE") + r"""
+
+-- pcall-guarded index + type report.  Returns the value so callers can
+-- gate deeper probes on `type(...) == "function"` without re-indexing.
+local function probeIndex(label, obj, key)
+  if obj == nil then print("PROBE|api|" .. label .. "|owner-nil"); return nil end
+  local ok, v = pcall(function() return obj[key] end)
+  if not ok then print("PROBE|api|" .. label .. "|index-error"); return nil end
+  print("PROBE|api|" .. label .. "|" .. type(v))
+  return v
+end
+
+-- ---- Ruleset + enabled mods ---------------------------------------------
+safe("ruleset", function()
+  if GameConfiguration and type(GameConfiguration.GetValue) == "function" then
+    local rs = sf(function() return GameConfiguration.GetValue("RULESET") end)
+    print("PROBE|ruleset|RULESET|" .. esc(rs or "unknown"))
+  else
+    print("PROBE|ruleset|RULESET|unavailable")
+  end
+end)
+
+safe("mods", function()
+  if GameConfiguration and type(GameConfiguration.GetEnabledMods) == "function" then
+    local mods = sf(function() return GameConfiguration.GetEnabledMods() end)
+    if type(mods) == "table" then
+      for _, mrow in ipairs(mods) do
+        pcall(function()
+          local title = mrow.Title and L(mrow.Title) or ""
+          print("PROBE|mod|" .. esc(mrow.Id) .. "|" .. esc(title))
+        end)
+      end
+    else
+      print("PROBE|mod|_none_|GetEnabledMods returned " .. type(mods))
+    end
+  else
+    print("PROBE|mod|_unavailable_|GameConfiguration.GetEnabledMods not a function")
+  end
+end)
+
+-- ---- GameInfo table census ----------------------------------------------
+-- Row counts distinguish base/R&F/GS databases; absent tables are data too.
+safe("db", function()
+  local tables = {
+    "Civilizations", "Leaders", "Districts", "Buildings", "Units",
+    "UnitPromotions", "Resources", "Improvements", "Routes", "Projects",
+    "Technologies", "Civics", "Policies", "Governments", "Victories",
+    "Beliefs", "Religions", "Agendas", "Features", "Terrains",
+    -- expansion-only tables (existence = expansion DB active)
+    "Governors", "GovernorPromotions", "Emergencies", "EmergencyAlliances",
+    "RandomEvents", "DiplomaticFavorSources", "WorldCongressStages",
+  }
+  for _, t in ipairs(tables) do
+    local tab = nil
+    pcall(function() tab = GameInfo[t] end)
+    if tab == nil then
+      print("PROBE|db|" .. t .. "|absent")
+    else
+      local n = 0
+      local ok = pcall(function() for _ in tab() do n = n + 1 end end)
+      print("PROBE|db|" .. t .. "|" .. (ok and tostring(n) or "uncountable"))
+    end
+  end
+end)
+
+-- ---- Districts: live specialty set + targeted rows ----------------------
+safe("districts", function()
+  if GameInfo.Districts == nil then
+    print("DIAG|PROBE.districts|GameInfo.Districts absent"); return
+  end
+  for row in GameInfo.Districts() do
+    pcall(function()
+      if row.RequiresPopulation then
+        print("PROBE|specialty|" .. esc(row.DistrictType))
+      end
+    end)
+  end
+  local dq = nil
+  pcall(function() dq = GameInfo.Districts["DISTRICT_DIPLOMATIC_QUARTER"] end)
+  print("PROBE|dbrow|Districts|DISTRICT_DIPLOMATIC_QUARTER|" .. (dq and "present" or "absent"))
+end)
+
+safe("routes", function()
+  local rr = nil
+  pcall(function() rr = GameInfo.Routes and GameInfo.Routes["ROUTE_RAILROAD"] or nil end)
+  print("PROBE|dbrow|Routes|ROUTE_RAILROAD|" .. (rr and "present" or "absent"))
+end)
+
+-- ---- Resource classes (live counts per ResourceClassType) ---------------
+safe("resources", function()
+  if GameInfo.Resources == nil then
+    print("DIAG|PROBE.resources|GameInfo.Resources absent"); return
+  end
+  local byClass = {}
+  for row in GameInfo.Resources() do
+    pcall(function()
+      local c = row.ResourceClassType or "UNKNOWN"
+      byClass[c] = (byClass[c] or 0) + 1
+    end)
+  end
+  for c, n in pairs(byClass) do
+    print("PROBE|resclass|" .. esc(c) .. "|" .. tostring(n))
+  end
+end)
+
+-- ---- Victories: every live row, with enabled state ----------------------
+safe("victories", function()
+  if GameInfo.Victories == nil then
+    print("DIAG|PROBE.victories|GameInfo.Victories absent"); return
+  end
+  for row in GameInfo.Victories() do
+    pcall(function()
+      local state = "state-unknown"
+      if type(Game.IsVictoryEnabled) == "function" then
+        local okv, en = pcall(function() return Game.IsVictoryEnabled(row.Index) end)
+        if okv then state = en and "enabled" or "disabled" end
+      end
+      print("PROBE|victory|" .. esc(row.VictoryType) .. "|" .. state)
+    end)
+  end
+end)
+
+-- ---- Game-level expansion accessors -------------------------------------
+safe("api_game", function()
+  local eras = probeIndex("Game.GetEras", Game, "GetEras")
+  local emf = probeIndex("Game.GetEmergencyManager", Game, "GetEmergencyManager")
+  local wcf = probeIndex("Game.GetWorldCongress", Game, "GetWorldCongress")
+  probeIndex("Game.GetClimate", Game, "GetClimate")
+  probeIndex("Game.GetRandomEvents", Game, "GetRandomEvents")
+
+  if type(eras) == "function" then
+    local e = sf(function() return Game.GetEras() end)
+    if e then
+      probeIndex("Eras.GetCurrentEra", e, "GetCurrentEra")
+      probeIndex("Eras.GetPlayerCurrentScore", e, "GetPlayerCurrentScore")
+      probeIndex("Eras.GetPlayerThresholdEraScore", e, "GetPlayerThresholdEraScore")
+      probeIndex("Eras.HasGoldenAge", e, "HasGoldenAge")
+      probeIndex("Eras.HasDarkAge", e, "HasDarkAge")
+      probeIndex("Eras.GetNextEraCountdown", e, "GetNextEraCountdown")
+    end
+  end
+  if type(wcf) == "function" then
+    local wc = sf(function() return Game.GetWorldCongress() end)
+    if wc then
+      probeIndex("WorldCongress.IsInSession", wc, "IsInSession")
+      probeIndex("WorldCongress.GetTurnsUntilSpecialSession", wc, "GetTurnsUntilSpecialSession")
+      probeIndex("WorldCongress.GetMeetingStatus", wc, "GetMeetingStatus")
+    end
+  end
+  if type(emf) == "function" then
+    local em = sf(function() return Game.GetEmergencyManager() end)
+    if em then
+      probeIndex("EmergencyManager.GetEmergencyInfoTable", em, "GetEmergencyInfoTable")
+      probeIndex("EmergencyManager.NumEmergenciesPlayerIsInvolvedIn", em, "NumEmergenciesPlayerIsInvolvedIn")
+    end
+  end
+  if GameClimate ~= nil then
+    print("PROBE|api|GameClimate|" .. type(GameClimate))
+    probeIndex("GameClimate.GetClimateChangeLevel", GameClimate, "GetClimateChangeLevel")
+    probeIndex("GameClimate.GetTotalCO2Footprint", GameClimate, "GetTotalCO2Footprint")
+    probeIndex("GameClimate.GetSeaLevel", GameClimate, "GetSeaLevel")
+    probeIndex("GameClimate.GetStormPercentChance", GameClimate, "GetStormPercentChance")
+  else
+    print("PROBE|api|GameClimate|nil")
+  end
+end)
+
+-- ---- Player-level expansion accessors -----------------------------------
+safe("api_player", function()
+  local govf = probeIndex("Player.GetGovernors", p, "GetGovernors")
+  probeIndex("Player.GetFavor", p, "GetFavor")
+  local statsf = probeIndex("Player.GetStats", p, "GetStats")
+
+  if type(govf) == "function" then
+    local g = sf(function() return p:GetGovernors() end)
+    if g then
+      probeIndex("Governors.GetGovernorList", g, "GetGovernorList")
+      probeIndex("Governors.GetGovernorPoints", g, "GetGovernorPoints")
+      probeIndex("Governors.GetGovernorPointsObtained", g, "GetGovernorPointsObtained")
+      probeIndex("Governors.GetGovernorPointsSpent", g, "GetGovernorPointsSpent")
+      probeIndex("Governors.HasGovernor", g, "HasGovernor")
+    end
+  end
+  if type(statsf) == "function" then
+    local st = sf(function() return p:GetStats() end)
+    if st then
+      probeIndex("PlayerStats.GetDiplomaticVictoryPoints", st, "GetDiplomaticVictoryPoints")
+    end
+  end
+  local d = sf(function() return p:GetDiplomacy() end)
+  if d then
+    probeIndex("Diplomacy.GetAllianceLevel", d, "GetAllianceLevel")
+    probeIndex("Diplomacy.GetAllianceType", d, "GetAllianceType")
+    probeIndex("Diplomacy.HasAlliance", d, "HasAlliance")
+    probeIndex("Diplomacy.GetAllianceTurnsUntilExpiration", d, "GetAllianceTurnsUntilExpiration")
+  end
+  local res = sf(function() return p:GetResources() end)
+  if res then
+    probeIndex("Resources.GetResourceAmount", res, "GetResourceAmount")
+    probeIndex("Resources.GetResourceStockpileCap", res, "GetResourceStockpileCap")
+    probeIndex("Resources.GetResourceAccumulationPerTurn", res, "GetResourceAccumulationPerTurn")
+  end
+end)
+
+-- ---- City-level expansion accessors (capital as the specimen) -----------
+safe("api_city", function()
+  local cities = sf(function() return p:GetCities() end)
+  local cap = cities and sf(function() return cities:GetCapitalCity() end) or nil
+  if not cap then
+    print("DIAG|PROBE.api_city|no readable capital city — city probes skipped")
+    return
+  end
+  local cif = probeIndex("City.GetCulturalIdentity", cap, "GetCulturalIdentity")
+  local pwf = probeIndex("City.GetPower", cap, "GetPower")
+  if type(cif) == "function" then
+    local ci = sf(function() return cap:GetCulturalIdentity() end)
+    if ci then
+      probeIndex("CulturalIdentity.GetLoyalty", ci, "GetLoyalty")
+      probeIndex("CulturalIdentity.GetLoyaltyPerTurn", ci, "GetLoyaltyPerTurn")
+      probeIndex("CulturalIdentity.GetMaxLoyalty", ci, "GetMaxLoyalty")
+    end
+  end
+  if type(pwf) == "function" then
+    local pw = sf(function() return cap:GetPower() end)
+    if pw then
+      probeIndex("CityPower.IsFullyPowered", pw, "IsFullyPowered")
+      probeIndex("CityPower.GetRequiredPower", pw, "GetRequiredPower")
+      probeIndex("CityPower.GetPowerSupplied", pw, "GetPowerSupplied")
+    end
+  end
+end)
+
+""" + _sentinel_line()
+
+
+# ---------------------------------------------------------------------------
+# Query registry — the collector runs these in order.  ``probe`` runs LAST:
+# it is diagnostics-only and must never delay the coaching sections.
 # ---------------------------------------------------------------------------
 
 ALL_QUERIES = {
@@ -2392,4 +2646,5 @@ ALL_QUERIES = {
     "diplo": build_diplo_query,
     "religion": build_religion_query,
     "notif": build_notifications_query,
+    "probe": build_probe_query,
 }

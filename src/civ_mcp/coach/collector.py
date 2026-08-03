@@ -39,6 +39,7 @@ QUERY_TIMEOUT = {
     "diplo": 12.0,
     "religion": 10.0,
     "notif": 8.0,
+    "probe": 15.0,  # Q9 capability probe — diagnostics only, runs last
 }
 
 
@@ -51,6 +52,7 @@ PARSERS = {
     "diplo": P.parse_diplo,
     "religion": P.parse_religion,
     "notif": P.parse_notifications,
+    "probe": P.parse_probe,
 }
 
 
@@ -87,6 +89,7 @@ SECTION_EXPECTATIONS = {
     "city_states_met":   ("diplo",    "city_states"),
     "religion":          ("religion", "pantheon"),
     "notifications":     ("notif",    "notifications"),
+    "probe":             ("probe",    "probe"),
 }
 
 
@@ -252,6 +255,7 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
     diplo_frag = fragments.get("diplo", {}) or {}
     rel_frag = fragments.get("religion", {}) or {}
     notif_frag = fragments.get("notif", {}) or {}
+    probe_frag = fragments.get("probe", {}) or {}
 
     def _or_none(status_key: str, value):
         """Return None (=> "QUERY FAILED" in markdown) if the section failed,
@@ -354,6 +358,11 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
             "failures": diagnostics,
             "compat_notes": compat_notes,  # WARN channel — fallbacks taken, not failures
             "unsupported": unsupported,
+            # Q9 capability probe: live ruleset, enabled mods, GameInfo
+            # census, expansion-accessor discovery.  Diagnostics-only —
+            # no coaching section reads from this (yet).  None = probe
+            # query itself failed, never silently {}.
+            "probe": _or_none("probe", probe_frag.get("probe", {}) or {}),
             "traces": traces,  # populated for every query, useful for the next post-mortem
             "total_seconds": round(time.perf_counter() - t0, 3),
         },

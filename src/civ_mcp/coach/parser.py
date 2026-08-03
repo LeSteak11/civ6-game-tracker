@@ -1406,3 +1406,65 @@ def parse_notifications(lines: list[str]) -> dict[str, Any]:
         elif tag == "DIAG":
             diagnostics.append({"section": _s(p, 1), "message": _s(p, 2)})
     return {"notifications": notifs, "end_turn_blockers": blockers, "diagnostics": diagnostics}
+
+
+def parse_probe(lines: list[str]) -> dict[str, Any]:
+    """Q9 capability probe — diagnostics-only discovery output.
+
+    Everything stays close to the raw PROBE lines: string values, no
+    interpretation.  A count that fails to parse as int is kept verbatim
+    ("absent", "uncountable") — the probe never converts ignorance into 0.
+    """
+    ruleset: dict[str, str] = {}
+    mods: list[dict[str, str]] = []
+    db_counts: dict[str, Any] = {}
+    db_rows: dict[str, str] = {}
+    specialty: list[str] = []
+    resource_classes: dict[str, Any] = {}
+    victories: dict[str, str] = {}
+    api: dict[str, str] = {}
+    diagnostics: list[dict[str, Any]] = []
+
+    def _int_or_raw(s: str):
+        try:
+            return int(s)
+        except ValueError:
+            return s
+
+    for line in lines:
+        p = line.split("|")
+        tag = p[0] if p else ""
+        if tag == "PROBE":
+            kind = _s(p, 1)
+            if kind == "ruleset":
+                ruleset[_s(p, 2)] = _s(p, 3)
+            elif kind == "mod":
+                mods.append({"id": _s(p, 2), "title": _s(p, 3)})
+            elif kind == "db":
+                db_counts[_s(p, 2)] = _int_or_raw(_s(p, 3))
+            elif kind == "dbrow":
+                db_rows[f"{_s(p, 2)}.{_s(p, 3)}"] = _s(p, 4)
+            elif kind == "specialty":
+                specialty.append(_s(p, 2))
+            elif kind == "resclass":
+                resource_classes[_s(p, 2)] = _int_or_raw(_s(p, 3))
+            elif kind == "victory":
+                victories[_s(p, 2)] = _s(p, 3)
+            elif kind == "api":
+                api[_s(p, 2)] = _s(p, 3)
+        elif tag == "DIAG":
+            diagnostics.append({"section": _s(p, 1), "message": _s(p, 2)})
+
+    return {
+        "probe": {
+            "ruleset": ruleset,
+            "enabled_mods": mods,
+            "db_counts": db_counts,
+            "db_rows": db_rows,
+            "specialty_districts": sorted(specialty),
+            "resource_classes": resource_classes,
+            "victories": victories,
+            "api": api,
+        },
+        "diagnostics": diagnostics,
+    }

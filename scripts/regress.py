@@ -190,7 +190,7 @@ check("real delta lists grown city", "Sais" in txt2)
 
 print("\n=== schema/version bump ===")
 check("schema bumped to 1.4", SCHEMA_VERSION == "coach-snapshot/1.4", SCHEMA_VERSION)
-check("coach version 1.8.1 (semver)", COACH_VERSION == "1.8.1", COACH_VERSION)
+check("coach version 1.8.2 (semver)", COACH_VERSION == "1.8.2", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -1513,6 +1513,79 @@ for _qname, _qbuild in Q.ALL_QUERIES.items():
     _bare = _qsrc.replace('print("EOQ"); print("---END---")', "")
     check(f"{_qname}: every ---END--- is preceded by EOQ",
           'print("---END---")' not in _bare)
+
+print("\n=== v1.8.2: Q9 capability probe (diagnostics-only) ===")
+# Discovery pass for the declared-ruleset migration.  Contract: runs last,
+# probes instead of guessing, lands only under diagnostics.probe, and a
+# missing table/method is a reported result — never an error or a zero.
+check("probe is registered and runs LAST",
+      list(Q.ALL_QUERIES.keys())[-1] == "probe", list(Q.ALL_QUERIES.keys()))
+
+_probe_src = Q.build_probe_query()
+_probe_code = strip_lua_comments(_probe_src)
+check("probe Lua contains no mutating APIs",
+      not any(bad in _probe_code for bad in (
+          "RequestPlayerOperation", "UI.RequestAction", "EndTurn(",
+          "RequestCommand", "RequestOperation", "SetProperty",
+      )))
+check("probe gates every deep call on a type() == \"function\" check",
+      _probe_code.count('== "function"') >= 8)
+check("probe uses pcall-guarded indexing (probeIndex), not bare access",
+      "probeIndex" in _probe_code and "index-error" in _probe_code)
+check("probe terminates with EOQ before the sentinel",
+      _probe_src.rstrip().endswith('print("EOQ"); print("---END---")'))
+check("probe resolves DISTRICT_DIPLOMATIC_QUARTER against the live DB",
+      "DISTRICT_DIPLOMATIC_QUARTER" in _probe_code)
+check("probe asks the live DB for the specialty-district set (RequiresPopulation)",
+      "RequiresPopulation" in _probe_code)
+
+_probe_lines = [
+    "PROBE|ruleset|RULESET|RULESET_EXPANSION_2",
+    "PROBE|mod|4873eb62-8ccc-4574-b784-dda455e74e68|Expansion: Gathering Storm",
+    "PROBE|db|Districts|71",
+    "PROBE|db|Governors|absent",
+    "PROBE|db|RandomEvents|uncountable",
+    "PROBE|dbrow|Districts|DISTRICT_DIPLOMATIC_QUARTER|present",
+    "PROBE|dbrow|Routes|ROUTE_RAILROAD|present",
+    "PROBE|specialty|DISTRICT_SEOWON",
+    "PROBE|specialty|DISTRICT_CAMPUS",
+    "PROBE|resclass|RESOURCECLASS_LUXURY|27",
+    "PROBE|victory|VICTORY_DIPLOMATIC|enabled",
+    "PROBE|api|Player.GetGovernors|function",
+    "PROBE|api|GameClimate|nil",
+    "DIAG|PROBE.api_city|no readable capital city — city probes skipped",
+]
+_pp = P.parse_probe(_probe_lines)["probe"]
+check("parse_probe: ruleset string comes through verbatim",
+      _pp["ruleset"].get("RULESET") == "RULESET_EXPANSION_2")
+check("parse_probe: enabled mods keep id and title",
+      _pp["enabled_mods"][0]["title"] == "Expansion: Gathering Storm")
+check("parse_probe: numeric counts parse as int", _pp["db_counts"].get("Districts") == 71)
+check("parse_probe: 'absent' stays a string, never becomes 0",
+      _pp["db_counts"].get("Governors") == "absent")
+check("parse_probe: 'uncountable' stays a string, never becomes 0",
+      _pp["db_counts"].get("RandomEvents") == "uncountable")
+check("parse_probe: targeted rows keyed Table.TYPE",
+      _pp["db_rows"].get("Districts.DISTRICT_DIPLOMATIC_QUARTER") == "present")
+check("parse_probe: specialty districts sorted",
+      _pp["specialty_districts"] == ["DISTRICT_CAMPUS", "DISTRICT_SEOWON"])
+check("parse_probe: victory states keep the raw word",
+      _pp["victories"].get("VICTORY_DIPLOMATIC") == "enabled")
+check("parse_probe: api types recorded verbatim",
+      _pp["api"].get("Player.GetGovernors") == "function"
+      and _pp["api"].get("GameClimate") == "nil")
+check("parse_probe: DIAG lines flow into diagnostics",
+      P.parse_probe(_probe_lines)["diagnostics"][0]["section"] == "PROBE.api_city")
+
+# Collector wiring (source-level: collector imports the connection stack,
+# which this harness doesn't load).
+_coll_src = (REPO / "src/civ_mcp/coach/collector.py").read_text(encoding="utf-8")
+check("collector: probe has a timeout entry", '"probe": 15.0' in _coll_src)
+check("collector: probe has a parser entry", '"probe": P.parse_probe' in _coll_src)
+check("collector: probe result lands under diagnostics, failure-honest",
+      '"probe": _or_none("probe"' in _coll_src)
+check("collector: probe tracked in section_status",
+      '"probe":             ("probe",    "probe")' in _coll_src)
 
 print()
 if failures:
