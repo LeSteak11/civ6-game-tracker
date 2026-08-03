@@ -190,7 +190,7 @@ check("real delta lists grown city", "Sais" in txt2)
 
 print("\n=== schema/version bump ===")
 check("schema bumped to 1.4", SCHEMA_VERSION == "coach-snapshot/1.4", SCHEMA_VERSION)
-check("coach version 1.8.0 (semver)", COACH_VERSION == "1.8.0", COACH_VERSION)
+check("coach version 1.8.1 (semver)", COACH_VERSION == "1.8.1", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -1422,6 +1422,97 @@ try:
           GP.main(["--game", "nope", "--games-root", str(_pk_games)]) == 1)
 finally:
     _shutil.rmtree(_pk_root, ignore_errors=True)
+
+
+print("\n=== v1.8.1 BUG 1 (P0): delta crash on failed sections ===")
+# collector._or_none stores explicit None for a failed section, and
+# dict.get(key, []) returns that stored None — v1.8.0's compute_delta then
+# died at `{_tile_key(t) for t in None}`, and because bridge.py called it
+# outside any try/except, the NEXT capture after any partial snapshot lost
+# clipboard, archive and summary.  The fix is two layers:
+#   1. delta tolerates stored-None sections (skips the class, records a gap);
+#   2. bridge guards compute_delta/render_markdown so nothing kills a capture.
+from civ_mcp.coach import delta as DL  # noqa: E402  (loaded by the shim above)
+
+_prev_partial = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 1.0,
+    "meta": {"turn": 100}, "empire": None,
+    "tiles": None, "units": None, "cities": None, "resources": None,
+    "majors_met": None, "city_states_met": None,
+    "section_status": {"header": "ok", "map": "failed", "units": "failed",
+                       "cities": "failed", "empire": "failed", "diplo": "failed"},
+}
+_curr_full = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 2.0,
+    "meta": {"turn": 101}, "empire": {"score": 200, "gold": 500},
+    "tiles": [{"x": 1, "y": 2, "terrain": "g"}],
+    "units": [{"id": 1, "type": "UNIT_WARRIOR", "x": 1, "y": 2, "hp": 100}],
+    "cities": [{"id": 1, "name": "Thebes", "population": 6, "x": 1, "y": 2}],
+    "resources": [{"type": "IRON", "amount": 20}],
+    "majors_met": [{"player_id": 1, "civ_type": "CIVILIZATION_ROME", "civ_name": "Rome"}],
+    "city_states_met": [],
+    "section_status": {"header": "ok"},
+    "diagnostics": {}, "turn_blockers_summary": [],
+}
+try:
+    _d = DL.compute_delta(_prev_partial, _curr_full)
+    _delta_ok = True
+except TypeError:
+    _d, _delta_ok = {}, False
+check("compute_delta survives a previous snapshot with None sections", _delta_ok)
+check("failed sections are recorded as delta gaps, not compared",
+      set(_d.get("delta_gaps", [])) >= {"tiles", "units", "cities", "resources", "empire"},
+      f"got {_d.get('delta_gaps')}")
+check("a None section never fabricates 'newly revealed tiles'",
+      "tiles_newly_revealed" not in _d)
+check("a None section never fabricates born units",
+      "units_delta" not in _d)
+check("a None empire never fabricates a score swing",
+      "empire_delta" not in _d)
+
+_md_snap = {
+    "schema": SCHEMA_VERSION, "coach_version": COACH_VERSION, "generated_at_epoch": 2.0,
+    "meta": {"turn": 101}, "empire": {},
+    "section_status": {"header": "ok"},
+    "diagnostics": {}, "turn_blockers_summary": [],
+}
+_md_gap = M.render_markdown(_md_snap, _d)
+check("markdown declares the delta incomplete instead of implying no changes",
+      "delta incomplete" in _md_gap)
+
+# Symmetric case: both sides fine -> no gaps key, delta works as before.
+_d2 = DL.compute_delta(_curr_full, _curr_full)
+check("clean snapshots produce no delta_gaps", "delta_gaps" not in _d2, f"got {_d2.get('delta_gaps')}")
+
+# The bridge-side guard: a delta/render failure must not abort the capture.
+_bridge_src = (REPO / "src/civ_mcp/coach/bridge.py").read_text(encoding="utf-8")
+check("bridge guards compute_delta (failure degrades, never aborts)",
+      "delta computation failed" in _bridge_src and '"delta_failed": True' in _bridge_src)
+check("bridge guards render_markdown (JSON still archived on render crash)",
+      "markdown render failed" in _bridge_src)
+check("markdown renders the delta_failed marker",
+      "DELTA FAILED" in M.render_markdown(_md_snap, {"first_snapshot": False, "delta_failed": True}))
+
+
+print("\n=== v1.8.1 BUG 2: dead promote-availability fallback ===")
+# v1.8.0 declared `xpNeed` but tested the undeclared global `xpNeeded` —
+# always nil in Lua, so the XP-threshold fallback could never fire.
+_units_code = strip_lua_comments(Q.build_units_query())
+check("undeclared global xpNeeded is gone from units Lua (code, not comments)",
+      "xpNeeded" not in _units_code)
+check("fallback tests the declared xpNeed local",
+      "if xpNeed and xpNeed > 0 and xp >= xpNeed then" in _units_code)
+
+
+print("\n=== v1.8.1 BUG 3: early returns must terminate with EOQ ===")
+# Three guard clauses printed the sentinel without EOQ, so a clean
+# "no religion/diplomacy/visibility object" was misclassified as a
+# truncated (FAILED) query instead of an honest empty result.
+for _qname, _qbuild in Q.ALL_QUERIES.items():
+    _qsrc = strip_lua_comments(_qbuild())
+    _bare = _qsrc.replace('print("EOQ"); print("---END---")', "")
+    check(f"{_qname}: every ---END--- is preceded by EOQ",
+          'print("---END---")' not in _bare)
 
 print()
 if failures:

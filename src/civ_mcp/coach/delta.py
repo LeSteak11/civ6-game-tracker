@@ -22,6 +22,19 @@ def _by_id(items: list[dict[str, Any]], key: str = "id") -> dict[int, dict[str, 
     return {int(x.get(key)): x for x in items if key in x}
 
 
+def _sec(snap: dict[str, Any], key: str) -> list[dict[str, Any]] | None:
+    """A snapshot section as a list, or None when it failed.
+
+    The collector stores an explicit ``None`` for failed sections
+    (``_or_none``), and ``dict.get(key, [])`` returns that stored ``None``
+    rather than the default — the exact trap that crashed compute_delta at
+    the ``{_tile_key(t) for t in None}`` comprehension.  Anything that
+    isn't a list is treated as a failed read.
+    """
+    v = snap.get(key)
+    return v if isinstance(v, list) else None
+
+
 def _tile_key(t: dict[str, Any]) -> tuple[int, int]:
     return int(t.get("x", -1)), int(t.get("y", -1))
 
@@ -145,44 +158,64 @@ def compute_delta(prev: dict[str, Any] | None, curr: dict[str, Any]) -> dict[str
     if not prev:
         return {"first_snapshot": True}
     d: dict[str, Any] = {"first_snapshot": False}
+    # Sections that were skipped because a query failed (stored None) on
+    # either side.  A failed read must never fabricate a delta — comparing
+    # against an empty list would report every current tile as "newly
+    # revealed" and every current unit as "born".
+    gaps: list[str] = []
     # Turn advance
-    prev_turn = prev.get("meta", {}).get("turn", 0)
-    curr_turn = curr.get("meta", {}).get("turn", 0)
+    prev_turn = (prev.get("meta") or {}).get("turn", 0)
+    curr_turn = (curr.get("meta") or {}).get("turn", 0)
     d["turns_elapsed"] = curr_turn - prev_turn
 
-    # Empire deltas
-    pe, ce = prev.get("empire", {}) or {}, curr.get("empire", {}) or {}
-    for key in (
-        "score",
-        "gold",
-        "gold_net",
-        "science",
-        "culture",
-        "faith",
-        "tourism",
-        "military",
-        "techs_done",
-        "civics_done",
-        "num_cities",
-        "num_units",
-        "total_pop",
-        "explored_land",
-    ):
-        if key in pe or key in ce:
-            d.setdefault("empire_delta", {})[key] = (ce.get(key, 0) or 0) - (pe.get(key, 0) or 0)
+    # Empire deltas — only when both sides were read (a failed empire
+    # section compared against {} would fabricate a full-value swing).
+    pe, ce = prev.get("empire"), curr.get("empire")
+    if isinstance(pe, dict) and isinstance(ce, dict):
+        for key in (
+            "score",
+            "gold",
+            "gold_net",
+            "science",
+            "culture",
+            "faith",
+            "tourism",
+            "military",
+            "techs_done",
+            "civics_done",
+            "num_cities",
+            "num_units",
+            "total_pop",
+            "explored_land",
+        ):
+            if key in pe or key in ce:
+                d.setdefault("empire_delta", {})[key] = (ce.get(key, 0) or 0) - (pe.get(key, 0) or 0)
+    else:
+        gaps.append("empire")
 
     # Newly revealed tiles
-    prev_tiles = {_tile_key(t) for t in prev.get("tiles", [])}
-    curr_tiles = {_tile_key(t): t for t in curr.get("tiles", [])}
-    new_keys = [k for k in curr_tiles if k not in prev_tiles]
-    d["tiles_newly_revealed"] = {
-        "count": len(new_keys),
-        "sample": [{"x": k[0], "y": k[1], "terrain": curr_tiles[k].get("terrain")} for k in new_keys[:15]],
-    }
+    p_tl, c_tl = _sec(prev, "tiles"), _sec(curr, "tiles")
+    if p_tl is not None and c_tl is not None:
+        prev_tiles = {_tile_key(t) for t in p_tl}
+        curr_tiles = {_tile_key(t): t for t in c_tl}
+        new_keys = [k for k in curr_tiles if k not in prev_tiles]
+        d["tiles_newly_revealed"] = {
+            "count": len(new_keys),
+            "sample": [{"x": k[0], "y": k[1], "terrain": curr_tiles[k].get("terrain")} for k in new_keys[:15]],
+        }
+    else:
+        gaps.append("tiles")
 
     # Units — matched by ID
-    prev_units = _by_id(prev.get("units", []))
-    curr_units = _by_id(curr.get("units", []))
+    p_un, c_un = _sec(prev, "units"), _sec(curr, "units")
+    if p_un is None or c_un is None:
+        gaps.append("units")
+        p_un, c_un = [], []
+        units_readable = False
+    else:
+        units_readable = True
+    prev_units = _by_id(p_un)
+    curr_units = _by_id(c_un)
     born = [u for uid, u in curr_units.items() if uid not in prev_units]
     lost = [u for uid, u in prev_units.items() if uid not in curr_units]
     promoted, upgraded, moved, damaged, healed = [], [], [], [], []
@@ -200,21 +233,27 @@ def compute_delta(prev: dict[str, Any] | None, curr: dict[str, Any]) -> dict[str
             damaged.append({"id": uid, "type": u.get("type"), "hp": u.get("hp"), "prev_hp": pu.get("hp")})
         if u.get("hp", 0) > pu.get("hp", 0):
             healed.append({"id": uid, "type": u.get("type"), "hp": u.get("hp"), "prev_hp": pu.get("hp")})
-    d["units_delta"] = {
-        "born": [{"id": u.get("id"), "type": u.get("type"), "at": (u.get("x"), u.get("y"))} for u in born],
-        "lost": [{"id": u.get("id"), "type": u.get("type"), "at": (u.get("x"), u.get("y"))} for u in lost],
-        "promoted": [{"id": u.get("id"), "type": u.get("type")} for u in promoted],
-        "upgraded": upgraded,
-        "moved_count": len(moved),
-        # Full lists — any display trimming happens at render time, with a
-        # label; the JSON delta is never silently truncated.
-        "damaged": damaged,
-        "healed": healed,
-    }
+    if units_readable:
+        d["units_delta"] = {
+            "born": [{"id": u.get("id"), "type": u.get("type"), "at": (u.get("x"), u.get("y"))} for u in born],
+            "lost": [{"id": u.get("id"), "type": u.get("type"), "at": (u.get("x"), u.get("y"))} for u in lost],
+            "promoted": [{"id": u.get("id"), "type": u.get("type")} for u in promoted],
+            "upgraded": upgraded,
+            "moved_count": len(moved),
+            # Full lists — any display trimming happens at render time, with a
+            # label; the JSON delta is never silently truncated.
+            "damaged": damaged,
+            "healed": healed,
+        }
 
     # Cities
-    prev_cities = _by_id(prev.get("cities", []))
-    curr_cities = _by_id(curr.get("cities", []))
+    p_ci, c_ci = _sec(prev, "cities"), _sec(curr, "cities")
+    cities_readable = p_ci is not None and c_ci is not None
+    if not cities_readable:
+        gaps.append("cities")
+        p_ci, c_ci = [], []
+    prev_cities = _by_id(p_ci)
+    curr_cities = _by_id(c_ci)
     grew, starved, completed = [], [], []
     for cid, c in curr_cities.items():
         pc = prev_cities.get(cid)
@@ -230,17 +269,22 @@ def compute_delta(prev: dict[str, Any] | None, curr: dict[str, Any]) -> dict[str
             completed.append(
                 {"id": cid, "name": c.get("name"), "completed": p_prod.get("type"), "now_making": c_prod.get("type")}
             )
-    d["cities_delta"] = {"grew": grew, "starved": starved, "production_completed": completed}
+    if cities_readable:
+        d["cities_delta"] = {"grew": grew, "starved": starved, "production_completed": completed}
 
     # Resources
-    prev_res = {r["type"]: r.get("amount", 0) for r in prev.get("resources", [])}
-    curr_res = {r["type"]: r.get("amount", 0) for r in curr.get("resources", [])}
-    res_delta = {}
-    for k in set(prev_res) | set(curr_res):
-        delta = curr_res.get(k, 0) - prev_res.get(k, 0)
-        if delta != 0:
-            res_delta[k] = delta
-    d["resources_delta"] = res_delta
+    p_rs, c_rs = _sec(prev, "resources"), _sec(curr, "resources")
+    if p_rs is not None and c_rs is not None:
+        prev_res = {r["type"]: r.get("amount", 0) for r in p_rs}
+        curr_res = {r["type"]: r.get("amount", 0) for r in c_rs}
+        res_delta = {}
+        for k in set(prev_res) | set(curr_res):
+            delta = curr_res.get(k, 0) - prev_res.get(k, 0)
+            if delta != 0:
+                res_delta[k] = delta
+        d["resources_delta"] = res_delta
+    else:
+        gaps.append("resources")
 
     # World events — observed changes in rival/city-state state.  Strictly
     # prev-vs-curr comparison of fog-legitimate data; a failed section on
@@ -248,20 +292,28 @@ def compute_delta(prev: dict[str, Any] | None, curr: dict[str, Any]) -> dict[str
     d["world_events"] = _world_events(prev, curr)
 
     # Diplomacy — newly met
-    prev_maj = {m["player_id"] for m in prev.get("majors_met", [])}
-    curr_maj = {m["player_id"] for m in curr.get("majors_met", [])}
-    prev_cs = {c["player_id"] for c in prev.get("city_states_met", [])}
-    curr_cs = {c["player_id"] for c in curr.get("city_states_met", [])}
-    d["diplo_delta"] = {
-        "newly_met_majors": [m for m in curr.get("majors_met", []) if m["player_id"] not in prev_maj],
-        "newly_met_city_states": [
-            c for c in curr.get("city_states_met", []) if c["player_id"] not in prev_cs
-        ],
-        "new_wars": [
+    dd: dict[str, Any] = {}
+    p_mj, c_mj = _sec(prev, "majors_met"), _sec(curr, "majors_met")
+    if p_mj is not None and c_mj is not None:
+        prev_maj = {m["player_id"] for m in p_mj}
+        dd["newly_met_majors"] = [m for m in c_mj if m["player_id"] not in prev_maj]
+        dd["new_wars"] = [
             m["civ_type"]
-            for m in curr.get("majors_met", [])
+            for m in c_mj
             if m.get("at_war")
-            and not next((p for p in prev.get("majors_met", []) if p["player_id"] == m["player_id"] and p.get("at_war")), None)
-        ],
-    }
+            and not next((p for p in p_mj if p["player_id"] == m["player_id"] and p.get("at_war")), None)
+        ]
+    else:
+        gaps.append("majors_met")
+    p_cs2, c_cs2 = _sec(prev, "city_states_met"), _sec(curr, "city_states_met")
+    if p_cs2 is not None and c_cs2 is not None:
+        prev_cs = {c["player_id"] for c in p_cs2}
+        dd["newly_met_city_states"] = [c for c in c_cs2 if c["player_id"] not in prev_cs]
+    else:
+        gaps.append("city_states_met")
+    if dd:
+        d["diplo_delta"] = dd
+
+    if gaps:
+        d["delta_gaps"] = gaps
     return d

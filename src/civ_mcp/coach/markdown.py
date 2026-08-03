@@ -83,17 +83,35 @@ def _delta_is_empty(d: dict[str, Any]) -> bool:
 def _fmt_delta(d: dict[str, Any]) -> str:
     if not d:
         return "_no delta available_"
+    if d.get("delta_failed"):
+        return (
+            "_DELTA FAILED — could not compare against the previous snapshot. "
+            "The full state below is unaffected._"
+        )
     if d.get("first_snapshot"):
         return "_first snapshot this session — no delta to show_"
+
+    # A failed section on either side means that change class was SKIPPED,
+    # not that nothing changed — say so rather than implying "no changes".
+    gaps = d.get("delta_gaps") or []
+    gap_line = (
+        "- ⚠ delta incomplete — skipped (section failed on one side): " + ", ".join(gaps)
+        if gaps
+        else ""
+    )
 
     turns = d.get("turns_elapsed", 0)
     if _delta_is_empty(d):
         if turns == 0:
-            return "No meaningful changes. (Same turn as the previous snapshot.)"
-        return f"No meaningful changes. ({turns} turn(s) elapsed.)"
+            base = "No meaningful changes. (Same turn as the previous snapshot.)"
+        else:
+            base = f"No meaningful changes. ({turns} turn(s) elapsed.)"
+        return f"{base}\n{gap_line}" if gap_line else base
 
     lines: list[str] = []
     lines.append(f"- turns elapsed: {turns}")
+    if gap_line:
+        lines.append(gap_line)
     ed = d.get("empire_delta", {}) or {}
     if ed:
         parts = [f"{k}: {v:+}" for k, v in ed.items() if v]

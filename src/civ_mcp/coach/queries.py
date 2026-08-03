@@ -1526,8 +1526,9 @@ safe("units", function()
         end)
         if not decided then
           -- Fallback: a promotion is pending when banked XP has reached the
-          -- threshold for the next level.
-          if xpNeeded and xpNeeded > 0 and xp >= xpNeeded then
+          -- threshold for the next level.  (v1.8.0 tested the undeclared
+          -- global `xpNeeded` — always nil, so this branch never fired.)
+          if xpNeed and xpNeed > 0 and xp >= xpNeed then
             promoAvail = 1
           end
           print("WARN|UNITS.promotions|UnitManager.CanStartCommand(PROMOTE) unavailable — using XP threshold fallback")
@@ -1611,7 +1612,7 @@ def build_map_query() -> str:
 
 local pTech = sf(function() return p:GetTechs() end)
 local pVis = PlayersVisibility and PlayersVisibility[me] or nil
-if not pVis then print("DIAG|MAP|PlayersVisibility unavailable"); print("---END---"); return end
+if not pVis then print("DIAG|MAP|PlayersVisibility unavailable"); print("EOQ"); print("---END---"); return end
 
 local terrShort = {
   TERRAIN_GRASS = "g", TERRAIN_PLAINS = "p", TERRAIN_DESERT = "d",
@@ -1877,7 +1878,7 @@ def build_diplo_query() -> str:
     return _prelude("DIPLO") + r"""
 
 local d = sf(function() return p:GetDiplomacy() end)
-if not d then print("DIAG|DIPLO|no diplomacy object"); print("---END---"); return end
+if not d then print("DIAG|DIPLO|no diplomacy object"); print("EOQ"); print("---END---"); return end
 
 safe("envoys", function()
   local inf = sf(function() return p:GetInfluence() end)
@@ -2257,7 +2258,7 @@ def build_religion_query() -> str:
     return _prelude("REL") + r"""
 
 local rel = sf(function() return p:GetReligion() end)
-if not rel then print("DIAG|REL|no religion object"); print("---END---"); return end
+if not rel then print("DIAG|REL|no religion object"); print("EOQ"); print("---END---"); return end
 
 safe("pantheon", function()
   local pantheonIdx = sf(function() return rel:GetPantheon() end) or -1

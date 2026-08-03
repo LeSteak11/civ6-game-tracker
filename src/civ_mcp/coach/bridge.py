@@ -153,8 +153,26 @@ class CoachBridge:
                 print("[coach] snapshot failed — see log for details.", flush=True)
                 return
 
-            delta = compute_delta(self._last_snapshot, snap)
-            md = render_markdown(snap, delta)
+            # A failed delta or render must never lose the capture itself —
+            # the snapshot is already collected; archive it no matter what.
+            # (v1.8.0 called compute_delta outside any guard: a previous
+            # snapshot with a failed section stored as None crashed the
+            # comparison and threw away clipboard, archive and summary.)
+            try:
+                delta = compute_delta(self._last_snapshot, snap)
+            except Exception:  # noqa: BLE001
+                log.exception("delta computation failed — continuing without a delta")
+                delta = {"first_snapshot": False, "delta_failed": True}
+            try:
+                md = render_markdown(snap, delta)
+            except Exception:  # noqa: BLE001
+                log.exception("markdown render failed — archiving JSON with a stub")
+                md = (
+                    "# CIV6 COACH SNAPSHOT — RENDER FAILED\n\n"
+                    f"turn {(snap.get('meta') or {}).get('turn', '?')} — the Markdown "
+                    "renderer raised; the full JSON snapshot was still archived. "
+                    "See the coach log for the traceback.\n"
+                )
             write_desc = self._write_outputs(snap, md, delta)
 
             # Clipboard
