@@ -1,4 +1,4 @@
-"""Base-game-only Lua query builders for the coach snapshot.
+"""Read-only, ruleset-aware Lua query builders for the coach snapshot.
 
 Design rules (learned the hard way from the first live smoke test):
 
@@ -237,15 +237,16 @@ safe("seeds", function()
 end)
 
 -- ---- Enabled victories --------------------------------------------------
+-- Iterates every live GameInfo.Victories row.  (v1.8.x hardcoded 5 vanilla
+-- type strings, which silently dropped VICTORY_DIPLOMATIC in expansion
+-- games — confirmed live on turn0001 of the first GS-ruleset capture.)
 safe("victories", function()
   local vlist = {}
-  local vtypes = {"VICTORY_TECHNOLOGY","VICTORY_CULTURE","VICTORY_RELIGIOUS","VICTORY_CONQUEST","VICTORY_SCORE"}
-  for _, vt in ipairs(vtypes) do
-    local row = GameInfo.Victories[vt]
-    if row then
+  for row in GameInfo.Victories() do
+    pcall(function()
       local okv, en = pcall(function() return Game.IsVictoryEnabled(row.Index) end)
-      if okv and en then vlist[#vlist+1] = vt end
-    end
+      if okv and en then vlist[#vlist+1] = row.VictoryType end
+    end)
   end
   print("VICT|" .. table.concat(vlist, ","))
 end)
@@ -2380,7 +2381,93 @@ end)
 
 
 # ---------------------------------------------------------------------------
-# Q9 — capability probe (diagnostics only)
+# Q9 — declared ruleset (first-class section)
+# ---------------------------------------------------------------------------
+#
+# The tables the coach used to hardcode, read from the live database at
+# capture time: the active ruleset + mod list, the specialty-district set
+# (RequiresPopulation), per-resource classes, and per-building housing.
+# Confirmed necessary by the first live GS capture: 34 luxuries vs the
+# static table's 24, and DISTRICT_AERODROME missing from the static
+# specialty set (it was wrong even for base game).
+
+
+def build_ruleset_query() -> str:
+    return _prelude("RULESET") + r"""
+
+safe("ruleset", function()
+  local rs = "unknown"
+  if GameConfiguration and type(GameConfiguration.GetValue) == "function" then
+    rs = sf(function() return GameConfiguration.GetValue("RULESET") end) or "unknown"
+  end
+  local nmods = -1
+  if GameConfiguration and type(GameConfiguration.GetEnabledMods) == "function" then
+    local mods = sf(function() return GameConfiguration.GetEnabledMods() end)
+    if type(mods) == "table" then
+      nmods = #mods
+      for _, mrow in ipairs(mods) do
+        pcall(function()
+          local title = mrow.Title and L(mrow.Title) or ""
+          print("MOD|" .. esc(mrow.Id) .. "|" .. esc(title))
+        end)
+      end
+    end
+  end
+  print("RULESET|" .. esc(rs) .. "|" .. tostring(nmods))
+end)
+
+safe("specialty_districts", function()
+  if GameInfo.Districts == nil then
+    print("DIAG|RULESET.specialty_districts|GameInfo.Districts absent"); return
+  end
+  for row in GameInfo.Districts() do
+    pcall(function()
+      if row.RequiresPopulation then
+        print("SPECIALTY|" .. esc(row.DistrictType))
+      end
+    end)
+  end
+end)
+
+safe("resource_classes", function()
+  if GameInfo.Resources == nil then
+    print("DIAG|RULESET.resource_classes|GameInfo.Resources absent"); return
+  end
+  for row in GameInfo.Resources() do
+    pcall(function()
+      local short = (row.ResourceType or ""):gsub("RESOURCE_", "")
+      local cls = (row.ResourceClassType or ""):gsub("RESOURCECLASS_", "")
+      if short ~= "" and cls ~= "" then
+        print("RESCLASS|" .. esc(short) .. "|" .. esc(cls))
+      end
+    end)
+  end
+end)
+
+safe("housing_buildings", function()
+  if GameInfo.Buildings == nil then
+    print("DIAG|RULESET.housing_buildings|GameInfo.Buildings absent"); return
+  end
+  local emitted = 0
+  for row in GameInfo.Buildings() do
+    pcall(function()
+      local h = row.Housing or 0
+      if h > 0 then
+        print("HOUSING|" .. esc(row.BuildingType) .. "|" .. tostring(h))
+        emitted = emitted + 1
+      end
+    end)
+  end
+  if emitted == 0 then
+    print("DIAG|RULESET.housing_buildings|no Housing column values found")
+  end
+end)
+
+""" + _sentinel_line()
+
+
+# ---------------------------------------------------------------------------
+# Q10 — capability probe (diagnostics only)
 # ---------------------------------------------------------------------------
 #
 # Discovery pass for the declared-ruleset migration: which expansion Lua
@@ -2646,5 +2733,6 @@ ALL_QUERIES = {
     "diplo": build_diplo_query,
     "religion": build_religion_query,
     "notif": build_notifications_query,
+    "ruleset": build_ruleset_query,
     "probe": build_probe_query,
 }

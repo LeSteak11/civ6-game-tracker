@@ -39,7 +39,8 @@ QUERY_TIMEOUT = {
     "diplo": 12.0,
     "religion": 10.0,
     "notif": 8.0,
-    "probe": 15.0,  # Q9 capability probe — diagnostics only, runs last
+    "ruleset": 15.0,  # Q9 declared ruleset — live DB tables
+    "probe": 15.0,  # Q10 capability probe — diagnostics only, runs last
 }
 
 
@@ -52,6 +53,7 @@ PARSERS = {
     "diplo": P.parse_diplo,
     "religion": P.parse_religion,
     "notif": P.parse_notifications,
+    "ruleset": P.parse_ruleset,
     "probe": P.parse_probe,
 }
 
@@ -89,6 +91,7 @@ SECTION_EXPECTATIONS = {
     "city_states_met":   ("diplo",    "city_states"),
     "religion":          ("religion", "pantheon"),
     "notifications":     ("notif",    "notifications"),
+    "ruleset":           ("ruleset",  "ruleset"),
     "probe":             ("probe",    "probe"),
 }
 
@@ -148,6 +151,12 @@ async def _run_one(
             "(likely a mid-stream timeout); section marked failed, not partial",
         )
 
+    # Wire-format arity guard: an inserted/reordered column in a known tag
+    # would otherwise mis-parse silently (indexed reads).  Surfaced via the
+    # WARN channel so it lands in compat_notes, loudly.
+    for w in P.arity_warnings(data_lines):
+        warn_lines.append(f"WARN|{name}.arity|{w}")
+
     parser = PARSERS[name]
     try:
         parsed = parser(data_lines)
@@ -197,19 +206,60 @@ def _classify_sections(fragments: dict[str, dict[str, Any]], exec_errors: dict[s
     return status
 
 
+# Expansion mechanics the coach knows about, mapped to the probe API key
+# that proves each one exists in the live game.  diagnostics.unsupported is
+# DERIVED from the capture's own probe results — never asserted statically.
+_MECHANIC_PROBES: list[tuple[str, str]] = [
+    ("governors (Rise & Fall)", "Player.GetGovernors"),
+    ("loyalty (Rise & Fall)", "City.GetCulturalIdentity"),
+    ("era score, Golden/Dark Ages (Rise & Fall)", "Eras.GetPlayerCurrentScore"),
+    ("alliance levels (Rise & Fall)", "Diplomacy.GetAllianceLevel"),
+    ("emergencies (Rise & Fall)", "EmergencyManager.GetEmergencyInfoTable"),
+    ("diplomatic favor (Gathering Storm)", "Player.GetFavor"),
+    ("Diplomatic Victory points (Gathering Storm)", "PlayerStats.GetDiplomaticVictoryPoints"),
+    ("World Congress (Gathering Storm)", "WorldCongress.IsInSession"),
+    ("climate / CO2 (Gathering Storm)", "GameClimate.GetTotalCO2Footprint"),
+    ("city power (Gathering Storm)", "CityPower.IsFullyPowered"),
+    ("strategic resource stockpiles (Gathering Storm)", "Resources.GetResourceStockpileCap"),
+]
+
+
+def _derive_unsupported(probe: dict[str, Any] | None) -> list[str]:
+    """Capability status per known expansion mechanic, from live probe data.
+
+    Three honest states: confirmed-present-but-not-yet-extracted,
+    confirmed-absent, and undetermined (probe didn't reach the accessor —
+    e.g. city probes skipped with no capital).  A failed probe yields one
+    loud line, never a guessed list."""
+    if not probe:
+        return [
+            "capability probe failed this capture — expansion-mechanic "
+            "availability UNKNOWN (nothing extracted beyond base sections)"
+        ]
+    api = probe.get("api") or {}
+    out: list[str] = []
+    for label, key in _MECHANIC_PROBES:
+        t = api.get(key)
+        if t == "function":
+            out.append(f"{label} — PRESENT in this game, not yet extracted")
+        elif t is None:
+            out.append(f"{label} — undetermined this capture (probe did not reach {key})")
+        else:
+            out.append(f"{label} — unavailable in this game ({key} = {t})")
+    return out
+
+
+# Ruleset id → human label for the snapshot header.
+_RULESET_LABELS = {
+    "RULESET_STANDARD": "base game",
+    "RULESET_EXPANSION_1": "Rise & Fall",
+    "RULESET_EXPANSION_2": "Gathering Storm (includes Rise & Fall)",
+}
+
+
 async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
     t0 = time.perf_counter()
     diagnostics: list[dict[str, Any]] = []
-    unsupported: list[str] = [
-        "governors (Rise & Fall)",
-        "loyalty (Rise & Fall)",
-        "era score, Golden/Dark Ages, dedications (Rise & Fall)",
-        "formal alliances with level (Rise & Fall)",
-        "diplomatic favor, World Congress, Diplomatic Victory (Gathering Storm)",
-        "climate, disasters, floods, volcanoes (Gathering Storm)",
-        "power, resource consumption, canals, dams (Gathering Storm)",
-        "railroads (Gathering Storm)",
-    ]
     fragments: dict[str, dict[str, Any]] = {}
     per_query_timing: dict[str, float] = {}
     traces: dict[str, list[str]] = {}
@@ -255,7 +305,18 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
     diplo_frag = fragments.get("diplo", {}) or {}
     rel_frag = fragments.get("religion", {}) or {}
     notif_frag = fragments.get("notif", {}) or {}
+    ruleset_frag = fragments.get("ruleset", {}) or {}
     probe_frag = fragments.get("probe", {}) or {}
+
+    # Live DB tables from the ruleset query — the static module tables are
+    # only fallbacks now.  Empty set/dict => derivations fall back and label
+    # their source accordingly.
+    rs = ruleset_frag.get("ruleset") or {}
+    live_specialty: set[str] = set(rs.get("specialty_districts") or [])
+    live_housing: dict[str, int] = rs.get("housing_buildings") or {}
+    _resclass: dict[str, str] = rs.get("resource_classes") or {}
+    live_lux: set[str] = {k for k, v in _resclass.items() if v == "LUXURY"}
+    live_strat: set[str] = {k for k, v in _resclass.items() if v == "STRATEGIC"}
 
     def _or_none(status_key: str, value):
         """Return None (=> "QUERY FAILED" in markdown) if the section failed,
@@ -275,8 +336,10 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
         {(t["x"], t["y"]): t for t in map_frag.get("tiles") or []} if map_ok else None
     )
     for c in cities_frag.get("cities") or []:
-        c["district_capacity"] = P.district_capacity(c)
-        c["housing_breakdown"] = P.build_housing_breakdown(c, tiles_by_xy)
+        c["district_capacity"] = P.district_capacity(c, live_specialty or None)
+        c["housing_breakdown"] = P.build_housing_breakdown(
+            c, tiles_by_xy, live_housing or None
+        )
         c["amenity_status"] = P.amenity_status(c)
 
     snapshot: dict[str, Any] = {
@@ -343,6 +406,8 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
                 for r in meta_frag.get("resources") or []
                 if r.get("class") == "LUXURY"
             },
+            luxury_set=live_lux or None,
+            strategic_set=live_strat or None,
         ),
         "civ_accounting": P.civ_accounting(
             diplo_frag.get("majors") if section_status.get("majors_met") != "failed" else None,
@@ -352,12 +417,36 @@ async def collect_snapshot(conn: GameConnection) -> dict[str, Any]:
         ),
         "notifications":     _or_none("notifications", notif_frag.get("notifications", []) or []),
         "end_turn_blockers": notif_frag.get("end_turn_blockers", []) or [],
+        # Declared ruleset — stamped into every snapshot so a modded or
+        # expansion game is never silently compared against a vanilla one.
+        # None = the ruleset query itself failed (renders as QUERY FAILED).
+        "ruleset": _or_none(
+            "ruleset",
+            {
+                "ruleset": rs.get("ruleset", ""),
+                "ruleset_label": _RULESET_LABELS.get(
+                    rs.get("ruleset", ""), rs.get("ruleset") or "unknown"
+                ),
+                "mod_count": rs.get("mod_count", -1),
+                "mods": rs.get("mods", []),
+                "specialty_districts": rs.get("specialty_districts", []),
+                "resource_classes": _resclass,
+                "housing_buildings": live_housing,
+            },
+        ),
         "section_status":    section_status,
         "diagnostics": {
             "per_query_seconds": per_query_timing,
             "failures": diagnostics,
             "compat_notes": compat_notes,  # WARN channel — fallbacks taken, not failures
-            "unsupported": unsupported,
+            # Derived at runtime from this capture's own probe — three
+            # honest states per mechanic (present-not-extracted / absent /
+            # undetermined).  Never a static assertion.
+            "unsupported": _derive_unsupported(
+                probe_frag.get("probe")
+                if section_status.get("probe") != "failed"
+                else None
+            ),
             # Q9 capability probe: live ruleset, enabled mods, GameInfo
             # census, expansion-accessor discovery.  Diagnostics-only —
             # no coaching section reads from this (yet).  None = probe

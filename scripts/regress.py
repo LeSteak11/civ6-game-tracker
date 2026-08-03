@@ -189,8 +189,8 @@ check("real delta lists grown city", "Sais" in txt2)
 
 
 print("\n=== schema/version bump ===")
-check("schema bumped to 1.4", SCHEMA_VERSION == "coach-snapshot/1.4", SCHEMA_VERSION)
-check("coach version 1.8.2 (semver)", COACH_VERSION == "1.8.2", COACH_VERSION)
+check("schema bumped to 1.5", SCHEMA_VERSION == "coach-snapshot/1.5", SCHEMA_VERSION)
+check("coach version 1.9.0 (semver)", COACH_VERSION == "1.9.0", COACH_VERSION)
 
 print("\n=== v1.0.1 cleanup pass ===")
 # Map-size resolution must use GameInfo.Maps (base game), not just MapSizes (Civ5 legacy)
@@ -1586,6 +1586,146 @@ check("collector: probe result lands under diagnostics, failure-honest",
       '"probe": _or_none("probe"' in _coll_src)
 check("collector: probe tracked in section_status",
       '"probe":             ("probe",    "probe")' in _coll_src)
+
+print("\n=== v1.9.0: declared-ruleset flip ===")
+# --- cross-game delta guard ---------------------------------------------
+_g1 = {"meta": {"turn": 396, "civ_name": "Egypt", "game_seed": 111, "map_seed": 222},
+       "empire": {"score": 467}}
+_g2 = {"meta": {"turn": 1, "civ_name": "Aztec", "game_seed": 333, "map_seed": 444},
+       "empire": {"score": 7}}
+_dg = DL.compute_delta(_g1, _g2)
+check("different seeds => treated as first snapshot, no fabricated delta",
+      _dg.get("first_snapshot") is True and _dg.get("different_game") is True
+      and "empire_delta" not in _dg, _dg)
+check("different-game result names the previous game",
+      (_dg.get("prev_game") or {}).get("civ_name") == "Egypt"
+      and (_dg.get("prev_game") or {}).get("turn") == 396)
+_same = DL.compute_delta(
+    {"meta": {"turn": 5, "game_seed": 111, "map_seed": 222}, "empire": {"score": 10}},
+    {"meta": {"turn": 6, "game_seed": 111, "map_seed": 222}, "empire": {"score": 12}})
+check("same seeds still delta normally", _same.get("first_snapshot") is False
+      and _same.get("empire_delta", {}).get("score") == 2)
+_noseed = DL.compute_delta(
+    {"meta": {"turn": 5}, "empire": {"score": 10}},
+    {"meta": {"turn": 6}, "empire": {"score": 12}})
+check("missing seeds cannot trigger the guard (no false new-game)",
+      _noseed.get("different_game") is None)
+check("markdown announces the new game instead of a bogus delta",
+      "NEW GAME detected" in M.render_markdown(
+          {"schema": SCHEMA_VERSION, "coach_version": COACH_VERSION,
+           "generated_at_epoch": 2.0, "meta": {"turn": 1}, "empire": {},
+           "section_status": {"header": "ok"}, "diagnostics": {},
+           "turn_blockers_summary": []},
+          _dg))
+
+# --- victories: whitelist gone, live iteration in ------------------------
+_meta_code = strip_lua_comments(Q.build_meta_query())
+check("victory whitelist removed from meta Lua",
+      '"VICTORY_TECHNOLOGY","VICTORY_CULTURE"' not in _meta_code.replace(" ", ""))
+check("victories iterate the live DB", "for row in GameInfo.Victories()" in _meta_code)
+
+# --- ruleset query + parser ----------------------------------------------
+check("ruleset query registered before probe",
+      list(Q.ALL_QUERIES.keys())[-2:] == ["ruleset", "probe"], list(Q.ALL_QUERIES.keys()))
+_rs_lines = [
+    "RULESET|RULESET_EXPANSION_2|44",
+    "MOD|abc|Gathering Storm",
+    "SPECIALTY|DISTRICT_SEOWON",
+    "SPECIALTY|DISTRICT_AERODROME",
+    "RESCLASS|AMBER|LUXURY",
+    "RESCLASS|IRON|STRATEGIC",
+    "RESCLASS|WHEAT|BONUS",
+    "HOUSING|BUILDING_DAM|3",
+    "HOUSING|BUILDING_GRANARY|2",
+]
+_rp = P.parse_ruleset(_rs_lines)["ruleset"]
+check("parse_ruleset: ruleset + mod count", _rp["ruleset"] == "RULESET_EXPANSION_2"
+      and _rp["mod_count"] == 44)
+check("parse_ruleset: specialty sorted",
+      _rp["specialty_districts"] == ["DISTRICT_AERODROME", "DISTRICT_SEOWON"])
+check("parse_ruleset: resource classes mapped", _rp["resource_classes"]["AMBER"] == "LUXURY")
+check("parse_ruleset: housing ints", _rp["housing_buildings"]["BUILDING_DAM"] == 3)
+
+# --- derivations: live set vs labeled fallback ---------------------------
+_city_aero = {"population": 5, "districts": [{"type": "DISTRICT_AERODROME"},
+                                             {"type": "DISTRICT_CITY_CENTER"}]}
+_live = P.district_capacity(_city_aero, {"DISTRICT_AERODROME", "DISTRICT_CAMPUS"})
+check("live specialty set counts Aerodrome against the cap",
+      _live["built"] == 1 and "live_db" in _live["source"], _live)
+_fall = P.district_capacity(_city_aero)
+check("static fallback misses Aerodrome BUT says it is a fallback",
+      _fall["built"] == 0 and "fallback" in _fall["source"], _fall)
+_sa_args = (
+    [{"type": "UNIT_SETTLER", "id": 1, "x": 1, "y": 1}],
+    [{"x": 1, "y": 1, "terrain": "g", "extra": "F"},
+     {"x": 2, "y": 1, "terrain": "g", "resource": "AMBER"}],
+    [], [], [],
+)
+_sa = P.settler_advisor(*_sa_args, owned_luxury_types=set(),
+                        luxury_set={"AMBER"}, strategic_set=set())
+_res_classes = {r["class"] for c in _sa["candidates"] for r in c["resources_within_2"]}
+check("settler advisor classifies DLC luxury via live set (AMBER=luxury)",
+      _res_classes == {"luxury"}, _res_classes)
+_sa_fb = P.settler_advisor(*_sa_args, owned_luxury_types=set())
+_res_fb = {r["class"] for c in _sa_fb["candidates"] for r in c["resources_within_2"]}
+check("static fallback misclassifies the same DLC luxury as bonus (why the live set exists)",
+      _res_fb == {"bonus"}, _res_fb)
+
+# --- derived unsupported --------------------------------------------------
+_coll_src2 = (REPO / "src/civ_mcp/coach/collector.py").read_text(encoding="utf-8")
+check("static unsupported list is gone from collector",
+      '"governors (Rise & Fall)",' not in _coll_src2.split("_MECHANIC_PROBES")[0])
+check("unsupported is derived from the probe", "_derive_unsupported" in _coll_src2)
+import importlib.util as _ilu
+_spec_c = _ilu.spec_from_file_location("_coach_collector_shim", REPO / "src/civ_mcp/coach/collector.py")
+try:
+    _cm = _ilu.module_from_spec(_spec_c); _spec_c.loader.exec_module(_cm)
+    _du = _cm._derive_unsupported({"api": {
+        "Player.GetGovernors": "function",
+        "GameClimate.GetTotalCO2Footprint": "nil",
+    }})
+    check("probe=function => present, not yet extracted",
+          any("governors" in s and "PRESENT" in s for s in _du))
+    check("probe=nil => unavailable in this game",
+          any("climate" in s and "unavailable" in s for s in _du))
+    check("probe missing key => undetermined, never asserted",
+          any("loyalty" in s and "undetermined" in s for s in _du))
+    check("failed probe => one loud UNKNOWN line, not a guessed list",
+          len(_cm._derive_unsupported(None)) == 1
+          and "UNKNOWN" in _cm._derive_unsupported(None)[0])
+except Exception as _e:  # collector imports connection; only if import fails
+    print(f"  SKIP  _derive_unsupported direct checks ({type(_e).__name__})")
+
+# --- arity guard ----------------------------------------------------------
+_aw = P.arity_warnings([
+    "UNIT|1|UNIT_WARRIOR|Warrior|FORMATION_CLASS_LAND_COMBAT|66|30|84|100|2|2|20|0|0|0|7|15|0|0|true|0|0|false||0",  # 25 ✓
+    "UNIT|2|UNIT_SCOUT|Scout|F|1|1",   # short — drift
+    "GPPT|CLASS|GEN|49|1.1|-1||-1",    # 8 ✓
+    "UNKNOWNTAG|a|b",                   # no contract — ignored
+])
+check("arity guard flags a short UNIT line", any("UNIT" in w for w in _aw), _aw)
+check("arity guard passes correct lines and ignores unknown tags",
+      len(_aw) == 1, _aw)
+check("collector routes arity drift through the WARN channel",
+      'P.arity_warnings' in _coll_src2 and '.arity|' in _coll_src2)
+
+# --- ruleset stamp rendering ---------------------------------------------
+_snap_rs = {"schema": SCHEMA_VERSION, "coach_version": COACH_VERSION,
+            "generated_at_epoch": 2.0, "meta": {"turn": 1}, "empire": {},
+            "section_status": {"header": "ok"}, "diagnostics": {},
+            "turn_blockers_summary": [],
+            "ruleset": {"ruleset": "RULESET_EXPANSION_2",
+                        "ruleset_label": "Gathering Storm (includes Rise & Fall)",
+                        "mod_count": 44, "mods": [],
+                        "specialty_districts": ["DISTRICT_CAMPUS"],
+                        "resource_classes": {"AMBER": "LUXURY"},
+                        "housing_buildings": {}}}
+_md_rs = M.render_markdown(_snap_rs, {"first_snapshot": True})
+check("markdown header carries the ruleset stamp",
+      "Gathering Storm" in _md_rs and "44 mods" in _md_rs)
+_snap_rs_failed = dict(_snap_rs); _snap_rs_failed["ruleset"] = None
+check("failed ruleset query renders QUERY FAILED, not silence",
+      "ruleset: QUERY FAILED" in M.render_markdown(_snap_rs_failed, {"first_snapshot": True}))
 
 print()
 if failures:

@@ -986,17 +986,25 @@ SPECIALTY_DISTRICTS = {
 }
 
 
-def district_capacity(city: dict[str, Any]) -> dict[str, Any] | None:
+def district_capacity(
+    city: dict[str, Any], specialty: set[str] | None = None
+) -> dict[str, Any] | None:
     """Districts built vs the pop/3+1 cap — the one line that prevents
     "build a Harbor" advice in a city with no free district slot.
 
-    Reconstructed (pop/3+1 rule + static RequiresPopulation set); returns
-    None when population or districts are unreadable."""
+    ``specialty`` is the live RequiresPopulation set from the ruleset
+    query; when unavailable we fall back to the static vanilla table and
+    SAY SO in ``source`` (the static set is known-incomplete — the live DB
+    showed 26 specialty districts vs the 12 here, including
+    DISTRICT_AERODROME which the static set wrongly omitted even for base
+    game).  Returns None when population or districts are unreadable."""
     pop = city.get("population")
     dists = city.get("districts")
     if not isinstance(pop, int) or pop < 0 or not isinstance(dists, list):
         return None
-    built = sum(1 for d in dists if d.get("type") in SPECIALTY_DISTRICTS)
+    live = bool(specialty)
+    spec = specialty if live else SPECIALTY_DISTRICTS
+    built = sum(1 for d in dists if d.get("type") in spec)
     cap = pop // 3 + 1
     return {
         "built": built,
@@ -1004,7 +1012,11 @@ def district_capacity(city: dict[str, Any]) -> dict[str, Any] | None:
         "slots_open": max(0, cap - built),
         # pop that unlocks the next slot beyond the current cap
         "next_slot_at_pop": (cap) * 3,
-        "source": "reconstructed:pop/3+1",
+        "source": (
+            "reconstructed:pop/3+1 [live_db:RequiresPopulation]"
+            if live
+            else "reconstructed:pop/3+1 [static_db fallback — incomplete for expansions]"
+        ),
     }
 
 
@@ -1061,16 +1073,19 @@ def _tile_appeal(tile: dict[str, Any]) -> int | None:
 
 
 def build_housing_breakdown(
-    city: dict[str, Any], tiles_by_xy: dict[tuple[int, int], dict[str, Any]] | None
+    city: dict[str, Any],
+    tiles_by_xy: dict[tuple[int, int], dict[str, Any]] | None,
+    housing_map: dict[str, int] | None = None,
 ) -> dict[str, Any] | None:
-    """Per-source housing reconstruction from static DB values + the city's
+    """Per-source housing reconstruction from DB values + the city's
     observed buildings/districts/improvements/water situation.
 
-    The sum is cross-checked against the directly-read housing total; any
-    difference renders as an explicit `unattributed` bucket (wonder, policy
-    and belief housing has no per-source API in the base game).  Returns
-    None when the map tiles or the city rollup aren't readable — a wrong
-    breakdown is worse than none."""
+    ``housing_map`` is the live BuildingType→Housing map from the ruleset
+    query (covers expansion buildings like Dams); when unavailable we fall
+    back to the static vanilla table.  The sum is cross-checked against
+    the directly-read housing total; any difference renders as an explicit
+    `unattributed` bucket.  Returns None when the map tiles or the city
+    rollup aren't readable — a wrong breakdown is worse than none."""
     total = city.get("housing")
     if not isinstance(total, int) or total < 0 or not tiles_by_xy:
         return None
@@ -1095,11 +1110,13 @@ def build_housing_breakdown(
         parts.append({"label": "coastal", "value": 1})
         water_base = 3
 
-    # Buildings [static_db] — pillaged buildings grant nothing
+    # Buildings — live DB map when available, static fallback otherwise.
+    # Pillaged buildings grant nothing.
+    bmap = housing_map if housing_map else HOUSING_BUILDINGS
     for b in city.get("buildings") or []:
         if b.get("pillaged"):
             continue
-        v = HOUSING_BUILDINGS.get(b.get("type"))
+        v = bmap.get(b.get("type"))
         if v:
             parts.append({"label": b.get("name") or b.get("type"), "value": v})
 
@@ -1135,7 +1152,11 @@ def build_housing_breakdown(
         "parts": parts,
         "attributed": round(attributed, 1),
         "unattributed": total - floored,
-        "source": "reconstructed:static_db",
+        "source": (
+            "reconstructed:live_db_housing"
+            if housing_map
+            else "reconstructed:static_db fallback"
+        ),
     }
 
 
@@ -1234,6 +1255,8 @@ def settler_advisor(
     city_states: list[dict[str, Any]] | None,
     owned_luxury_types: set[str] | None = None,
     top_n: int = 5,
+    luxury_set: set[str] | None = None,
+    strategic_set: set[str] | None = None,
 ) -> dict[str, Any] | None:
     """Rank settle spots from the revealed map when a Settler exists.
 
@@ -1247,6 +1270,12 @@ def settler_advisor(
     settlers = [u for u in units if u.get("type") == "UNIT_SETTLER"]
     if not settlers:
         return None
+
+    # Live resource classes from the ruleset query when available; static
+    # vanilla fallback otherwise (known-incomplete: live DB showed 34
+    # luxuries vs the static 24 — DLC packs add their own).
+    lux = luxury_set if luxury_set else _LUXURY_RES
+    strat = strategic_set if strategic_set else _STRATEGIC_RES
 
     tiles_by_xy = {(t["x"], t["y"]): t for t in tiles}
     known_centers: list[tuple[int, int, str]] = []
@@ -1302,8 +1331,8 @@ def settler_advisor(
             rn = nt.get("resource") or ""
             if rn:
                 cls = (
-                    "luxury" if rn in _LUXURY_RES
-                    else "strategic" if rn in _STRATEGIC_RES
+                    "luxury" if rn in lux
+                    else "strategic" if rn in strat
                     else "bonus"
                 )
                 res_r2.append({
@@ -1468,3 +1497,91 @@ def parse_probe(lines: list[str]) -> dict[str, Any]:
         },
         "diagnostics": diagnostics,
     }
+
+
+def parse_ruleset(lines: list[str]) -> dict[str, Any]:
+    """Q9 declared-ruleset section — the live DB tables the coach used to
+    hardcode.  Empty collections mean "query emitted nothing" and callers
+    must fall back to the labeled static tables, never to silence."""
+    ruleset = ""
+    mod_count = -1
+    mods: list[dict[str, str]] = []
+    specialty: list[str] = []
+    resource_classes: dict[str, str] = {}
+    housing: dict[str, int] = {}
+    diagnostics: list[dict[str, Any]] = []
+    for line in lines:
+        p = line.split("|")
+        tag = p[0] if p else ""
+        if tag == "RULESET":
+            ruleset = _s(p, 1)
+            mod_count = _i(p, 2, -1)
+        elif tag == "MOD":
+            mods.append({"id": _s(p, 1), "title": _s(p, 2)})
+        elif tag == "SPECIALTY":
+            specialty.append(_s(p, 1))
+        elif tag == "RESCLASS":
+            resource_classes[_s(p, 1)] = _s(p, 2)
+        elif tag == "HOUSING":
+            v = _i(p, 2, 0)
+            if v > 0:
+                housing[_s(p, 1)] = v
+        elif tag == "DIAG":
+            diagnostics.append({"section": _s(p, 1), "message": _s(p, 2)})
+    return {
+        "ruleset": {
+            "ruleset": ruleset,
+            "mod_count": mod_count,
+            "mods": mods,
+            "specialty_districts": sorted(specialty),
+            "resource_classes": resource_classes,
+            "housing_buildings": housing,
+        },
+        "diagnostics": diagnostics,
+    }
+
+
+# --- Wire-format arity guard -------------------------------------------------
+# Parsers read pipe-delimited fields BY HARDCODED INDEX, so an inserted or
+# reordered column fails silently and returns a plausible wrong number (this
+# has happened in production — see the CITY comment history).  Expected field
+# counts per tag, kept in lockstep with the Lua print statements; regress
+# pins them against the actual emitted formats.
+EXPECTED_ARITY: dict[str, int] = {
+    "META": 14,     # META|turn|year|era|civType|civName|leaderType|leaderName|diff|speed|size|mapType|maxPlayers|maxTurns
+    "EMPIRE": 21,   # string.format with 20 placeholders
+    "GPPT": 8,
+    "RES": 6,
+    "UNIT": 25,
+    "CITY": 32,
+    "ENVOY": 6,
+    "MAJOR": 17,
+    "CS": 11,
+    "RULESET": 3,
+    "MOD": 3,
+    "SPECIALTY": 2,
+    "RESCLASS": 3,
+    "HOUSING": 3,
+}
+
+
+def arity_warnings(lines: list[str]) -> list[str]:
+    """Compare each known tag's field count against EXPECTED_ARITY.
+
+    Returns human-readable warnings (deduped per tag) — surfaced through
+    the compat_notes channel so schema drift is loud instead of silently
+    mis-parsed.  Unknown tags are ignored; they have no contract here."""
+    seen: dict[str, int] = {}
+    for line in lines:
+        parts = line.split("|")
+        tag = parts[0] if parts else ""
+        expected = EXPECTED_ARITY.get(tag)
+        if expected is None or len(parts) == expected:
+            continue
+        if tag not in seen:
+            seen[tag] = len(parts)
+    return [
+        f"ARITY DRIFT: {tag} emitted {got} fields, parser expects {EXPECTED_ARITY[tag]} "
+        "— indexed reads may be silently wrong; update the parser and EXPECTED_ARITY together"
+        for tag, got in sorted(seen.items())
+    ]

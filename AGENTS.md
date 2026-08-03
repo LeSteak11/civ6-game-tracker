@@ -16,12 +16,22 @@ If you are an AI tool working in this repo, these rules override defaults.
    API in `src/civ_mcp/lua/` (inherited from the upstream MCP-agent
    project), do not expose or call it from `src/civ_mcp/coach/`.
 
-2. **Base game only.** No Rise & Fall, no Gathering Storm. Never emit or
-   depend on: governors, loyalty, era score, Golden/Dark Ages, era
-   dedications, formal alliance levels, diplomatic favor, World Congress,
-   Diplomatic Victory, climate, disasters, power, resource consumption,
-   dams, canals, railroads. Feature-detect rather than assume, and record
-   anything unavailable in `diagnostics.unsupported`.
+2. **Declared ruleset, never assumed.** The game owns the full anthology
+   (Rise & Fall, Gathering Storm, all DLC packs) plus mods. Every snapshot
+   stamps the active ruleset (`snapshot.ruleset`: ruleset id, enabled mods,
+   live DB tables) so no capture is ever silently compared against a
+   different ruleset. Rules that follow from this:
+   - Derive game data from `GameInfo` at capture time (specialty districts
+     via `RequiresPopulation`, resource classes, victories, housing). The
+     static Python tables are labeled offline fallbacks only — the live DB
+     has repeatedly proven them wrong (34 luxuries vs the static 24;
+     Aerodrome missing from the static specialty set).
+   - Expansion mechanics are extracted only after their accessors are
+     probe-confirmed (Q10). `diagnostics.unsupported` is DERIVED per
+     capture — three states: present-not-yet-extracted, absent,
+     undetermined. Never a static assertion.
+   - Feature-detect rather than assume; a mechanic missing from the live
+     game must degrade to an honest gap, not an error or a zero.
 
 3. **Respect fog of war.** Only export what the player has legitimately
    revealed or what the normal UI exposes. Barbarian units and camps are
@@ -45,7 +55,8 @@ If you are an AI tool working in this repo, these rules override defaults.
 ```
 Civ 6  →  FireTuner TCP (civ_mcp/tuner_client.py)
        →  GameConnection (civ_mcp/connection.py) — discovers Lua states BY NAME
-       →  8 read-only Lua queries (coach/queries.py)
+       →  10 read-only Lua queries (coach/queries.py) — 8 data sections
+          + Q9 declared-ruleset + Q10 capability probe (diagnostics-only)
        →  parsers (coach/parser.py) → collector merge (coach/collector.py)
        →  delta (coach/delta.py) + Markdown (coach/markdown.py)
        →  JSON + Markdown files, and the Windows clipboard
@@ -74,7 +85,7 @@ Never hardcode `use 5` or any fixed index.
 Run both, from the repo root:
 
 ```
-python scripts/lint_lua.py      # all 8 builders must parse as Lua 5.3
+python scripts/lint_lua.py      # every query builder must parse as Lua 5.3
 python scripts/regress.py       # regression suite
 ```
 

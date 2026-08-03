@@ -157,6 +157,30 @@ def _world_events(prev: dict[str, Any], curr: dict[str, Any]) -> list[dict[str, 
 def compute_delta(prev: dict[str, Any] | None, curr: dict[str, Any]) -> dict[str, Any]:
     if not prev:
         return {"first_snapshot": True}
+
+    # Cross-game guard: the delta seed (latest-full.json) survives across
+    # game restarts, so a brand-new campaign would otherwise get diffed
+    # against the previous game's final snapshot — producing "turns
+    # elapsed: -395" and nine fabricated "I LOST <city>" events (observed
+    # live, turn0001 Aztec vs the old Egypt archive).  Same identity key
+    # the archive uses: game_seed + map_seed.  Only guards when both sides
+    # carry seeds — an unreadable meta can't prove anything.
+    p_meta = prev.get("meta") or {}
+    c_meta = curr.get("meta") or {}
+    p_id = (p_meta.get("game_seed"), p_meta.get("map_seed"))
+    c_id = (c_meta.get("game_seed"), c_meta.get("map_seed"))
+    if all(v is not None for v in (*p_id, *c_id)) and p_id != c_id:
+        return {
+            "first_snapshot": True,
+            "different_game": True,
+            "prev_game": {
+                "game_seed": p_id[0],
+                "map_seed": p_id[1],
+                "turn": p_meta.get("turn"),
+                "civ_name": p_meta.get("civ_name"),
+            },
+        }
+
     d: dict[str, Any] = {"first_snapshot": False}
     # Sections that were skipped because a query failed (stored None) on
     # either side.  A failed read must never fabricate a delta — comparing

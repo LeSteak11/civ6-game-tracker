@@ -1,0 +1,32 @@
+{
+  "game_id": "game-002_aztec",
+  "civ_type": "CIVILIZATION_AZTEC",
+  "civ_name": "Aztec",
+  "leader_type": "LEADER_MONTEZUMA",
+  "leader_name": "Montezuma",
+  "difficulty": "King",
+  "map_type": "Continents",
+  "map_size": "Standard",
+  "speed": "Standard",
+  "last_turn": 1,
+  "last_capture_at_epoch": 1785727403.3989224,
+  "last_capture_file": "turn-0001_r01",
+  "last_capture_hash": "e60af136eaec9861e0f0d14b486981a097e163a72e3de7e4cb4314074df4c830",
+  "schema": "coach-snapshot/1.4",
+  "coach_version": "1.8.2",
+  "fingerprint": {
+    "game_seed": -924167471,
+    "map_seed": -924167470,
+    "civ_type": "CIVILIZATION_AZTEC",
+    "leader_type": "LEADER_MONTEZUMA",
+    "difficulty": "King",
+    "map_type": "Continents",
+    "map_size": "Standard",
+    "speed": "Standard",
+    "max_players": 14,
+    "max_turns": 0
+  },
+  "fingerprint_id": "e70f16c19d89e16b",
+  "created_at_epoch": 1785727403.3989224,
+  "created_turn": 1
+}

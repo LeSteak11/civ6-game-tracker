@@ -10,9 +10,10 @@ REM Once this window says "hotkey ready", press Ctrl+Shift+C anywhere on
 REM your desktop to grab a snapshot.  The Markdown copy of the snapshot is
 REM placed on your clipboard automatically; paste into ChatGPT / Claude /
 REM Gemini.  The JSON + Markdown files are also written to
-REM   C:\Users\jakeb\civ6-mcp\output\
+REM   C:\Users\jakeb\civ6-game-tracker\output\
 REM
-REM Read-only.  Never sends commands that mutate game state.  Base game only.
+REM Read-only.  Never sends commands that mutate game state.  Ruleset-aware:
+REM every snapshot stamps the active expansions + mods it was taken under.
 
 setlocal
 cd /d "%~dp0"

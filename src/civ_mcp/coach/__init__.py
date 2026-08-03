@@ -6,16 +6,17 @@ the FireTuner wire protocol and name-based Lua-state discovery.
 Public entry point:  ``python -m civ_mcp.coach``  (launched by
 ``Start Civ6 Coach.bat``).
 
-Read-only.  Never sends commands that mutate game state.  Base-game only
-(no Rise & Fall, no Gathering Storm) — expansion-only API surfaces are
-feature-detected and reported under ``diagnostics.unsupported`` instead of
-being silently omitted.
+Read-only.  Never sends commands that mutate game state.  Ruleset-aware:
+every snapshot stamps the active ruleset (expansions + mods + live DB
+tables), derives its data tables from ``GameInfo`` at capture time, and
+reports per-mechanic capability under ``diagnostics.unsupported`` —
+derived from the capture's own probe, never asserted.
 """
 
 from __future__ import annotations
 
-SCHEMA_VERSION = "coach-snapshot/1.4"  # 1.3 + reports-screen data (additive)
-COACH_VERSION = "1.8.2"  # + Q9 capability probe (diagnostics-only ruleset/mod/API discovery)
+SCHEMA_VERSION = "coach-snapshot/1.5"  # 1.4 + top-level ruleset stamp (additive)
+COACH_VERSION = "1.9.0"  # declared-ruleset flip: live DB tables, derived unsupported, cross-game delta guard, arity guard
 
 # Terminator every coach Lua chunk prints as its last line.
 #

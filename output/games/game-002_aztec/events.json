@@ -1,0 +1,101 @@
+[
+  {
+    "turn": 1,
+    "event": "city_lost_by_me",
+    "city": "R\u00e2-Kedet",
+    "at": [
+      66,
+      29
+    ],
+    "to": null,
+    "to_civ": "unknown"
+  },
+  {
+    "turn": 1,
+    "event": "city_lost_by_me",
+    "city": "Sais",
+    "at": [
+      62,
+      26
+    ],
+    "to": null,
+    "to_civ": "unknown"
+  },
+  {
+    "turn": 1,
+    "event": "city_lost_by_me",
+    "city": "SHEDET",
+    "at": [
+      66,
+      25
+    ],
+    "to": null,
+    "to_civ": "unknown"
+  },
+  {
+    "turn": 1,
+    "event": "city_lost_by_me",
+    "city": "Luxis",
+    "at": [
+      64,
+      22
+    ],
+    "to": null,
+    "to_civ": "unknown"
+  },
+  {
+    "turn": 1,
+    "event": "city_lost_by_me",
+    "city": "ASRUS",
+    "at": [
+      68,
+      35
+    ],
+    "to": null,
+    "to_civ": "unknown"
+  },
+  {
+    "turn": 1,
+    "event": "city_lost_by_me",
+    "city": "NILECREST",
+    "at": [
+      68,
+      15
+    ],
+    "to": null,
+    "to_civ": "unknown"
+  },
+  {
+    "turn": 1,
+    "event": "city_lost_by_me",
+    "city": "ANKH SPRINGS",
+    "at": [
+      54,
+      28
+    ],
+    "to": null,
+    "to_civ": "unknown"
+  },
+  {
+    "turn": 1,
+    "event": "city_lost_by_me",
+    "city": "ISIDORA",
+    "at": [
+      66,
+      38
+    ],
+    "to": null,
+    "to_civ": "unknown"
+  },
+  {
+    "turn": 1,
+    "event": "city_lost_by_me",
+    "city": "Swenett",
+    "at": [
+      6,
+      19
+    ],
+    "to": null,
+    "to_civ": "unknown"
+  }
+]

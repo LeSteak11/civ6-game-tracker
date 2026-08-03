@@ -1,0 +1,17 @@
+{
+  "majors": {},
+  "city_states": {
+    "62": {
+      "civ_name": "Free Cities",
+      "cs_type": "LEADER_FREE_CITIES",
+      "timeline": [
+        {
+          "turn": 1,
+          "suzerain": "none",
+          "envoys_by_civ": {},
+          "at_war_with_me": true
+        }
+      ]
+    }
+  }
+}

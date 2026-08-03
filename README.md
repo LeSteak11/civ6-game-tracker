@@ -22,10 +22,14 @@ chat).  You never touch the terminal during normal play.
 - Not an omniscient tool.  It respects fog of war and diplomatic
   visibility — no cheating for hidden tiles, hidden enemy units, or
   AI-private info.
-- Not compatible with the expansions.  Base-game only: no Rise & Fall, no
-  Gathering Storm.  Expansion-only fields (loyalty, governors, era score,
-  alliances, diplomatic favor, World Congress) are intentionally omitted
-  and listed in the JSON `diagnostics.unsupported` block.
+- Not ruleset-blind.  Runs under any ruleset — base game, Rise & Fall,
+  Gathering Storm, DLC packs, mods — and stamps the active ruleset
+  (`snapshot.ruleset`: ruleset id, enabled mods, live DB tables) into
+  every capture so snapshots from different rulesets are never silently
+  compared.  Expansion mechanics not yet extracted (loyalty, governors,
+  era score, alliances, diplomatic favor, World Congress, climate, power)
+  are reported per capture in `diagnostics.unsupported` with their live
+  probe status: present-but-not-yet-extracted, absent, or undetermined.
 
 ## Setup (one-time)
 
@@ -104,8 +108,9 @@ new wars), then the full state:
   owner, district, city flag, visible units on tile, extras (river / lake
   / fresh water / appeal).  Natural wonders listed separately.
 - Notifications and end-turn blockers.
-- Diagnostics: per-query timing, any Lua errors, sections deliberately
-  skipped because they're expansion-only.
+- Diagnostics: per-query timing, any Lua errors, the declared ruleset +
+  mod list, and per-mechanic capability status (derived from the
+  capability probe each capture, never asserted).
 
 ## Files it writes
 
@@ -208,7 +213,7 @@ save loaded.
 - The bridge reuses `civ_mcp.tuner_client` (wire protocol) and
   `civ_mcp.connection.GameConnection` (name-based state discovery,
   auto-reconnect).  No `use 5` anywhere.
-- Every Lua query is base-game-only and pcall-wrapped section by section:
+- Every Lua query is read-only and pcall-wrapped section by section:
   a single missing field prints one `DIAG|section|message` line rather
   than killing the whole snapshot.
 - The coach package is fully separate from the existing MCP server
@@ -322,7 +327,7 @@ add-only changes stay backwards-compatible.
     "failures": [{"section":"meta.META","message":"..."}],
     "compat_notes": [{"section":"CHOICES.probe","message":"using cul:CanProgress() for civic availability"}],
     "traces": {"meta":["TRACE|META|great_people"]},
-    "unsupported": ["governors (Rise & Fall)", "..."]
+    "unsupported": ["governors (Rise & Fall) — PRESENT in this game, not yet extracted", "..."]
   }
 }
 ```
@@ -387,9 +392,10 @@ new engine API surface, every field self-labels its trust tier and is
 absent — never guessed — when its inputs were unreadable):
 
 - `cities[].district_capacity` — `{built, cap, slots_open,
-  next_slot_at_pop}` from the pop/3+1 rule + the static base-game
-  RequiresPopulation district set (`reconstructed:pop/3+1`).  Markdown:
-  `districts: 2/2 built — FULL, next slot at pop 6`.
+  next_slot_at_pop}` from the pop/3+1 rule + the live RequiresPopulation
+  district set read from the game DB each capture (static vanilla set as
+  labeled fallback).  Markdown: `districts: 2/2 built — FULL, next slot
+  at pop 6`.
 - `cities[].housing_breakdown` — per-source housing reconstruction
   (base + fresh water/coastal, buildings, Aqueduct/Neighborhood, +0.5
   improvements) from static DB values, cross-checked against the

@@ -89,6 +89,12 @@ def _fmt_delta(d: dict[str, Any]) -> str:
             "The full state below is unaffected._"
         )
     if d.get("first_snapshot"):
+        if d.get("different_game"):
+            pg = d.get("prev_game") or {}
+            return (
+                "_NEW GAME detected (game/map seeds changed) — previous snapshot was "
+                f"{pg.get('civ_name', '?')} turn {pg.get('turn', '?')}; no delta across games_"
+            )
         return "_first snapshot this session — no delta to show_"
 
     # A failed section on either side means that change class was SKIPPED,
@@ -212,6 +218,20 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
 
     lines.append(f"# CIV6 COACH SNAPSHOT — turn {turn_display}")
     lines.append(header_desc)
+    # Ruleset stamp — every snapshot declares what game it was taken from,
+    # so a modded/expansion capture is never mistaken for a vanilla one.
+    rsx = snap.get("ruleset", {})
+    if rsx is None:
+        lines.append("_ruleset: QUERY FAILED — static-table fallbacks in effect; treat derived numbers with suspicion_")
+    elif rsx:
+        nmods = rsx.get("mod_count", -1)
+        nspec = len(rsx.get("specialty_districts") or [])
+        nres = len(rsx.get("resource_classes") or {})
+        lines.append(
+            f"_ruleset: {rsx.get('ruleset_label', 'unknown')} ({rsx.get('ruleset') or '?'}) — "
+            f"{nmods if nmods >= 0 else '?'} mods — live DB: {nspec} specialty districts, "
+            f"{nres} classed resources_"
+        )
     lines.append("")
 
     # Prominent partial-run warning if any section failed
@@ -1110,7 +1130,7 @@ def render_markdown(snap: dict[str, Any], delta: dict[str, Any]) -> str:
             lines.append(f"    - `{q}`: {last}")
     ua = diag.get("unsupported", []) or []
     if ua:
-        lines.append("- categories intentionally omitted (base-game only):")
+        lines.append("- expansion-mechanic capability (derived from this capture's probe):")
         for u in ua:
             lines.append(f"    - {u}")
     md = "\n".join(lines)

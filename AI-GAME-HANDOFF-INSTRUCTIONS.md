@@ -48,7 +48,12 @@ copy cleanly to the end).
 
 Hard rules, same as everywhere in this project:
 
-- **Base game only.** No expansion mechanics in plans or reasoning.
+- **Match the declared ruleset.** The snapshot's ruleset stamp is the
+  authority — this game runs the full anthology (R&F + GS + DLC) unless
+  it says otherwise. Expansion mechanics belong in plans and reasoning;
+  check the capability list in `diagnostics` for which ones have real
+  extracted numbers vs. not-yet-extracted (reason qualitatively, label
+  the inference) vs. unavailable.
 - **Never invent.** Every game fact in the report must trace to a
   snapshot, gossip, or something the player said in this chat. Cite
   turns (`T145`) for anything non-obvious. If you're carrying forward
